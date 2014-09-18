@@ -74,13 +74,9 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
     File @abs_top_srcdir@/release/myriadcoin-qt.exe
-    File /oname=COPYING.txt @abs_top_srcdir@/COPYING
-    File /oname=readme.txt @abs_top_srcdir@/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
     File @abs_top_srcdir@/release/myriadcoind.exe
     File @abs_top_srcdir@/release/myriadcoin-cli.exe
-    SetOutPath $INSTDIR\doc
-    File /r @abs_top_srcdir@/doc\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 
