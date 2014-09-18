@@ -1,5 +1,5 @@
 ---
-name: "bitcoin"
+name: "myriadcoin"
 suites:
 - "precise"
 architectures:
@@ -14,8 +14,8 @@ packages:
 
 reference_datetime: "2013-06-01 00:00:00"
 remotes:
-- "url": "https://github.com/bitcoin/bitcoin.git"
-  "dir": "bitcoin"
+- "url": "https://github.com/myriadcoin/myriadcoin.git"
+  "dir": "myriadcoin"
 files:
 - "osx-native-depends-r3.tar.gz"
 - "osx-depends-r4.tar.gz"
@@ -41,7 +41,7 @@ script: |
   tar -C osx-cross-depends -xf osx-depends-qt-5.2.1-r4.tar.gz
   export PATH=`pwd`/osx-cross-depends/native-prefix/bin:$PATH
 
-  cd bitcoin
+  cd myriadcoin
 
   export ZERO_AR_DATE=1
   export QT_RCC_TEST=1
@@ -57,4 +57,4 @@ script: |
   export FAKETIME=$REFERENCE_DATETIME
   export TZ=UTC
   make deploy
-  dmg dmg Bitcoin-Qt.dmg $OUTDIR/Bitcoin-Qt.dmg
+  dmg dmg Myriadcoin-Qt.dmg $OUTDIR/Myriadcoin-Qt.dmg
