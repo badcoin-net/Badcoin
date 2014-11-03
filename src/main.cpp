@@ -3561,6 +3561,35 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         if (!vRecv.empty()) {
             vRecv >> pfrom->strSubVer;
             pfrom->cleanSubVer = SanitizeString(pfrom->strSubVer);
+
+            if (
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.1/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.2/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.3/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.4/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.5/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.6/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.7/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.8/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.9/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.10/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.11/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.8.99.12/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.1/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.2/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.3/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.4/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.5/")
+               )
+            {
+                // disconnect from peers older than this proto version
+                LogPrintf("partner %s using obsolete sub version %s; disconnecting\n", pfrom->addr.ToString(), pfrom->cleanSubVer);
+                pfrom->PushMessage("reject", strCommand, REJECT_OBSOLETE,
+                    strprintf("Version must be %d or greater", MIN_PEER_PROTO_VERSION));
+                pfrom->fDisconnect = true;
+                return false;
+            }
+
         }
         if (!vRecv.empty())
             vRecv >> pfrom->nStartingHeight;
