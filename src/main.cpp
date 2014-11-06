@@ -1253,7 +1253,8 @@ static const int64_t nAveragingInterval = 10; // 10 blocks
 static const int64_t nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
 
 static const int64_t nMaxAdjustDown = 4; // 4% adjustment down
-static const int64_t nMaxAdjustUp = 2; // 2% adjustment up
+static const int64_t nMaxAdjustUpV1 = 2; // 2% adjustment up
+static const int64_t nMaxAdjustUpV2 = 4; // 4% adjustment up
 
 static const int64_t nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
@@ -1287,7 +1288,8 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
     return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
 }
 
-static const int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - nMaxAdjustUp) / 100;
+static const int64_t nMinActualTimespanV1 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV1) / 100;
+static const int64_t nMinActualTimespanV2 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV2) / 100;
 static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
@@ -1321,6 +1323,41 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         return nProofOfWorkLimit;
 
     const CBlockIndex* pindexFirst = NULL;
+
+    if (pindexLast->nHeight >= nBlockTimeWarpPreventStart2)
+    {
+        // find first block in averaging interval
+        // Go back by what we want to be nAveragingInterval blocks
+        pindexFirst = pindexPrev;
+        for (int i = 0; pindexFirst && i < nAveragingInterval - 1; i++)
+        {
+            pindexFirst = pindexFirst->pprev;
+            pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
+        }
+        if (pindexFirst == NULL)
+            return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
+
+        const CBlockIndex* pindexFirstPrev;
+        for ( ;; )
+        {
+            // check blocks before first block for time warp
+            pindexFirstPrev = pindexFirst->pprev;
+            if (pindexFirstPrev == NULL)
+                return nProofOfWorkLimit;
+            pindexFirstPrev = GetLastBlockIndexForAlgo(pindexFirstPrev, algo);
+            if (pindexFirstPrev == NULL)
+                return nProofOfWorkLimit;
+            // take previous block if block times are out of order
+            if (pindexFirstPrev->GetBlockTime() > pindexFirst->GetBlockTime())
+            {
+                LogPrintf("  First blocks out of order times, swapping:   %d   %d\n", pindexFirstPrev->GetBlockTime(), pindexFirst->GetBlockTime());
+                pindexFirst = pindexFirstPrev;
+            }
+            else
+                break;
+        }
+    }
+    else
     if (pindexLast->nHeight >= nBlockTimeWarpPreventStart)
     {
         // find first block in averaging interval
@@ -1368,7 +1405,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     LogPrintf("  nActualTimespan = %d before bounds   %d   %d\n", nActualTimespan, pindexPrev->GetBlockTime(), pindexFirst->GetBlockTime());
 
     // Time warp mitigation: Don't adjust difficulty if time is negative
-    if (pindexLast->nHeight >= nBlockTimeWarpPreventStart)
+    if ( (pindexLast->nHeight >= nBlockTimeWarpPreventStart) &&
+         (pindexLast->nHeight < nBlockTimeWarpPreventStart2) )
     {
         if (nActualTimespan < 0)
         {
@@ -1377,6 +1415,12 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             return pindexPrev->nBits;
         }
     }
+
+    int64_t nMinActualTimespan;
+    if (pindexLast->nHeight >= nBlockDiffAdjustV2)
+        nMinActualTimespan = nMinActualTimespanV2;
+    else
+        nMinActualTimespan = nMinActualTimespanV1;
 
     if (nActualTimespan < nMinActualTimespan)
         nActualTimespan = nMinActualTimespan;
@@ -2507,6 +2551,11 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
                 nAlgoCount++;
                 piPrev = piPrev->pprev;
             }
+            if ((nHeight > nBlockSequentialAlgoRuleStart2) && (nAlgoCount > nBlockSequentialAlgoMaxCount2))
+            {
+                return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
+                                 REJECT_INVALID, "algo-toomany");
+            } else
             if (nAlgoCount > nBlockSequentialAlgoMaxCount)
             {
                 return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
