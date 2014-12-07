@@ -689,6 +689,7 @@ enum BlockStatus {
 
 const int64_t nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
 const int64_t nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
+const int64_t nBlockAlgoNormalisedWorkStart2 = 99990000; // block where algo combined weight starts with decay
 const int64_t nBlockSequentialAlgoRuleStart = 740000; // block where sequential algo rule starts
 const int64_t nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
 const int nBlockSequentialAlgoMaxCount = 6; // maximum sequential blocks of same algo
@@ -833,7 +834,6 @@ public:
 
     CBigNum GetPrevWorkForAlgo(int algo) const
     {
-        CBigNum nWork;
         CBlockIndex* pindex = this->pprev;
         while (pindex)
         {
@@ -842,6 +842,30 @@ public:
                 return pindex->GetBlockWork();
             }
             pindex = pindex->pprev;
+        }
+        return Params().ProofOfWorkLimit(algo);
+    }
+
+    CBigNum GetPrevWorkForAlgoWithDecay(int algo) const
+    {
+        int nDistance = 0;
+        CBigNum nWork;
+        CBlockIndex* pindex = this->pprev;
+        while (pindex)
+        {
+            if (nDistance > 32)
+            {
+                return Params().ProofOfWorkLimit(algo);
+            }
+            if (pindex->GetAlgo() == algo)
+            {
+                CBigNum nWork = pindex->GetBlockWork();
+                nWork = nWork * (32 - nDistance);
+                nWork = nWork / 32;
+                return nWork;
+            }
+            pindex = pindex->pprev;
+            nDistance++;
         }
         return Params().ProofOfWorkLimit(algo);
     }
@@ -897,7 +921,10 @@ public:
             {
                 if (algo != nAlgo)
                 {
-                    nBlockWork += GetPrevWorkForAlgo(algo);
+                    if (nHeight >= nBlockAlgoNormalisedWorkStart2)
+                        nBlockWork += GetPrevWorkForAlgoWithDecay(algo);
+                    else
+                        nBlockWork += GetPrevWorkForAlgo(algo);
                 }
             }
             bnRes = nBlockWork / NUM_ALGOS;
