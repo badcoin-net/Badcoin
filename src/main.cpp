@@ -79,7 +79,38 @@ int miningAlgo = ALGO_SHA256D;
 namespace {
     struct CBlockIndexWorkComparator
     {
-        bool operator()(CBlockIndex *pa, CBlockIndex *pb) {
+        bool operator()(CBlockIndex *pa, CBlockIndex *pb)
+        {
+            if ( (pa->nHeight >= nBlockAlgoNormalisedWorkStart2) ||
+                 (pb->nHeight >= nBlockAlgoNormalisedWorkStart2) )
+            {
+                // First sort by most work per algo, ...
+                int aWins = 0, bWins = 0;
+                for (int i = 0; i < NUM_ALGOS; i++)
+                {
+                    if (pa->nAlgoWork[i] > pb->nAlgoWork[i]) aWins++;
+                    if (pa->nAlgoWork[i] < pb->nAlgoWork[i]) bWins++;
+                }
+                if (aWins > bWins) return false;
+                if (aWins < bWins) return true;
+
+                // ... then by number of blocks ...
+                if (pa->nHeight > pb->nHeight) return false;
+                if (pa->nHeight < pb->nHeight) return true;
+
+                // ... then by earliest time received, ...
+                if (pa->nSequenceId < pb->nSequenceId) return false;
+                if (pa->nSequenceId > pb->nSequenceId) return true;
+
+                // Use pointer address as tie breaker (should only happen with blocks
+                // loaded from disk, as those all have id 0).
+                if (pa < pb) return false;
+                if (pa > pb) return true;
+
+                // Identical blocks.
+                return false;
+            }
+
             // First sort by most total work, ...
             if (pa->nChainWork > pb->nChainWork) return false;
             if (pa->nChainWork < pb->nChainWork) return true;
@@ -2322,6 +2353,11 @@ bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos
     }
     pindexNew->nTx = block.vtx.size();
     pindexNew->nChainWork = (pindexNew->pprev ? pindexNew->pprev->nChainWork : 0) + pindexNew->GetBlockWorkAdjusted().getuint256();
+    for (int i = 0; i < NUM_ALGOS; i++)
+    {
+        pindexNew->nAlgoWork[i] = (pindexNew->pprev ? pindexNew->pprev->nAlgoWork[i] : 0) +
+                                  (i == pindexNew->GetAlgo() ? pindexNew->GetBlockWork().getuint256() : 0);
+    }
     pindexNew->nChainTx = (pindexNew->pprev ? pindexNew->pprev->nChainTx : 0) + pindexNew->nTx;
     pindexNew->nFile = pos.nFile;
     pindexNew->nDataPos = pos.nPos;
