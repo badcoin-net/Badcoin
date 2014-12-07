@@ -689,7 +689,6 @@ enum BlockStatus {
 
 const int64_t nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
 const int64_t nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
-const int64_t nBlockAlgoCountWorkStart = 857000; // block where new work comparison starts
 const int64_t nBlockSequentialAlgoRuleStart = 740000; // block where sequential algo rule starts
 const int64_t nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
 const int nBlockSequentialAlgoMaxCount = 6; // maximum sequential blocks of same algo
