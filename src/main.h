@@ -689,6 +689,7 @@ enum BlockStatus {
 
 const int64_t nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
 const int64_t nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
+const int64_t nBlockAlgoNormalisedWorkDecayStart = 866000; // block where weight decay starts
 const int64_t nBlockSequentialAlgoRuleStart = 740000; // block where sequential algo rule starts
 const int64_t nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
 const int nBlockSequentialAlgoMaxCount = 6; // maximum sequential blocks of same algo
@@ -851,6 +852,32 @@ public:
         return Params().ProofOfWorkLimit(algo);
     }
 
+    CBigNum GetPrevWorkForAlgoWithDecay(int algo) const
+    {
+        int nDistance = 0;
+        CBigNum nWork;
+        CBlockIndex* pindex = this->pprev;
+        while (pindex)
+        {
+            if (nDistance > 32)
+            {
+                return Params().ProofOfWorkLimit(algo);
+            }
+            if (pindex->GetAlgo() == algo)
+            {
+                CBigNum nWork = pindex->GetBlockWork();
+                nWork *= (32 - nDistance);
+                nWork /= 32;
+                if (nWork < Params().ProofOfWorkLimit(algo))
+                    nWork = Params().ProofOfWorkLimit(algo);
+                return nWork;
+            }
+            pindex = pindex->pprev;
+            nDistance++;
+        }
+        return Params().ProofOfWorkLimit(algo);
+    }
+
     CBigNum GetBlockWork() const
     {
         CBigNum bnTarget;
@@ -902,7 +929,10 @@ public:
             {
                 if (algo != nAlgo)
                 {
-                    nBlockWork += GetPrevWorkForAlgo(algo);
+                    if (nHeight >= nBlockAlgoNormalisedWorkDecayStart)
+                        nBlockWork += GetPrevWorkForAlgoWithDecay(algo);
+                    else
+                        nBlockWork += GetPrevWorkForAlgo(algo);
                 }
             }
             bnRes = nBlockWork / NUM_ALGOS;
