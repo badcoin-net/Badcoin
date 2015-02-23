@@ -3,9 +3,9 @@ Myriadcoin Core integration/staging tree
 
 http://www.myriadcoin.org
 
-Copyright (c) 2009-2014 Bitcoin Core Developers
+Copyright (c) 2009-2015 Bitcoin Core Developers
 
-Copyright (c) 2014 Myriadcoin Core Developers
+Copyright (c) 2014-2015 Myriadcoin Core Developers
 
 
 What is Myriadcoin?
