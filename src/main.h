@@ -698,6 +698,7 @@ const int nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of sam
 const int64_t nBlockTimeWarpPreventStart = 740500; // block where time warp 1 prevention starts
 const int64_t nBlockTimeWarpPreventStart2 = 766000; // block where time warp 2 prevention starts
 const int64_t nBlockDiffAdjustV2 = 766000; // block where difficulty adjust V2 starts
+const int64_t nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 prevention starts
 
 /** The block chain is a tree shaped structure starting with the
  * genesis block at the root, with each block potentially having multiple

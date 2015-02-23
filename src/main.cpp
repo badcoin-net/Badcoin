@@ -1325,7 +1325,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     const CBlockIndex* pindexFirst = NULL;
 
-    if (pindexLast->nHeight >= nBlockTimeWarpPreventStart2)
+    if ( (pindexLast->nHeight >= nBlockTimeWarpPreventStart2) &&
+         (pindexLast->nHeight < nBlockTimeWarpPreventStart3) )
     {
         // find first block in averaging interval
         // Go back by what we want to be nAveragingInterval blocks
@@ -1359,7 +1360,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         }
     }
     else
-    if (pindexLast->nHeight >= nBlockTimeWarpPreventStart)
+    if ( (pindexLast->nHeight >= nBlockTimeWarpPreventStart) &&
+         (pindexLast->nHeight < nBlockTimeWarpPreventStart2) )
     {
         // find first block in averaging interval
         // Go back by what we want to be nAveragingInterval blocks
@@ -1401,7 +1403,11 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     }
 
     // Limit adjustment step
-    int64_t nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
+    int64_t nActualTimespan;
+    if (pindexLast->nHeight >= nBlockTimeWarpPreventStart3)
+        nActualTimespan = pindexPrev->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
+    else
+        nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
 
     LogPrintf("  nActualTimespan = %d before bounds   %d   %d\n", nActualTimespan, pindexPrev->GetBlockTime(), pindexFirst->GetBlockTime());
 
