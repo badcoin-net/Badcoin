@@ -107,17 +107,17 @@ if __name__ == '__main__':
 	f.close()
 
 	if 'netmagic' not in settings:
-		settings['netmagic'] = 'f9beb4d9'
+		settings['netmagic'] = 'af4576ee'
 	if 'output' not in settings:
 		settings['output'] = 'bootstrap.dat'
 	if 'host' not in settings:
 		settings['host'] = '127.0.0.1'
 	if 'port' not in settings:
-		settings['port'] = 8332
+		settings['port'] = 10889
 	if 'min_height' not in settings:
 		settings['min_height'] = 0
 	if 'max_height' not in settings:
-		settings['max_height'] = 279000
+		settings['max_height'] = 1000000
 	if 'rpcuser' not in settings or 'rpcpassword' not in settings:
 		print "Missing username and/or password in cfg file"
 		sys.exit(1)
