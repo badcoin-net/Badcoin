@@ -3646,7 +3646,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
                  (pfrom->cleanSubVer == "/Satoshi:0.9.2.6/") ||
                  (pfrom->cleanSubVer == "/Satoshi:0.9.2.7/") ||
                  (pfrom->cleanSubVer == "/Satoshi:0.9.2.8/") ||
-                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.9/")
+                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.9/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.10/") ||
+                 (pfrom->cleanSubVer == "/Satoshi:0.9.2.11/")
                )
             {
                 // disconnect from peers older than this proto version
