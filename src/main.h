@@ -1061,7 +1061,6 @@ public:
     //CDiskBlockIndex(CBlockIndex* pindex) : CBlockIndex(*pindex) {
     //    hashPrev = (pprev ? pprev->GetBlockHash() : 0);
     //}
-
     explicit CDiskBlockIndex(CBlockIndex* pindex, boost::shared_ptr<CAuxPow> auxpow) : CBlockIndex(*pindex) {
         hashPrev = (pprev ? pprev->GetBlockHash() : 0);
 		this->auxpow = auxpow;
@@ -1105,15 +1104,7 @@ public:
     }
 
 
-    std::string ToString() const
-    {
-        std::string str = "CDiskBlockIndex(";
-        str += CBlockIndex::ToString();
-        str += strprintf("\n                hashBlock=%s, hashPrev=%s)",
-            GetBlockHash().ToString().c_str(),
-            hashPrev.ToString().c_str());
-        return str;
-    }
+    std::string ToString() const;
 
     void print() const
     {

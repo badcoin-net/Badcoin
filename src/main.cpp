@@ -1135,6 +1135,17 @@ bool GetTransaction(const uint256 &hash, CTransaction &txOut, uint256 &hashBlock
 // CBlock and CBlockIndex
 //
 
+std::string CDiskBlockIndex::ToString() const
+{
+    std::string str = "CDiskBlockIndex(";
+    str += CBlockIndex::ToString();
+    str += strprintf("\n                hashBlock=%s, hashPrev=%s, hashParentBlock=%s)",
+        GetBlockHash().ToString().c_str(),
+        hashPrev.ToString().c_str(),
+        (auxpow.get() != NULL) ? auxpow->GetParentBlockHash(GetAlgo()).ToString().substr(0,20).c_str() : "-");
+    return str;
+}
+
 bool WriteBlockToDisk(CBlock& block, CDiskBlockPos& pos)
 {
     // Open history file to append
