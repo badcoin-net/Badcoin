@@ -85,7 +85,8 @@ BITCOIN_CORE_H = \
   hashgroestl.h \
   hashskein.h \
   hashqubit.h \
-  stealthaddress.h
+  stealthaddress.h \
+  auxpow.h
 
 JSON_H = \
   json/json_spirit.h \
@@ -125,6 +126,7 @@ libbitcoin_server_a_SOURCES = \
   rpcserver.cpp \
   txdb.cpp \
   txmempool.cpp \
+  auxpow.cpp \
   $(JSON_H) \
   $(BITCOIN_CORE_H)
 

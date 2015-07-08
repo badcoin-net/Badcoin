@@ -6,6 +6,7 @@
 #include "core.h"
 
 #include "util.h"
+#include "auxpow.h"
 
 std::string COutPoint::ToString() const
 {

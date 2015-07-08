@@ -67,6 +67,14 @@ static const int MAX_BLOCKS_IN_TRANSIT_PER_PEER = 128;
 /** Timeout in seconds before considering a block download peer unresponsive. */
 static const unsigned int BLOCK_DOWNLOAD_TIMEOUT = 60;
 
+/** AuxPow Block versions for sanity checks. */
+/** bare AuxPoW block version which will be modulated further. */
+static const int BLOCK_VERSION_AUXPOW_BARE = CBlockHeader::CURRENT_VERSION | (AUXPOW_CHAIN_ID * BLOCK_VERSION_CHAIN_START);
+/** version when AuxPoW exists on the block */
+static const int BLOCK_VERSION_AUXPOW_WITH_AUX = BLOCK_VERSION_AUXPOW_BARE | BLOCK_VERSION_AUXPOW;
+/** version when no AuxPoW exists on the block */
+static const int BLOCK_VERSION_AUXPOW_WITHOUT_AUX = BLOCK_VERSION_AUXPOW_BARE & ~BLOCK_VERSION_AUXPOW;
+
 /** Stealth addresses */
 static const int64_t BLOCK_STEALTH_START = 740000;
 
@@ -179,6 +187,12 @@ int64_t GetBlockValue(int nHeight, int64_t nFees);
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo);
 
 void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev);
+
+/** Determine whether the block version is modulated with auxpow logic */
+bool IsAuxPowVersion(int nVersion);
+
+/** Get the block at which AuxPoW is enabled for this network */
+int GetAuxPowStartBlock();
 
 /** Create a new block index entry for a given block hash */
 CBlockIndex * InsertBlockIndex(uint256 hash);
@@ -705,6 +719,8 @@ const int64_t nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 
  * candidates to be the next block. A blockindex may have multiple pprev pointing
  * to it, but at most one of them can be part of the currently active branch.
  */
+class CDiskBlockIndex;
+
 class CBlockIndex
 {
 public:
@@ -797,6 +813,22 @@ public:
         nNonce         = block.nNonce;
     }
 
+    IMPLEMENT_SERIALIZE
+    (
+        /* mutable stuff goes here, immutable stuff
+         * has SERIALIZE functions in CDiskBlockIndex */
+        if (!(nType & SER_GETHASH))
+              READWRITE(VARINT(nVersion));
+
+        READWRITE(VARINT(nStatus));
+        if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
+            READWRITE(VARINT(nFile));
+        if (nStatus & BLOCK_HAVE_DATA)
+            READWRITE(VARINT(nDataPos));
+        if (nStatus & BLOCK_HAVE_UNDO)
+            READWRITE(VARINT(nUndoPos));
+    )
+
     int GetAlgo() const { return ::GetAlgo(nVersion); }
 
     CDiskBlockPos GetBlockPos() const {
@@ -817,18 +849,7 @@ public:
         return ret;
     }
 
-    CBlockHeader GetBlockHeader() const
-    {
-        CBlockHeader block;
-        block.nVersion       = nVersion;
-        if (pprev)
-            block.hashPrevBlock = pprev->GetBlockHash();
-        block.hashMerkleRoot = hashMerkleRoot;
-        block.nTime          = nTime;
-        block.nBits          = nBits;
-        block.nNonce         = nNonce;
-        return block;
-    }
+    CBlockHeader GetBlockHeader() const;
 
     uint256 GetBlockHash() const
     {
@@ -1030,12 +1051,20 @@ class CDiskBlockIndex : public CBlockIndex
 public:
     uint256 hashPrev;
 
+    // if this is an aux work block
+    boost::shared_ptr<CAuxPow> auxpow;
+
     CDiskBlockIndex() {
         hashPrev = 0;
     }
 
-    explicit CDiskBlockIndex(CBlockIndex* pindex) : CBlockIndex(*pindex) {
+    //CDiskBlockIndex(CBlockIndex* pindex) : CBlockIndex(*pindex) {
+    //    hashPrev = (pprev ? pprev->GetBlockHash() : 0);
+    //}
+
+    explicit CDiskBlockIndex(CBlockIndex* pindex, boost::shared_ptr<CAuxPow> auxpow) : CBlockIndex(*pindex) {
         hashPrev = (pprev ? pprev->GetBlockHash() : 0);
+		this->auxpow = auxpow;
     }
 
     IMPLEMENT_SERIALIZE
@@ -1060,6 +1089,7 @@ public:
         READWRITE(nTime);
         READWRITE(nBits);
         READWRITE(nNonce);
+		ReadWriteAuxPow(s, auxpow, nType, this->nVersion, ser_action);
     )
 
     uint256 GetBlockHash() const

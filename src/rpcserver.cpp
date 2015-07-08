@@ -325,6 +325,9 @@ static const CRPCCommand vRPCCommands[] =
     { "scanforalltxns",         &scanforalltxns,         false,     false,      true},
     { "scanforstealthtxns",     &scanforstealthtxns,     false,     false,      true},
 
+    { "getworkaux",             &getworkaux,             true,      false,      true },
+    { "getauxblock",            &getauxblock,            true,      false,      true }
+
 #endif // ENABLE_WALLET
 };
 

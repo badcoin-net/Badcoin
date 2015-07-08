@@ -7,6 +7,7 @@
 
 #include "core.h"
 #include "uint256.h"
+#include "auxpow.h"
 
 #include <stdint.h>
 
@@ -68,9 +69,26 @@ bool CCoinsViewDB::BatchWrite(const std::map<uint256, CCoins> &mapCoins, const u
 CBlockTreeDB::CBlockTreeDB(size_t nCacheSize, bool fMemory, bool fWipe) : CLevelDBWrapper(GetDataDir() / "blocks" / "index", nCacheSize, fMemory, fWipe) {
 }
 
+/*
 bool CBlockTreeDB::WriteBlockIndex(const CDiskBlockIndex& blockindex)
 {
     return Write(make_pair('b', blockindex.GetBlockHash()), blockindex);
+}
+*/
+
+bool CBlockTreeDB::WriteBlockIndex(const CBlockIndex& blockindex)
+{
+    return Write(boost::tuples::make_tuple('b', blockindex.GetBlockHash(), 'b'), blockindex);
+}
+
+bool CBlockTreeDB::ReadDiskBlockIndex(const uint256 &blkid, CDiskBlockIndex &diskblockindex)
+{
+    return Read(boost::tuples::make_tuple('b', blkid, 'a'), diskblockindex);
+}
+
+bool CBlockTreeDB::WriteDiskBlockIndex(const CDiskBlockIndex& diskblockindex)
+{
+	return Write(boost::tuples::make_tuple('b', *diskblockindex.phashBlock, 'a'), diskblockindex);
 }
 
 bool CBlockTreeDB::WriteBestInvalidWork(const CBigNum& bnBestInvalidWork)

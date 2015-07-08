@@ -16,6 +16,7 @@
 #include "txmempool.h"
 #include "ui_interface.h"
 #include "util.h"
+#include "auxpow.h"
 
 #include <sstream>
 
@@ -406,6 +407,33 @@ CBlockIndex *CChain::FindFork(const CBlockLocator &locator) const {
 
 CCoinsViewCache *pcoinsTip = NULL;
 CBlockTreeDB *pblocktree = NULL;
+
+// to enable merged mining:
+// - set a block from which it will be enabled
+// - set a unique chain ID
+//   each merged minable scrypt_1024_1_1_256 coin should have a different one
+//   (if two have the same ID, they can't be merge mined together)
+int GetAuxPowStartBlock()
+{
+    if (TestNet())
+        return AUXPOW_START_TESTNET;
+    else
+        return AUXPOW_START_MAINNET;
+}
+
+void CBlockHeader::SetAuxPow(CAuxPow* pow)
+{
+    if (pow != NULL)
+        nVersion |= BLOCK_VERSION_AUXPOW;
+    else
+        nVersion &= ~BLOCK_VERSION_AUXPOW;
+    auxpow.reset(pow);
+}
+
+bool IsAuxPowVersion(int nVersion)
+{
+    return (nVersion == BLOCK_VERSION_AUXPOW_WITH_AUX || nVersion == BLOCK_VERSION_AUXPOW_WITHOUT_AUX);
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1469,6 +1497,47 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
     return true;
 }
 
+bool CBlockHeader::CheckProofOfWork(int nHeight) const
+{
+	int algo = GetAlgo();
+    if ((nHeight >= GetAuxPowStartBlock()) && (algo == ALGO_SHA256D))
+    {
+        // Prevent same work from being submitted twice:
+        // - this block must have our chain ID
+        // - parent block must not have the same chain ID (see CAuxPow::Check)
+        // - index of this chain in chain merkle tree must be pre-determined (see CAuxPow::Check)
+        if (!TestNet() && nHeight != INT_MAX && GetChainID() != AUXPOW_CHAIN_ID)
+            return error("CheckProofOfWork() : block (chainID=%d) does not have our chain ID (chainID=%d)", GetChainID(),AUXPOW_CHAIN_ID);
+
+        if (auxpow.get() != NULL)
+        {
+            if (!auxpow->Check(GetHash(), GetChainID()))
+                return error("CheckProofOfWork() : AUX POW is not valid");
+            // Check proof of work matches claimed amount
+            if (!::CheckProofOfWork(auxpow->GetParentBlockHash(algo), nBits, algo))
+                return error("CheckProofOfWork() : AUX proof of work failed");
+        }
+        else
+        {
+            // Check proof of work matches claimed amount
+            if (!::CheckProofOfWork(GetPoWHash(algo), nBits, algo))
+                return error("CheckProofOfWork() : proof of work failed");
+        }
+    }
+    else
+    {
+        if (auxpow.get() != NULL)
+        {
+            return error("CheckProofOfWork() : AUX POW is not allowed at this block");
+        }
+
+        // Check if proof of work marches claimed amount
+        if (!::CheckProofOfWork(GetPoWHash(algo), nBits, algo))
+            return error("CheckProofOfWork() : proof of work failed");
+    }
+    return true;
+}
+
 // Return maximum amount of blocks that other nodes claim to have
 int GetNumBlocksOfPeers()
 {
@@ -1627,7 +1696,8 @@ void static InvalidBlockFound(CBlockIndex *pindex, const CValidationState &state
     }
     if (!state.CorruptionPossible()) {
         pindex->nStatus |= BLOCK_FAILED_VALID;
-        pblocktree->WriteBlockIndex(CDiskBlockIndex(pindex));
+        //pblocktree->WriteBlockIndex(CDiskBlockIndex(pindex));
+		pblocktree->WriteBlockIndex(*pindex);
         setBlockIndexValid.erase(pindex);
         InvalidChainFound(pindex);
     }
@@ -2033,8 +2103,9 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 
         pindex->nStatus = (pindex->nStatus & ~BLOCK_VALID_MASK) | BLOCK_VALID_SCRIPTS;
 
-        CDiskBlockIndex blockindex(pindex);
-        if (!pblocktree->WriteBlockIndex(blockindex))
+        //CDiskBlockIndex blockindex(pindex);
+        //if (!pblocktree->WriteBlockIndex(blockindex))
+        if (!pblocktree->WriteBlockIndex(*pindex))
             return state.Abort(_("Failed to write block index"));
     }
 
@@ -2305,6 +2376,27 @@ bool ActivateBestChain(CValidationState &state) {
     return true;
 }
 
+CBlockHeader CBlockIndex::GetBlockHeader() const
+{
+    CBlockHeader block;
+
+    if (nVersion & BLOCK_VERSION_AUXPOW) {
+        CDiskBlockIndex diskblockindex;
+        // auxpow is not in memory, load CDiskBlockHeader
+        // from database to get it
+        pblocktree->ReadDiskBlockIndex(*phashBlock, diskblockindex);
+        block.auxpow = diskblockindex.auxpow;
+    }
+    block.nVersion       = nVersion;
+    if (pprev)
+        block.hashPrevBlock = pprev->GetBlockHash();
+    block.hashMerkleRoot = hashMerkleRoot;
+    block.nTime          = nTime;
+    block.nBits          = nBits;
+    block.nNonce         = nNonce;
+    return block;
+}
+
 bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos& pos)
 {
     // Check for duplicate
@@ -2341,7 +2433,10 @@ bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos
     pindexNew->nStatus = BLOCK_VALID_TRANSACTIONS | BLOCK_HAVE_DATA;
     setBlockIndexValid.insert(pindexNew);
 
-    if (!pblocktree->WriteBlockIndex(CDiskBlockIndex(pindexNew)))
+    //if (!pblocktree->WriteBlockIndex(CDiskBlockIndex(pindexNew, block.auxpow)) || !pblocktree->WriteBlockIndex(CDiskBlockIndex(pindexNew)))
+    if (!pblocktree->WriteDiskBlockIndex(CDiskBlockIndex(pindexNew, block.auxpow)) || !pblocktree->WriteBlockIndex(*pindexNew))
+	/* write both the immutible data (CDiskBlockIndex) and the mutable data (BlockIndex) */
+	//if (!pblocktree->WriteDiskBlockIndex(CDiskBlockIndex(pindexNew, block.auxpow)) || !pblocktree->WriteBlockIndex(*pindexNew))
         return state.Abort(_("Failed to write block index"));
 
     // New best?

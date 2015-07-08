@@ -7,6 +7,7 @@
 #include "main.h"
 #include "sync.h"
 #include "checkpoints.h"
+#include "auxpow.h"
 
 #include <stdint.h>
 
