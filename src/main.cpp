@@ -1286,18 +1286,22 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
     return nSubsidy + nFees;
 }
 
-static const int64_t nTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64_t nTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t nTargetTimespanP1 = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t nTargetTimespanP2 = 300; // 5 minutes (NUM_ALGOS * 60 seconds)
+static const int64_t nTargetSpacingP1 = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t nTargetSpacingP2 = 300; // 5 minutes (NUM_ALGOS * 60 seconds)
 static const int64_t nInterval = 1; // retargets every blocks
 
 static const int64_t nAveragingInterval = 10; // 10 blocks
-static const int64_t nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
+static const int64_t nAveragingTargetTimespanP1 = nAveragingInterval * nTargetSpacingP1; // 25 minutes
+static const int64_t nAveragingTargetTimespanP2 = nAveragingInterval * nTargetSpacingP2; // 50 minutes
 
 static const int64_t nMaxAdjustDown = 4; // 4% adjustment down
 static const int64_t nMaxAdjustUpV1 = 2; // 2% adjustment up
 static const int64_t nMaxAdjustUpV2 = 4; // 4% adjustment up
 
-static const int64_t nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64_t nTargetTimespanAdjDownP1 = nTargetTimespanP1 * (100 + nMaxAdjustDown) / 100;
+static const int64_t nTargetTimespanAdjDownP2 = nTargetTimespanP2 * (100 + nMaxAdjustDown) / 100;
 
 
 //
@@ -1329,9 +1333,11 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
     return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
 }
 
-static const int64_t nMinActualTimespanV1 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV1) / 100;
-static const int64_t nMinActualTimespanV2 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV2) / 100;
-static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64_t nMinActualTimespanV1 = nAveragingTargetTimespanP1 * (100 - nMaxAdjustUpV1) / 100;
+static const int64_t nMinActualTimespanV2 = nAveragingTargetTimespanP1 * (100 - nMaxAdjustUpV2) / 100;
+static const int64_t nMinActualTimespanP2 = nAveragingTargetTimespanP2 * (100 - nMaxAdjustUpV2) / 100;
+static const int64_t nMaxActualTimespanP1 = nAveragingTargetTimespanP1 * (100 + nMaxAdjustDown) / 100;
+static const int64_t nMaxActualTimespanP2 = nAveragingTargetTimespanP2 * (100 + nMaxAdjustDown) / 100;
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
@@ -1346,7 +1352,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         // Special difficulty rule for testnet:
         // If the new block's timestamp is more than 2* 10 minutes
         // then allow mining of a min-difficulty block.
-        if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
+        if (pblock->nTime > pindexLast->nTime + nTargetSpacingP2*2)
             return nProofOfWorkLimit;
         else
         {
@@ -1463,30 +1469,45 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         }
     }
 
-    int64_t nMinActualTimespan;
-    if (pindexLast->nHeight >= nBlockDiffAdjustV2)
-        nMinActualTimespan = nMinActualTimespanV2;
+    int64_t lnMinActualTimespan;
+    if (pindexLast->nHeight >= Phase2Reward_Start)
+        lnMinActualTimespan = nMinActualTimespanP2;
     else
-        nMinActualTimespan = nMinActualTimespanV1;
+        if (pindexLast->nHeight >= nBlockDiffAdjustV2)
+            lnMinActualTimespan = nMinActualTimespanV2;
+        else
+            lnMinActualTimespan = nMinActualTimespanV1;
 
-    if (nActualTimespan < nMinActualTimespan)
-        nActualTimespan = nMinActualTimespan;
-    if (nActualTimespan > nMaxActualTimespan)
-        nActualTimespan = nMaxActualTimespan;
-    LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, nMinActualTimespan, nMaxActualTimespan);
+    int64_t lnMaxActualTimespan;
+    if (pindexLast->nHeight >= Phase2Reward_Start)
+        lnMaxActualTimespan = nMaxActualTimespanP2;
+    else
+        lnMaxActualTimespan = nMaxActualTimespanP1;
+
+    if (nActualTimespan < lnMinActualTimespan)
+        nActualTimespan = lnMinActualTimespan;
+    if (nActualTimespan > lnMaxActualTimespan)
+        nActualTimespan = lnMaxActualTimespan;
+    LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, lnMinActualTimespan, lnMaxActualTimespan);
+
+    int64_t lnAveragingTargetTimespan;
+    if (pindexLast->nHeight >= Phase2Reward_Start)
+        lnAveragingTargetTimespan = nAveragingTargetTimespanP2;
+    else
+        lnAveragingTargetTimespan = nAveragingTargetTimespanP1;
 
     // Retarget
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
     bnNew *= nActualTimespan;
-    bnNew /= nAveragingTargetTimespan;
+    bnNew /= lnAveragingTargetTimespan;
 
     if (bnNew > Params().ProofOfWorkLimit(algo))
         bnNew = Params().ProofOfWorkLimit(algo);
 
     /// debug print
     LogPrintf("GetNextWorkRequired RETARGET\n");
-    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nAveragingTargetTimespan, nActualTimespan);
+    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", lnAveragingTargetTimespan, nActualTimespan);
     LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexPrev->nBits).getuint256().ToString());
     LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
 
