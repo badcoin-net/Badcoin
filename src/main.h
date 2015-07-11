@@ -815,8 +815,6 @@ public:
 
     IMPLEMENT_SERIALIZE
     (
-        /* mutable stuff goes here, immutable stuff
-         * has SERIALIZE functions in CDiskBlockIndex */
         if (!(nType & SER_GETHASH))
               READWRITE(VARINT(nVersion));
 
@@ -1056,6 +1054,7 @@ public:
 
     CDiskBlockIndex() {
         hashPrev = 0;
+		auxpow.reset();
     }
 
     //CDiskBlockIndex(CBlockIndex* pindex) : CBlockIndex(*pindex) {
@@ -1072,14 +1071,7 @@ public:
             READWRITE(VARINT(nVersion));
 
         READWRITE(VARINT(nHeight));
-        READWRITE(VARINT(nStatus));
         READWRITE(VARINT(nTx));
-        if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
-            READWRITE(VARINT(nFile));
-        if (nStatus & BLOCK_HAVE_DATA)
-            READWRITE(VARINT(nDataPos));
-        if (nStatus & BLOCK_HAVE_UNDO)
-            READWRITE(VARINT(nUndoPos));
 
         // block header
         READWRITE(this->nVersion);
