@@ -1266,20 +1266,21 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
 
 static const int64_t nStartSubsidy = 1000 * COIN;
 static const int64_t nMinSubsidy = 1 * COIN;
+static const int64_t nRewardPhase2StartSubsidy = 50 * COIN;
 
 int64_t GetBlockValue(int nHeight, int64_t nFees)
 {
-    int64_t nSubsidy = nStartSubsidy;
+    int64_t nSubsidy;
 
-    // Mining phase: Subsidy is cut in half every SubsidyHalvingInterval
-    nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
-
-    // Inflation phase: Subsidy reaches minimum subsidy
-    // Network is rewarded for transaction processing with transaction fees and
-    // the inflationary subsidy
-    if (nSubsidy < nMinSubsidy)
+    if (nHeight < Phase2Reward_Start)
     {
-        nSubsidy = nMinSubsidy;
+        nSubsidy = nStartSubsidy;
+        nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
+    }
+    else
+    {
+        nSubsidy = nRewardPhase2StartSubsidy;
+        nSubsidy += (nHeight / Params().SubsidyHalvingInterval());
     }
 
     return nSubsidy + nFees;
