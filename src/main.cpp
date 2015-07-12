@@ -1262,7 +1262,7 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
 {
     int64_t nSubsidy;
 
-    if (nHeight < Phase2Reward_Start)
+    if (!TestNet() && (nHeight < Phase2Reward_Start))
     {
         nSubsidy = nStartSubsidy;
         nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
@@ -1460,7 +1460,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     }
 
     int64_t lnMinActualTimespan;
-    if (pindexLast->nHeight >= Phase2Reward_Start)
+    if (TestNet() || (pindexLast->nHeight >= Phase2Reward_Start))
         lnMinActualTimespan = nMinActualTimespanP2;
     else
         if (pindexLast->nHeight >= nBlockDiffAdjustV2)
@@ -1469,7 +1469,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             lnMinActualTimespan = nMinActualTimespanV1;
 
     int64_t lnMaxActualTimespan;
-    if (pindexLast->nHeight >= Phase2Reward_Start)
+    if (TestNet() || (pindexLast->nHeight >= Phase2Reward_Start))
         lnMaxActualTimespan = nMaxActualTimespanP2;
     else
         lnMaxActualTimespan = nMaxActualTimespanP1;
@@ -1481,7 +1481,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, lnMinActualTimespan, lnMaxActualTimespan);
 
     int64_t lnAveragingTargetTimespan;
-    if (pindexLast->nHeight >= Phase2Reward_Start)
+    if (TestNet() || (pindexLast->nHeight >= Phase2Reward_Start))
         lnAveragingTargetTimespan = nAveragingTargetTimespanP2;
     else
         lnAveragingTargetTimespan = nAveragingTargetTimespanP1;
@@ -2603,7 +2603,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, int nHeight, bool 
 
 	if (!CheckBlockHeader(block, state, nHeight, fCheckPOW))
 		return false;
-	
+
     // Size limits
     if (block.vtx.empty() || block.vtx.size() > MAX_BLOCK_SIZE || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > MAX_BLOCK_SIZE)
         return state.DoS(100, error("CheckBlock() : size limits failed"),
