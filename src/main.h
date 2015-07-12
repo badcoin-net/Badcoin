@@ -964,7 +964,7 @@ public:
     CBigNum GetBlockWorkAdjusted() const
     {
         CBigNum bnRes;
-        if ((TestNet() && (nHeight > 500)) ||
+        if ((TestNet() && (nHeight > 50)) ||
             (nHeight >= GeoAvgWork_Start))
         {
             CBigNum nBlockWork = GetBlockWork();
@@ -978,6 +978,7 @@ public:
                         nBlockWork *= nBlockWorkAlt;
                 }
             }
+            bnRes = nBlockWork;
             // Compute the geometric mean
             bnRes = bnRes.nthRoot(NUM_ALGOS);
             // Scale to roughly match the old work calculation

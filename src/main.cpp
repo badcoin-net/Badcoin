@@ -1732,8 +1732,8 @@ void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev)
     block.nTime = max(pindexPrev->GetMedianTimePast()+1, GetAdjustedTime());
 
     // Updating time can change work required on testnet:
-    if (TestNet())
-        block.nBits = GetNextWorkRequired(pindexPrev, &block, block.GetAlgo());
+    //if (TestNet())
+    //    block.nBits = GetNextWorkRequired(pindexPrev, &block, block.GetAlgo());
 }
 
 
@@ -2668,6 +2668,8 @@ bool CheckBlock(const CBlock& block, CValidationState& state, int nHeight, bool 
 
 bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
 {
+    LogPrintf("AcceptBlock: BlockTime=%d\n", block.nTime);
+
     AssertLockHeld(cs_main);
     // Check for duplicate
     uint256 hash = block.GetHash();
