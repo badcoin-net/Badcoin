@@ -622,7 +622,8 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos& pos);
 
 // Context-independent validity checks
-bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
+bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, int nHeight, bool fCheckPOW = true);
+bool CheckBlock(const CBlock& block, CValidationState& state, int nHeight, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
 
 // Store block on disk
 // if dbp is provided, the file is known to already reside on disk
@@ -994,10 +995,12 @@ public:
 
     bool CheckIndex() const
     {
-        int algo = GetAlgo();
+         /*  This check was considered unneccessary given the other safeguards like the genesis and checkpoints, and it breaks LoadBlockIndexGuts() after AuxPow is enabled. */
+
+	/*        int algo = GetAlgo();
         if (algo == ALGO_SHA256D)
             return CheckProofOfWork(GetBlockHash(), nBits, algo);
-        else
+        else*/ 
             return true;
     }
 
@@ -1026,13 +1029,7 @@ public:
     static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,
                                 unsigned int nRequired, unsigned int nToCheck);
 
-    std::string ToString() const
-    {
-        return strprintf("CBlockIndex(pprev=%p, nHeight=%d, merkle=%s, hashBlock=%s)",
-            pprev, nHeight,
-            hashMerkleRoot.ToString().c_str(),
-            GetBlockHash().ToString().c_str());
-    }
+    std::string ToString() const; //moved code to main.cpp because new method required access to auxpow
 
     void print() const
     {
@@ -1096,7 +1093,7 @@ public:
     }
 
 
-    std::string ToString() const;
+    std::string ToString() const; // moved code to main.cpp
 
     void print() const
     {
