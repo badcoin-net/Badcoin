@@ -1337,6 +1337,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
 
+/*
     if (TestNet())
     {
         // Special difficulty rule for testnet:
@@ -1353,7 +1354,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             return pindex->nBits;
         }
     }
-
+*/
     // find previous block with same algo
     const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
     if (pindexPrev == NULL)
