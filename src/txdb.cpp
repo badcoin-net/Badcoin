@@ -215,35 +215,35 @@ bool CBlockTreeDB::LoadBlockIndexGuts()
             char chType;
             ssKey >> chType;
             if (chType == 'b') {
+                // Detect pre-auxpow keys in the database and abort if found
+                if (slKey.size() < ssKeySet.size()) {
+                    return error("Database key size is %d expected %d, require reindex to upgrade.", slKey.size(), ssKeySet.size());
+                }
+				
 				ssKey >> hash;
 				
                 leveldb::Slice slValue = pcursor->value();
-                // CDataStream ssValue(slValue.data(), slValue.data()+slValue.size(), SER_DISK, CLIENT_VERSION);
 				CDataStream ssValue_immutable(slValue.data(), slValue.data()+slValue.size(), SER_DISK, CLIENT_VERSION);
                 CDiskBlockIndex diskindex;
-                // ssValue >> diskindex;
 				ssValue_immutable >> diskindex; // read all immutable data
 				
 				// Construct immutable parts of block index objecty
 				CBlockIndex* pindexNew = InsertBlockIndex(hash);
 				assert(diskindex.GetBlockHash() == *pindexNew->phashBlock); // paranoia check
 
-                // // Construct block index object
-                // CBlockIndex* pindexNew = InsertBlockIndex(diskindex.GetBlockHash());
                 pindexNew->pprev          = InsertBlockIndex(diskindex.hashPrev);
                 pindexNew->nHeight        = diskindex.nHeight;
-                // pindexNew->nFile          = diskindex.nFile;
-                // pindexNew->nDataPos       = diskindex.nDataPos;
-                // pindexNew->nUndoPos       = diskindex.nUndoPos;
+                pindexNew->nFile          = diskindex.nFile;
+                pindexNew->nDataPos       = diskindex.nDataPos;
+                pindexNew->nUndoPos       = diskindex.nUndoPos;
                 pindexNew->nVersion       = diskindex.nVersion;
                 pindexNew->hashMerkleRoot = diskindex.hashMerkleRoot;
                 pindexNew->nTime          = diskindex.nTime;
                 pindexNew->nBits          = diskindex.nBits;
                 pindexNew->nNonce         = diskindex.nNonce;
-                // pindexNew->nStatus        = diskindex.nStatus;
+                pindexNew->nStatus        = diskindex.nStatus;
                 pindexNew->nTx            = diskindex.nTx;
 
-                // if (!pindexNew->CheckIndex())
 				// CheckIndex need phashBlock to be set
 				diskindex.phashBlock = pindexNew->phashBlock;
 				if (!diskindex.CheckIndex())

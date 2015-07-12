@@ -28,6 +28,7 @@ BITCOIN_CORE_H = \
   addrman.h \
   alert.h \
   allocators.h \
+  auxpow.h \
   base58.h bignum.h \
   bloom.h \
   chainparams.h \
@@ -108,6 +109,7 @@ version.o: obj/build.h
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
+  auxpow.cpp \
   bloom.cpp \
   checkpoints.cpp \
   coins.cpp \
