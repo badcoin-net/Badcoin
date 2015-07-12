@@ -965,6 +965,26 @@ public:
     {
         CBigNum bnRes;
         if ((TestNet() && (nHeight > 500)) ||
+            (nHeight >= GeoAvgWork_Start))
+        {
+            CBigNum nBlockWork = GetBlockWork();
+            int nAlgo = GetAlgo();
+            for (int algo = 0; algo < NUM_ALGOS; algo++)
+            {
+                if (algo != nAlgo)
+                {
+                    CBigNum nBlockWorkAlt = GetPrevWorkForAlgoWithDecay2(algo);
+                    if (nBlockWorkAlt != 0)
+                        nBlockWork *= nBlockWorkAlt;
+                }
+            }
+            // Compute the geometric mean
+            bnRes = bnRes.nthRoot(NUM_ALGOS);
+            // Scale to roughly match the old work calculation
+            bnRes <<= 8;
+        }
+        else
+        if (TestNet() ||
             (nHeight >= nBlockAlgoNormalisedWorkStart))
         {
             // Adjusted block work is the sum of work of this block and the
@@ -975,7 +995,7 @@ public:
             {
                 if (algo != nAlgo)
                 {
-                    if (nHeight >= nBlockAlgoNormalisedWorkDecayStart2)
+                    if (TestNet() || (nHeight >= nBlockAlgoNormalisedWorkDecayStart2))
                         nBlockWork += GetPrevWorkForAlgoWithDecay2(algo);
                     else
                         if (nHeight >= nBlockAlgoNormalisedWorkDecayStart)
@@ -1000,7 +1020,7 @@ public:
 	/*        int algo = GetAlgo();
         if (algo == ALGO_SHA256D)
             return CheckProofOfWork(GetBlockHash(), nBits, algo);
-        else*/ 
+        else*/
             return true;
     }
 
