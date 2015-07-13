@@ -924,6 +924,30 @@ public:
         return CBigNum(0);
     }
 
+    CBigNum GetPrevWorkForAlgoWithDecay3(int algo) const
+    {
+        int nDistance = 0;
+        CBigNum nWork;
+        CBlockIndex* pindex = this->pprev;
+        while (pindex)
+        {
+            if (nDistance > 100)
+            {
+                return CBigNum(0);
+            }
+            if (pindex->GetAlgo() == algo)
+            {
+                CBigNum nWork = pindex->GetBlockWork();
+                nWork *= (100 - nDistance);
+                nWork /= 100;
+                return nWork;
+            }
+            pindex = pindex->pprev;
+            nDistance++;
+        }
+        return CBigNum(0);
+    }
+
     CBigNum GetBlockWork() const
     {
         CBigNum bnTarget;
@@ -973,7 +997,7 @@ public:
             {
                 if (algo != nAlgo)
                 {
-                    CBigNum nBlockWorkAlt = GetPrevWorkForAlgoWithDecay2(algo);
+                    CBigNum nBlockWorkAlt = GetPrevWorkForAlgoWithDecay3(algo);
                     if (nBlockWorkAlt != 0)
                         nBlockWork *= nBlockWorkAlt;
                 }
