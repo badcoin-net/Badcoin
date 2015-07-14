@@ -1256,21 +1256,20 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
 
 static const int64_t nStartSubsidy = 1000 * COIN;
 static const int64_t nMinSubsidy = 1 * COIN;
-static const int64_t nRewardPhase2StartSubsidy = 50 * COIN;
 
 int64_t GetBlockValue(int nHeight, int64_t nFees)
 {
-    int64_t nSubsidy;
+    int64_t nSubsidy = nStartSubsidy;
 
-    if (!TestNet() && (nHeight < Phase2Reward_Start))
+    // Mining phase: Subsidy is cut in half every SubsidyHalvingInterval
+    nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
+
+    // Inflation phase: Subsidy reaches minimum subsidy
+    // Network is rewarded for transaction processing with transaction fees and
+    // the inflationary subsidy
+    if (nSubsidy < nMinSubsidy)
     {
-        nSubsidy = nStartSubsidy;
-        nSubsidy >>= (nHeight / Params().SubsidyHalvingInterval());
-    }
-    else
-    {
-        nSubsidy = nRewardPhase2StartSubsidy;
-        nSubsidy += (nHeight / Params().SubsidyHalvingInterval());
+        nSubsidy = nMinSubsidy;
     }
 
     return nSubsidy + nFees;
@@ -1461,7 +1460,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     }
 
     int64_t lnMinActualTimespan;
-    if (TestNet() || (pindexLast->nHeight >= Phase2Reward_Start))
+    if (TestNet() || (pindexLast->nHeight >= Phase2Timespan_Start))
         lnMinActualTimespan = nMinActualTimespanP2;
     else
         if (pindexLast->nHeight >= nBlockDiffAdjustV2)
@@ -1470,7 +1469,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             lnMinActualTimespan = nMinActualTimespanV1;
 
     int64_t lnMaxActualTimespan;
-    if (TestNet() || (pindexLast->nHeight >= Phase2Reward_Start))
+    if (TestNet() || (pindexLast->nHeight >= Phase2Timespan_Start))
         lnMaxActualTimespan = nMaxActualTimespanP2;
     else
         lnMaxActualTimespan = nMaxActualTimespanP1;
@@ -1482,7 +1481,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, lnMinActualTimespan, lnMaxActualTimespan);
 
     int64_t lnAveragingTargetTimespan;
-    if (TestNet() || (pindexLast->nHeight >= Phase2Reward_Start))
+    if (TestNet() || (pindexLast->nHeight >= Phase2Timespan_Start))
         lnAveragingTargetTimespan = nAveragingTargetTimespanP2;
     else
         lnAveragingTargetTimespan = nAveragingTargetTimespanP1;

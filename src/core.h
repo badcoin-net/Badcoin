@@ -46,7 +46,7 @@ static const int AUXPOW_CHAIN_ID = 0x005A;
 static const int AUXPOW_START_MAINNET = 9999999; //TODO change me
 static const int AUXPOW_START_TESTNET = 1;
 
-static const int Phase2Reward_Start = 9999999;
+static const int Phase2Timespan_Start = 9999999;
 static const int GeoAvgWork_Start = 9999999;
 
 inline int GetAlgo(int nVersion)
