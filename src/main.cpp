@@ -1524,7 +1524,7 @@ bool CBlockHeader::CheckProofOfWork(int nHeight) const
 {
 	int algo = GetAlgo();
     if ( (nHeight >= GetAuxPowStartBlock()) &&
-         ((algo = ALGO_SHA256D) || (algo = ALGO_SCRYPT) || (algo = ALGO_QUBIT)) )
+         ((algo == ALGO_SHA256D) || (algo == ALGO_SCRYPT) || (algo == ALGO_QUBIT)) )
     {
         // Prevent same work from being submitted twice:
         // - this block must have our chain ID
@@ -3512,6 +3512,7 @@ bool LoadExternalBlockFile(FILE* fileIn, CDiskBlockPos *dbp)
                     if (dbp)
                         dbp->nPos = nBlockPos;
                     CValidationState state;
+                    LogPrintf("LoadExternalBlockFile\n");
                     if (ProcessBlock(state, NULL, &block, dbp))
                         nLoaded++;
                     if (state.IsError())
@@ -4239,6 +4240,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         mapBlockSource[inv.hash] = pfrom->GetId();
         MarkBlockAsReceived(inv.hash, pfrom->GetId());
 
+        LogPrintf("received block %s\n", block.GetHash().ToString());
         CValidationState state;
         ProcessBlock(state, pfrom, &block);
     }
