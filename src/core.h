@@ -43,11 +43,11 @@ static const int BLOCK_VERSION_CHAIN_START = (1 << 16);
 static const int BLOCK_VERSION_CHAIN_END = (1 << 30);
 
 static const int AUXPOW_CHAIN_ID = 0x005A;
-static const int AUXPOW_START_MAINNET = 1333000;
+static const int AUXPOW_START_MAINNET = 1400000;
 static const int AUXPOW_START_TESTNET = 1;
 
-static const int Phase2Timespan_Start = 1333010;
-static const int GeoAvgWork_Start = 1333020;
+static const int Phase2Timespan_Start = 1400010;
+static const int GeoAvgWork_Start = 1400020;
 
 inline int GetAlgo(int nVersion)
 {

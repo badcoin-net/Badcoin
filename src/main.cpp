@@ -1524,7 +1524,7 @@ bool CBlockHeader::CheckProofOfWork(int nHeight) const
 {
 	int algo = GetAlgo();
     if ( (nHeight >= GetAuxPowStartBlock()) &&
-         ((algo == ALGO_SHA256D) || (algo == ALGO_SCRYPT) || (algo == ALGO_QUBIT)) )
+         ((algo == ALGO_SHA256D) || (algo == ALGO_SCRYPT))
     {
         // Prevent same work from being submitted twice:
         // - this block must have our chain ID
