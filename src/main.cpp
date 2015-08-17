@@ -2702,6 +2702,11 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
                 nAlgoCount++;
                 piPrev = piPrev->pprev;
             }
+			if ((nHeight > nBlockSequentialAlgoRuleStart3) && (nAlgoCount > nBlockSequentialAlgoMaxCount3))
+			{
+                return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
+                                 REJECT_INVALID, "algo-toomany");
+			} else
             if ((nHeight > nBlockSequentialAlgoRuleStart2) && (nAlgoCount > nBlockSequentialAlgoMaxCount2))
             {
                 return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
