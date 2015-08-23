@@ -2689,7 +2689,8 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
         nHeight = pindexPrev->nHeight+1;
 
         // Check count of sequence of same algo
-        if ( (TestNet() && (nHeight > 200)) || (nHeight > nBlockSequentialAlgoRuleStart))
+        if ( (TestNet() && (nHeight > 200))
+            || (nHeight > nBlockSequentialAlgoRuleStart) )
         {
             int nAlgo = block.GetAlgo();
             int nAlgoCount = 1;
@@ -2701,23 +2702,17 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
                 nAlgoCount++;
                 piPrev = piPrev->pprev;
             }
-			if (nHeight > nBlockSequentialAlgoRuleStart3)
+			if ((nHeight > nBlockSequentialAlgoRuleStart3) && (nAlgoCount > nBlockSequentialAlgoMaxCount3))
 			{
-				if(nAlgoCount > nBlockSequentialAlgoMaxCount3)
-				{
-					return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
+                return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
                                  REJECT_INVALID, "algo-toomany");
-				}
-			}
-			else if (nHeight > nBlockSequentialAlgoRuleStart2)
+			} else
+            if ((nHeight > nBlockSequentialAlgoRuleStart2) && (nAlgoCount > nBlockSequentialAlgoMaxCount2))
             {
-				if(nAlgoCount > nBlockSequentialAlgoMaxCount2)
-				{
-					return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
+                return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
                                  REJECT_INVALID, "algo-toomany");
-				}
-            }
-			else if (nAlgoCount > nBlockSequentialAlgoMaxCount)
+            } else
+            if (nAlgoCount > nBlockSequentialAlgoMaxCount)
             {
                 return state.DoS(100, error("AcceptBlock() : too many blocks from same algo"),
                                  REJECT_INVALID, "algo-toomany");
