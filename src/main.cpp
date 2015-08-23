@@ -1460,7 +1460,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     }
 
     int64_t lnMinActualTimespan;
-    if (TestNet() || (pindexLast->nHeight >= Phase2Timespan_Start))
+    if ((TestNet() && pindexLast->nHeight>=150) || (pindexLast->nHeight >= Phase2Timespan_Start))
         lnMinActualTimespan = nMinActualTimespanP2;
     else
         if (pindexLast->nHeight >= nBlockDiffAdjustV2)
@@ -1469,7 +1469,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             lnMinActualTimespan = nMinActualTimespanV1;
 
     int64_t lnMaxActualTimespan;
-    if (TestNet() || (pindexLast->nHeight >= Phase2Timespan_Start))
+    if ((TestNet() && pindexLast->nHeight>=150) || (pindexLast->nHeight >= Phase2Timespan_Start))
         lnMaxActualTimespan = nMaxActualTimespanP2;
     else
         lnMaxActualTimespan = nMaxActualTimespanP1;
@@ -1481,7 +1481,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, lnMinActualTimespan, lnMaxActualTimespan);
 
     int64_t lnAveragingTargetTimespan;
-    if (TestNet() || (pindexLast->nHeight >= Phase2Timespan_Start))
+    if ((TestNet() && pindexLast->nHeight>=150) || (pindexLast->nHeight >= Phase2Timespan_Start))
         lnAveragingTargetTimespan = nAveragingTargetTimespanP2;
     else
         lnAveragingTargetTimespan = nAveragingTargetTimespanP1;
@@ -1523,8 +1523,7 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
 bool CBlockHeader::CheckProofOfWork(int nHeight) const
 {
 	int algo = GetAlgo();
-    if ( (nHeight >= GetAuxPowStartBlock()) &&
-         ((algo == ALGO_SHA256D) || (algo == ALGO_SCRYPT))
+    if ( (nHeight >= GetAuxPowStartBlock()) && ((algo == ALGO_SHA256D) || (algo == ALGO_SCRYPT)) )
     {
         // Prevent same work from being submitted twice:
         // - this block must have our chain ID

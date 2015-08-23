@@ -988,8 +988,7 @@ public:
     CBigNum GetBlockWorkAdjusted() const
     {
         CBigNum bnRes;
-        if ((TestNet() && (nHeight > 50)) ||
-            (nHeight >= GeoAvgWork_Start))
+        if ( (TestNet() && (nHeight > 150)) || (nHeight >= GeoAvgWork_Start) )
         {
             CBigNum nBlockWork = GetBlockWork();
             int nAlgo = GetAlgo();
@@ -1040,7 +1039,7 @@ public:
 
     bool CheckIndex() const
     {
-         /*  This check was considered unneccessary given the other safeguards like the genesis and checkpoints, and it breaks LoadBlockIndexGuts() after AuxPow is enabled. */
+    /*  This check was considered unneccessary given the other safeguards like the genesis and checkpoints, and it breaks LoadBlockIndexGuts() after AuxPow is enabled. */
 
 	/*        int algo = GetAlgo();
         if (algo == ALGO_SHA256D)

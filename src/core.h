@@ -44,7 +44,7 @@ static const int BLOCK_VERSION_CHAIN_END = (1 << 30);
 
 static const int AUXPOW_CHAIN_ID = 0x005A;
 static const int AUXPOW_START_MAINNET = 1400000;
-static const int AUXPOW_START_TESTNET = 1;
+static const int AUXPOW_START_TESTNET = 175;
 
 static const int Phase2Timespan_Start = 1400010;
 static const int GeoAvgWork_Start = 1400020;
