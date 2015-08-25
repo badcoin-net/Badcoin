@@ -1551,7 +1551,14 @@ bool CBlockHeader::CheckProofOfWork(int nHeight) const
     {
         if (auxpow.get() != NULL)
         {
-            return error("CheckProofOfWork() : AUX POW is not allowed at this block");
+			if((algo == ALGO_SHA256D) || (algo == ALGO_SCRYPT))
+			{
+				return error("CheckProofOfWork() : AUX POW is not allowed at this block");
+			}
+			else
+			{
+				return error("CheckProofOfWork() : AUX POW is not allowed for this algo");
+			}
         }
 
         // Check if proof of work marches claimed amount
