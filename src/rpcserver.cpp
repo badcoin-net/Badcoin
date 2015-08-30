@@ -315,7 +315,7 @@ static const CRPCCommand vRPCCommands[] =
     { "gethashespersec",        &gethashespersec,        true,      false,      false },
     { "getwork",                &getwork,                true,      false,      true  },
     { "setgenerate",            &setgenerate,            true,      true,       false },
-
+	
     /* Stealth */
     { "getnewstealthaddress",   &getnewstealthaddress,   false,     false,      true},
     { "liststealthaddresses",   &liststealthaddresses,   false,     false,      true},
@@ -324,6 +324,9 @@ static const CRPCCommand vRPCCommands[] =
     { "clearwallettransactions",&clearwallettransactions,false,     false,      true},
     { "scanforalltxns",         &scanforalltxns,         false,     false,      true},
     { "scanforstealthtxns",     &scanforstealthtxns,     false,     false,      true},
+
+    { "getworkaux",             &getworkaux,             true,      false,      true },
+    { "getauxblock",            &getauxblock,            true,      false,      true }
 
 #endif // ENABLE_WALLET
 };
@@ -550,7 +553,7 @@ void StartRPCThreads()
 
     if (fUseSSL)
     {
-        rpc_ssl_context->set_options(ssl::context::no_sslv2);
+        rpc_ssl_context->set_options(ssl::context::no_sslv2 | ssl::context::no_sslv3);
 
         filesystem::path pathCertFile(GetArg("-rpcsslcertificatechainfile", "server.cert"));
         if (!pathCertFile.is_complete()) pathCertFile = filesystem::path(GetDataDir()) / pathCertFile;

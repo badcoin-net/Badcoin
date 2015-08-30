@@ -29,6 +29,8 @@ enum
     // primary version
     BLOCK_VERSION_DEFAULT        = 2,
 
+    BLOCK_VERSION_AUXPOW         = (1 << 8),
+
     // algo
     BLOCK_VERSION_ALGO           = (7 << 9),
     BLOCK_VERSION_SCRYPT         = (1 << 9),
@@ -36,6 +38,16 @@ enum
     BLOCK_VERSION_SKEIN          = (3 << 9),
     BLOCK_VERSION_QUBIT          = (4 << 9),
 };
+
+static const int BLOCK_VERSION_CHAIN_START = (1 << 16);
+static const int BLOCK_VERSION_CHAIN_END = (1 << 30);
+
+static const int AUXPOW_CHAIN_ID = 0x005A;
+static const int AUXPOW_START_MAINNET = 1402000;
+static const int AUXPOW_START_TESTNET = 175;
+
+static const int Phase2Timespan_Start = 1401000;
+static const int GeoAvgWork_Start = 1400000;
 
 inline int GetAlgo(int nVersion)
 {
@@ -74,6 +86,16 @@ inline std::string GetAlgoName(int Algo)
 }
 
 class CTransaction;
+class CAuxPow;
+
+template <typename Stream>
+int ReadWriteAuxPow(Stream& s, const boost::shared_ptr<CAuxPow>& auxpow, int nType, int nVersion, CSerActionSerialize ser_action);
+
+template <typename Stream>
+int ReadWriteAuxPow(Stream& s, boost::shared_ptr<CAuxPow>& auxpow, int nType, int nVersion, CSerActionUnserialize ser_action);
+
+template <typename Stream>
+int ReadWriteAuxPow(Stream& s, const boost::shared_ptr<CAuxPow>& auxpow, int nType, int nVersion, CSerActionGetSerializeSize ser_action);
 
 /** No amount larger than this (in satoshi) is valid */
 static const int64_t MAX_MONEY = 2000000000 * COIN;
@@ -402,7 +424,6 @@ public:
     )
 };
 
-
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work
  * requirements.  When they solve the proof-of-work, they broadcast the block
@@ -410,6 +431,7 @@ public:
  * in the block is a special one that creates a new coin owned by the creator
  * of the block.
  */
+
 class CBlockHeader
 {
 public:
@@ -421,6 +443,7 @@ public:
     unsigned int nTime;
     unsigned int nBits;
     unsigned int nNonce;
+    boost::shared_ptr<CAuxPow> auxpow;
 
     CBlockHeader()
     {
@@ -438,11 +461,12 @@ public:
         READWRITE(nTime);
         READWRITE(nBits);
         READWRITE(nNonce);
+		nSerSize += ReadWriteAuxPow(s, auxpow, nType, nVersion, ser_action);
     )
 
     void SetNull()
     {
-        nVersion = CBlockHeader::CURRENT_VERSION;
+        nVersion = CBlockHeader::CURRENT_VERSION | (AUXPOW_CHAIN_ID * BLOCK_VERSION_CHAIN_START);
         hashPrevBlock = 0;
         hashMerkleRoot = 0;
         nTime = 0;
@@ -454,6 +478,13 @@ public:
     {
         return (nBits == 0);
     }
+
+	int GetChainID() const
+    {
+        return nVersion / BLOCK_VERSION_CHAIN_START;
+    }
+
+    void SetAuxPow(CAuxPow* pow);
 
     uint256 GetHash() const;
 
@@ -486,6 +517,8 @@ public:
     {
         return (int64_t)nTime;
     }
+
+	bool CheckProofOfWork(int nHeight) const;
 };
 
 
@@ -531,6 +564,7 @@ public:
         block.nTime          = nTime;
         block.nBits          = nBits;
         block.nNonce         = nNonce;
+		block.auxpow         = auxpow;
         return block;
     }
 

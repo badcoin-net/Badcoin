@@ -16,6 +16,7 @@
 #include "txmempool.h"
 #include "ui_interface.h"
 #include "util.h"
+#include "auxpow.h"
 
 #include <sstream>
 
@@ -406,6 +407,33 @@ CBlockIndex *CChain::FindFork(const CBlockLocator &locator) const {
 
 CCoinsViewCache *pcoinsTip = NULL;
 CBlockTreeDB *pblocktree = NULL;
+
+// to enable merged mining:
+// - set a block from which it will be enabled
+// - set a unique chain ID
+//   each merged minable scrypt_1024_1_1_256 coin should have a different one
+//   (if two have the same ID, they can't be merge mined together)
+int GetAuxPowStartBlock()
+{
+    if (TestNet())
+        return AUXPOW_START_TESTNET;
+    else
+        return AUXPOW_START_MAINNET;
+}
+
+void CBlockHeader::SetAuxPow(CAuxPow* pow)
+{
+    if (pow != NULL)
+        nVersion |= BLOCK_VERSION_AUXPOW;
+    else
+        nVersion &= ~BLOCK_VERSION_AUXPOW;
+    auxpow.reset(pow);
+}
+
+bool IsAuxPowVersion(int nVersion)
+{
+    return (nVersion == BLOCK_VERSION_AUXPOW_WITH_AUX || nVersion == BLOCK_VERSION_AUXPOW_WITHOUT_AUX);
+}
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1151,7 +1179,8 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos)
     }
 
     // Check the header
-    if (!CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
+    //if (!CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
+	if (!block.CheckProofOfWork(mapBlockIndex[block.GetHash()]->nHeight))
         return error("ReadBlockFromDisk : Errors in block header");
 
     return true;
@@ -1246,18 +1275,22 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
     return nSubsidy + nFees;
 }
 
-static const int64_t nTargetTimespan = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
-static const int64_t nTargetSpacing = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t nTargetTimespanP1 = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t nTargetTimespanP2 = 300; // 5 minutes (NUM_ALGOS * 60 seconds)
+static const int64_t nTargetSpacingP1 = 150; // 2.5 minutes (NUM_ALGOS * 30 seconds)
+static const int64_t nTargetSpacingP2 = 300; // 5 minutes (NUM_ALGOS * 60 seconds)
 static const int64_t nInterval = 1; // retargets every blocks
 
 static const int64_t nAveragingInterval = 10; // 10 blocks
-static const int64_t nAveragingTargetTimespan = nAveragingInterval * nTargetSpacing; // 25 minutes
+static const int64_t nAveragingTargetTimespanP1 = nAveragingInterval * nTargetSpacingP1; // 25 minutes
+static const int64_t nAveragingTargetTimespanP2 = nAveragingInterval * nTargetSpacingP2; // 50 minutes
 
 static const int64_t nMaxAdjustDown = 4; // 4% adjustment down
 static const int64_t nMaxAdjustUpV1 = 2; // 2% adjustment up
 static const int64_t nMaxAdjustUpV2 = 4; // 4% adjustment up
 
-static const int64_t nTargetTimespanAdjDown = nTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64_t nTargetTimespanAdjDownP1 = nTargetTimespanP1 * (100 + nMaxAdjustDown) / 100;
+static const int64_t nTargetTimespanAdjDownP2 = nTargetTimespanP2 * (100 + nMaxAdjustDown) / 100;
 
 
 //
@@ -1289,9 +1322,11 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
     return Params().ProofOfWorkLimit(ALGO_SHA256D).GetCompact();
 }
 
-static const int64_t nMinActualTimespanV1 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV1) / 100;
-static const int64_t nMinActualTimespanV2 = nAveragingTargetTimespan * (100 - nMaxAdjustUpV2) / 100;
-static const int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + nMaxAdjustDown) / 100;
+static const int64_t nMinActualTimespanV1 = nAveragingTargetTimespanP1 * (100 - nMaxAdjustUpV1) / 100;
+static const int64_t nMinActualTimespanV2 = nAveragingTargetTimespanP1 * (100 - nMaxAdjustUpV2) / 100;
+static const int64_t nMinActualTimespanP2 = nAveragingTargetTimespanP2 * (100 - nMaxAdjustUpV2) / 100;
+static const int64_t nMaxActualTimespanP1 = nAveragingTargetTimespanP1 * (100 + nMaxAdjustDown) / 100;
+static const int64_t nMaxActualTimespanP2 = nAveragingTargetTimespanP2 * (100 + nMaxAdjustDown) / 100;
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo)
 {
@@ -1301,12 +1336,13 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     if (pindexLast == NULL)
         return nProofOfWorkLimit;
 
+/*
     if (TestNet())
     {
         // Special difficulty rule for testnet:
         // If the new block's timestamp is more than 2* 10 minutes
         // then allow mining of a min-difficulty block.
-        if (pblock->nTime > pindexLast->nTime + nTargetSpacing*2)
+        if (pblock->nTime > pindexLast->nTime + nTargetSpacingP2*2)
             return nProofOfWorkLimit;
         else
         {
@@ -1317,7 +1353,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             return pindex->nBits;
         }
     }
-
+*/
     // find previous block with same algo
     const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
     if (pindexPrev == NULL)
@@ -1423,30 +1459,45 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         }
     }
 
-    int64_t nMinActualTimespan;
-    if (pindexLast->nHeight >= nBlockDiffAdjustV2)
-        nMinActualTimespan = nMinActualTimespanV2;
+    int64_t lnMinActualTimespan;
+    if ((TestNet() && pindexLast->nHeight>=150) || (pindexLast->nHeight >= Phase2Timespan_Start))
+        lnMinActualTimespan = nMinActualTimespanP2;
     else
-        nMinActualTimespan = nMinActualTimespanV1;
+        if (pindexLast->nHeight >= nBlockDiffAdjustV2)
+            lnMinActualTimespan = nMinActualTimespanV2;
+        else
+            lnMinActualTimespan = nMinActualTimespanV1;
 
-    if (nActualTimespan < nMinActualTimespan)
-        nActualTimespan = nMinActualTimespan;
-    if (nActualTimespan > nMaxActualTimespan)
-        nActualTimespan = nMaxActualTimespan;
-    LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, nMinActualTimespan, nMaxActualTimespan);
+    int64_t lnMaxActualTimespan;
+    if ((TestNet() && pindexLast->nHeight>=150) || (pindexLast->nHeight >= Phase2Timespan_Start))
+        lnMaxActualTimespan = nMaxActualTimespanP2;
+    else
+        lnMaxActualTimespan = nMaxActualTimespanP1;
+
+    if (nActualTimespan < lnMinActualTimespan)
+        nActualTimespan = lnMinActualTimespan;
+    if (nActualTimespan > lnMaxActualTimespan)
+        nActualTimespan = lnMaxActualTimespan;
+    LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, lnMinActualTimespan, lnMaxActualTimespan);
+
+    int64_t lnAveragingTargetTimespan;
+    if ((TestNet() && pindexLast->nHeight>=150) || (pindexLast->nHeight >= Phase2Timespan_Start))
+        lnAveragingTargetTimespan = nAveragingTargetTimespanP2;
+    else
+        lnAveragingTargetTimespan = nAveragingTargetTimespanP1;
 
     // Retarget
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
     bnNew *= nActualTimespan;
-    bnNew /= nAveragingTargetTimespan;
+    bnNew /= lnAveragingTargetTimespan;
 
     if (bnNew > Params().ProofOfWorkLimit(algo))
         bnNew = Params().ProofOfWorkLimit(algo);
 
     /// debug print
     LogPrintf("GetNextWorkRequired RETARGET\n");
-    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", nAveragingTargetTimespan, nActualTimespan);
+    LogPrintf("nTargetTimespan = %d    nActualTimespan = %d\n", lnAveragingTargetTimespan, nActualTimespan);
     LogPrintf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexPrev->nBits).getuint256().ToString());
     LogPrintf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString());
 
@@ -1466,6 +1517,54 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, int algo)
     if (hash > bnTarget.getuint256())
         return error("CheckProofOfWork(algo=%d) : hash doesn't match nBits", algo);
 
+    return true;
+}
+
+bool CBlockHeader::CheckProofOfWork(int nHeight) const
+{
+	int algo = GetAlgo();
+    if ( (nHeight >= GetAuxPowStartBlock()) && ((algo == ALGO_SHA256D) || (algo == ALGO_SCRYPT)) )
+    {
+        // Prevent same work from being submitted twice:
+        // - this block must have our chain ID
+        // - parent block must not have the same chain ID (see CAuxPow::Check)
+        // - index of this chain in chain merkle tree must be pre-determined (see CAuxPow::Check)
+        if (!TestNet() && nHeight != INT_MAX && GetChainID() != AUXPOW_CHAIN_ID)
+            return error("CheckProofOfWork() : block (chainID=%d) does not have our chain ID (chainID=%d)", GetChainID(),AUXPOW_CHAIN_ID);
+
+        if (auxpow.get() != NULL)
+        {
+            if (!auxpow->Check(GetHash(), GetChainID()))
+                return error("CheckProofOfWork() : AUX POW is not valid");
+            // Check proof of work matches claimed amount
+            if (!::CheckProofOfWork(auxpow->GetParentBlockHash(algo), nBits, algo))
+                return error("CheckProofOfWork() : AUX proof of work failed");
+        }
+        else
+        {
+            // Check proof of work matches claimed amount
+            if (!::CheckProofOfWork(GetPoWHash(algo), nBits, algo))
+                return error("CheckProofOfWork() : proof of work failed");
+        }
+    }
+    else
+    {
+        if (auxpow.get() != NULL)
+        {
+			if((algo == ALGO_SHA256D) || (algo == ALGO_SCRYPT))
+			{
+				return error("CheckProofOfWork() : AUX POW is not allowed at this block");
+			}
+			else
+			{
+				return error("CheckProofOfWork() : AUX POW is not allowed for this algo");
+			}
+        }
+
+        // Check if proof of work marches claimed amount
+        if (!::CheckProofOfWork(GetPoWHash(algo), nBits, algo))
+            return error("CheckProofOfWork() : proof of work failed");
+    }
     return true;
 }
 
@@ -1627,7 +1726,8 @@ void static InvalidBlockFound(CBlockIndex *pindex, const CValidationState &state
     }
     if (!state.CorruptionPossible()) {
         pindex->nStatus |= BLOCK_FAILED_VALID;
-        pblocktree->WriteBlockIndex(CDiskBlockIndex(pindex));
+        //pblocktree->WriteBlockIndex(CDiskBlockIndex(pindex));
+		pblocktree->WriteBlockIndex(*pindex);
         setBlockIndexValid.erase(pindex);
         InvalidChainFound(pindex);
     }
@@ -1638,8 +1738,8 @@ void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev)
     block.nTime = max(pindexPrev->GetMedianTimePast()+1, GetAdjustedTime());
 
     // Updating time can change work required on testnet:
-    if (TestNet())
-        block.nBits = GetNextWorkRequired(pindexPrev, &block, block.GetAlgo());
+    //if (TestNet())
+    //    block.nBits = GetNextWorkRequired(pindexPrev, &block, block.GetAlgo());
 }
 
 
@@ -1896,7 +1996,8 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 {
     AssertLockHeld(cs_main);
     // Check it again in case a previous version let a bad block in
-    if (!CheckBlock(block, state, !fJustCheck, !fJustCheck))
+    //if (!CheckBlock(block, state, !fJustCheck, !fJustCheck))
+	if (!CheckBlock(block, state, pindex->nHeight, !fJustCheck, !fJustCheck))
         return false;
 
     // verify that the view's current state corresponds to the previous block
@@ -2033,8 +2134,9 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 
         pindex->nStatus = (pindex->nStatus & ~BLOCK_VALID_MASK) | BLOCK_VALID_SCRIPTS;
 
-        CDiskBlockIndex blockindex(pindex);
-        if (!pblocktree->WriteBlockIndex(blockindex))
+        //CDiskBlockIndex blockindex(pindex);
+        //if (!pblocktree->WriteBlockIndex(blockindex))
+        if (!pblocktree->WriteBlockIndex(*pindex))
             return state.Abort(_("Failed to write block index"));
     }
 
@@ -2341,7 +2443,8 @@ bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos
     pindexNew->nStatus = BLOCK_VALID_TRANSACTIONS | BLOCK_HAVE_DATA;
     setBlockIndexValid.insert(pindexNew);
 
-    if (!pblocktree->WriteBlockIndex(CDiskBlockIndex(pindexNew)))
+	/* write both the immutible data (CDiskBlockIndex) and the mutable data (BlockIndex) */
+    if (!pblocktree->WriteDiskBlockIndex(CDiskBlockIndex(pindexNew, block.auxpow)) || !pblocktree->WriteBlockIndex(*pindexNew))
         return state.Abort(_("Failed to write block index"));
 
     // New best?
@@ -2462,11 +2565,51 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
     return true;
 }
 
+bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, int nHeight, bool fCheckPOW)
+{
+    // Check proof of work matches claimed amount
+    if (fCheckPOW && !block.CheckProofOfWork(nHeight))
+	//if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
+        return state.DoS(50, error("CheckBlockHeader() : proof of work failed"),
+                         REJECT_INVALID, "high-hash");
 
-bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bool fCheckMerkleRoot)
+    // Check timestamp
+    if (block.GetBlockTime() > GetAdjustedTime() + 2 * 60 * 60)
+        return state.Invalid(error("CheckBlockHeader() : block timestamp too far in the future"),
+                             REJECT_INVALID, "time-too-new");
+
+    CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint(mapBlockIndex);
+    if (pcheckpoint && block.hashPrevBlock != (chainActive.Tip() ? chainActive.Tip()->GetBlockHash() : uint256(0)))
+    {
+        // Extra checks to prevent "fill up memory by spamming with bogus blocks"
+        int64_t deltaTime = block.GetBlockTime() - pcheckpoint->nTime;
+        if (deltaTime < 0)
+        {
+			LogPrintf("CheckBlockHeader(): Height=%d, hash=%s, BlockTime=%d, Checkpoint=%d\n", nHeight, block.GetHash().GetHex().c_str(), block.GetBlockTime(), pcheckpoint->nTime);
+            return state.DoS(100, error("CheckBlockHeader() : block with timestamp before last checkpoint"),
+                             REJECT_CHECKPOINT, "time-too-old");
+        }
+        CBigNum bnNewBlock;
+        bnNewBlock.SetCompact(block.nBits);
+        CBigNum bnRequired;
+        bnRequired.SetCompact(ComputeMinWork(pcheckpoint->nBits, deltaTime));
+        if (bnNewBlock > bnRequired)
+        {
+            return state.DoS(100, error("CheckBlockHeader() : block with too little proof-of-work"),
+                             REJECT_INVALID, "bad-diffbits");
+        }
+    }
+
+    return true;
+}
+
+bool CheckBlock(const CBlock& block, CValidationState& state, int nHeight, bool fCheckPOW, bool fCheckMerkleRoot)
 {
     // These are checks that are independent of context
     // that can be verified before saving an orphan block.
+
+	if (!CheckBlockHeader(block, state, nHeight, fCheckPOW))
+		return false;
 
     // Size limits
     if (block.vtx.empty() || block.vtx.size() > MAX_BLOCK_SIZE || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > MAX_BLOCK_SIZE)
@@ -2474,14 +2617,14 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
                          REJECT_INVALID, "bad-blk-length");
 
     // Check proof of work matches claimed amount
-    if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
-        return state.DoS(50, error("CheckBlock() : proof of work failed"),
-                         REJECT_INVALID, "high-hash");
+    // if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(block.GetAlgo()), block.nBits, block.GetAlgo()))
+        // return state.DoS(50, error("CheckBlock() : proof of work failed"),
+                         // REJECT_INVALID, "high-hash");
 
     // Check timestamp
-    if (block.GetBlockTime() > GetAdjustedTime() + 2 * 60 * 60)
-        return state.Invalid(error("CheckBlock() : block timestamp too far in the future"),
-                             REJECT_INVALID, "time-too-new");
+    // if (block.GetBlockTime() > GetAdjustedTime() + 2 * 60 * 60)
+        // return state.Invalid(error("CheckBlock() : block timestamp too far in the future"),
+                             // REJECT_INVALID, "time-too-new");
 
     // First transaction must be coinbase, the rest must not be
     if (block.vtx.empty() || !block.vtx[0].IsCoinBase())
@@ -2531,6 +2674,8 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
 
 bool AcceptBlock(CBlock& block, CValidationState& state, CDiskBlockPos* dbp)
 {
+    LogPrintf("AcceptBlock: BlockTime=%d\n", block.nTime);
+
     AssertLockHeld(cs_main);
     // Check for duplicate
     uint256 hash = block.GetHash();
@@ -2684,6 +2829,48 @@ int64_t CBlockIndex::GetMedianTime() const
     return pindex->GetMedianTimePast();
 }
 
+std::string CBlockIndex::ToString() const
+{
+    return strprintf("CBlockIndex(pprev=%p, nHeight=%d, merkle=%s, hashBlock=%s)",
+                     pprev, nHeight,
+                     hashMerkleRoot.ToString().substr(0,10).c_str(),
+                     GetBlockHash().ToString().c_str());
+}
+
+std::string CDiskBlockIndex::ToString() const
+{
+    std::string str = "CDiskBlockIndex(";
+    str += CBlockIndex::ToString();
+    str += strprintf("\n                hashBlock=%s, hashPrev=%s, hashParentBlock=%s)",
+        GetBlockHash().ToString().c_str(),
+        hashPrev.ToString().c_str(),
+        (auxpow.get() != NULL) ? auxpow->GetParentBlockHash(GetAlgo()).ToString().substr(0,20).c_str() : "-");
+    return str;
+}
+
+CBlockHeader CBlockIndex::GetBlockHeader() const
+{
+    CBlockHeader block;
+
+    if (nVersion & BLOCK_VERSION_AUXPOW) {
+        CDiskBlockIndex diskblockindex;
+        // auxpow is not in memory, load CDiskBlockHeader
+        // from database to get it
+
+        pblocktree->ReadDiskBlockIndex(*phashBlock, diskblockindex);
+        block.auxpow = diskblockindex.auxpow;
+    }
+
+    block.nVersion       = nVersion;
+    if (pprev)
+        block.hashPrevBlock = pprev->GetBlockHash();
+    block.hashMerkleRoot = hashMerkleRoot;
+    block.nTime          = nTime;
+    block.nBits          = nBits;
+    block.nNonce         = nNonce;
+    return block;
+}
+
 void PushGetBlocks(CNode* pnode, CBlockIndex* pindexBegin, uint256 hashEnd)
 {
     AssertLockHeld(cs_main);
@@ -2707,9 +2894,12 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
     if (mapOrphanBlocks.count(hash))
         return state.Invalid(error("ProcessBlock() : already have block (orphan) %s", hash.ToString()), 0, "duplicate");
 
-    // Preliminary checks
-    if (!CheckBlock(*pblock, state))
+	if (!CheckBlock(*pblock, state, INT_MAX))
+	{
+		if (state.CorruptionPossible())
+			mapAlreadyAskedFor.erase(CInv(MSG_BLOCK, hash));
         return error("ProcessBlock() : CheckBlock FAILED");
+	}
 
     CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint(mapBlockIndex);
     if (pcheckpoint && pblock->hashPrevBlock != (chainActive.Tip() ? chainActive.Tip()->GetBlockHash() : uint256(0)))
@@ -3107,7 +3297,7 @@ bool VerifyDB(int nCheckLevel, int nCheckDepth)
         if (!ReadBlockFromDisk(block, pindex))
             return error("VerifyDB() : *** ReadBlockFromDisk failed at %d, hash=%s", pindex->nHeight, pindex->GetBlockHash().ToString());
         // check level 1: verify block validity
-        if (nCheckLevel >= 1 && !CheckBlock(block, state))
+        if (nCheckLevel >= 1 && !CheckBlock(block, state, pindex->nHeight))
             return error("VerifyDB() : *** found bad block at %d, hash=%s\n", pindex->nHeight, pindex->GetBlockHash().ToString());
         // check level 2: verify undo validity
         if (nCheckLevel >= 2 && pindex) {
@@ -3328,6 +3518,7 @@ bool LoadExternalBlockFile(FILE* fileIn, CDiskBlockPos *dbp)
                     if (dbp)
                         dbp->nPos = nBlockPos;
                     CValidationState state;
+                    LogPrintf("LoadExternalBlockFile\n");
                     if (ProcessBlock(state, NULL, &block, dbp))
                         nLoaded++;
                     if (state.IsError())
@@ -4055,6 +4246,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         mapBlockSource[inv.hash] = pfrom->GetId();
         MarkBlockAsReceived(inv.hash, pfrom->GetId());
 
+        LogPrintf("received block %s\n", block.GetHash().ToString());
         CValidationState state;
         ProcessBlock(state, pfrom, &block);
     }

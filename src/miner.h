@@ -7,6 +7,8 @@
 #define BITCOIN_MINER_H
 
 #include <stdint.h>
+#include "auxpow.h"
+#include "core.h"
 
 class CBlock;
 class CBlockIndex;
@@ -22,6 +24,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo);
 CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey, int algo);
 /** Modify the extranonce in a block */
 void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce);
+void IncrementExtraNonceWithAux(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce, std::vector<unsigned char>& vchAux);
 /** Do mining precalculation */
 void FormatHashBuffers(CBlock* pblock, char* pmidstate, char* pdata, char* phash1);
 /** Check mined block */

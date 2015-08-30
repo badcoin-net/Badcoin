@@ -67,6 +67,14 @@ static const int MAX_BLOCKS_IN_TRANSIT_PER_PEER = 128;
 /** Timeout in seconds before considering a block download peer unresponsive. */
 static const unsigned int BLOCK_DOWNLOAD_TIMEOUT = 60;
 
+/** AuxPow Block versions for sanity checks. */
+/** bare AuxPoW block version which will be modulated further. */
+static const int BLOCK_VERSION_AUXPOW_BARE = CBlockHeader::CURRENT_VERSION | (AUXPOW_CHAIN_ID * BLOCK_VERSION_CHAIN_START);
+/** version when AuxPoW exists on the block */
+static const int BLOCK_VERSION_AUXPOW_WITH_AUX = BLOCK_VERSION_AUXPOW_BARE | BLOCK_VERSION_AUXPOW;
+/** version when no AuxPoW exists on the block */
+static const int BLOCK_VERSION_AUXPOW_WITHOUT_AUX = BLOCK_VERSION_AUXPOW_BARE & ~BLOCK_VERSION_AUXPOW;
+
 /** Stealth addresses */
 static const int64_t BLOCK_STEALTH_START = 740000;
 
@@ -179,6 +187,12 @@ int64_t GetBlockValue(int nHeight, int64_t nFees);
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo);
 
 void UpdateTime(CBlockHeader& block, const CBlockIndex* pindexPrev);
+
+/** Determine whether the block version is modulated with auxpow logic */
+bool IsAuxPowVersion(int nVersion);
+
+/** Get the block at which AuxPoW is enabled for this network */
+int GetAuxPowStartBlock();
 
 /** Create a new block index entry for a given block hash */
 CBlockIndex * InsertBlockIndex(uint256 hash);
@@ -608,7 +622,8 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 bool AddToBlockIndex(CBlock& block, CValidationState& state, const CDiskBlockPos& pos);
 
 // Context-independent validity checks
-bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
+bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, int nHeight, bool fCheckPOW = true);
+bool CheckBlock(const CBlock& block, CValidationState& state, int nHeight, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
 
 // Store block on disk
 // if dbp is provided, the file is known to already reside on disk
@@ -705,6 +720,8 @@ const int64_t nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 
  * candidates to be the next block. A blockindex may have multiple pprev pointing
  * to it, but at most one of them can be part of the currently active branch.
  */
+class CDiskBlockIndex;
+
 class CBlockIndex
 {
 public:
@@ -797,6 +814,20 @@ public:
         nNonce         = block.nNonce;
     }
 
+    IMPLEMENT_SERIALIZE
+    (
+        if (!(nType & SER_GETHASH))
+              READWRITE(VARINT(nVersion));
+
+        READWRITE(VARINT(nStatus));
+        if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
+            READWRITE(VARINT(nFile));
+        if (nStatus & BLOCK_HAVE_DATA)
+            READWRITE(VARINT(nDataPos));
+        if (nStatus & BLOCK_HAVE_UNDO)
+            READWRITE(VARINT(nUndoPos));
+    )
+
     int GetAlgo() const { return ::GetAlgo(nVersion); }
 
     CDiskBlockPos GetBlockPos() const {
@@ -817,18 +848,7 @@ public:
         return ret;
     }
 
-    CBlockHeader GetBlockHeader() const
-    {
-        CBlockHeader block;
-        block.nVersion       = nVersion;
-        if (pprev)
-            block.hashPrevBlock = pprev->GetBlockHash();
-        block.hashMerkleRoot = hashMerkleRoot;
-        block.nTime          = nTime;
-        block.nBits          = nBits;
-        block.nNonce         = nNonce;
-        return block;
-    }
+    CBlockHeader GetBlockHeader() const;
 
     uint256 GetBlockHash() const
     {
@@ -904,6 +924,30 @@ public:
         return CBigNum(0);
     }
 
+    CBigNum GetPrevWorkForAlgoWithDecay3(int algo) const
+    {
+        int nDistance = 0;
+        CBigNum nWork;
+        CBlockIndex* pindex = this->pprev;
+        while (pindex)
+        {
+            if (nDistance > 100)
+            {
+                return CBigNum(0);
+            }
+            if (pindex->GetAlgo() == algo)
+            {
+                CBigNum nWork = pindex->GetBlockWork();
+                nWork *= (100 - nDistance);
+                nWork /= 100;
+                return nWork;
+            }
+            pindex = pindex->pprev;
+            nDistance++;
+        }
+        return CBigNum(0);
+    }
+
     CBigNum GetBlockWork() const
     {
         CBigNum bnTarget;
@@ -944,7 +988,27 @@ public:
     CBigNum GetBlockWorkAdjusted() const
     {
         CBigNum bnRes;
-        if ((TestNet() && (nHeight > 500)) ||
+        if ( (TestNet() && (nHeight > 150)) || (nHeight >= GeoAvgWork_Start) )
+        {
+            CBigNum nBlockWork = GetBlockWork();
+            int nAlgo = GetAlgo();
+            for (int algo = 0; algo < NUM_ALGOS; algo++)
+            {
+                if (algo != nAlgo)
+                {
+                    CBigNum nBlockWorkAlt = GetPrevWorkForAlgoWithDecay3(algo);
+                    if (nBlockWorkAlt != 0)
+                        nBlockWork *= nBlockWorkAlt;
+                }
+            }
+            bnRes = nBlockWork;
+            // Compute the geometric mean
+            bnRes = bnRes.nthRoot(NUM_ALGOS);
+            // Scale to roughly match the old work calculation
+            bnRes <<= 8;
+        }
+        else
+        if (TestNet() ||
             (nHeight >= nBlockAlgoNormalisedWorkStart))
         {
             // Adjusted block work is the sum of work of this block and the
@@ -955,7 +1019,7 @@ public:
             {
                 if (algo != nAlgo)
                 {
-                    if (nHeight >= nBlockAlgoNormalisedWorkDecayStart2)
+                    if (TestNet() || (nHeight >= nBlockAlgoNormalisedWorkDecayStart2))
                         nBlockWork += GetPrevWorkForAlgoWithDecay2(algo);
                     else
                         if (nHeight >= nBlockAlgoNormalisedWorkDecayStart)
@@ -975,10 +1039,12 @@ public:
 
     bool CheckIndex() const
     {
-        int algo = GetAlgo();
+    /*  This check was considered unneccessary given the other safeguards like the genesis and checkpoints, and it breaks LoadBlockIndexGuts() after AuxPow is enabled. */
+
+	/*        int algo = GetAlgo();
         if (algo == ALGO_SHA256D)
             return CheckProofOfWork(GetBlockHash(), nBits, algo);
-        else
+        else*/
             return true;
     }
 
@@ -1007,13 +1073,7 @@ public:
     static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart,
                                 unsigned int nRequired, unsigned int nToCheck);
 
-    std::string ToString() const
-    {
-        return strprintf("CBlockIndex(pprev=%p, nHeight=%d, merkle=%s, hashBlock=%s)",
-            pprev, nHeight,
-            hashMerkleRoot.ToString().c_str(),
-            GetBlockHash().ToString().c_str());
-    }
+    std::string ToString() const; //moved code to main.cpp because new method required access to auxpow
 
     void print() const
     {
@@ -1030,12 +1090,20 @@ class CDiskBlockIndex : public CBlockIndex
 public:
     uint256 hashPrev;
 
+    // if this is an aux work block
+    boost::shared_ptr<CAuxPow> auxpow;
+
     CDiskBlockIndex() {
         hashPrev = 0;
+		auxpow.reset();
     }
 
-    explicit CDiskBlockIndex(CBlockIndex* pindex) : CBlockIndex(*pindex) {
+    //CDiskBlockIndex(CBlockIndex* pindex) : CBlockIndex(*pindex) {
+    //    hashPrev = (pprev ? pprev->GetBlockHash() : 0);
+    //}
+    explicit CDiskBlockIndex(CBlockIndex* pindex, boost::shared_ptr<CAuxPow> auxpow) : CBlockIndex(*pindex) {
         hashPrev = (pprev ? pprev->GetBlockHash() : 0);
+		this->auxpow = auxpow;
     }
 
     IMPLEMENT_SERIALIZE
@@ -1044,14 +1112,7 @@ public:
             READWRITE(VARINT(nVersion));
 
         READWRITE(VARINT(nHeight));
-        READWRITE(VARINT(nStatus));
         READWRITE(VARINT(nTx));
-        if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
-            READWRITE(VARINT(nFile));
-        if (nStatus & BLOCK_HAVE_DATA)
-            READWRITE(VARINT(nDataPos));
-        if (nStatus & BLOCK_HAVE_UNDO)
-            READWRITE(VARINT(nUndoPos));
 
         // block header
         READWRITE(this->nVersion);
@@ -1060,6 +1121,7 @@ public:
         READWRITE(nTime);
         READWRITE(nBits);
         READWRITE(nNonce);
+		ReadWriteAuxPow(s, auxpow, nType, this->nVersion, ser_action);
     )
 
     uint256 GetBlockHash() const
@@ -1075,15 +1137,7 @@ public:
     }
 
 
-    std::string ToString() const
-    {
-        std::string str = "CDiskBlockIndex(";
-        str += CBlockIndex::ToString();
-        str += strprintf("\n                hashBlock=%s, hashPrev=%s)",
-            GetBlockHash().ToString().c_str(),
-            hashPrev.ToString().c_str());
-        return str;
-    }
+    std::string ToString() const; // moved code to main.cpp
 
     void print() const
     {

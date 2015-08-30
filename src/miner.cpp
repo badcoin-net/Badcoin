@@ -8,6 +8,7 @@
 #include "core.h"
 #include "main.h"
 #include "net.h"
+#include "auxpow.h"
 #ifdef ENABLE_WALLET
 #include "wallet.h"
 #endif
@@ -134,7 +135,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, int algo)
             error("CreateNewBlock: bad algo");
             return NULL;
     }
-    
+
     // Create coinbase tx
     CTransaction txNew;
     txNew.vin.resize(1);
@@ -487,19 +488,39 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 {
     int algo = pblock->GetAlgo();
     uint256 hashPoW = pblock->GetPoWHash(algo);
-    uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
+	uint256 hash = pblock->GetHash();
+	uint256 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
 
-    if (hashPoW > hashTarget)
-        return false;
+	// LogPrintf("DEBUG| proof-of-work submitted  \n  algo: %s\nblock-PoWhash: %s\nblock-hash: %s\n  ntarget: %s\n",
+		// algo,
+		// hashPoW.GetHex(),
+        // hash.GetHex(),
+        // hashTarget.GetHex());
 
-    uint256 hashBlock = pblock->GetHash();
-    
-    //// debug print
-    LogPrintf("MyriadcoinMiner:\n");
-    LogPrintf("proof-of-work found  \n  block-hash: %s\n  pow-hash: %s\ntarget: %s\n", 
-        hashBlock.GetHex(), 
-        hashPoW.GetHex(), 
-        hashTarget.GetHex());
+	CAuxPow *auxpow = pblock->auxpow.get();
+
+    if (auxpow != NULL) {
+        if (!auxpow->Check(pblock->GetHash(), pblock->GetChainID()))
+            return error("AUX POW is not valid");
+
+        if (auxpow->GetParentBlockHash(algo) > hashTarget)
+            return error("AUX POW parent hash %s is not under target %s", auxpow->GetParentBlockHash(algo).GetHex().c_str(), hashTarget.GetHex().c_str());
+
+        // print to log
+        LogPrintf("MyriadMiner: AUX proof-of-work found; our hash: %s ; parent hash: %s ; target: %s\n",
+               hash.GetHex().c_str(),
+               auxpow->GetParentBlockHash(algo).GetHex().c_str(),
+               hashTarget.GetHex().c_str());
+    }
+    else
+    {
+        if (hashPoW > hashTarget)
+            return false;
+
+        // print to log
+        LogPrintf("MyriadMiner: proof-of-work found; hashPoW: %s ; target: %s\n", hashPoW.GetHex().c_str(), hashTarget.GetHex().c_str());
+    }
+
     pblock->print();
     LogPrintf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue));
 
@@ -507,7 +528,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
-            return error("MyriadcoinMiner : generated block is stale");
+            return error("MyriadMiner : generated block is stale");
 
         // Remove key from key pool
         reservekey.KeepKey();
@@ -521,7 +542,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         // Process this block the same as if we had received it from another node
         CValidationState state;
         if (!ProcessBlock(state, NULL, pblock))
-            return error("MyriadcoinMiner : ProcessBlock, block not accepted");
+            return error("MyriadMiner : ProcessBlock, block not accepted");
     }
 
     return true;
@@ -529,7 +550,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
 void static MinerWaitOnline()
 {
-    if (Params().NetworkID() != CChainParams::REGTEST) 
+    if (Params().NetworkID() != CChainParams::REGTEST)
     {
         // Busy-wait for the network to come online so we don't waste time mining
         // on an obsolete chain. In regtest mode we expect to fly solo.
@@ -683,7 +704,7 @@ void static ScryptMiner(CWallet *pwallet)
     while(true)
     {
         MinerWaitOnline();
-        
+
         //
         // Create new block
         //
@@ -695,7 +716,7 @@ void static ScryptMiner(CWallet *pwallet)
             return;
         CBlock *pblock = &pblocktemplate->block;
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
-            
+
         LogPrintf("Running scrypt miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
@@ -801,7 +822,7 @@ void static ScryptMiner(CWallet *pwallet)
                 nBlockBits = ByteReverse(pblock->nBits);
                 hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
             }
-            
+
         }
     }
 }
@@ -828,7 +849,7 @@ void static GenericMiner(CWallet *pwallet, int algo)
         CBlock *pblock = &pblocktemplate->block;
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-        LogPrintf("Running %s miner with %u transactions in block (%u bytes)\n", 
+        LogPrintf("Running %s miner with %u transactions in block (%u bytes)\n",
                GetAlgoName(algo).c_str(),
                pblock->vtx.size(),
                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
@@ -853,7 +874,7 @@ void static GenericMiner(CWallet *pwallet, int algo)
                 break;
             }
             ++pblock->nNonce;
-            
+
             // Meter hashes/sec
             static int64_t nHashCounter;
             if (nHPSTimerStart == 0)
@@ -904,7 +925,7 @@ void static GenericMiner(CWallet *pwallet, int algo)
                 // hashTarget = CBigNum().SetCompact(pblock->nBits).getuint256();
             }
         }
-    } 
+    }
 }
 
 void static ThreadBitcoinMiner(CWallet *pwallet)
@@ -912,8 +933,8 @@ void static ThreadBitcoinMiner(CWallet *pwallet)
     LogPrintf("Myriadcoin miner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("bitcoin-miner");
-    
-    try 
+
+    try
     {
         switch (miningAlgo)
         {

@@ -28,6 +28,7 @@ BITCOIN_CORE_H = \
   addrman.h \
   alert.h \
   allocators.h \
+  auxpow.h \
   base58.h bignum.h \
   bloom.h \
   chainparams.h \
@@ -85,7 +86,8 @@ BITCOIN_CORE_H = \
   hashgroestl.h \
   hashskein.h \
   hashqubit.h \
-  stealthaddress.h
+  stealthaddress.h \
+  auxpow.h
 
 JSON_H = \
   json/json_spirit.h \
@@ -107,6 +109,7 @@ version.o: obj/build.h
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
+  auxpow.cpp \
   bloom.cpp \
   checkpoints.cpp \
   coins.cpp \
@@ -125,6 +128,7 @@ libbitcoin_server_a_SOURCES = \
   rpcserver.cpp \
   txdb.cpp \
   txmempool.cpp \
+  auxpow.cpp \
   $(JSON_H) \
   $(BITCOIN_CORE_H)
 
