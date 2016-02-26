@@ -59,7 +59,7 @@ QString BitcoinUnits::description(int unit)
     switch(unit)
     {
     case MBTC: return QString("Mega-Myriad (1,000,000)");
-    case kBTC: return QString("Kilo-Myriad" (1,000));
+    case kBTC: return QString("Kilo-Myriad (1,000)");
     case BTC: return QString("Myriad");
     case mBTC: return QString("Milli-Bitcoins (1 / 1" THIN_SP_UTF8 "000)");
     case uBTC: return QString("Micro-Bitcoins (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
