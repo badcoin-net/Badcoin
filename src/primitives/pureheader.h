@@ -20,7 +20,7 @@ enum {
 enum
 {
     // primary version
-    BLOCK_VERSION_DEFAULT        = 3,
+    BLOCK_VERSION_DEFAULT        = 4,
 
     // algo
     BLOCK_VERSION_ALGO           = (7 << 9),

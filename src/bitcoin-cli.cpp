@@ -62,11 +62,11 @@ static bool AppInitRPC(int argc, char* argv[])
     // Parameters
     //
     ParseParameters(argc, argv);
-    if (argc<2 || mapArgs.count("-?") || mapArgs.count("-help") || mapArgs.count("-version")) {
-        std::string strUsage = _("Myriadcoin Core RPC client version") + " " + FormatFullVersion() + "\n";
+    if (argc<2 || mapArgs.count("-?") || mapArgs.count("-h") || mapArgs.count("-help") || mapArgs.count("-version")) {
+        std::string strUsage = _("Myriad Core RPC client version") + " " + FormatFullVersion() + "\n";
         if (!mapArgs.count("-version")) {
             strUsage += "\n" + _("Usage:") + "\n" +
-                  "  myriadcoin-cli [options] <command> [params]  " + _("Send command to Myriadcoin Core") + "\n" +
+                  "  myriadcoin-cli [options] <command> [params]  " + _("Send command to Myriad Core") + "\n" +
                   "  myriadcoin-cli [options] help                " + _("List commands") + "\n" +
                   "  myriadcoin-cli [options] help <command>      " + _("Get help for a command") + "\n";
 
