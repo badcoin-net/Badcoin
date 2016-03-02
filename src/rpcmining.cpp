@@ -441,10 +441,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Myriadcoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Myriad is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Myriadcoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Myriad is downloading blocks...");
 
     static unsigned int nTransactionsUpdatedLast;
 
@@ -775,11 +775,11 @@ Value getauxblockbip22(const Array& params, bool fHelp)
 
     if (vNodes.empty() && !Params().MineBlocksOnDemand())
         throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED,
-                           "Dogecoin is not connected!");
+                           "Myriad is not connected!");
 
     if (IsInitialBlockDownload() && !Params().MineBlocksOnDemand())
         throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD,
-                           "Dogecoin is downloading blocks...");
+                           "Myriad is downloading blocks...");
     
     /* The variables below are used to keep track of created and not yet
        submitted auxpow blocks.  Lock them, just in case.  In principle

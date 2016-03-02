@@ -42,7 +42,7 @@ string HTTPPost(const string& strMsg, const map<string,string>& mapRequestHeader
 {
     ostringstream s;
     s << "POST / HTTP/1.1\r\n"
-      << "User-Agent: myriadcoin-json-rpc/" << FormatFullVersion() << "\r\n"
+      << "User-Agent: myriad-json-rpc/" << FormatFullVersion() << "\r\n"
       << "Host: 127.0.0.1\r\n"
       << "Content-Type: application/json\r\n"
       << "Content-Length: " << strMsg.size() << "\r\n"
@@ -77,7 +77,7 @@ string HTTPError(int nStatus, bool keepalive, bool headersOnly)
     if (nStatus == HTTP_UNAUTHORIZED)
         return strprintf("HTTP/1.0 401 Authorization Required\r\n"
             "Date: %s\r\n"
-            "Server: myriadcoin-json-rpc/%s\r\n"
+            "Server: myriad-json-rpc/%s\r\n"
             "WWW-Authenticate: Basic realm=\"jsonrpc\"\r\n"
             "Content-Type: text/html\r\n"
             "Content-Length: 296\r\n"

@@ -434,7 +434,7 @@ static bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& rese
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
-            return error("BitcoinMiner: generated block is stale");
+            return error("MyriadMiner: generated block is stale");
     }
 
     // Remove key from key pool
@@ -449,14 +449,14 @@ static bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& rese
     // Process this block the same as if we had received it from another node
     CValidationState state;
     if (!ProcessNewBlock(state, NULL, pblock, true, NULL))
-        return error("BitcoinMiner: ProcessNewBlock, block not accepted");
+        return error("MyriadMiner: ProcessNewBlock, block not accepted");
 
     return true;
 }
 
 void static BitcoinMiner(CWallet *pwallet)
 {
-    LogPrintf("MyriadcoinMiner started\n");
+    LogPrintf("MyriadMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("bitcoin-miner");
     const CChainParams& chainparams = Params();
@@ -491,13 +491,13 @@ void static BitcoinMiner(CWallet *pwallet)
             auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, ALGO_SHA256D));
             if (!pblocktemplate.get())
             {
-                LogPrintf("Error in BitcoinMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+                LogPrintf("Error in MyriadMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
                 return;
             }
             CBlock *pblock = &pblocktemplate->block;
             IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-            LogPrintf("Running BitcoinMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+            LogPrintf("Running MyriadMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
                 ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
             //
@@ -518,7 +518,7 @@ void static BitcoinMiner(CWallet *pwallet)
                         assert(hash == pblock->GetHash());
 
                         SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                        LogPrintf("BitcoinMiner:\n");
+                        LogPrintf("MyriadMiner:\n");
                         LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
                         ProcessBlockFound(pblock, *pwallet, reservekey);
                         SetThreadPriority(THREAD_PRIORITY_LOWEST);
@@ -555,12 +555,12 @@ void static BitcoinMiner(CWallet *pwallet)
     }
     catch (const boost::thread_interrupted&)
     {
-        LogPrintf("BitcoinMiner terminated\n");
+        LogPrintf("MyriadMiner terminated\n");
         throw;
     }
     catch (const std::runtime_error &e)
     {
-        LogPrintf("BitcoinMiner runtime error: %s\n", e.what());
+        LogPrintf("MyriadMiner runtime error: %s\n", e.what());
         return;
     }
 }
@@ -574,7 +574,7 @@ void static GenericMiner(CWallet *pwallet, int algo)
     
     while(true)
     {
-/*        if (chainparams.MiningRequiresPeers()) {
+        if (chainparams.MiningRequiresPeers()) {
             // Busy-wait for the network to come online so we don't waste time mining
             // on an obsolete chain. In regtest mode we expect to fly solo.
             do {
@@ -587,7 +587,7 @@ void static GenericMiner(CWallet *pwallet, int algo)
                     break;
                 MilliSleep(1000);
             } while (true);
-        }*/
+        }
 
         //
         // Create new block
@@ -598,7 +598,7 @@ void static GenericMiner(CWallet *pwallet, int algo)
         auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, algo));
         if (!pblocktemplate.get())
         {
-            LogPrintf("Error in MyriadcoinMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+            LogPrintf("Error in MyriadMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
             return;
         }
         CBlock *pblock = &pblocktemplate->block;
@@ -613,14 +613,14 @@ void static GenericMiner(CWallet *pwallet, int algo)
         //
         int64_t nStart = GetTime();
         arith_uint256 hashTarget = arith_uint256().SetCompact(pblock->nBits);
-        LogPrintf("MyriadcoinMiner target hash: %s\n", hashTarget.GetHex());
+        LogPrintf("MyriadMiner target hash: %s\n", hashTarget.GetHex());
         uint256 hash;
         while(true)
         {
             hash = pblock->GetPoWHash(algo);
             if (UintToArith256(hash) <= hashTarget){
                 SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                LogPrintf("MyriadcoinMiner:\n");
+                LogPrintf("MyriadMiner:\n");
                 LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
                 ProcessBlockFound(pblock, *pwallet, reservekey);
                 SetThreadPriority(THREAD_PRIORITY_LOWEST);
@@ -658,7 +658,7 @@ void static GenericMiner(CWallet *pwallet, int algo)
 
 void static ThreadMiner(CWallet *pwallet)
 {
-    LogPrintf("Myriadcoin miner started\n");
+    LogPrintf("MyriadMiner miner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("bitcoin-miner");
 
@@ -686,7 +686,7 @@ void static ThreadMiner(CWallet *pwallet)
     }
     catch (boost::thread_interrupted)
     {
-        LogPrintf("Myriadcoin miner terminated\n");
+        LogPrintf("MyriadMiner miner terminated\n");
         throw;
     }
 }
