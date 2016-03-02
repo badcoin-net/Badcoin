@@ -5,7 +5,6 @@
 #include "arith_uint256.h"
 #include "tinyformat.h"
 #include "chainparams.h"
-#include <stdio.h>
 #include "util.h"
 #include "utilstrencodings.h"
 
@@ -112,42 +111,6 @@ public:
 
         consensus.hashGenesisBlock = genesis.GetHash();
         
-        // If genesis block hash does not match, then generate new genesis hash.
-        
-        uint256 tmphashGenesisBlock = uint256S("0x00000ffde4c020b5938441a0ea3d314bf619eff0b38f32f78f7583cffa1ea485");
-        if (true && genesis.GetHash() != tmphashGenesisBlock)
-        {
-            printf("Searching for genesis block...\n");
-            bool fNegative;
-            bool fOverflow;
-            arith_uint256 bnTarget;
-            bnTarget.SetCompact(genesis.nBits, &fNegative, &fOverflow);
-            int algo = genesis.GetAlgo();
-            uint256 thash = genesis.GetPoWHash(algo);
-            
-            while (UintToArith256(thash) > bnTarget)
-            {
-                thash = genesis.GetPoWHash(algo);
-                if (UintToArith256(thash) <= bnTarget)
-                    break;
-                if ((genesis.nNonce & 0xFFFFF) == 0)
-                {
-                    printf("nonce %08X: PoWhash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), bnTarget.ToString().c_str());
-                }
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time\n");
-                    ++genesis.nTime;
-                }
-            }
-            printf("genesis.nTime = %u \n", genesis.nTime);
-            printf("genesis.nNonce = %u \n", genesis.nNonce);
-            printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-            printf("genesis.GetPoWHash = %s\n", genesis.GetPoWHash(algo).ToString().c_str());
-            printf("genesis.hashMerkleRoot = %s\n", genesis.BuildMerkleTree().ToString().c_str());
-        }
-        
         assert(consensus.hashGenesisBlock == uint256S("0x00000ffde4c020b5938441a0ea3d314bf619eff0b38f32f78f7583cffa1ea485"));
         assert(genesis.hashMerkleRoot == uint256S("0x3f75db3c18e92f46c21530dc1222e1fddf4ccebbf88e289a6c9dc787fd6469da"));
 
@@ -232,43 +195,6 @@ public:
         genesis.nNonce = 416875379;
         consensus.hashGenesisBlock = genesis.GetHash();
         
-        // If genesis block hash does not match, then generate new genesis hash.
-        
-        uint256 tmphashGenesisBlock = uint256S("0x0000017ce2a79c8bddafbbe47c004aa92b20678c354b34085f62b762084b9788");
-        if (true && genesis.GetHash() != tmphashGenesisBlock)
-        {
-            printf("Searching for Testnet genesis block...\n");
-            bool fNegative;
-            bool fOverflow;
-            arith_uint256 bnTarget;
-            bnTarget.SetCompact(genesis.nBits, &fNegative, &fOverflow);
-            
-            int algo = genesis.GetAlgo();
-            uint256 thash = genesis.GetPoWHash(algo);
-            
-            while (UintToArith256(thash) > bnTarget)
-            {
-                thash = genesis.GetPoWHash(algo);
-                if (UintToArith256(thash) <= bnTarget)
-                    break;
-                if ((genesis.nNonce & 0xFFFFF) == 0)
-                {
-                    printf("nonce %08X: PoWhash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), bnTarget.ToString().c_str());
-                }
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time\n");
-                    ++genesis.nTime;
-                }
-            }
-            printf("genesis.nTime = %u \n", genesis.nTime);
-            printf("genesis.nNonce = %u \n", genesis.nNonce);
-            printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-            printf("genesis.GetPoWHash = %s\n", genesis.GetPoWHash(algo).ToString().c_str());
-            printf("genesis.hashMerkleRoot = %s\n", genesis.BuildMerkleTree().ToString().c_str());
-        }
-        
         assert(consensus.hashGenesisBlock == uint256S("0x0000017ce2a79c8bddafbbe47c004aa92b20678c354b34085f62b762084b9788"));
 
         vFixedSeeds.clear();
@@ -325,43 +251,6 @@ public:
         genesis.nNonce = 4;
         consensus.hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 18444;
-        
-        // If genesis block hash does not match, then generate new genesis hash.
-        
-        uint256 tmphashGenesisBlock = uint256S("0x63b92987ddc93808aa33dddc80b3e52948bdfffaf2420bf4cd9c5137b54ea37c");
-        if (true && genesis.GetHash() != tmphashGenesisBlock)
-        {
-            printf("Searching for Regtest genesis block...\n");
-            bool fNegative;
-            bool fOverflow;
-            arith_uint256 bnTarget;
-            bnTarget.SetCompact(genesis.nBits, &fNegative, &fOverflow);
-            
-            int algo = genesis.GetAlgo();
-            uint256 thash = genesis.GetPoWHash(algo);
-            
-            while (UintToArith256(thash) > bnTarget)
-            {
-                thash = genesis.GetPoWHash(algo);
-                if (UintToArith256(thash) <= bnTarget)
-                    break;
-                if ((genesis.nNonce & 0xFFFFF) == 0)
-                {
-                    printf("nonce %08X: PoWhash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), bnTarget.ToString().c_str());
-                }
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time\n");
-                    ++genesis.nTime;
-                }
-            }
-            printf("genesis.nTime = %u \n", genesis.nTime);
-            printf("genesis.nNonce = %u \n", genesis.nNonce);
-            printf("genesis.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-            printf("genesis.GetPoWHash = %s\n", genesis.GetPoWHash(algo).ToString().c_str());
-            printf("genesis.hashMerkleRoot = %s\n", genesis.BuildMerkleTree().ToString().c_str());
-        }
         
         assert(consensus.hashGenesisBlock == uint256S("0x63b92987ddc93808aa33dddc80b3e52948bdfffaf2420bf4cd9c5137b54ea37c"));
         nPruneAfterHeight = 1000;

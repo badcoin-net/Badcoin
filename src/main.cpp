@@ -1268,7 +1268,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
         // return 0;
 
     CAmount nSubsidy = 1000 * COIN;
-    // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
+    // Subsidy is cut in half every 967680 blocks.
     nSubsidy >>= halvings;
     if(nSubsidy < 1 * COIN)
         nSubsidy = 1 * COIN;
@@ -2919,10 +2919,6 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
 bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, CBlockIndex** ppindex)
 {
     const CChainParams& chainparams = Params();
-    // const int64_t nBlockSequentialAlgoRuleStart = 740000; // block where sequential algo rule starts
-    // const int64_t nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
-    // const int nBlockSequentialAlgoMaxCount = 6; // maximum sequential blocks of same algo
-    // const int nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
     
     AssertLockHeld(cs_main);
     // Check for duplicate
@@ -3068,20 +3064,6 @@ static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned 
 
 bool ProcessNewBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, bool fForceProcessing, CDiskBlockPos *dbp)
 {
-/*    if(fDebug)
-    {
-        uint256 hash = pblock->GetHash();
-        uint256 hashPoW = pblock->GetPoWHash();
-        bool fNegative;
-        bool fOverflow;
-        arith_uint256 bnTarget;
-        bnTarget.SetCompact(pblock->nBits, &fNegative, &fOverflow);
-        
-        LogPrintf("DEBUG: proof-of-work submitted  \n  block-PoWhash: %s\nblock-hash: %s\n  ntarget: %s\n",
-            hashPoW.ToString().c_str(),
-            hash.ToString().c_str(),
-            bnTarget.ToString().c_str());
-    }*/
     // Preliminary checks
     bool checked = CheckBlock(*pblock, state);
 

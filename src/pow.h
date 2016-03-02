@@ -37,6 +37,5 @@ int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& fr
 const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, int algo);
 const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo);
 
-arith_uint256 nthRoot(const arith_uint256& value, int n);
 
 #endif // BITCOIN_POW_H

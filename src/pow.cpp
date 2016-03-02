@@ -16,10 +16,6 @@
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);
-    // const int64_t nBlockTimeWarpPreventStart = 740500; // block where time warp 1 prevention starts
-    // const int64_t nBlockTimeWarpPreventStart2 = 766000; // block where time warp 2 prevention starts
-    // const int64_t nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 prevention starts
-    // const int64_t Phase2Timespan_Start = 1401000;
 
     // Genesis block
     if (pindexLast == NULL)
@@ -160,15 +156,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 unsigned int CalculateNextWorkRequiredV1(const CBlockIndex* pindexPrev, const CBlockIndex* pindexFirst, const Consensus::Params& params, int algo, int64_t nActualTimespan, int nHeight)
 {
-    //const int64_t nBlockDiffAdjustV2 = 766000; // block where difficulty adjust V2 starts
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);    
     
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV1 * NUM_ALGOS; // 30 * 5 = 150s per algo
     int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 * 150 = 1500s, 25 minutes
-    // int64_t nMaxAdjustDown = 4; // 4% adjustment down
-    // int64_t nMaxAdjustUpV1 = 2; // 2% adjustment up
-    // int64_t nMaxAdjustUpV2 = 4; // 4% adjustment up
-    
     int64_t nMinActualTimespanV1 = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV1) / 100;
     int64_t nMinActualTimespanV2 = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV2) / 100;
     int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + params.nMaxAdjustDown) / 100;
@@ -222,9 +213,6 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
     
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV2 * NUM_ALGOS; // 60 * 5 = 300s per algo
     int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 * 300 = 3000s, 50 minutes
-    // int64_t nMaxAdjustDown = 4; // 4% adjustment down
-    // int64_t nMaxAdjustUp = 4; // 4% adjustment up
-    
     int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV2) / 100;
     int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + params.nMaxAdjustDown) / 100;
     
@@ -419,9 +407,7 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
                 bnBlockWork *= bnBlockWorkAlt;
         }
     }
-    //bnRes = nBlockWork;
     // Compute the geometric mean
-    //bnRes = nthRoot(bnRes, NUM_ALGOS);
     CBigNum bnRes = bnBlockWork.nthRoot(NUM_ALGOS);
     
     // Scale to roughly match the old work calculation
@@ -433,12 +419,6 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
 
 arith_uint256 GetBlockProof(const CBlockIndex& block)
 {
-    // const int64_t nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
-    // const int64_t nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
-    // const int64_t nBlockAlgoNormalisedWorkDecayStart = 866000; // block where weight decay starts
-    // const int64_t nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
-    // const int64_t nGeoAvgWork_Start = 1400000;
-
     const CChainParams& chainparams = Params();
     
     arith_uint256 bnTarget;
@@ -583,93 +563,4 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
     }
 }
 
-int BN_cmp(arith_uint256 a, arith_uint256 b)
-{
-    if(a < b)
-        return -1;
-    if(a > b)
-        return 1;
-    return 0;
-}
 
-arith_uint256 BN_set_negative(arith_uint256 value, int sign)
-{
-    if(value<0 && sign)
-    {
-        return value;
-    }
-    else
-    {
-        return -1 * value;
-    }
-}
-
-arith_uint256 nthRoot(const arith_uint256& value, int n)
-{
-    assert(n > 1);
-    if (value==0)
-        return 0;
-    assert(value>0);
-
-    // starting approximation
-    int nRootBits = (value.bits() + n - 1) / n;
-    int nStartingBits = std::min(8, nRootBits);
-    arith_uint256 bnUpper = value;
-    bnUpper >>= (nRootBits - nStartingBits)*n;
-    arith_uint256 bnCur = 0;
-    for (int i = nStartingBits - 1; i >= 0; i--)
-    {
-        arith_uint256 bnNext = bnCur;
-        bnNext += 1 << i;
-        arith_uint256 bnPower(1);
-        for (int j = 0; j < n; j++)
-            bnPower *= bnNext;
-        if (BN_cmp(bnPower, bnUpper) <= 0)
-            bnCur = bnNext;
-    }
-    if (nRootBits == nStartingBits)
-        return bnCur;
-    bnCur <<= nRootBits - nStartingBits;
-
-    // iterate: cur = cur + (*this / cur^^(n-1) - cur)/n
-    arith_uint256 bnDelta;
-    arith_uint256 bnRoot(n);
-    int nTerminate = 0;
-    // this should always converge in fewer steps, but limit just in case
-    for (int it = 0; it < 20; it++)
-    {
-        arith_uint256 bnDenominator = 1;
-        for (int i = 0; i < n - 1; i++)
-            bnDenominator *= bnCur;
-        bnDelta = value / bnDenominator - bnCur;
-        if (bnDelta.EqualTo(0))
-            return bnCur;
-        if (bnDelta<0)
-        {
-            if (nTerminate == 1)
-                return bnCur - 1;
-            bnDelta = BN_set_negative(bnDelta, 0);
-            if (BN_cmp(bnDelta, bnRoot) <= 0)
-            {
-                bnCur -= 1;
-                nTerminate = -1;
-                continue;
-            }
-            bnDelta = BN_set_negative(bnDelta, 1);
-        }
-        else
-        {
-            if (nTerminate == -1)
-                return bnCur;
-            if (BN_cmp(bnDelta, bnRoot) <= 0)
-            {
-                bnCur += 1;
-                nTerminate = 1;
-                continue;
-            }
-        }
-        bnCur += bnDelta / n;
-        nTerminate = 0;
-    }
-    return bnCur;
-}
