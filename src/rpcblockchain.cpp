@@ -557,7 +557,12 @@ Value getblockchaininfo(const Array& params, bool fHelp)
             "  \"blocks\": xxxxxx,         (numeric) the current number of blocks processed in the server\n"
             "  \"headers\": xxxxxx,        (numeric) the current number of headers we have validated\n"
             "  \"bestblockhash\": \"...\", (string) the hash of the currently best block\n"
-            "  \"difficulty\": xxxxxx,     (numeric) the current difficulty\n"
+            "  \"difficulty\": xxxxxx,     (numeric) the current difficulty for configured algorithm\n"
+            "  \"difficulty_sha256d\": xxxxxx,   (numeric) the current difficulty for sha256d\n"
+            "  \"difficulty_scrypt\": xxxxxx,    (numeric) the current difficulty for scrypt\n"
+            "  \"difficulty_groestl\": xxxxxx,   (numeric) the current difficulty for myr-groestl\n"
+            "  \"difficulty_skein\": xxxxxx,     (numeric) the current difficulty for skein\n"
+            "  \"difficulty_qubit\": xxxxxx,     (numeric) the current difficulty for qubit\n"
             "  \"verificationprogress\": xxxx, (numeric) estimate of verification progress [0..1]\n"
             "  \"chainwork\": \"xxxx\"     (string) total amount of work in active chain, in hexadecimal\n"
             "  \"softforks\": [            (array) status of softforks in progress\n"
@@ -587,6 +592,11 @@ Value getblockchaininfo(const Array& params, bool fHelp)
     obj.push_back(Pair("headers",               pindexBestHeader ? pindexBestHeader->nHeight : -1));
     obj.push_back(Pair("bestblockhash",         chainActive.Tip()->GetBlockHash().GetHex()));
     obj.push_back(Pair("difficulty",            (double)GetDifficulty(NULL, miningAlgo)));
+    obj.push_back(Pair("difficulty_sha256d",    (double)GetDifficulty(NULL, ALGO_SHA256D)));
+    obj.push_back(Pair("difficulty_scrypt",     (double)GetDifficulty(NULL, ALGO_SCRYPT)));
+    obj.push_back(Pair("difficulty_groestl",    (double)GetDifficulty(NULL, ALGO_GROESTL)));
+    obj.push_back(Pair("difficulty_skein",      (double)GetDifficulty(NULL, ALGO_SKEIN)));
+    obj.push_back(Pair("difficulty_qubit",      (double)GetDifficulty(NULL, ALGO_QUBIT)));
     obj.push_back(Pair("verificationprogress",  Checkpoints::GuessVerificationProgress(Params().Checkpoints(), chainActive.Tip())));
     obj.push_back(Pair("chainwork",             chainActive.Tip()->nChainWork.GetHex()));
     obj.push_back(Pair("pruned",                fPruneMode));
