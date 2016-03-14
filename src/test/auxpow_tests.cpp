@@ -5,7 +5,6 @@
 #include "auxpow.h"
 #include "chainparams.h"
 #include "coins.h"
-#include "dogecoin.h"
 #include "main.h"
 #include "uint256.h"
 #include "primitives/block.h"
@@ -180,7 +179,7 @@ CAuxpowBuilder::buildCoinbaseData(bool header, const std::vector<unsigned char>&
 
 BOOST_AUTO_TEST_CASE(check_auxpow)
 {
-    const Consensus::Params& params = Params().GetConsensus(371337);
+    const Consensus::Params& params = Params().GetConsensus();
     CAuxpowBuilder builder(5, 42);
     CAuxPow auxpow;
 
@@ -328,10 +327,10 @@ mineBlock(CBlockHeader& block, bool ok, int nBits = -1)
 
     arith_uint256 target;
     target.SetCompact(nBits);
-
+    int algo = block.GetAlgo();
     block.nNonce = 0;
     while (true) {
-        const bool nowOk = (UintToArith256(block.GetPoWHash()) <= target);
+        const bool nowOk = (UintToArith256(block.GetPoWHash(algo)) <= target);
         if ((ok && nowOk) || (!ok && !nowOk))
             break;
 
@@ -339,16 +338,16 @@ mineBlock(CBlockHeader& block, bool ok, int nBits = -1)
     }
 
     if (ok)
-        BOOST_CHECK(CheckProofOfWork(block.GetPoWHash(), nBits, Params().GetConsensus(371337)));
+        BOOST_CHECK(CheckProofOfWork(block.GetPoWHash(algo), nBits, Params().GetConsensus()));
     else
-        BOOST_CHECK(!CheckProofOfWork(block.GetPoWHash(), nBits, Params().GetConsensus(371337)));
+        BOOST_CHECK(!CheckProofOfWork(block.GetPoWHash(algo), nBits, Params().GetConsensus()));
 }
 
 BOOST_AUTO_TEST_CASE(auxpow_pow)
 {
     /* Use regtest parameters to allow mining with easy difficulty.  */
     SelectParams(CBaseChainParams::REGTEST);
-    const Consensus::Params& params = Params().GetConsensus(371337);
+    const Consensus::Params& params = Params().GetConsensus();
 
     const arith_uint256 target = (~arith_uint256(0) >> 1);
     CBlockHeader block;
