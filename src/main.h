@@ -131,7 +131,7 @@ extern bool fPruneMode;
 /** Number of MiB of block files that we're trying to stay below. */
 extern uint64_t nPruneTarget;
 /** Block files containing a block-height within MIN_BLOCKS_TO_KEEP of chainActive.Tip() will not be pruned. */
-static const signed int MIN_BLOCKS_TO_KEEP = 288;
+static const signed int MIN_BLOCKS_TO_KEEP = 10080; // 1440 blocks per day, keep 7 days.
 
 // Require that user allocate at least 550MB for block & undo files (blk???.dat and rev???.dat)
 // At 1MB per block, 288 blocks = 288MB.
