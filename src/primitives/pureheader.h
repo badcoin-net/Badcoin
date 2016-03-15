@@ -20,7 +20,7 @@ enum {
 enum
 {
     // primary version
-    BLOCK_VERSION_DEFAULT        = 4,
+    BLOCK_VERSION_DEFAULT        = 2, // change this in later release for BIP66 (3) and BIP65 (4) softforks
 
     // algo
     BLOCK_VERSION_ALGO           = (7 << 9),
@@ -194,7 +194,7 @@ class CPureBlockHeader
 {
 public:
     // header
-    static const int32_t CURRENT_VERSION = 3;
+    static const int32_t CURRENT_VERSION = BLOCK_VERSION_DEFAULT;
     CBlockVersion nVersion;
     uint256 hashPrevBlock;
     uint256 hashMerkleRoot;
