@@ -20,12 +20,12 @@ using namespace std;
 
 static const string strSecret1     ("6z8tDFZ9cJy8CWVAZiHawKM7DbhDdCpnQEyLDNUwMz4LBvqDSzb");
 static const string strSecret2     ("6zLeARdm3LVHKX1QEx6B1Ks936mWrZNfRJydmpXwhYEqsgg3YGW");
-static const string strSecret1C    ("TMmcoHVYZHHYQtUnLvivUWY58kJcUMhq9AzE9qjqhJYVXmhxD8Sm");
-static const string strSecret2C    ("TSanscxXwzgNEKnGLmcKNWiQ3buQRzp4cNiZpbEWjZU9KthURad6");
+static const string strSecret1C    ("TRBo35EtzrJimo9KDPECnjykSc8WioBuPafdobpJwcqhgpdQaQCf");
+static const string strSecret2C    ("TS5h2bjFPK1q2jSmaa9qASGJUGTUmjtcaJLyJpoaRvt6iRvg2k73");
 static const CBitcoinAddress addr1 ("MX7aKiuxRxQ4UnaseF41GzxBuWqHJ2GUwy");
 static const CBitcoinAddress addr2 ("MEBPbnApwv5fetLH7eVvaxPNUY8WV9d8jD");
-static const CBitcoinAddress addr1C("MDS3TWv4ypyzgGLBrQg8Dat82BSwDsPdVy");
-static const CBitcoinAddress addr2C("MDTBN8e4AtBwem6bF7Re8FxQjQvLEvbH8x");
+static const CBitcoinAddress addr1C("MBeR1CLYqGPoonVC18AAywEuho3MeGFSwP");
+static const CBitcoinAddress addr2C("MTpDtfFCDBi9nJ3kmZJPavhw65j62D3p86");
 
 
 static const string strAddressBad("MUj5mgJ89ceTYqYXt8LoSepZxnvw2CGQdD");
@@ -173,19 +173,20 @@ BOOST_AUTO_TEST_CASE(key_test1)
     BOOST_CHECK(key1.Sign(hashMsg, detsig));
     BOOST_CHECK(key1C.Sign(hashMsg, detsigc));
     BOOST_CHECK(detsig == detsigc);
-    BOOST_CHECK(detsig == ParseHex("304402205dbbddda71772d95ce91cd2d14b592cfbc1dd0aabd6a394b6c2d377bbe59d31d022014ddda21494a4e221f0824f0b8b924c43fa43c0ad57dccdaa11f81a6bd4582f6"));
+    BOOST_CHECK(detsig == ParseHex("1c493ca871b19f5bb10f5bd41eac4519ea486e6878cb08d1623e727887c220aa504878e189fb9869aede19fce2fdc32f0395166e680f1589c27ac22e80d3ff0d82"));
+    //BOOST_CHECK_EQUAL(detsig, ParseHex("1c493ca871b19f5bb10f5bd41eac4519ea486e6878cb08d1623e727887c220aa504878e189fb9869aede19fce2fdc32f0395166e680f1589c27ac22e80d3ff0d82"));
     BOOST_CHECK(key2.Sign(hashMsg, detsig));
     BOOST_CHECK(key2C.Sign(hashMsg, detsigc));
     BOOST_CHECK(detsig == detsigc);
     BOOST_CHECK(detsig == ParseHex("3044022052d8a32079c11e79db95af63bb9600c5b04f21a9ca33dc129c2bfa8ac9dc1cd5022061d8ae5e0f6c1a16bde3719c64c2fd70e404b6428ab9a69566962e8771b5944d"));
     BOOST_CHECK(key1.SignCompact(hashMsg, detsig));
     BOOST_CHECK(key1C.SignCompact(hashMsg, detsigc));
-    BOOST_CHECK(detsig == ParseHex("1c5dbbddda71772d95ce91cd2d14b592cfbc1dd0aabd6a394b6c2d377bbe59d31d14ddda21494a4e221f0824f0b8b924c43fa43c0ad57dccdaa11f81a6bd4582f6"));
-    BOOST_CHECK(detsigc == ParseHex("205dbbddda71772d95ce91cd2d14b592cfbc1dd0aabd6a394b6c2d377bbe59d31d14ddda21494a4e221f0824f0b8b924c43fa43c0ad57dccdaa11f81a6bd4582f6"));
+    BOOST_CHECK(detsig == ParseHex("1c493ca871b19f5bb10f5bd41eac4519ea486e6878cb08d1623e727887c220aa504878e189fb9869aede19fce2fdc32f0395166e680f1589c27ac22e80d3ff0d82"));
+    BOOST_CHECK(detsigc == ParseHex("2007dc765824b7a4a200f1be8b34b1214e8df28832f5eaf4919e49fac7d640dbec51c4f886d8615c736f8b10eca532fc679a55bf0f436c0201c06ef3bc8a6b2a82"));
     BOOST_CHECK(key2.SignCompact(hashMsg, detsig));
     BOOST_CHECK(key2C.SignCompact(hashMsg, detsigc));
-    BOOST_CHECK(detsig == ParseHex("1c52d8a32079c11e79db95af63bb9600c5b04f21a9ca33dc129c2bfa8ac9dc1cd561d8ae5e0f6c1a16bde3719c64c2fd70e404b6428ab9a69566962e8771b5944d"));
-    BOOST_CHECK(detsigc == ParseHex("2052d8a32079c11e79db95af63bb9600c5b04f21a9ca33dc129c2bfa8ac9dc1cd561d8ae5e0f6c1a16bde3719c64c2fd70e404b6428ab9a69566962e8771b5944d"));
+    BOOST_CHECK(detsig == ParseHex("1c2455d5f62507189fe8217bcc8fed6ceefe1f90e4cecb8f2c00b4cf8dc247117839383012d66141bee361719d4ddf2282dd578229f6dc03b9c0e929120203d1e9"));
+    BOOST_CHECK(detsigc == ParseHex("1f7000479f26eec6caa9c95092c9c4ee043ff1140dc9994ad1df65cac87b60823ebe54934f2bebd76d636956794b758dd5083d1b00825f221a948d3047aa1f04a2"));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

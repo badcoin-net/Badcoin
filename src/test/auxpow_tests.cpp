@@ -362,6 +362,7 @@ BOOST_AUTO_TEST_CASE(auxpow_pow)
     // Dogecoin block version 2 can be both AuxPoW and regular, so test 3
 
     block.nVersion.SetGenesisVersion(3);
+    block.nVersion.SetAlgo(ALGO_SHA256D);
     mineBlock(block, true);
     BOOST_CHECK(!CheckAuxPowProofOfWork(block, params));
 
