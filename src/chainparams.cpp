@@ -180,6 +180,32 @@ public:
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
         consensus.fPowAllowMinDifficultyBlocks = true;
+        
+        consensus.nStartAuxPow = 1402000;
+        consensus.nAuxpowChainId = 0x005A; 
+        consensus.fStrictChainId = false;
+        
+        consensus.nBlockTimeWarpPreventStart1 = 740500; // block where time warp 1 prevention starts
+        consensus.nBlockTimeWarpPreventStart2 = 766000; // block where time warp 2 prevention starts
+        consensus.nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 prevention starts
+        consensus.Phase2Timespan_Start = 150; // block where 60 second target time kicks in
+        consensus.nBlockDiffAdjustV2 = 150; // block where difficulty adjust V2 starts
+        
+        consensus.nMaxAdjustDown = 4; // 4% adjustment down
+        consensus.nMaxAdjustUpV1 = 2; // 2% adjustment up
+        consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up     
+        
+        consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoRuleStart2 = 10000000; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
+        
+        consensus.nBlockAlgoWorkWeightStart = 0; // block where algo work weighting starts
+        consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts
+        consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
+        consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
+        consensus.nGeoAvgWork_Start = 150;
+        
         pchMessageStart[0] = 0x01;
         pchMessageStart[1] = 0xf5;
         pchMessageStart[2] = 0x55;

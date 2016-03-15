@@ -119,15 +119,18 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     if (pindexLast->nHeight >= params.nBlockTimeWarpPreventStart3)
     {
         nActualTimespan = pindexPrev->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
+        if(fDebug)
+        {
+            LogPrintf("  nActualTimespan = %d before bounds   %d   %d\n", nActualTimespan, pindexPrev->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
+        }
     }
     else
     {
         nActualTimespan = pindexPrev->GetBlockTime() - pindexFirst->GetBlockTime();
-    }
-    
-    if(fDebug)
-    {
-        LogPrintf("  nActualTimespan = %d before bounds   %d   %d\n", nActualTimespan, pindexPrev->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
+        if(fDebug)
+        {
+            LogPrintf("  nActualTimespan = %d before bounds   %d   %d\n", nActualTimespan, pindexPrev->GetBlockTime(), pindexFirst->GetBlockTime());
+        }
     }
     
     // Time warp mitigation: Don't adjust difficulty if time is negative
@@ -238,10 +241,10 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
     /// debug print
     if(fDebug)
     {
-        LogPrintf("CalculateNextWorkRequiredV1(Algo=%d): RETARGET\n", algo);
-        LogPrintf("CalculateNextWorkRequiredV1(Algo=%d): nTargetTimespan = %d    nActualTimespan = %d\n", algo, nAveragingTargetTimespan, nActualTimespan);
-        LogPrintf("CalculateNextWorkRequiredV1(Algo=%d): Before: %08x  %s\n", algo, pindexPrev->nBits, bnOld.ToString());
-        LogPrintf("CalculateNextWorkRequiredV1(Algo=%d): After:  %08x  %s\n", algo, bnNew.GetCompact(), bnNew.ToString());
+        LogPrintf("CalculateNextWorkRequiredV2(Algo=%d): RETARGET\n", algo);
+        LogPrintf("CalculateNextWorkRequiredV2(Algo=%d): nTargetTimespan = %d    nActualTimespan = %d\n", algo, nAveragingTargetTimespan, nActualTimespan);
+        LogPrintf("CalculateNextWorkRequiredV2(Algo=%d): Before: %08x  %s\n", algo, pindexPrev->nBits, bnOld.ToString());
+        LogPrintf("CalculateNextWorkRequiredV2(Algo=%d): After:  %08x  %s\n", algo, bnNew.GetCompact(), bnNew.ToString());
     }
 
     return bnNew.GetCompact();
