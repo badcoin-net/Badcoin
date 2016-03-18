@@ -9,6 +9,7 @@
 #include "chainparams.h"
 #include "consensus/consensus.h"
 #include "consensus/validation.h"
+#include "crypto/scrypt.h"
 #include "hash.h"
 #include "main.h"
 #include "net.h"
@@ -415,6 +416,51 @@ bool static ScanHash(const CBlockHeader *pblock, uint32_t& nNonce, uint256 *phas
     }
 }
 
+bool static ScanHashScrypt(CBlockHeader *pblock, uint32_t& nNonce, uint256 *phash, char *pscratchpad)
+{
+    // Write the first 76 bytes of the block header to a double-SHA256 state.
+    //CHash256 hasher;
+    //CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
+    //ss << *pblock;
+    //assert(ss.size() == 80);
+    //hasher.Write((unsigned char*)&ss[0], 76);
+
+    while (true) {
+        nNonce++;
+
+        // Write the last 4 bytes of the block header (the nonce) to a copy of
+        // the double-SHA256 state, and compute the result.
+        pblock->nNonce = nNonce;
+        
+#if defined(USE_SSE2)
+        // Detection would work, but in cases where we KNOW it always has SSE2,
+        // it is faster to use directly than to use a function pointer or conditional.
+#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
+        // Always SSE2: x86_64 or Intel MacOS X
+        scrypt_1024_1_1_256_sp_sse2(BEGIN(pblock->nVersion), (char*)phash, pscratchpad);
+#else
+        // Detect SSE2: 32bit x86 Linux or Windows
+        scrypt_1024_1_1_256_sp(BEGIN(pblock->nVersion), (char*)phash, pscratchpad);
+#endif
+#else
+        // Generic scrypt
+        scrypt_1024_1_1_256_sp_generic(BEGIN(pblock->nVersion), BEGIN(thash), scratchpad);
+#endif
+
+        // Return the nonce if the hash has at least some zero bits,
+        // caller will check if it has enough to reach the target
+        // TODO: I don't like having this hard-coded, it's too coarse for regtest, too fine for main
+        if (((uint8_t*)phash)[31] == 0)
+            return true;
+
+        // If nothing found after trying for a while, return -1
+        if ((nNonce & 0x1fff) == 0)
+            return false;
+        if ((nNonce & 0x01ff) == 0)
+            boost::this_thread::interruption_point();
+    }
+}
+
 CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey, int algo)
 {
     CPubKey pubkey;
@@ -456,112 +502,195 @@ static bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& rese
 
 void static BitcoinMiner(CWallet *pwallet)
 {
-    LogPrintf("MyriadMiner started\n");
-    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("bitcoin-miner");
     const CChainParams& chainparams = Params();
 
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);
     unsigned int nExtraNonce = 0;
 
-    try {
+    while (true) {
+        if (chainparams.MiningRequiresPeers()) {
+            // Busy-wait for the network to come online so we don't waste time mining
+            // on an obsolete chain. In regtest mode we expect to fly solo.
+            do {
+                bool fvNodesEmpty;
+                {
+                    LOCK(cs_vNodes);
+                    fvNodesEmpty = vNodes.empty();
+                }
+                if (!fvNodesEmpty && !IsInitialBlockDownload())
+                    break;
+                MilliSleep(1000);
+            } while (true);
+        }
+
+        //
+        // Create new block
+        //
+        unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
+        CBlockIndex* pindexPrev = chainActive.Tip();
+
+        auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, ALGO_SHA256D));
+        if (!pblocktemplate.get())
+        {
+            LogPrintf("Error in MyriadMiner[SHA256d]: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+            return;
+        }
+        CBlock *pblock = &pblocktemplate->block;
+        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
+
+        LogPrintf("Running MyriadMiner[SHA256d] with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+            ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
+
+        //
+        // Search
+        //
+        int64_t nStart = GetTime();
+        arith_uint256 hashTarget = arith_uint256().SetCompact(pblock->nBits);
+        uint256 hash;
+        uint32_t nNonce = 0;
         while (true) {
-            if (chainparams.MiningRequiresPeers()) {
-                // Busy-wait for the network to come online so we don't waste time mining
-                // on an obsolete chain. In regtest mode we expect to fly solo.
-                do {
-                    bool fvNodesEmpty;
-                    {
-                        LOCK(cs_vNodes);
-                        fvNodesEmpty = vNodes.empty();
-                    }
-                    if (!fvNodesEmpty && !IsInitialBlockDownload())
-                        break;
-                    MilliSleep(1000);
-                } while (true);
-            }
-
-            //
-            // Create new block
-            //
-            unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
-            CBlockIndex* pindexPrev = chainActive.Tip();
-
-            auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, ALGO_SHA256D));
-            if (!pblocktemplate.get())
+            // Check if something found
+            if (ScanHash(pblock, nNonce, &hash))
             {
-                LogPrintf("Error in MyriadMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
-                return;
+                if (UintToArith256(hash) <= hashTarget)
+                {
+                    // Found a solution
+                    pblock->nNonce = nNonce;
+                    assert(hash == pblock->GetHash());
+
+                    SetThreadPriority(THREAD_PRIORITY_NORMAL);
+                    LogPrintf("MyriadMiner[SHA256d]:\n");
+                    LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
+                    ProcessBlockFound(pblock, *pwallet, reservekey);
+                    SetThreadPriority(THREAD_PRIORITY_LOWEST);
+
+                    // In regression test mode, stop mining after a block is found.
+                    if (chainparams.MineBlocksOnDemand())
+                        throw boost::thread_interrupted();
+
+                    break;
+                }
             }
-            CBlock *pblock = &pblocktemplate->block;
-            IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-            LogPrintf("Running MyriadMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
-                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
+            // Check for stop or if block needs to be rebuilt
+            boost::this_thread::interruption_point();
+            // Regtest mode doesn't require peers
+            if (vNodes.empty() && chainparams.MiningRequiresPeers())
+                break;
+            if (nNonce >= 0xffff0000)
+                break;
+            if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 60)
+                break;
+            if (pindexPrev != chainActive.Tip())
+                break;
 
-            //
-            // Search
-            //
-            int64_t nStart = GetTime();
-            arith_uint256 hashTarget = arith_uint256().SetCompact(pblock->nBits);
-            uint256 hash;
-            uint32_t nNonce = 0;
-            while (true) {
-                // Check if something found
-                if (ScanHash(pblock, nNonce, &hash))
-                {
-                    if (UintToArith256(hash) <= hashTarget)
-                    {
-                        // Found a solution
-                        pblock->nNonce = nNonce;
-                        assert(hash == pblock->GetHash());
-
-                        SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                        LogPrintf("MyriadMiner:\n");
-                        LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
-                        ProcessBlockFound(pblock, *pwallet, reservekey);
-                        SetThreadPriority(THREAD_PRIORITY_LOWEST);
-
-                        // In regression test mode, stop mining after a block is found.
-                        if (chainparams.MineBlocksOnDemand())
-                            throw boost::thread_interrupted();
-
-                        break;
-                    }
-                }
-
-                // Check for stop or if block needs to be rebuilt
-                boost::this_thread::interruption_point();
-                // Regtest mode doesn't require peers
-                if (vNodes.empty() && chainparams.MiningRequiresPeers())
-                    break;
-                if (nNonce >= 0xffff0000)
-                    break;
-                if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 60)
-                    break;
-                if (pindexPrev != chainActive.Tip())
-                    break;
-
-                // Update nTime every few seconds
-                UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev);
-                if (chainparams.GetConsensus().fPowAllowMinDifficultyBlocks)
-                {
-                    // Changing pblock->nTime can change work required on testnet:
-                    hashTarget.SetCompact(pblock->nBits);
-                }
+            // Update nTime every few seconds
+            UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev);
+            if (chainparams.GetConsensus().fPowAllowMinDifficultyBlocks)
+            {
+                // Changing pblock->nTime can change work required on testnet:
+                hashTarget.SetCompact(pblock->nBits);
             }
         }
     }
-    catch (const boost::thread_interrupted&)
-    {
-        LogPrintf("MyriadMiner terminated\n");
-        throw;
-    }
-    catch (const std::runtime_error &e)
-    {
-        LogPrintf("MyriadMiner runtime error: %s\n", e.what());
-        return;
+}
+
+void static ScryptMiner(CWallet *pwallet)
+{
+    const CChainParams& chainparams = Params();
+
+    // Each thread has its own key and counter
+    CReserveKey reservekey(pwallet);
+    unsigned int nExtraNonce = 0;
+
+    while (true) {
+        if (chainparams.MiningRequiresPeers()) {
+            // Busy-wait for the network to come online so we don't waste time mining
+            // on an obsolete chain. In regtest mode we expect to fly solo.
+            do {
+                bool fvNodesEmpty;
+                {
+                    LOCK(cs_vNodes);
+                    fvNodesEmpty = vNodes.empty();
+                }
+                if (!fvNodesEmpty && !IsInitialBlockDownload())
+                    break;
+                MilliSleep(1000);
+            } while (true);
+        }
+
+        //
+        // Create new block
+        //
+        unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
+        CBlockIndex* pindexPrev = chainActive.Tip();
+        const Consensus::Params &consensus = Params().GetConsensus();
+
+        auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, ALGO_SCRYPT));
+        if (!pblocktemplate.get())
+        {
+            LogPrintf("Error in MyriadMiner[Scrypt]: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+            return;
+        }
+        CBlock *pblock = &pblocktemplate->block;
+        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
+
+        LogPrintf("Running MyriadMiner[Scrypt] with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+            ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
+
+        //
+        // Search
+        //
+        int64_t nStart = GetTime();
+        arith_uint256 hashTarget = arith_uint256().SetCompact(pblock->nBits);
+        uint256 hash;
+        uint32_t nNonce = 0;
+        char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
+        while (true) {
+            // Check if something found
+            if (ScanHashScrypt(pblock, nNonce, &hash, scratchpad))
+            {
+                if (UintToArith256(hash) <= hashTarget)
+                {
+                    // Found a solution
+                    pblock->nNonce = nNonce;
+                    assert(hash == pblock->GetPoWHash(ALGO_SCRYPT));
+
+                    SetThreadPriority(THREAD_PRIORITY_NORMAL);
+                    LogPrintf("MyriadMiner[Scrypt]:\n");
+                    LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
+                    ProcessBlockFound(pblock, *pwallet, reservekey);
+                    SetThreadPriority(THREAD_PRIORITY_LOWEST);
+
+                    // In regression test mode, stop mining after a block is found.
+                    if (chainparams.MineBlocksOnDemand())
+                        throw boost::thread_interrupted();
+
+                    break;
+                }
+            }
+
+            // Check for stop or if block needs to be rebuilt
+            boost::this_thread::interruption_point();
+            // Regtest mode doesn't require peers
+            if (vNodes.empty() && chainparams.MiningRequiresPeers())
+                break;
+            if (nNonce >= 0xffff0000)
+                break;
+            if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 60)
+                break;
+            if (pindexPrev != chainActive.Tip())
+                break;
+
+            // Update nTime every few seconds
+            UpdateTime(pblock, consensus, pindexPrev);
+            if (consensus.fPowAllowMinDifficultyBlocks)
+            {
+                // Changing pblock->nTime can change work required on testnet:
+                hashTarget.SetCompact(pblock->nBits);
+            }
+        }
     }
 }
 
@@ -598,13 +727,13 @@ void static GenericMiner(CWallet *pwallet, int algo)
         auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, algo));
         if (!pblocktemplate.get())
         {
-            LogPrintf("Error in MyriadMiner: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+            LogPrintf("Error in MyriadMiner[Generic]: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
             return;
         }
         CBlock *pblock = &pblocktemplate->block;
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-        LogPrintf("Running generic miner with %u transactions in block (%u bytes)\n",
+        LogPrintf("Running MyriadMiner[Generic] with %u transactions in block (%u bytes)\n",
                pblock->vtx.size(),
                ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
@@ -613,14 +742,14 @@ void static GenericMiner(CWallet *pwallet, int algo)
         //
         int64_t nStart = GetTime();
         arith_uint256 hashTarget = arith_uint256().SetCompact(pblock->nBits);
-        LogPrintf("MyriadMiner target hash: %s\n", hashTarget.GetHex());
+        LogPrintf("MyriadMiner[Generic] target hash: %s\n", hashTarget.GetHex());
         uint256 hash;
         while(true)
         {
             hash = pblock->GetPoWHash(algo);
             if (UintToArith256(hash) <= hashTarget){
                 SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                LogPrintf("MyriadMiner:\n");
+                LogPrintf("MyriadMiner[Generic]:\n");
                 LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
                 ProcessBlockFound(pblock, *pwallet, reservekey);
                 SetThreadPriority(THREAD_PRIORITY_LOWEST);
@@ -658,7 +787,6 @@ void static GenericMiner(CWallet *pwallet, int algo)
 
 void static ThreadMiner(CWallet *pwallet)
 {
-    LogPrintf("MyriadMiner miner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("bitcoin-miner");
 
@@ -667,19 +795,23 @@ void static ThreadMiner(CWallet *pwallet)
         switch (miningAlgo)
         {
             case ALGO_SHA256D:
+                LogPrintf("MyriadMiner[SHA256d] miner started\n");
                 BitcoinMiner(pwallet);
                 break;
             case ALGO_SCRYPT:
-                //ScryptMiner(pwallet);
-                BitcoinMiner(pwallet);
+                LogPrintf("MyriadMiner[Scrypt] miner started\n");
+                ScryptMiner(pwallet);
                 break;
             case ALGO_GROESTL:
+                LogPrintf("MyriadMiner[Groestl] miner started\n");
                 GenericMiner(pwallet, ALGO_GROESTL);
                 break;
             case ALGO_SKEIN:
+                LogPrintf("MyriadMiner[Skein] miner started\n");
                 GenericMiner(pwallet, ALGO_SKEIN);
                 break;
             case ALGO_QUBIT:
+                LogPrintf("MyriadMiner[Qubit] miner started\n");
                 GenericMiner(pwallet, ALGO_QUBIT);
                 break;
         }
@@ -688,6 +820,11 @@ void static ThreadMiner(CWallet *pwallet)
     {
         LogPrintf("MyriadMiner miner terminated\n");
         throw;
+    }
+    catch (const std::runtime_error &e)
+    {
+        LogPrintf("MyriadMiner runtime error: %s\n", e.what());
+        return;
     }
 }
 

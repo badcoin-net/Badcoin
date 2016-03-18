@@ -20,7 +20,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     // Genesis block
     if (pindexLast == NULL)
     {
-        LogPrintf("pindexLast is null. returning nProofOfWorkLimit\n");
+        if(fDebug)
+        {
+            LogPrintf("pindexLast is null. returning nProofOfWorkLimit\n");
+        }
         return nProofOfWorkLimit.GetCompact();
     }
 
@@ -30,7 +33,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     // Genesis block
     if (pindexPrev == NULL)
     {
-        LogPrintf("pindexPrev is null. returning nProofOfWorkLimit\n");
+        if(fDebug)
+        {
+            LogPrintf("pindexPrev is null. returning nProofOfWorkLimit\n");
+        }
         return nProofOfWorkLimit.GetCompact();
     }
     
@@ -108,7 +114,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
             if (pindexFirst == NULL)
             {
-                LogPrintf("pindexFirst is null. returning nProofOfWorkLimit\n");
+                if(fDebug)
+                {
+                    LogPrintf("pindexFirst is null. returning nProofOfWorkLimit\n");
+                }
                 return nProofOfWorkLimit.GetCompact();
             }
         }
