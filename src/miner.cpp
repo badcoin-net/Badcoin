@@ -444,7 +444,7 @@ bool static ScanHashScrypt(CBlockHeader *pblock, uint32_t& nNonce, uint256 *phas
 #endif
 #else
         // Generic scrypt
-        scrypt_1024_1_1_256_sp_generic(BEGIN(pblock->nVersion), BEGIN(thash), scratchpad);
+        scrypt_1024_1_1_256_sp_generic(BEGIN(pblock->nVersion), (char*)phash, pscratchpad);
 #endif
 
         // Return the nonce if the hash has at least some zero bits,
