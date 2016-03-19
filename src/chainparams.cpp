@@ -181,7 +181,7 @@ public:
         consensus.nMajorityWindow = 100;
         consensus.fPowAllowMinDifficultyBlocks = true;
         
-        consensus.nStartAuxPow = 1402000;
+        consensus.nStartAuxPow = 150;
         consensus.nAuxpowChainId = 0x005A; 
         consensus.fStrictChainId = false;
         
