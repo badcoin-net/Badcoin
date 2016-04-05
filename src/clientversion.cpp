@@ -18,7 +18,7 @@ const std::string CLIENT_NAME("Satoshi");
 /**
  * Client version number
  */
-#define CLIENT_VERSION_SUFFIX "-RC2"
+#define CLIENT_VERSION_SUFFIX ""
 
 
 /**
