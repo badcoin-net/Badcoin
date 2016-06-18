@@ -265,7 +265,15 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sph_shavite.h \
   crypto/sph_simd.h \
   crypto/sph_skein.h \
-  crypto/sph_types.h
+  crypto/sph_types.h \
+  crypto/yescrypt.h \
+  crypto/sysendian.h \
+  crypto/yescryptcommon.c \
+  crypto/yescrypt-best.c \
+  crypto/yescrypt-platform.c \
+  crypto/sha256_Y.h \
+  crypto/sha256_Y.c 
+  
 
 # univalue JSON library
 univalue_libbitcoin_univalue_a_SOURCES = \
