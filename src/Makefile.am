@@ -109,6 +109,7 @@ BITCOIN_CORE_H = \
   merkleblock.h \
   miner.h \
   mruset.h \
+  myriad_params.h \
   net.h \
   netbase.h \
   noui.h \

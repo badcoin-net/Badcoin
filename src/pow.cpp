@@ -12,6 +12,7 @@
 #include "uint256.h"
 #include "util.h"
 #include "bignum.h"
+#include "myriad_params.h"
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
 {
@@ -120,6 +121,23 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
                 }
                 return nProofOfWorkLimit.GetCompact();
             }
+        }
+    }
+    
+    // change of algo from Qubit to Yescrypt
+    // because the difficulty of qubit will be much higher than yescrypt on change, we will return the proof-of-work limit
+    // once the changeover occurs, then start adjusting once nAveragingInterval blocks have occured. Will result in a short
+    // insta-mine, but difficulty changes will quickly take care of this.
+    
+    if(pindexLast->GetBlockTime() >= nTimeYescryptStart && algo == ALGO_CPU)
+    {
+        if(pindexFirst->GetBlockTime() < nTimeYescryptStart)
+        {
+                if(fDebug)
+                {
+                    LogPrintf("nTimeYescryptStart has been passed, but insufficient blocks to calculate new target. Returning nProofOfWorkLimit\n");
+                }
+                return nProofOfWorkLimit.GetCompact();
         }
     }
     
@@ -307,7 +325,7 @@ int GetAlgoWorkFactor(int algo)
             return 64 * 8;
         case ALGO_SKEIN:
             return 4 * 6;
-        case ALGO_QUBIT:
+        case ALGO_CPU:
             return 128 * 8;
         default:
             return 1;

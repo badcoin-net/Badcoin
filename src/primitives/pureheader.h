@@ -14,7 +14,7 @@ enum {
     ALGO_SCRYPT  = 1, 
     ALGO_GROESTL = 2,
     ALGO_SKEIN   = 3,
-    ALGO_QUBIT   = 4,
+    ALGO_CPU     = 4,
     NUM_ALGOS };
 
 enum
@@ -27,11 +27,11 @@ enum
     BLOCK_VERSION_SCRYPT         = (1 << 9),
     BLOCK_VERSION_GROESTL        = (2 << 9),
     BLOCK_VERSION_SKEIN          = (3 << 9),
-    BLOCK_VERSION_QUBIT          = (4 << 9),
+    BLOCK_VERSION_CPU            = (4 << 9),
 };
 
 int GetAlgo(int nVersion);
-std::string GetAlgoName(int Algo);
+std::string GetAlgoName(int Algo, uint32_t time);
 
 /**
  * Encapsulate a block version.  This takes care of building it up
@@ -104,8 +104,8 @@ public:
             case ALGO_SKEIN:
                 nVersion |= BLOCK_VERSION_SKEIN;
                 break;
-            case ALGO_QUBIT:
-                nVersion |= BLOCK_VERSION_QUBIT;
+            case ALGO_CPU:
+                nVersion |= BLOCK_VERSION_CPU;
                 break;
             default:
                 break;

@@ -408,7 +408,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-blockminsize=<n>", strprintf(_("Set minimum block size in bytes (default: %u)"), 0));
     strUsage += HelpMessageOpt("-blockmaxsize=<n>", strprintf(_("Set maximum block size in bytes (default: %d)"), DEFAULT_BLOCK_MAX_SIZE));
     strUsage += HelpMessageOpt("-blockprioritysize=<n>", strprintf(_("Set maximum size of high-priority/low-fee transactions in bytes (default: %d)"), DEFAULT_BLOCK_PRIORITY_SIZE));
-    strUsage += HelpMessageOpt("-algo=<algo>", _("Mining algorithm: sha256d, scrypt, groestl, skein, qubit"));
+    strUsage += HelpMessageOpt("-algo=<algo>", _("Mining algorithm: sha256d, scrypt, groestl, skein, qubit, yescrypt"));
 
     strUsage += HelpMessageGroup(_("RPC server options:"));
     strUsage += HelpMessageOpt("-server", _("Accept command line and JSON-RPC commands"));
@@ -740,8 +740,8 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
         miningAlgo = ALGO_GROESTL;
     else if (strAlgo == "skein" || strAlgo == "skeinsha2")
         miningAlgo = ALGO_SKEIN;
-    else if (strAlgo == "q2c" || strAlgo == "qubit")
-        miningAlgo = ALGO_QUBIT;
+    else if (strAlgo == "q2c" || strAlgo == "qubit" || strAlgo == "yescrypt")
+        miningAlgo = ALGO_CPU;
     else
         miningAlgo = ALGO_SHA256D;
     
