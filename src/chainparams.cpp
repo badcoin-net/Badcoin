@@ -59,8 +59,10 @@ public:
         
         consensus.nBlockSequentialAlgoRuleStart1 = 740000; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoRuleStart3 = 2000000; // block where sequential algo rule starts ** TODO CHANGE LATER **
         consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
         
         consensus.nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
         consensus.nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
@@ -197,9 +199,11 @@ public:
         consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up     
         
         consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoRuleStart2 = 10000000; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoRuleStart3 = 300; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
         
         consensus.nBlockAlgoWorkWeightStart = 0; // block where algo work weighting starts
         consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts

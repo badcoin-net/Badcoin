@@ -36,8 +36,10 @@ struct Params {
     int64_t nMaxAdjustUpV2;
     int64_t nBlockSequentialAlgoRuleStart1;
     int64_t nBlockSequentialAlgoRuleStart2;
+    int64_t nBlockSequentialAlgoRuleStart3;
     int nBlockSequentialAlgoMaxCount1;
     int nBlockSequentialAlgoMaxCount2;
+    int nBlockSequentialAlgoMaxCount3;
     int64_t nBlockAlgoWorkWeightStart;
     int64_t nBlockAlgoNormalisedWorkStart;
     int64_t nBlockAlgoNormalisedWorkDecayStart1;

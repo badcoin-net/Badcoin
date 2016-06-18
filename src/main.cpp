@@ -3045,20 +3045,57 @@ bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, CBloc
             int nAlgo = block.GetAlgo();
             int nAlgoCount = 1;
             CBlockIndex* piPrev = pindexPrev;
-            while (piPrev!=NULL && (nAlgoCount <= chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1))
+
+            int maxCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1;
+            if(chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2 > maxCount)
+            {
+                maxCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2;
+            }
+            if(chainparams.GetConsensus().nBlockSequentialAlgoMaxCount3 > maxCount)
+            {
+                maxCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount3;
+            }
+
+            while (piPrev!=NULL && (nAlgoCount <= maxCount))
             {
                 if (piPrev->GetAlgo() != nAlgo)
                     break;
                 nAlgoCount++;
                 piPrev = piPrev->pprev;
             }
-            if ((nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2) && (nAlgoCount > chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2))
+
+            if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart3)
             {
-                return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+                if(fDebug)
+                {
+                    LogPrintf("SequentialAlgoRule3 DEBUG: nHeight: %d, nAlgoCount: %d\n", nHeight, nAlgoCount);
+                }
+                if (nAlgoCount > chainparams.GetConsensus().nBlockSequentialAlgoMaxCount3)
+                {
+                    return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+                }
+            }
+            else if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
+            {
+                if(fDebug)
+                {
+                    LogPrintf("SequentialAlgoRule2 DEBUG: nHeight: %d, nAlgoCount: %d\n", nHeight, nAlgoCount);
+                }
+                if (nAlgoCount > chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2)
+                {
+                    return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+                }
             }
             else if (nAlgoCount > chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1)
             {
-                return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+                if(fDebug)
+                {
+                    LogPrintf("SequentialAlgoRule1 DEBUG: nHeight: %d, nAlgoCount: %d\n", nHeight, nAlgoCount);
+                }
+                if (nAlgoCount > chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1)
+                {
+                    return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+                }
             }
         }
     }
