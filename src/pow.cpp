@@ -135,7 +135,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         {
                 if(fDebug)
                 {
-                    LogPrintf("nTimeYescryptStart has been passed, but insufficient blocks to calculate new target. Returning nProofOfWorkLimit\n");
+                    LogPrintf("nTimeYescryptStart has been passed, but insufficient yescrypt blocks to calculate new target. Returning nProofOfWorkLimit\n");
                 }
                 return nProofOfWorkLimit.GetCompact();
         }
