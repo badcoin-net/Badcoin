@@ -183,6 +183,7 @@ public:
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
         consensus.fPowAllowMinDifficultyBlocks = true;
+        consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 16);
         
         consensus.nStartAuxPow = 150;
         consensus.nAuxpowChainId = 0x005A; 
