@@ -5,7 +5,7 @@
 #ifndef MYRIAD_PARAMS_H
 #define MYRIAD_PARAMS_H
 
-const uint32_t nTimeYescryptStart = 1466237700; // block time where Qubit hash is replaced with Yescrypt ** TODO CHANGE ME **
+const uint32_t nTimeYescryptStart = 1470009600; // block time where Qubit hash is replaced with Yescrypt (Monday, 01-Aug-16 00:00:00 UTC) ** TODO CHANGE ME **
 
 #endif // MYRIAD_PARAMS_H
 
