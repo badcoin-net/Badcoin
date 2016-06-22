@@ -16,7 +16,7 @@ enum {
     ALGO_SKEIN    = 3,
     ALGO_QUBIT    = 4,
     ALGO_YESCRYPT = 5,
-	NUM_ALGOS_IMPL };
+    NUM_ALGOS_IMPL };
 
 const int NUM_ALGOS = 5;
 

@@ -37,12 +37,12 @@ uint256 CPureBlockHeader::GetPoWHash(int algo) const
             return HashSkein(BEGIN(nVersion), END(nNonce));
         case ALGO_QUBIT:
             return HashQubit(BEGIN(nVersion), END(nNonce));
-		case ALGO_YESCRYPT:
+        case ALGO_YESCRYPT:
         {
-		    uint256 thash;
-		    yescrypt_hash(BEGIN(nVersion), BEGIN(thash));
-		    return thash;
-		}
+            uint256 thash;
+            yescrypt_hash(BEGIN(nVersion), BEGIN(thash));
+            return thash;
+        }
     }
     return GetHash();
 }
@@ -81,7 +81,7 @@ std::string GetAlgoName(int Algo)
             return std::string("skein");
         case ALGO_QUBIT:
             return std::string("qubit");
-		case ALGO_YESCRYPT:
+        case ALGO_YESCRYPT:
             return std::string("yescrypt");
     }
     return std::string("unknown");       
