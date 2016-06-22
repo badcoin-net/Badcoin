@@ -20,7 +20,7 @@ static const int GETHEADERS_VERSION = 31800;
 //! AUX-POW on SHA256D and Scrypt algorithim starts with this version
 static const int AUX_POW_SHA_SCRYPT_VERSION = 70003;
 
-//! AUX-POW on SHA256D and Scrypt algorithim starts with this version
+//! Switch algo Qubit to Yescrypt starts with this version
 static const int QUBIT_TO_YESCRYPT_VERSION = 70004;
 
 //! disconnect from peers older than this proto version
