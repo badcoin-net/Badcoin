@@ -64,6 +64,18 @@ A common question is how to build from Ubuntu, instructions follow:
 15. ./configure
 16. make
 
+Other Build Notes:
+
+If you are compiling yourself, please configure with something like this:
+```
+CFLAGS="-O2 -fPIC" CPPFLAGS="-O2 -fPIC" ./configure
+```
+otherwise you'll probably get some errors later on. Additionally, if your CPU supports SSE2, and most modern CPU's do, use this:
+```
+CFLAGS="-O2 -fPIC -DUSE_SSE2" CPPFLAGS="-O2 -fPIC -DUSE_SSE2" ./configure
+```
+That will enable the SSE2 version of the Scrypt algorithm. This may reduce the CPU load when syncing the blockchain.
+
 
 Development tips and tricks
 ---------------------------
