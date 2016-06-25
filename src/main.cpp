@@ -84,6 +84,7 @@ void EraseOrphansFor(NodeId peer);
  * in the last Consensus::Params::nMajorityWindow blocks, starting at pstart and going backwards.
  */
 static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned nRequired, const Consensus::Params& consensusParams);
+static bool IsAlgoSwitch1Active(const CBlockIndex* pstart, const Consensus::Params& consensusParams);
 static void CheckBlockIndex();
 
 /** Constant stuff for coinbase transactions we create: */
@@ -2946,13 +2947,31 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         return state.Invalid(error("%s: block's timestamp is too early", __func__),
                              REJECT_INVALID, "time-too-old");
 
-	// Check valid algo
-	if ( (algo == ALGO_QUBIT) && (nHeight >= consensusParams.nAlgoSwitchBlock1) )
-        return state.Invalid(error("%s: invalid QUBIT block", __func__),
-                             REJECT_INVALID, "invalid-algo");
-	if ( (algo == ALGO_YESCRYPT) && (nHeight < consensusParams.nAlgoSwitchBlock1) )
-        return state.Invalid(error("%s: invalid YESCRYPT block", __func__),
-                             REJECT_INVALID, "invalid-algo");
+    // Check for algo switch 1
+    // Active when:
+    //   previous YESCRYPT block was mined or;
+    //   mining majority and fork height reached
+    bool bAlgoSwitch1 = false;
+    if (nHeight >= consensusParams.nAlgoSwitchBlock1)
+    {
+        bAlgoSwitch1 = IsAlgoSwitch1Active(pindexPrev, consensusParams);
+        if (!bAlgoSwitch1)
+            bAlgoSwitch1 =
+                    (block.nVersion > 3) &&
+                    IsSuperMajority(3, pindexPrev, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams);
+    }
+    if (bAlgoSwitch1)
+    {
+        if (algo == ALGO_QUBIT)
+            return state.Invalid(error("%s: invalid QUBIT block", __func__),
+                                 REJECT_INVALID, "invalid-algo");
+    }
+    else
+    {
+        if (algo == ALGO_YESCRYPT)
+            return state.Invalid(error("%s: invalid YESCRYPT block", __func__),
+                                 REJECT_INVALID, "invalid-algo");
+    }
 
     if(fCheckpointsEnabled)
     {
@@ -3057,7 +3076,9 @@ bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, CBloc
 
             // Maximum sequence count allowed
             int nMaxSeqCount;
-            if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart3)
+            if ( (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart3) &&
+                 (block.nVersion > 3) &&
+                 IsSuperMajority(4, pindexPrev, chainparams.GetConsensus().nMajorityEnableAlgoSwitch1, chainparams.GetConsensus()) )
                 nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount3;
             else
                 if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
@@ -3172,6 +3193,17 @@ static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned 
     return (nFound >= nRequired);
 }
 
+static bool IsAlgoSwitch1Active(const CBlockIndex* pstart, const Consensus::Params& consensusParams)
+{
+    bool algoFound = false;
+    for (int i = 0; i < consensusParams.nAlgoSwitch1EnableWindow && !algoFound && pstart != NULL; i++)
+    {
+        if (pstart->GetAlgo() == ALGO_YESCRYPT)
+            algoFound = true;
+        pstart = pstart->pprev;
+    }
+    return (algoFound);
+}
 
 bool ProcessNewBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, bool fForceProcessing, CDiskBlockPos *dbp)
 {
