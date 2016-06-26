@@ -23,7 +23,7 @@ const int NUM_ALGOS = 5;
 enum
 {
     // primary version
-    BLOCK_VERSION_DEFAULT        = 2, // change this in later release for BIP66 (3) and BIP65 (4) softforks
+    BLOCK_VERSION_DEFAULT        = 4, // change this in later release for BIP66 (3) and BIP65 (4) softforks
 
     // algo
     BLOCK_VERSION_ALGO           = (7 << 9),

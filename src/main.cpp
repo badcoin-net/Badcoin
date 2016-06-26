@@ -2958,7 +2958,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         if (!bAlgoSwitch1)
             bAlgoSwitch1 =
                     (block.nVersion > 3) &&
-                    IsSuperMajority(3, pindexPrev, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams);
+                    IsSuperMajority(4, pindexPrev, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams);
     }
     if (bAlgoSwitch1)
     {
