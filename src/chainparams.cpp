@@ -216,7 +216,7 @@ public:
         consensus.nGeoAvgWork_Start = 150;
         consensus.nAlgoSwitchBlock1 = 300;
         consensus.nMajorityEnableAlgoSwitch1 = 60;
-        consensus.nAlgoSwitch1EnableWindow = 200
+        consensus.nAlgoSwitch1EnableWindow = 200;
 
         pchMessageStart[0] = 0x01;
         pchMessageStart[1] = 0xf5;

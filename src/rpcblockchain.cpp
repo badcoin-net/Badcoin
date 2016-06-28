@@ -545,6 +545,21 @@ Object SoftForkDesc(const std::string &name, int version, CBlockIndex* pindex, c
     return rv;
 }
 
+Object AlgoSwitch1ForkDesc(const std::string &name, int version, CBlockIndex* pindex, const Consensus::Params& consensusParams)
+{
+    Object rv;
+    rv.push_back(Pair("id", name));
+    rv.push_back(Pair("version", version));
+    Object bh;
+    int nHeight = (int)chainActive.Height();
+    bh.push_back(Pair("status", nHeight >= consensusParams.nAlgoSwitchBlock1));
+    bh.push_back(Pair("height", nHeight));
+    bh.push_back(Pair("height-active", consensusParams.nAlgoSwitchBlock1));
+    rv.push_back(Pair("enforce-condition-blockheight", bh));
+    rv.push_back(Pair("enforce-condition-majority", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams)));
+    return rv;
+}
+
 Value getblockchaininfo(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
@@ -608,6 +623,7 @@ Value getblockchaininfo(const Array& params, bool fHelp)
 //    softforks.push_back(SoftForkDesc("bip34", 2, tip, consensusParams));
     softforks.push_back(SoftForkDesc("bip66", 3, tip, consensusParams));
     softforks.push_back(SoftForkDesc("bip65", 4, tip, consensusParams));
+    softforks.push_back(AlgoSwitch1ForkDesc("algoswitch1", 4, tip, consensusParams));
     obj.push_back(Pair("softforks",             softforks));
 
     if (fPruneMode)
