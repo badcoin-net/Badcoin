@@ -540,8 +540,26 @@ Object SoftForkDesc(const std::string &name, int version, CBlockIndex* pindex, c
     Object rv;
     rv.push_back(Pair("id", name));
     rv.push_back(Pair("version", version));
+    rv.push_back(Pair("minheight", consensusParams.nFork1MinBlock));
+    bool bHeightActive = ((int)chainActive.Height() >= consensusParams.nFork1MinBlock);
+    rv.push_back(Pair("condition-minheight", bHeightActive));
     rv.push_back(Pair("enforce", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityEnforceBlockUpgrade, consensusParams)));
     rv.push_back(Pair("reject", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityRejectBlockOutdated, consensusParams)));
+    return rv;
+}
+
+Object AlgoSwitch1ForkDesc(const std::string &name, int version, CBlockIndex* pindex, const Consensus::Params& consensusParams)
+{
+    Object rv;
+    rv.push_back(Pair("id", name));
+    rv.push_back(Pair("version", version));
+    Object bh;
+    int nHeight = (int)chainActive.Height();
+    bh.push_back(Pair("status", nHeight >= consensusParams.nFork1MinBlock));
+    bh.push_back(Pair("height", nHeight));
+    bh.push_back(Pair("height-active", consensusParams.nFork1MinBlock));
+    rv.push_back(Pair("enforce-condition-blockheight", bh));
+    rv.push_back(Pair("enforce-condition-majority", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams)));
     return rv;
 }
 
@@ -608,6 +626,7 @@ Value getblockchaininfo(const Array& params, bool fHelp)
 //    softforks.push_back(SoftForkDesc("bip34", 2, tip, consensusParams));
     softforks.push_back(SoftForkDesc("bip66", 3, tip, consensusParams));
     softforks.push_back(SoftForkDesc("bip65", 4, tip, consensusParams));
+    softforks.push_back(AlgoSwitch1ForkDesc("algoswitch1", 4, tip, consensusParams));
     obj.push_back(Pair("softforks",             softforks));
 
     if (fPruneMode)

@@ -84,6 +84,7 @@ void EraseOrphansFor(NodeId peer);
  * in the last Consensus::Params::nMajorityWindow blocks, starting at pstart and going backwards.
  */
 static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned nRequired, const Consensus::Params& consensusParams);
+static bool IsAlgoSwitch1Active(const CBlockIndex* pstart, const Consensus::Params& consensusParams);
 static void CheckBlockIndex();
 
 /** Constant stuff for coinbase transactions we create: */
@@ -1973,14 +1974,17 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     unsigned int flags = SCRIPT_VERIFY_P2SH;
     
     // Start enforcing the DERSIG (BIP66) rules, for block.nVersion=3 blocks, when 75% of the network has upgraded:
-    if (block.nVersion >= 3 && IsSuperMajority(3, pindex->pprev, chainparams.GetConsensus().nMajorityEnforceBlockUpgrade, chainparams.GetConsensus())) {
-        flags |= SCRIPT_VERIFY_DERSIG;
-    }
+    if (pindex->nHeight >= chainparams.GetConsensus().nFork1MinBlock)
+    {
+        if (block.nVersion >= 3 && IsSuperMajority(3, pindex->pprev, chainparams.GetConsensus().nMajorityEnforceBlockUpgrade, chainparams.GetConsensus())) {
+            flags |= SCRIPT_VERIFY_DERSIG;
+        }
 
-    // Start enforcing CHECKLOCKTIMEVERIFY, (BIP65) for block.nVersion=4
-    // blocks, when 75% of the network has upgraded:
-    if (block.nVersion >= 4 && IsSuperMajority(4, pindex->pprev, chainparams.GetConsensus().nMajorityEnforceBlockUpgrade, chainparams.GetConsensus())) {
-        flags |= SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY;
+        // Start enforcing CHECKLOCKTIMEVERIFY, (BIP65) for block.nVersion=4
+        // blocks, when 75% of the network has upgraded:
+        if (block.nVersion >= 4 && IsSuperMajority(4, pindex->pprev, chainparams.GetConsensus().nMajorityEnforceBlockUpgrade, chainparams.GetConsensus())) {
+            flags |= SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY;
+        }
     }
 
     CBlockUndo blockundo;
@@ -2946,13 +2950,31 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         return state.Invalid(error("%s: block's timestamp is too early", __func__),
                              REJECT_INVALID, "time-too-old");
 
-	// Check valid algo
-	if ( (algo == ALGO_QUBIT) && (nHeight >= consensusParams.nAlgoSwitchBlock1) )
-        return state.Invalid(error("%s: invalid QUBIT block", __func__),
-                             REJECT_INVALID, "invalid-algo");
-	if ( (algo == ALGO_YESCRYPT) && (nHeight < consensusParams.nAlgoSwitchBlock1) )
-        return state.Invalid(error("%s: invalid YESCRYPT block", __func__),
-                             REJECT_INVALID, "invalid-algo");
+    // Check for algo switch 1
+    // Active when:
+    //   previous YESCRYPT block was mined or;
+    //   mining majority and fork height reached
+    bool bAlgoSwitch1 = false;
+    if (nHeight >= consensusParams.nFork1MinBlock)
+    {
+        bAlgoSwitch1 = IsAlgoSwitch1Active(pindexPrev, consensusParams);
+        if (!bAlgoSwitch1)
+            bAlgoSwitch1 =
+                    (block.nVersion > 3) &&
+                    IsSuperMajority(4, pindexPrev, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams);
+    }
+    if (bAlgoSwitch1)
+    {
+        if (algo == ALGO_QUBIT)
+            return state.Invalid(error("%s: invalid QUBIT block", __func__),
+                                 REJECT_INVALID, "invalid-algo");
+    }
+    else
+    {
+        if (algo == ALGO_YESCRYPT)
+            return state.Invalid(error("%s: invalid YESCRYPT block", __func__),
+                                 REJECT_INVALID, "invalid-algo");
+    }
 
     if(fCheckpointsEnabled)
     {
@@ -2967,20 +2989,23 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
             return state.DoS(100, error("%s: forked chain older than last checkpoint (height %d)", __func__, nHeight));
     }
 
-    // Reject block.nVersion=1 blocks when 95% (75% on testnet) of the network has upgraded:
-    // if (block.nVersion < 2 && IsSuperMajority(2, pindexPrev, consensusParams.nMajorityRejectBlockOutdated, consensusParams))
-        // return state.Invalid(error("%s: rejected nVersion=1 block", __func__),
-                             // REJECT_OBSOLETE, "bad-version");
+    if (nHeight >= consensusParams.nFork1MinBlock)
+    {
+        // Reject block.nVersion=1 blocks when 95% (75% on testnet) of the network has upgraded:
+        // if (block.nVersion < 2 && IsSuperMajority(2, pindexPrev, consensusParams.nMajorityRejectBlockOutdated, consensusParams))
+            // return state.Invalid(error("%s: rejected nVersion=1 block", __func__),
+                                 // REJECT_OBSOLETE, "bad-version");
 
-    // Reject block.nVersion=2 blocks when 95% (75% on testnet) of the network has upgraded:
-    if (block.nVersion < 3 && IsSuperMajority(3, pindexPrev, consensusParams.nMajorityRejectBlockOutdated, consensusParams))
-        return state.Invalid(error("%s : rejected nVersion=2 block", __func__),
-                             REJECT_OBSOLETE, "bad-version");
+        // Reject block.nVersion=2 blocks when 95% (75% on testnet) of the network has upgraded:
+        if (block.nVersion < 3 && IsSuperMajority(3, pindexPrev, consensusParams.nMajorityRejectBlockOutdated, consensusParams))
+            return state.Invalid(error("%s : rejected nVersion=2 block", __func__),
+                                 REJECT_OBSOLETE, "bad-version");
 
-    // Reject block.nVersion=3 blocks when 95% (75% on testnet) of the network has upgraded:
-    if (block.nVersion < 4 && IsSuperMajority(4, pindexPrev, consensusParams.nMajorityRejectBlockOutdated, consensusParams))
-        return state.Invalid(error("%s : rejected nVersion=3 block", __func__),
-                             REJECT_OBSOLETE, "bad-version");
+        // Reject block.nVersion=3 blocks when 95% (75% on testnet) of the network has upgraded:
+        if (block.nVersion < 4 && IsSuperMajority(4, pindexPrev, consensusParams.nMajorityRejectBlockOutdated, consensusParams))
+            return state.Invalid(error("%s : rejected nVersion=3 block", __func__),
+                                 REJECT_OBSOLETE, "bad-version");
+    }
 
     return true;
 }
@@ -3003,12 +3028,15 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
 
     // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
     // if 750 of the last 1,000 blocks are version 2 or greater (51/100 if testnet):
-    if (block.nVersion >= 2 && IsSuperMajority(3, pindexPrev, consensusParams.nMajorityEnforceBlockUpgrade, consensusParams))
+    if (nHeight >= consensusParams.nFork1MinBlock)
     {
-        CScript expect = CScript() << nHeight;
-        if (block.vtx[0].vin[0].scriptSig.size() < expect.size() ||
-            !std::equal(expect.begin(), expect.end(), block.vtx[0].vin[0].scriptSig.begin())) {
-            return state.DoS(100, error("%s: block height mismatch in coinbase", __func__), REJECT_INVALID, "bad-cb-height");
+        if (block.nVersion >= 2 && IsSuperMajority(3, pindexPrev, consensusParams.nMajorityEnforceBlockUpgrade, consensusParams))
+        {
+            CScript expect = CScript() << nHeight;
+            if (block.vtx[0].vin[0].scriptSig.size() < expect.size() ||
+                !std::equal(expect.begin(), expect.end(), block.vtx[0].vin[0].scriptSig.begin())) {
+                return state.DoS(100, error("%s: block height mismatch in coinbase", __func__), REJECT_INVALID, "bad-cb-height");
+            }
         }
     }
 
@@ -3057,7 +3085,9 @@ bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, CBloc
 
             // Maximum sequence count allowed
             int nMaxSeqCount;
-            if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart3)
+            if ( (nHeight > chainparams.GetConsensus().nFork1MinBlock) &&
+                 (block.nVersion > 3) &&
+                 IsSuperMajority(4, pindexPrev, chainparams.GetConsensus().nMajorityEnableAlgoSwitch1, chainparams.GetConsensus()) )
                 nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount3;
             else
                 if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
@@ -3172,6 +3202,17 @@ static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned 
     return (nFound >= nRequired);
 }
 
+static bool IsAlgoSwitch1Active(const CBlockIndex* pstart, const Consensus::Params& consensusParams)
+{
+    bool algoFound = false;
+    for (int i = 0; i < consensusParams.nAlgoSwitch1EnableWindow && !algoFound && pstart != NULL; i++)
+    {
+        if (pstart->GetAlgo() == ALGO_YESCRYPT)
+            algoFound = true;
+        pstart = pstart->pprev;
+    }
+    return (algoFound);
+}
 
 bool ProcessNewBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, bool fForceProcessing, CDiskBlockPos *dbp)
 {
