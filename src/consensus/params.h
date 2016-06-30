@@ -36,7 +36,6 @@ struct Params {
     int64_t nMaxAdjustUpV2;
     int64_t nBlockSequentialAlgoRuleStart1;
     int64_t nBlockSequentialAlgoRuleStart2;
-    int64_t nBlockSequentialAlgoRuleStart3;
     int nBlockSequentialAlgoMaxCount1;
     int nBlockSequentialAlgoMaxCount2;
     int nBlockSequentialAlgoMaxCount3;
@@ -45,7 +44,7 @@ struct Params {
     int64_t nBlockAlgoNormalisedWorkDecayStart1;
     int64_t nBlockAlgoNormalisedWorkDecayStart2;
     int64_t nGeoAvgWork_Start;
-    int64_t nAlgoSwitchBlock1;
+    int64_t nFork1MinBlock;
     int nMajorityEnableAlgoSwitch1;
     int nAlgoSwitch1EnableWindow;
     

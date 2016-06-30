@@ -59,7 +59,6 @@ public:
         
         consensus.nBlockSequentialAlgoRuleStart1 = 740000; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoRuleStart3 = 100000000; // block where sequential algo rule starts ** TODO CHANGE LATER **
         consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
@@ -69,7 +68,7 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 866000; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 1400000;
-        consensus.nAlgoSwitchBlock1 = 100000000;
+        consensus.nFork1MinBlock = 100000000; // minimum block height where fork 1 takes effect (algo switch, BIP66, BIP65, seq algo count change)
         consensus.nMajorityEnableAlgoSwitch1 = 600;
         consensus.nAlgoSwitch1EnableWindow = 2000;
         
@@ -204,7 +203,6 @@ public:
         
         consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoRuleStart3 = 300; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
@@ -214,7 +212,7 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 150;
-        consensus.nAlgoSwitchBlock1 = 300;
+        consensus.nFork1MinBlock = 300;
         consensus.nMajorityEnableAlgoSwitch1 = 60;
         consensus.nAlgoSwitch1EnableWindow = 200;
 
