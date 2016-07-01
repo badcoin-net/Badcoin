@@ -4477,10 +4477,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
             if (inv.type == MSG_BLOCK) {
                 UpdateBlockAvailability(pfrom->GetId(), inv.hash);
-                if (!fAlreadyHave && !fImporting && !fReindex && IsInitialBlockDownload() && !mapBlocksInFlight.count(inv.hash)) {
-                    // !IsInitialBlockDownload() is needed otherwise it start to download the same headers 
-                    // several time per peer and from all peers, wasting a lot of computing time and bandwidth
-                    
+                if (!fAlreadyHave && !fImporting && !fReindex && !mapBlocksInFlight.count(inv.hash)) {
                     // First request the headers preceding the announced block. In the normal fully-synced
                     // case where a new block is announced that succeeds the current tip (no reorganization),
                     // there are no such headers.
