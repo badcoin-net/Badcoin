@@ -540,9 +540,6 @@ Object SoftForkDesc(const std::string &name, int version, CBlockIndex* pindex, c
     Object rv;
     rv.push_back(Pair("id", name));
     rv.push_back(Pair("version", version));
-    rv.push_back(Pair("minheight", consensusParams.nFork1MinBlock));
-    bool bHeightActive = ((int)chainActive.Height() >= consensusParams.nFork1MinBlock);
-    rv.push_back(Pair("condition-minheight", bHeightActive));
     rv.push_back(Pair("enforce", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityEnforceBlockUpgrade, consensusParams)));
     rv.push_back(Pair("reject", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityRejectBlockOutdated, consensusParams)));
     return rv;
