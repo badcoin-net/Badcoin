@@ -84,6 +84,7 @@ void EraseOrphansFor(NodeId peer);
  * in the last Consensus::Params::nMajorityWindow blocks, starting at pstart and going backwards.
  */
 static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned nRequired, const Consensus::Params& consensusParams);
+static bool IsAlgoSwitch1Active(const CBlockIndex* pstart, const Consensus::Params& consensusParams);
 static void CheckBlockIndex();
 
 /** Constant stuff for coinbase transactions we create: */
@@ -2248,8 +2249,9 @@ void static UpdateTip(CBlockIndex *pindexNew) {
     nTimeBestReceived = GetTime();
     mempool.AddTransactionsUpdated(1);
 
-    LogPrintf("%s: new best=%s height=%d algo=%d log2_work=%.8g tx=%lu date=%s progress=%f cache=%.1fMiB(%utx)\n", __func__,
-      chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(), chainActive.Tip()->GetAlgo(), log(chainActive.Tip()->nChainWork.getdouble())/log(2.0), (unsigned long)chainActive.Tip()->nChainTx,
+    LogPrintf("%s: new best=%s height=%d algo=%d (%s) log2_work=%.8g tx=%lu date=%s progress=%f cache=%.1fMiB(%utx)\n", __func__,
+      chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(), chainActive.Tip()->GetAlgo(), GetAlgoName(chainActive.Tip()->GetAlgo()), 
+      log(chainActive.Tip()->nChainWork.getdouble())/log(2.0), (unsigned long)chainActive.Tip()->nChainTx,
       DateTimeStrFormat("%Y-%m-%d %H:%M:%S", chainActive.Tip()->GetBlockTime()),
       Checkpoints::GuessVerificationProgress(chainParams.Checkpoints(), chainActive.Tip()), pcoinsTip->DynamicMemoryUsage() * (1.0 / (1<<20)), pcoinsTip->GetCacheSize());
 
@@ -2934,7 +2936,7 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
         return state.DoS(100, error("%s : auxpow blocks are not allowed at height %d, parameters effective from %d",
                                     __func__, pindexPrev->nHeight + 1, consensusParams.nStartAuxPow),
                          REJECT_INVALID, "early-auxpow-block");
-                         
+
     // Check proof of work
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams, algo))
         return state.DoS(100, error("%s: incorrect proof of work at height %d", __func__, nHeight),
@@ -2944,6 +2946,32 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
         return state.Invalid(error("%s: block's timestamp is too early", __func__),
                              REJECT_INVALID, "time-too-old");
+
+    // Check for algo switch 1
+    // Active when:
+    //   previous YESCRYPT block was mined or;
+    //   mining majority and fork height reached
+    bool bAlgoSwitch1 = false;
+    if (nHeight >= consensusParams.nFork1MinBlock)
+    {
+        bAlgoSwitch1 = IsAlgoSwitch1Active(pindexPrev, consensusParams);
+        if (!bAlgoSwitch1)
+            bAlgoSwitch1 =
+                    (block.nVersion > 3) &&
+                    IsSuperMajority(4, pindexPrev, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams);
+    }
+    if (bAlgoSwitch1)
+    {
+        if (algo == ALGO_QUBIT)
+            return state.Invalid(error("%s: invalid QUBIT block", __func__),
+                                 REJECT_INVALID, "invalid-algo");
+    }
+    else
+    {
+        if (algo == ALGO_YESCRYPT)
+            return state.Invalid(error("%s: invalid YESCRYPT block", __func__),
+                                 REJECT_INVALID, "invalid-algo");
+    }
 
     if(fCheckpointsEnabled)
     {
@@ -3045,18 +3073,32 @@ bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, CBloc
             int nAlgo = block.GetAlgo();
             int nAlgoCount = 1;
             CBlockIndex* piPrev = pindexPrev;
-            while (piPrev!=NULL && (nAlgoCount <= chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1))
+
+            // Maximum sequence count allowed
+            int nMaxSeqCount;
+            if ( (nHeight > chainparams.GetConsensus().nFork1MinBlock) &&
+                 (block.nVersion > 3) &&
+                 IsSuperMajority(4, pindexPrev, chainparams.GetConsensus().nMajorityEnableAlgoSwitch1, chainparams.GetConsensus()) )
+                nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount3;
+            else
+                if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
+                    nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2;
+                    else
+                        nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1;
+
+            while (piPrev!=NULL && (nAlgoCount <= nMaxSeqCount))
             {
                 if (piPrev->GetAlgo() != nAlgo)
                     break;
                 nAlgoCount++;
                 piPrev = piPrev->pprev;
             }
-            if ((nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2) && (nAlgoCount > chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2))
+
+            if(fDebug)
             {
-                return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+                LogPrintf("SequentialAlgoRule DEBUG: nHeight: %d, nAlgoCount: %d, nMaxSeqCount: %d\n", nHeight, nAlgoCount, nMaxSeqCount);
             }
-            else if (nAlgoCount > chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1)
+            if (nAlgoCount > nMaxSeqCount)
             {
                 return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
             }
@@ -3151,6 +3193,17 @@ static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned 
     return (nFound >= nRequired);
 }
 
+static bool IsAlgoSwitch1Active(const CBlockIndex* pstart, const Consensus::Params& consensusParams)
+{
+    bool algoFound = false;
+    for (int i = 0; i < consensusParams.nAlgoSwitch1EnableWindow && !algoFound && pstart != NULL; i++)
+    {
+        if (pstart->GetAlgo() == ALGO_YESCRYPT)
+            algoFound = true;
+        pstart = pstart->pprev;
+    }
+    return (algoFound);
+}
 
 bool ProcessNewBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, bool fForceProcessing, CDiskBlockPos *dbp)
 {

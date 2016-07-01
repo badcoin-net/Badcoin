@@ -814,6 +814,10 @@ void static ThreadMiner(CWallet *pwallet)
                 LogPrintf("MyriadMiner[Qubit] miner started\n");
                 GenericMiner(pwallet, ALGO_QUBIT);
                 break;
+            case ALGO_YESCRYPT:
+                LogPrintf("MyriadMiner[Yescrypt] miner started\n");
+                GenericMiner(pwallet, ALGO_YESCRYPT); // could be replaced with a decent yescrypt miner in the style of scrypt, but how much need?
+                break;
         }
     }
     catch (boost::thread_interrupted)

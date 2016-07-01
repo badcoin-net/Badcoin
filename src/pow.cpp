@@ -122,7 +122,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             }
         }
     }
-    
+
     int64_t nActualTimespan;
     
     if (pindexLast->nHeight >= params.nBlockTimeWarpPreventStart3)
@@ -409,7 +409,7 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
     CBigNum bnBlockWork = CBigNum(ArithToUint256(nBlockWork));
     int nAlgo = block.GetAlgo();
     
-    for (int algo = 0; algo < NUM_ALGOS; algo++)
+    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
     {
         if (algo != nAlgo)
         {
