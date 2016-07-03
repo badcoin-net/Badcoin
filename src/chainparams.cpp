@@ -69,7 +69,7 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 1400000;
         consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
-        consensus.nMajorityEnableAlgoSwitch1 = 600;
+        consensus.nMajorityEnableAlgoSwitch1 = 750;
         consensus.nAlgoSwitch1EnableWindow = 2000;
         
         /** 
