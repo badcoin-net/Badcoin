@@ -61,12 +61,16 @@ public:
         consensus.nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
         
         consensus.nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
         consensus.nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 866000; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 1400000;
+        consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
+        consensus.nMajorityEnableAlgoSwitch1 = 750;
+        consensus.nAlgoSwitch1EnableWindow = 2000;
         
         /** 
          * The message start string is designed to be unlikely to occur in normal data.
@@ -181,6 +185,7 @@ public:
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
         consensus.fPowAllowMinDifficultyBlocks = true;
+        consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 16);
         
         consensus.nStartAuxPow = 150;
         consensus.nAuxpowChainId = 0x005A; 
@@ -197,16 +202,20 @@ public:
         consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up     
         
         consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoRuleStart2 = 10000000; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
         
         consensus.nBlockAlgoWorkWeightStart = 0; // block where algo work weighting starts
         consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 150;
-        
+        consensus.nFork1MinBlock = 300;
+        consensus.nMajorityEnableAlgoSwitch1 = 60;
+        consensus.nAlgoSwitch1EnableWindow = 200;
+
         pchMessageStart[0] = 0x01;
         pchMessageStart[1] = 0xf5;
         pchMessageStart[2] = 0x55;

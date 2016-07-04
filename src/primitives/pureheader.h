@@ -10,17 +10,20 @@
 #include "uint256.h"
 
 enum { 
-    ALGO_SHA256D = 0, 
-    ALGO_SCRYPT  = 1, 
-    ALGO_GROESTL = 2,
-    ALGO_SKEIN   = 3,
-    ALGO_QUBIT   = 4,
-    NUM_ALGOS };
+    ALGO_SHA256D  = 0,
+    ALGO_SCRYPT   = 1,
+    ALGO_GROESTL  = 2,
+    ALGO_SKEIN    = 3,
+    ALGO_QUBIT    = 4,
+    ALGO_YESCRYPT = 5,
+    NUM_ALGOS_IMPL };
+
+const int NUM_ALGOS = 5;
 
 enum
 {
     // primary version
-    BLOCK_VERSION_DEFAULT        = 2, // change this in later release for BIP66 (3) and BIP65 (4) softforks
+    BLOCK_VERSION_DEFAULT        = 4, // change this in later release for BIP66 (3) and BIP65 (4) softforks
 
     // algo
     BLOCK_VERSION_ALGO           = (7 << 9),
@@ -28,6 +31,7 @@ enum
     BLOCK_VERSION_GROESTL        = (2 << 9),
     BLOCK_VERSION_SKEIN          = (3 << 9),
     BLOCK_VERSION_QUBIT          = (4 << 9),
+    BLOCK_VERSION_YESCRYPT       = (5 << 9),
 };
 
 int GetAlgo(int nVersion);
@@ -106,6 +110,9 @@ public:
                 break;
             case ALGO_QUBIT:
                 nVersion |= BLOCK_VERSION_QUBIT;
+                break;
+            case ALGO_YESCRYPT:
+                nVersion |= BLOCK_VERSION_YESCRYPT;
                 break;
             default:
                 break;

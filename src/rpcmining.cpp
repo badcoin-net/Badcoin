@@ -267,6 +267,7 @@ Value getmininginfo(const Array& params, bool fHelp)
     obj.push_back(Pair("difficulty_groestl", (double)GetDifficulty(NULL, ALGO_GROESTL)));
     obj.push_back(Pair("difficulty_skein",   (double)GetDifficulty(NULL, ALGO_SKEIN)));
     obj.push_back(Pair("difficulty_qubit",   (double)GetDifficulty(NULL, ALGO_QUBIT)));
+    obj.push_back(Pair("difficulty_yescrypt",(double)GetDifficulty(NULL, ALGO_YESCRYPT)));
     obj.push_back(Pair("errors",           GetWarnings("statusbar")));
     obj.push_back(Pair("genproclimit",     (int)GetArg("-genproclimit", -1)));
 //    obj.push_back(Pair("networkhashps",    getnetworkhashps(params, false)));

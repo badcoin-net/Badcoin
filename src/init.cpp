@@ -339,9 +339,9 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-disablewallet", _("Do not load the wallet and disable wallet RPC calls"));
     strUsage += HelpMessageOpt("-keypool=<n>", strprintf(_("Set key pool size to <n> (default: %u)"), 100));
     if (showDebug)
-        strUsage += HelpMessageOpt("-mintxfee=<amt>", strprintf("Fees (in MYR/Kb) smaller than this are considered zero fee for transaction creation (default: %s)",
+        strUsage += HelpMessageOpt("-mintxfee=<amt>", strprintf("Fees (in XMY/Kb) smaller than this are considered zero fee for transaction creation (default: %s)",
             FormatMoney(CWallet::minTxFee.GetFeePerK())));
-    strUsage += HelpMessageOpt("-paytxfee=<amt>", strprintf(_("Fee (in MYR/kB) to add to transactions you send (default: %s)"), FormatMoney(payTxFee.GetFeePerK())));
+    strUsage += HelpMessageOpt("-paytxfee=<amt>", strprintf(_("Fee (in XMY/kB) to add to transactions you send (default: %s)"), FormatMoney(payTxFee.GetFeePerK())));
     strUsage += HelpMessageOpt("-rescan", _("Rescan the block chain for missing wallet transactions") + " " + _("on startup"));
     strUsage += HelpMessageOpt("-salvagewallet", _("Attempt to recover private keys from a corrupt wallet.dat") + " " + _("on startup"));
     strUsage += HelpMessageOpt("-sendfreetransactions", strprintf(_("Send transactions as zero-fee transactions if possible (default: %u)"), 0));
@@ -388,7 +388,7 @@ std::string HelpMessage(HelpMessageMode mode)
         strUsage += HelpMessageOpt("-relaypriority", strprintf("Require high priority for relaying free or low-fee transactions (default: %u)", 1));
         strUsage += HelpMessageOpt("-maxsigcachesize=<n>", strprintf("Limit size of signature cache to <n> entries (default: %u)", 50000));
     }
-    strUsage += HelpMessageOpt("-minrelaytxfee=<amt>", strprintf(_("Fees (in MYR/Kb) smaller than this are considered zero fee for relaying (default: %s)"), FormatMoney(::minRelayTxFee.GetFeePerK())));
+    strUsage += HelpMessageOpt("-minrelaytxfee=<amt>", strprintf(_("Fees (in XMY/Kb) smaller than this are considered zero fee for relaying (default: %s)"), FormatMoney(::minRelayTxFee.GetFeePerK())));
     strUsage += HelpMessageOpt("-printtoconsole", _("Send trace/debug info to console instead of debug.log file"));
     if (showDebug)
     {
@@ -408,7 +408,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-blockminsize=<n>", strprintf(_("Set minimum block size in bytes (default: %u)"), 0));
     strUsage += HelpMessageOpt("-blockmaxsize=<n>", strprintf(_("Set maximum block size in bytes (default: %d)"), DEFAULT_BLOCK_MAX_SIZE));
     strUsage += HelpMessageOpt("-blockprioritysize=<n>", strprintf(_("Set maximum size of high-priority/low-fee transactions in bytes (default: %d)"), DEFAULT_BLOCK_PRIORITY_SIZE));
-    strUsage += HelpMessageOpt("-algo=<algo>", _("Mining algorithm: sha256d, scrypt, groestl, skein, qubit"));
+    strUsage += HelpMessageOpt("-algo=<algo>", _("Mining algorithm: sha256d, scrypt, groestl, skein, qubit, yescrypt"));
 
     strUsage += HelpMessageGroup(_("RPC server options:"));
     strUsage += HelpMessageOpt("-server", _("Accept command line and JSON-RPC commands"));
@@ -742,6 +742,8 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
         miningAlgo = ALGO_SKEIN;
     else if (strAlgo == "q2c" || strAlgo == "qubit")
         miningAlgo = ALGO_QUBIT;
+    else if (strAlgo == "yescrypt")
+        miningAlgo = ALGO_YESCRYPT;
     else
         miningAlgo = ALGO_SHA256D;
     

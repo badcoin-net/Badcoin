@@ -38,11 +38,15 @@ struct Params {
     int64_t nBlockSequentialAlgoRuleStart2;
     int nBlockSequentialAlgoMaxCount1;
     int nBlockSequentialAlgoMaxCount2;
+    int nBlockSequentialAlgoMaxCount3;
     int64_t nBlockAlgoWorkWeightStart;
     int64_t nBlockAlgoNormalisedWorkStart;
     int64_t nBlockAlgoNormalisedWorkDecayStart1;
     int64_t nBlockAlgoNormalisedWorkDecayStart2;
     int64_t nGeoAvgWork_Start;
+    int64_t nFork1MinBlock;
+    int nMajorityEnableAlgoSwitch1;
+    int nAlgoSwitch1EnableWindow;
     
     int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacingV1; }
     
