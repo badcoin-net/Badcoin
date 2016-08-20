@@ -84,7 +84,6 @@ void EraseOrphansFor(NodeId peer);
  * in the last Consensus::Params::nMajorityWindow blocks, starting at pstart and going backwards.
  */
 static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned nRequired, const Consensus::Params& consensusParams);
-static bool IsAlgoSwitch1Active(const CBlockIndex* pstart, const Consensus::Params& consensusParams);
 static void CheckBlockIndex();
 
 /** Constant stuff for coinbase transactions we create: */
@@ -2948,18 +2947,8 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
                              REJECT_INVALID, "time-too-old");
 
     // Check for algo switch 1
-    // Active when:
-    //   previous YESCRYPT block was mined or;
-    //   mining majority and fork height reached
-    bool bAlgoSwitch1 = false;
-    if (nHeight >= consensusParams.nFork1MinBlock)
-    {
-        bAlgoSwitch1 = IsAlgoSwitch1Active(pindexPrev, consensusParams);
-        if (!bAlgoSwitch1)
-            bAlgoSwitch1 =
-                    (block.nVersion > 3) &&
-                    IsSuperMajority(4, pindexPrev, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams);
-    }
+    // Active when fork block reached
+    bool bAlgoSwitch1 = (nHeight >= consensusParams.nFork1MinBlock);
     if (bAlgoSwitch1)
     {
         if (algo == ALGO_QUBIT)
@@ -3076,9 +3065,7 @@ bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, CBloc
 
             // Maximum sequence count allowed
             int nMaxSeqCount;
-            if ( (nHeight > chainparams.GetConsensus().nFork1MinBlock) &&
-                 (block.nVersion > 3) &&
-                 IsSuperMajority(4, pindexPrev, chainparams.GetConsensus().nMajorityEnableAlgoSwitch1, chainparams.GetConsensus()) )
+            if (nHeight > chainparams.GetConsensus().nFork1MinBlock)
                 nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount3;
             else
                 if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
@@ -3191,18 +3178,6 @@ static bool IsSuperMajority(int minVersion, const CBlockIndex* pstart, unsigned 
         pstart = pstart->pprev;
     }
     return (nFound >= nRequired);
-}
-
-static bool IsAlgoSwitch1Active(const CBlockIndex* pstart, const Consensus::Params& consensusParams)
-{
-    bool algoFound = false;
-    for (int i = 0; i < consensusParams.nAlgoSwitch1EnableWindow && !algoFound && pstart != NULL; i++)
-    {
-        if (pstart->GetAlgo() == ALGO_YESCRYPT)
-            algoFound = true;
-        pstart = pstart->pprev;
-    }
-    return (algoFound);
 }
 
 bool ProcessNewBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, bool fForceProcessing, CDiskBlockPos *dbp)

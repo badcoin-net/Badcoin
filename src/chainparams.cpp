@@ -69,8 +69,6 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 1400000;
         consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
-        consensus.nMajorityEnableAlgoSwitch1 = 750;
-        consensus.nAlgoSwitch1EnableWindow = 2000;
         
         /** 
          * The message start string is designed to be unlikely to occur in normal data.
@@ -214,8 +212,6 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 150;
         consensus.nFork1MinBlock = 300;
-        consensus.nMajorityEnableAlgoSwitch1 = 60;
-        consensus.nAlgoSwitch1EnableWindow = 200;
 
         pchMessageStart[0] = 0x01;
         pchMessageStart[1] = 0xf5;
