@@ -545,21 +545,6 @@ Object SoftForkDesc(const std::string &name, int version, CBlockIndex* pindex, c
     return rv;
 }
 
-Object AlgoSwitch1ForkDesc(const std::string &name, int version, CBlockIndex* pindex, const Consensus::Params& consensusParams)
-{
-    Object rv;
-    rv.push_back(Pair("id", name));
-    rv.push_back(Pair("version", version));
-    Object bh;
-    int nHeight = (int)chainActive.Height();
-    bh.push_back(Pair("status", nHeight >= consensusParams.nFork1MinBlock));
-    bh.push_back(Pair("height", nHeight));
-    bh.push_back(Pair("height-active", consensusParams.nFork1MinBlock));
-    rv.push_back(Pair("enforce-condition-blockheight", bh));
-    rv.push_back(Pair("enforce-condition-majority", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityEnableAlgoSwitch1, consensusParams)));
-    return rv;
-}
-
 Value getblockchaininfo(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
@@ -617,13 +602,13 @@ Value getblockchaininfo(const Array& params, bool fHelp)
     obj.push_back(Pair("chainwork",             chainActive.Tip()->nChainWork.GetHex()));
     obj.push_back(Pair("pruned",                fPruneMode));
 
-    const Consensus::Params& consensusParams = Params().GetConsensus();
-    CBlockIndex* tip = chainActive.Tip();
+    //const Consensus::Params& consensusParams = Params().GetConsensus();
+    //CBlockIndex* tip = chainActive.Tip();
     Array softforks;
 //    softforks.push_back(SoftForkDesc("bip34", 2, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("bip66", 3, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("bip65", 4, tip, consensusParams));
-    softforks.push_back(AlgoSwitch1ForkDesc("algoswitch1", 4, tip, consensusParams));
+//    softforks.push_back(SoftForkDesc("bip66", 3, tip, consensusParams));
+//    softforks.push_back(SoftForkDesc("bip65", 4, tip, consensusParams));
+//    softforks.push_back(AlgoSwitch1ForkDesc("algoswitch1", 4, tip, consensusParams));
     obj.push_back(Pair("softforks",             softforks));
 
     if (fPruneMode)

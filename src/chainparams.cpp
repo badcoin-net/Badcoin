@@ -69,8 +69,6 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 1400000;
         consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
-        consensus.nMajorityEnableAlgoSwitch1 = 750;
-        consensus.nAlgoSwitch1EnableWindow = 2000;
         
         /** 
          * The message start string is designed to be unlikely to occur in normal data.
@@ -164,9 +162,10 @@ public:
 		(1336174, uint256S("0x00000000000001eafb1051fda69eb842577a0e48e4f0682bd7f33677373d0807"))
         (1402167, uint256S("0x8215cd9feb2db9bf74514361a9d4b4440f054101079df8bb6bf629065db3ab29"))
         (1449500, uint256S("0xef19939e314f239999b9959ac908b20a43b165719d1c35dcfe38ba2566d20765"))
-        (1681927, uint256S("0x9be88de17bccfa3ceb43d158652189af2c3038460dcf91732320a73557fe6a2e")),
-            1465113607, // * UNIX timestamp of last checkpoint block
-            4409414,   // * total number of transactions between genesis and last checkpoint
+        (1681927, uint256S("0x9be88de17bccfa3ceb43d158652189af2c3038460dcf91732320a73557fe6a2e"))
+        (1764003, uint256S("0xf969487c0ba2426bf767a5cb83c6bb7f3f9a19cccdcfc50cf5db0b39032aae55")),
+            1471576582, // * UNIX timestamp of last checkpoint block
+            4521232,   // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             2880     // * estimated number of transactions per day after checkpoint
         };
@@ -213,8 +212,6 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 150;
         consensus.nFork1MinBlock = 300;
-        consensus.nMajorityEnableAlgoSwitch1 = 60;
-        consensus.nAlgoSwitch1EnableWindow = 200;
 
         pchMessageStart[0] = 0x01;
         pchMessageStart[1] = 0xf5;

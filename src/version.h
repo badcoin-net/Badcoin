@@ -24,7 +24,7 @@ static const int AUX_POW_SHA_SCRYPT_VERSION = 70003;
 static const int QUBIT_TO_YESCRYPT_VERSION = 70004;
 
 //! disconnect from peers older than this proto version
-static const int MIN_PEER_PROTO_VERSION = AUX_POW_SHA_SCRYPT_VERSION;
+static const int MIN_PEER_PROTO_VERSION = QUBIT_TO_YESCRYPT_VERSION;
 
 //! nTime field added to CAddress, starting with this version;
 //! if possible, avoid requesting addresses nodes older than this
