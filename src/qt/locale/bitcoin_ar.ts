@@ -15,7 +15,7 @@
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>قم بنسخ العناوين المختارة لحافظة النظام</translation>
+        <translation>قم بنسخ القوانين المختارة لحافظة النظام</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -66,11 +66,11 @@
         <translation>استقبال العناوين</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>هذه هي عناوين Bitcion التابعة لك من أجل إرسال الدفعات. تحقق دائما من المبلغ و عنوان المرسل المستقبل قبل إرسال العملات</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation>هذه هي عناوين Bitcion التابعة لك من أجل إستقبال الدفعات. ينصح استخدام عنوان جديد من أجل كل صفقة</translation>
     </message>
     <message>
@@ -98,7 +98,7 @@
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
-        <translation>ملصق</translation>
+        <translation>وصف</translation>
     </message>
     <message>
         <source>Address</source>
@@ -106,18 +106,18 @@
     </message>
     <message>
         <source>(no label)</source>
-        <translation>(بدون ملصق)</translation>
+        <translation>(لا وصف)</translation>
     </message>
 </context>
 <context>
     <name>AskPassphraseDialog</name>
     <message>
         <source>Passphrase Dialog</source>
-        <translation>حوار عبارة المرور</translation>
+        <translation>حوار جملة السر</translation>
     </message>
     <message>
         <source>Enter passphrase</source>
-        <translation>أدخل عبارة المرور</translation>
+        <translation>ادخل كلمة المرور</translation>
     </message>
     <message>
         <source>New passphrase</source>
@@ -156,16 +156,12 @@
         <translation>تأكيد تشفير المحفظة</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>تحذير: إذا قمت بتشفير محفظتك وفقدت كلمة المرور الخاص بك, ستفقد كل عملات BITCOINS الخاصة بك.</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <translation>تحذير: إذا قمت بتشفير محفظتك وفقدت كلمة المرور الخاص بك, ستفقد كل عملات MYRIADS الخاصة بك.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>هل أنت متأكد من رغبتك في تشفير محفظتك ؟</translation>
-    </message>
-    <message>
-        <source>Bitcoin Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>بتكوين سوف يغلق الآن لإنهاء عملية التشفير. تذكر أن التشفير لا يستطيع حماية محفظتك تمامًا من السرقة من خلال البرمجيات الخبيثة التي تصيب جهازك </translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -182,10 +178,6 @@
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>أدخل عبارة مرور جديدة إلى المحفظة. الرجاء استخدام عبارة مرور تتكون من10 حروف عشوائية على الاقل, أو أكثر من 7 كلمات</translation>
-    </message>
-    <message>
-        <source>Enter the old passphrase and new passphrase to the wallet.</source>
-        <translation>أدخل كلمة المرور القديمة والجديدة للمحفظة.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -291,7 +283,7 @@
         <translation>افتح &amp;URI...</translation>
     </message>
     <message>
-        <source>Bitcoin Core client</source>
+        <source>Myriad Core client</source>
         <translation>عميل bitcion core</translation>
     </message>
     <message>
@@ -303,7 +295,7 @@
         <translation>إعادة الفهرسة الكتل على القرص ...</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
+        <source>Send coins to a Myriad address</source>
         <translation>ارسل عملات الى عنوان بيتكوين</translation>
     </message>
     <message>
@@ -319,15 +311,11 @@
         <translation>&amp;نافذة المعالجة</translation>
     </message>
     <message>
-        <source>Open debugging and diagnostic console</source>
-        <translation>إفتح وحدة التصحيح و التشخيص</translation>
-    </message>
-    <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;التحقق من الرسالة...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
+        <source>Myriad</source>
         <translation>بت كوين</translation>
     </message>
     <message>
@@ -339,7 +327,7 @@
         <translation>&amp;استقبل</translation>
     </message>
     <message>
-        <source>Show information about Bitcoin Core</source>
+        <source>Show information about Myriad Core</source>
         <translation>  اظهار معلومات حول bitcion core</translation>
     </message>
     <message>
@@ -353,14 +341,6 @@
     <message>
         <source>Encrypt the private keys that belong to your wallet</source>
         <translation>تشفير المفتاح الخاص بمحفظتك</translation>
-    </message>
-    <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>وقَع الرسائل بواسطة ال: Bitcoin الخاص بك لإثبات امتلاكك لهم</translation>
-    </message>
-    <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>تحقق من الرسائل للتأكد من أنَها وُقعت برسائل Bitcoin محدَدة</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -379,48 +359,12 @@
         <translation>شريط أدوات علامات التبويب</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
+        <source>Myriad Core</source>
         <translation>جوهر البيت كوين</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>أطلب دفعات (يولد كودات الرمز المربع وبيتكوين: العناوين المعطاة</translation>
-    </message>
-    <message>
-        <source>&amp;About Bitcoin Core</source>
-        <translation>حول bitcoin core</translation>
-    </message>
-    <message>
-        <source>Modify configuration options for Bitcoin Core</source>
-        <translation>تغيير خيارات الإعداد لأساس Bitcoin</translation>
-    </message>
-    <message>
-        <source>Show the list of used sending addresses and labels</source>
-        <translation>عرض قائمة عناوين الإرسال المستخدمة والملصقات</translation>
-    </message>
-    <message>
-        <source>Show the list of used receiving addresses and labels</source>
-        <translation>عرض قائمة عناوين الإستقبال المستخدمة والملصقات</translation>
-    </message>
-    <message>
-        <source>Open a bitcoin: URI or payment request</source>
-        <translation>فتح URI : Bitcoin أو طلب دفع</translation>
-    </message>
-    <message>
-        <source>&amp;Command-line options</source>
-        <translation>&amp;خيارات سطر الأوامر</translation>
-    </message>
-    <message>
-        <source>No block source available...</source>
-        <translation>لا يوجد أي مصدر الكتلة</translation>
-    </message>
-    <message>
-        <source>Last received block was generated %1 ago.</source>
-        <translation>الكتلة المستقبلة الأخيرة وُلدت منذ %1.</translation>
-    </message>
-    <message>
-        <source>Transactions after this will not yet be visible.</source>
-        <translation>المعاملات بعد ذلك لن تكون مريئة بعد.</translation>
+        <source>&amp;About Myriad Core</source>
+        <translation>حول myriad core</translation>
     </message>
     <message>
         <source>Error</source>
@@ -497,14 +441,6 @@
         <translation>المبلغ</translation>
     </message>
     <message>
-        <source>Received with label</source>
-        <translation>مستقبل مع ملصق</translation>
-    </message>
-    <message>
-        <source>Received with address</source>
-        <translation>مستقبل مع عنوان</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation>التاريخ</translation>
     </message>
@@ -573,14 +509,6 @@
         <translation>متوسط-مرتفع</translation>
     </message>
     <message>
-        <source>medium</source>
-        <translation>متوسط</translation>
-    </message>
-    <message>
-        <source>low-medium</source>
-        <translation>متوسط-منخفض</translation>
-    </message>
-    <message>
         <source>low</source>
         <translation>منخفض</translation>
     </message>
@@ -597,28 +525,12 @@
         <translation>لا شيء</translation>
     </message>
     <message>
-        <source>This label turns red if the transaction size is greater than 1000 bytes.</source>
-        <translation>هذا الملصق يصبح أخمرا إذا كان حجم المعاملة أكبر من 1000 بايت.</translation>
-    </message>
-    <message>
         <source>yes</source>
         <translation>نعم</translation>
     </message>
     <message>
         <source>no</source>
         <translation>لا</translation>
-    </message>
-    <message>
-        <source>This means a fee of at least %1 per kB is required.</source>
-        <translation>هذا يعني أن من المطلوب أن يكون الرسم ألى الأقل %1 لكل كيلوبايت.</translation>
-    </message>
-    <message>
-        <source>Can vary +/- 1 byte per input.</source>
-        <translation>يمكن أن يتفاوت بباين واحد لكل مساهمة.</translation>
-    </message>
-    <message>
-        <source>Transactions with higher priority are more likely to get included into a block.</source>
-        <translation>المعاملات التي لديها أولوية أعلى على الأرجح سيتم إنضمامها في الكتلة.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -664,10 +576,6 @@
         <translation>هدا العنوان "%1" موجود مسبقا في دفتر العناوين</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation>العنوان المدخل "%1" ليس عنوان بيت كوين صحيح.</translation>
-    </message>
-    <message>
         <source>Could not unlock wallet.</source>
         <translation> يمكن فتح المحفظة.</translation>
     </message>
@@ -687,14 +595,6 @@
         <translation>الاسم</translation>
     </message>
     <message>
-        <source>Directory already exists. Add %1 if you intend to create a new directory here.</source>
-        <translation>الدليل موجوج بالفعل. أضف %1 لو نويت إنشاء دليل جديد هنا.</translation>
-    </message>
-    <message>
-        <source>Path already exists, and is not a directory.</source>
-        <translation>المسار موجود بالفعل، وهو ليس دليلاً.</translation>
-    </message>
-    <message>
         <source>Cannot create data directory here.</source>
         <translation>لا يمكن انشاء دليل بيانات هنا .</translation>
     </message>
@@ -702,7 +602,7 @@
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Bitcoin Core</source>
+        <source>Myriad Core</source>
         <translation>جوهر البيت كوين</translation>
     </message>
     <message>
@@ -710,22 +610,14 @@
         <translation>النسخة</translation>
     </message>
     <message>
-        <source>About Bitcoin Core</source>
+        <source>About Myriad Core</source>
         <translation>عن جوهر البيت كوين</translation>
-    </message>
-    <message>
-        <source>Command-line options</source>
-        <translation>خيارات سطر الأوامر</translation>
     </message>
     <message>
         <source>Usage:</source>
         <translation>المستخدم</translation>
     </message>
-    <message>
-        <source>command-line options</source>
-        <translation>خيارات سطر الأوامر</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>Intro</name>
     <message>
@@ -741,7 +633,7 @@
         <translation>استخدام دليل بيانات مخصص:</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
+        <source>Myriad Core</source>
         <translation>جوهر البيت كوين</translation>
     </message>
     <message>
@@ -927,10 +819,6 @@
     <message>
         <source>&amp;Information</source>
         <translation>المعلومات</translation>
-    </message>
-    <message>
-        <source>Debug window</source>
-        <translation>نافذة المعالجة</translation>
     </message>
     <message>
         <source>General</source>
@@ -1173,14 +1061,6 @@
         <translation>تعديل :</translation>
     </message>
     <message>
-        <source>Transaction Fee:</source>
-        <translation>رسوم المعاملة:</translation>
-    </message>
-    <message>
-        <source>Hide</source>
-        <translation>إخفاء</translation>
-    </message>
-    <message>
         <source>Send to multiple recipients at once</source>
         <translation>إرسال إلى عدة مستلمين في وقت واحد</translation>
     </message>
@@ -1256,10 +1136,6 @@
 <context>
     <name>SendCoinsEntry</name>
     <message>
-        <source>A&amp;mount:</source>
-        <translation>&amp;القيمة</translation>
-    </message>
-    <message>
         <source>Pay &amp;To:</source>
         <translation>ادفع &amp;الى :</translation>
     </message>
@@ -1286,10 +1162,6 @@
     <message>
         <source>Message:</source>
         <translation>الرسائل</translation>
-    </message>
-    <message>
-        <source>Pay To:</source>
-        <translation>ادفع &amp;الى :</translation>
     </message>
     </context>
 <context>
@@ -1326,7 +1198,7 @@
         <translation>التوقيع</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcoin address</source>
+        <source>Sign the message to prove you own this Myriad address</source>
         <translation>وقع الرسالة لتثبت انك تمتلك عنوان البت كوين هذا</translation>
     </message>
     <message>
@@ -1393,11 +1265,11 @@
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Bitcoin Core</source>
+        <source>Myriad Core</source>
         <translation>جوهر البيت كوين</translation>
     </message>
     <message>
-        <source>The Bitcoin Core developers</source>
+        <source>The Myriad Core developers</source>
         <translation>مطوري جوهر البيت كوين</translation>
     </message>
     <message>
@@ -1539,10 +1411,6 @@
     <message>
         <source>Label</source>
         <translation>وصف</translation>
-    </message>
-    <message>
-        <source>Conflicted</source>
-        <translation>يتعارض</translation>
     </message>
     <message>
         <source>Received with</source>
@@ -1791,10 +1659,6 @@
         <translation>معلومات</translation>
     </message>
     <message>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>أضع شهادة بروتوكول الشبقة الأمنية لطلب المدفوع (افتراضي: -نظام-)</translation>
-    </message>
-    <message>
         <source>Signing transaction failed</source>
         <translation>فشل توقيع المعاملة</translation>
     </message>
@@ -1809,10 +1673,6 @@
     <message>
         <source>Transaction too large</source>
         <translation>المعاملة طويلة جدا</translation>
-    </message>
-    <message>
-        <source>UI Options:</source>
-        <translation>خيارات واجهة المستخدم</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -1843,24 +1703,12 @@
         <translation>عنوان البروكسي غير صحيح : '%s'</translation>
     </message>
     <message>
-        <source>Make the wallet broadcast transactions</source>
-        <translation>إنتاج معاملات بث المحفظة</translation>
-    </message>
-    <message>
         <source>Insufficient funds</source>
         <translation>اموال غير كافية</translation>
     </message>
     <message>
-        <source>Loading block index...</source>
-        <translation>تحميل مؤشر الكتلة</translation>
-    </message>
-    <message>
         <source>Loading wallet...</source>
         <translation>تحميل المحفظه</translation>
-    </message>
-    <message>
-        <source>Cannot downgrade wallet</source>
-        <translation>لا يمكن تخفيض قيمة المحفظة</translation>
     </message>
     <message>
         <source>Cannot write default address</source>

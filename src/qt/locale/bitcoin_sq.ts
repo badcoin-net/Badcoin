@@ -30,10 +30,6 @@
         <translation>Fshi adresen e selektuar nga lista</translation>
     </message>
     <message>
-        <source>Export the data in the current tab to a file</source>
-        <translation>Eksporto të dhënat e skedës korrente në një skedar</translation>
-    </message>
-    <message>
         <source>&amp;Delete</source>
         <translation>&amp;Fshi</translation>
     </message>
@@ -50,12 +46,12 @@
         <translation>Duke marr adresen</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Këto janë Bitcoin adresat e juaja për të dërguar pagesa. Gjithmon kontrolloni shumën dhe adresën pranuese para se të dërgoni monedha.</translation>
+        <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Këto janë Myriad adresat e juaja për të dërguar pagesa. Gjithmon kontrolloni shumën dhe adresën pranuese para se të dërgoni monedha.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Këto janë Bitcoin adresat e juaja për të pranuar pagesa. Rekomandohet që gjithmon të përdorni një adresë të re për çdo transaksion.</translation>
+        <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Këto janë Myriad adresat e juaja për të pranuar pagesa. Rekomandohet që gjithmon të përdorni një adresë të re për çdo transaksion.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -203,16 +199,12 @@
         <translation>&amp;Opsione</translation>
     </message>
     <message>
-        <source>&amp;Receiving addresses...</source>
-        <translation>Duke marr adresen</translation>
-    </message>
-    <message>
         <source>Change the passphrase used for wallet encryption</source>
         <translation>Ndrysho frazkalimin e përdorur per enkriptimin e portofolit</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Myriad</source>
+        <translation>Myriad</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -247,11 +239,11 @@
         <translation>Shiriti i mjeteve</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Berthama Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Berthama Myriad</translation>
     </message>
     <message>
-        <source>&amp;About Bitcoin Core</source>
+        <source>&amp;About Myriad Core</source>
         <translation>Rreth Berthames Bitkoin</translation>
     </message>
     <message>
@@ -386,15 +378,15 @@
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Berthama Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Berthama Myriad</translation>
     </message>
     <message>
         <source>version</source>
         <translation>versioni</translation>
     </message>
     <message>
-        <source>About Bitcoin Core</source>
+        <source>About Myriad Core</source>
         <translation>Rreth Berthames Bitkoin</translation>
     </message>
     </context>
@@ -405,12 +397,12 @@
         <translation>Miresevini</translation>
     </message>
     <message>
-        <source>Welcome to Bitcoin Core.</source>
-        <translation>Miresevini ne Berthamen Bitcoin</translation>
+        <source>Welcome to Myriad Core.</source>
+        <translation>Miresevini ne Berthamen Myriad</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Berthama Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Berthama Myriad</translation>
     </message>
     <message>
         <source>Error</source>
@@ -425,10 +417,6 @@
     <message>
         <source>Options</source>
         <translation>Opsionet</translation>
-    </message>
-    <message>
-        <source>W&amp;allet</source>
-        <translation>Portofol</translation>
     </message>
     </context>
 <context>
@@ -457,10 +445,6 @@
 <context>
     <name>RPCConsole</name>
     <message>
-        <source>&amp;Information</source>
-        <translation>Informacion</translation>
-    </message>
-    <message>
         <source>&amp;Open</source>
         <translation>&amp;Hap</translation>
     </message>
@@ -480,24 +464,12 @@
 <context>
     <name>ReceiveCoinsDialog</name>
     <message>
-        <source>&amp;Amount:</source>
-        <translation>Shuma:</translation>
-    </message>
-    <message>
         <source>&amp;Label:</source>
         <translation>&amp;Etiketë:</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation>Pastro</translation>
     </message>
     </context>
 <context>
     <name>ReceiveRequestDialog</name>
-    <message>
-        <source>Copy &amp;Address</source>
-        <translation>&amp;Kopjo adresen</translation>
-    </message>
     <message>
         <source>Address</source>
         <translation>Adresë</translation>
@@ -535,10 +507,6 @@
     <message>
         <source>Send Coins</source>
         <translation>Dërgo Monedha</translation>
-    </message>
-    <message>
-        <source>Insufficient funds!</source>
-        <translation>Fonde te pamjaftueshme</translation>
     </message>
     <message>
         <source>Amount:</source>
@@ -599,10 +567,6 @@
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
-    <message>
-        <source>Pay To:</source>
-        <translation>Paguaj drejt:</translation>
-    </message>
     </context>
 <context>
     <name>ShutdownWindow</name>
@@ -625,8 +589,8 @@
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Berthama Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Berthama Myriad</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -653,10 +617,6 @@
     <message>
         <source>Date</source>
         <translation>Data</translation>
-    </message>
-    <message>
-        <source>Transaction</source>
-        <translation>transaksionit</translation>
     </message>
     <message>
         <source>Amount</source>
@@ -791,17 +751,9 @@
 </context>
 <context>
     <name>WalletView</name>
-    <message>
-        <source>Export the data in the current tab to a file</source>
-        <translation>Eksporto të dhënat e skedës korrente në një skedar</translation>
-    </message>
     </context>
 <context>
     <name>bitcoin-core</name>
-    <message>
-        <source>Options:</source>
-        <translation>Opsionet:</translation>
-    </message>
     <message>
         <source>Information</source>
         <translation>Informacion</translation>

@@ -35,8 +35,8 @@
         <translation>Билдирүүнү &amp;текшерүү...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Myriad</source>
+        <translation>Myriad</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -123,10 +123,6 @@
         <translation>&amp;Тармак</translation>
     </message>
     <message>
-        <source>W&amp;allet</source>
-        <translation>Капчык</translation>
-    </message>
-    <message>
         <source>&amp;Port:</source>
         <translation>&amp;Порт:</translation>
     </message>
@@ -177,10 +173,6 @@
         <translation>Жалпы</translation>
     </message>
     <message>
-        <source>Network</source>
-        <translation>&amp;Тармак</translation>
-    </message>
-    <message>
         <source>Name</source>
         <translation>Аты</translation>
     </message>
@@ -199,10 +191,6 @@
     </context>
 <context>
     <name>ReceiveCoinsDialog</name>
-    <message>
-        <source>&amp;Message:</source>
-        <translation>Билдирүү:</translation>
-    </message>
     </context>
 <context>
     <name>ReceiveRequestDialog</name>

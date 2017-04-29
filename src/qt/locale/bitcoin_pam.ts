@@ -58,12 +58,12 @@
         <translation>Address king pamag-Tanggap</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Reni reng kekang Bitcoin address king pamagpadalang kabayaran. Lawan mulang masalese reng alaga ampo ing address na ning tumanggap bayu ka magpadalang barya.</translation>
+        <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Reni reng kekang Myriad address king pamagpadalang kabayaran. Lawan mulang masalese reng alaga ampo ing address na ning tumanggap bayu ka magpadalang barya.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Reni reng kekang Bitcoin addresses keng pamananggap bayad. Rerekomenda mi na gumamit kang bayung address keng balang transaksiyon.</translation>
+        <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Reni reng kekang Myriad addresses keng pamananggap bayad. Rerekomenda mi na gumamit kang bayung address keng balang transaksiyon.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -140,8 +140,8 @@
         <translation>Kumpirman ya ing wallet encryption</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>Kapabaluan: Istung in-encrypt me ing kekang wallet at meala ya ing passphrase na, ma-&lt;b&gt;ALA NO NGAN RING KEKANG BITCOINS&lt;/b&gt;</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <translation>Kapabaluan: Istung in-encrypt me ing kekang wallet at meala ya ing passphrase na, ma-&lt;b&gt;ALA NO NGAN RING KEKANG MYRIADS&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -247,12 +247,8 @@
         <translation>&amp;Alilan ing Passphrase...</translation>
     </message>
     <message>
-        <source>&amp;Receiving addresses...</source>
-        <translation>Address king pamag-Tanggap</translation>
-    </message>
-    <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Magpadalang barya king Bitcoin address</translation>
+        <source>Send coins to a Myriad address</source>
+        <translation>Magpadalang barya king Myriad address</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -275,8 +271,8 @@
         <translation>&amp;Beripikan ing message...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Myriad</source>
+        <translation>Myriad</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -307,12 +303,8 @@
         <translation>Gamit para king Tabs</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Kapilubluban ning Bitcoin</translation>
-    </message>
-    <message>
-        <source>&amp;Command-line options</source>
-        <translation>Pipamilian command-line</translation>
+        <source>Myriad Core</source>
+        <translation>Kapilubluban ning Myriad</translation>
     </message>
     <message>
         <source>Last received block was generated %1 ago.</source>
@@ -368,10 +360,6 @@
 </context>
 <context>
     <name>CoinControlDialog</name>
-    <message>
-        <source>Amount:</source>
-        <translation>Alaga:</translation>
-    </message>
     <message>
         <source>Amount</source>
         <translation>Alaga</translation>
@@ -436,8 +424,8 @@
         <translation>Ing pepalub yung address "%1" ati na yu king aklat dareng address</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation>Ing pepalub yung address "%1" ali ya katanggap-tanggap a Bitcoin address.</translation>
+        <source>The entered address "%1" is not a valid Myriad address.</source>
+        <translation>Ing pepalub yung address "%1" ali ya katanggap-tanggap a Myriad address.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -454,8 +442,8 @@
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Kapilubluban ning Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Kapilubluban ning Myriad</translation>
     </message>
     <message>
         <source>version</source>
@@ -481,8 +469,8 @@
         <translation>Malaus ka</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Kapilubluban ning Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Kapilubluban ning Myriad</translation>
     </message>
     <message>
         <source>Error</source>
@@ -507,8 +495,8 @@
         <translation>&amp;Network</translation>
     </message>
     <message>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Ibuklat yang antimanu ing Bitcoin client port king router. Gagana yamu ini istung ing router mu susuporta yang UPnP at magsilbi ya.</translation>
+        <source>Automatically open the Myriad client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Ibuklat yang antimanu ing Myriad client port king router. Gagana yamu ini istung ing router mu susuporta yang UPnP at magsilbi ya.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -582,8 +570,8 @@
         <translation>Form</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Ing makaltong impormasion mapalyaring luma ne. Ing kekang wallet otomatiku yang mag-synchronize keng Bitcoin network istung mekakonekta ne king network, oneng ing prosesung ini ali ya pa kumpletu.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriad network after a connection is established, but this process has not completed yet.</source>
+        <translation>Ing makaltong impormasion mapalyaring luma ne. Ing kekang wallet otomatiku yang mag-synchronize keng Myriad network istung mekakonekta ne king network, oneng ing prosesung ini ali ya pa kumpletu.</translation>
     </message>
     <message>
         <source>Your current spendable balance</source>
@@ -647,10 +635,6 @@
     <message>
         <source>&amp;Information</source>
         <translation>&amp;Impormasion</translation>
-    </message>
-    <message>
-        <source>Debug window</source>
-        <translation>I-Debug ing awang</translation>
     </message>
     <message>
         <source>Using OpenSSL version</source>
@@ -731,10 +715,6 @@
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
-        <source>Copy &amp;Address</source>
-        <translation>&amp;Kopyan ing address</translation>
-    </message>
-    <message>
         <source>Address</source>
         <translation>Address</translation>
     </message>
@@ -779,18 +759,6 @@
     <message>
         <source>Send Coins</source>
         <translation>Magpadalang Barya</translation>
-    </message>
-    <message>
-        <source>Insufficient funds!</source>
-        <translation>Kulang a pondo</translation>
-    </message>
-    <message>
-        <source>Amount:</source>
-        <translation>Alaga:</translation>
-    </message>
-    <message>
-        <source>Transaction Fee:</source>
-        <translation>Bayad king Transaksion:</translation>
     </message>
     <message>
         <source>Send to multiple recipients at once</source>
@@ -871,14 +839,6 @@
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
-    <message>
-        <source>Message:</source>
-        <translation>Mensayi:</translation>
-    </message>
-    <message>
-        <source>Pay To:</source>
-        <translation>Ibayad kang:</translation>
-    </message>
     </context>
 <context>
     <name>ShutdownWindow</name>
@@ -918,8 +878,8 @@
         <translation>Kopyan ing kasalungsungan pirma king system clipboard</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Pirman ing mensayi ban patune na keka ya ining Bitcoin address</translation>
+        <source>Sign the message to prove you own this Myriad address</source>
+        <translation>Pirman ing mensayi ban patune na keka ya ining Myriad address</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -938,8 +898,8 @@
         <translation>&amp;Beripikan ing Mensayi</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>Beripikan ing mensayi ban asiguradu a me pirma ya ini gamit ing mepiling Bitcoin address</translation>
+        <source>Verify the message to ensure it was signed with the specified Myriad address</source>
+        <translation>Beripikan ing mensayi ban asiguradu a me pirma ya ini gamit ing mepiling Myriad address</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -1005,8 +965,8 @@
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Kapilubluban ning Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Kapilubluban ning Myriad</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -1411,24 +1371,8 @@
         <translation>Memali ya ing pamakiramdam kareng gang nanung port. Gamita me ini -listen=0 nung buri me ini.</translation>
     </message>
     <message>
-        <source>Cannot resolve -whitebind address: '%s'</source>
-        <translation>Eya me-resolve ing -whitebind address: '%s'</translation>
-    </message>
-    <message>
         <source>Information</source>
         <translation>&amp;Impormasion</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
-        <translation>Eya maliari ing alaga keng -maxtxfee=&lt;amount&gt;: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
-        <translation>Eya maliari ing alaga keng -minrelaytxfee=&lt;amount&gt;: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -mintxfee=&lt;amount&gt;: '%s'</source>
-        <translation>Eya maliari ing alaga keng -mintxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>

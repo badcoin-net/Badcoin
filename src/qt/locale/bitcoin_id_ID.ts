@@ -2,10 +2,6 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Right-click to edit address or label</source>
-        <translation>Klik-kanan untuk mengubah alamat atau label</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>Buat alamat baru</translation>
     </message>
@@ -66,11 +62,11 @@
         <translation>Alamat-alamat menerima</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Alamat-alamat Anda supaya mengirim pembayaran. Periksalah jumlah dan alamat penerima setiap kali Anda mengirim Bitcoin.</translation>
+        <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Alamat-alamat Anda supaya mengirim pembayaran. Periksalah jumlah dan alamat penerima setiap kali Anda mengirim Myriad.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation>Alamat-alamat Anda supaya menerima pembayaran. Dianjurkan agar Anda menggunakan alamat menerima yang baru untuk setiap transaksi.</translation>
     </message>
     <message>
@@ -93,11 +89,7 @@
         <source>Exporting Failed</source>
         <translation>Proses Ekspor Gagal</translation>
     </message>
-    <message>
-        <source>There was an error trying to save the address list to %1. Please try again.</source>
-        <translation>Terjadi kesalahan saat menyimpan daftar alamat ke %1. Silakan coba lagi.</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>AddressTableModel</name>
     <message>
@@ -160,20 +152,12 @@
         <translation>Konfirmasi enkripsi dompet</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
         <translation>Perhatian: Jika anda mengenkripsi dompet anda dan lupa kata kuncinya, anda pasti &lt;b&gt;KEHILANGAN SELURUH BITCOIN ANDA&lt;/B&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Apakah kamu yakin ingin mengenkripsi dompet anda?</translation>
-    </message>
-    <message>
-        <source>Bitcoin Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>Bitcoin Core akan ditutup untuk menyelesaikan proses enkripsi. Mohon diingat bahwa mengenkripsi dompet Anda tidak akan sepenuhnya melindungi bitcoin Anda dari virus atau malware yang menginfeksi komputer Anda.</translation>
-    </message>
-    <message>
-        <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
-        <translation>PENTING: Setiap back up yang sudah Anda buat sebaiknya diganti dengan data dompet Anda yang baru dan terenkripsi. Untuk alasan keamanan, data back up tidak terenkripsi yang sudah Anda buat sebelumnya tidak akan dapat digunakan setelah Anda mulai menggunakan dompet yang baru dan terenkripsi.</translation>
     </message>
     <message>
         <source>Warning: The Caps Lock key is on!</source>
@@ -182,14 +166,6 @@
     <message>
         <source>Wallet encrypted</source>
         <translation>Dompet terenkripsi</translation>
-    </message>
-    <message>
-        <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Masukkan kata kunci untuk dompet Anda.&lt;br/&gt;Mohon gunakan kata kunci &lt;b&gt;yang terdiri dari 10 karakter acak&lt;/b&gt;, atau &lt;b&gt;delapan atau beberapa kata lagi&lt;/b&gt;.</translation>
-    </message>
-    <message>
-        <source>Enter the old passphrase and new passphrase to the wallet.</source>
-        <translation>Masukkan kata kunci lama dan kata kunci baru dompet Anda.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -291,8 +267,8 @@
         <translation>Buka &amp;URI</translation>
     </message>
     <message>
-        <source>Bitcoin Core client</source>
-        <translation>Client Bitcoin Inti</translation>
+        <source>Myriad Core client</source>
+        <translation>Client Myriad Inti</translation>
     </message>
     <message>
         <source>Importing blocks from disk...</source>
@@ -303,8 +279,8 @@
         <translation>Mengindex ulang block di harddisk...</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Kirim koin ke alamat Bitcoin</translation>
+        <source>Send coins to a Myriad address</source>
+        <translation>Kirim koin ke alamat Myriad</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -327,8 +303,8 @@
         <translation>&amp;Verifikasi pesan...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Myriad</source>
+        <translation>Myriad</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -343,8 +319,8 @@
         <translation>&amp;Menerima</translation>
     </message>
     <message>
-        <source>Show information about Bitcoin Core</source>
-        <translation>Tampilkan informasi tentang Bitcoin Inti</translation>
+        <source>Show information about Myriad Core</source>
+        <translation>Tampilkan informasi tentang Myriad Inti</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -359,12 +335,12 @@
         <translation>Mengenkripsi kunci-kunci pribadi yang dipunyai dompetmu</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>Tandalah pesanan dengan alamat-alamat Bitcoin Anda supaya membuktikan pesanan itu dikirim oleh Anda</translation>
+        <source>Sign messages with your Myriad addresses to prove you own them</source>
+        <translation>Tandalah pesanan dengan alamat-alamat Myriad Anda supaya membuktikan pesanan itu dikirim oleh Anda</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>Periksakan pesan-pesan supaya menjaminkan ditandatangani oleh alamat Bitcoin yang terperinci</translation>
+        <source>Verify messages to ensure they were signed with specified Myriad addresses</source>
+        <translation>Periksakan pesan-pesan supaya menjaminkan ditandatangani oleh alamat Myriad yang terperinci</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -383,20 +359,16 @@
         <translation>Baris tab</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Core</translation>
+        <source>Myriad Core</source>
+        <translation>Myriad Core</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>Permintaan pembayaran (membangkitkan kode QR dan bitcoin: URIs)</translation>
+        <source>Request payments (generates QR codes and myriad: URIs)</source>
+        <translation>Permintaan pembayaran (membangkitkan kode QR dan myriad: URIs)</translation>
     </message>
     <message>
-        <source>&amp;About Bitcoin Core</source>
-        <translation>&amp;Mengenai Bitcoin Core</translation>
-    </message>
-    <message>
-        <source>Modify configuration options for Bitcoin Core</source>
-        <translation>Modifikasi pengaturan konfigurasi untuk Bitcoin Core</translation>
+        <source>&amp;About Myriad Core</source>
+        <translation>&amp;Mengenai Myriad Core</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -407,20 +379,20 @@
         <translation>Tampilkan daftar alamat dan label yang diterima</translation>
     </message>
     <message>
-        <source>Open a bitcoin: URI or payment request</source>
-        <translation>Buka URI bitcoin: atau permintaan pembayaran</translation>
+        <source>Open a myriad: URI or payment request</source>
+        <translation>Buka URI myriad: atau permintaan pembayaran</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;pilihan Perintah-baris</translation>
     </message>
     <message>
-        <source>Show the Bitcoin Core help message to get a list with possible Bitcoin command-line options</source>
-        <translation>Tampilkan pesan bantuan Bitcoin Core untuk memberikan daftar pilihan perintah-baris yang memungkinkan dalam aplikasi Bitcoin</translation>
+        <source>Show the Myriad Core help message to get a list with possible Myriad command-line options</source>
+        <translation>Tampilkan pesan bantuan Myriad Core untuk memberikan daftar pilihan perintah-baris yang memungkinkan dalam aplikasi Myriad</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>%n hubungan aktif ke jaringan Bitcoin</numerusform></translation>
+        <source>%n active connection(s) to Myriad network</source>
+        <translation><numerusform>%n hubungan aktif ke jaringan Myriad</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -479,34 +451,6 @@
         <translation>Menyusul...</translation>
     </message>
     <message>
-        <source>Date: %1
-</source>
-        <translation>Tanggal: %1</translation>
-    </message>
-    <message>
-        <source>Amount: %1
-</source>
-        <translation>Jumlah: %1
-</translation>
-    </message>
-    <message>
-        <source>Type: %1
-</source>
-        <translation>Tipe: %1
-</translation>
-    </message>
-    <message>
-        <source>Label: %1
-</source>
-        <translation>Label: %1</translation>
-    </message>
-    <message>
-        <source>Address: %1
-</source>
-        <translation>Alamat: %1
-</translation>
-    </message>
-    <message>
         <source>Sent transaction</source>
         <translation>Transaksi terkirim</translation>
     </message>
@@ -533,10 +477,6 @@
 <context>
     <name>CoinControlDialog</name>
     <message>
-        <source>Coin Selection</source>
-        <translation>Pemilihan Koin</translation>
-    </message>
-    <message>
         <source>Quantity:</source>
         <translation>Kuantitas:</translation>
     </message>
@@ -555,10 +495,6 @@
     <message>
         <source>Fee:</source>
         <translation>Biaya:</translation>
-    </message>
-    <message>
-        <source>Dust:</source>
-        <translation>Dust:</translation>
     </message>
     <message>
         <source>After Fee:</source>
@@ -583,14 +519,6 @@
     <message>
         <source>Amount</source>
         <translation>Nilai</translation>
-    </message>
-    <message>
-        <source>Received with label</source>
-        <translation>Diterima dengan label</translation>
-    </message>
-    <message>
-        <source>Received with address</source>
-        <translation>Diterima dengan alamat</translation>
     </message>
     <message>
         <source>Date</source>
@@ -653,10 +581,6 @@
         <translation>Salin prioritas</translation>
     </message>
     <message>
-        <source>Copy dust</source>
-        <translation>Salin dust</translation>
-    </message>
-    <message>
         <source>Copy change</source>
         <translation>Salin uang kembali</translation>
     </message>
@@ -703,22 +627,6 @@
     <message>
         <source>none</source>
         <translation>tidak satupun</translation>
-    </message>
-    <message>
-        <source>This label turns red if the transaction size is greater than 1000 bytes.</source>
-        <translation>Label ini akan menjadi merah apabila ukuran transaksi melebihi 1000 bytes.</translation>
-    </message>
-    <message>
-        <source>This label turns red if the priority is smaller than "medium".</source>
-        <translation>Label ini akan menjadi merah apabila prioritasnya lebih kecil dari "sedang"</translation>
-    </message>
-    <message>
-        <source>This label turns red if any recipient receives an amount smaller than %1.</source>
-        <translation>Label ini akan menjadi merah apabila penerima menerima jumlah yang lebih kecil dari %1.</translation>
-    </message>
-    <message>
-        <source>Can vary +/- %1 satoshi(s) per input.</source>
-        <translation>Dapat beragam +/- %1 satoshi per input.</translation>
     </message>
     <message>
         <source>yes</source>
@@ -796,8 +704,8 @@
         <translation>Alamat yang dimasukkan "%1" sudah ada di dalam buku alamat.</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation>Alamat yang dimasukkan "%1" bukan alamat Bitcoin yang benar.</translation>
+        <source>The entered address "%1" is not a valid Myriad address.</source>
+        <translation>Alamat yang dimasukkan "%1" bukan alamat Myriad yang benar.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -834,24 +742,16 @@
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Core</translation>
+        <source>Myriad Core</source>
+        <translation>Myriad Core</translation>
     </message>
     <message>
         <source>version</source>
         <translation>versi</translation>
     </message>
     <message>
-        <source>(%1-bit)</source>
-        <translation>(%1-bit)</translation>
-    </message>
-    <message>
-        <source>About Bitcoin Core</source>
-        <translation>Mengenai Bitcoin Core</translation>
-    </message>
-    <message>
-        <source>Command-line options</source>
-        <translation>pilihan Perintah-baris</translation>
+        <source>About Myriad Core</source>
+        <translation>Mengenai Myriad Core</translation>
     </message>
     <message>
         <source>Usage:</source>
@@ -869,16 +769,8 @@
         <translation>Selamat Datang</translation>
     </message>
     <message>
-        <source>Welcome to Bitcoin Core.</source>
-        <translation>Selamat Datang ke Bitcoin Core</translation>
-    </message>
-    <message>
-        <source>As this is the first time the program is launched, you can choose where Bitcoin Core will store its data.</source>
-        <translation>Ini adalah pertama kali program ini dijalankan, Anda dapat memilih dimana Bitcoin Core menyimpan data.</translation>
-    </message>
-    <message>
-        <source>Bitcoin Core will download and store a copy of the Bitcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Bitcoin Core akan mengunduh dan menyimpan salinan dari block chain Bitcoin. Setidaknya %1GB data akan disimpan di direktori ini, dan akan terus bertambah. Dompet Anda juga akan disimpan di direktori ini.</translation>
+        <source>Welcome to Myriad Core.</source>
+        <translation>Selamat Datang ke Myriad Core</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -889,12 +781,8 @@
         <translation>Menggunakan direktori data yang dipilih Anda:</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Core</translation>
-    </message>
-    <message>
-        <source>Error: Specified data directory "%1" cannot be created.</source>
-        <translation>Kesalahan: Direktori data "%1" tidak dapat dibuat.</translation>
+        <source>Myriad Core</source>
+        <translation>Myriad Core</translation>
     </message>
     <message>
         <source>Error</source>
@@ -939,40 +827,12 @@
         <translation>&amp;Utama</translation>
     </message>
     <message>
-        <source>Size of &amp;database cache</source>
-        <translation>Ukuran cache &amp;database</translation>
-    </message>
-    <message>
         <source>MB</source>
         <translation>MB</translation>
     </message>
     <message>
-        <source>Number of script &amp;verification threads</source>
-        <translation>Jumlah script &amp;verification threads</translation>
-    </message>
-    <message>
-        <source>Accept connections from outside</source>
-        <translation>Terima koneksi dari luar</translation>
-    </message>
-    <message>
-        <source>Allow incoming connections</source>
-        <translation>Perbolehkan koneksi masuk</translation>
-    </message>
-    <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
         <translation>Alamat IP proxy (cth. IPv4: 127.0.0.1 / IPv6: ::1)</translation>
-    </message>
-    <message>
-        <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
-        <translation>Minimalisasi aplikasi ketika jendela ditutup. Ketika pilihan ini dipilih, aplikasi akan menutup seluruhnya jika anda memilih Keluar di menu yang tersedia.</translation>
-    </message>
-    <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting Bitcoin Core.</source>
-        <translation>Bahasa interface pengguna bisa diubah disini. Pengaturan ini akan memberikan efek setelah Bitcoin Core di-restart.</translation>
-    </message>
-    <message>
-        <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation>URL pihak ketika (misalnya sebuah block explorer) yang mumcul dalam tab transaksi sebagai konteks menu. %s dalam URL diganti dengan kode transaksi. URL dipisahkan dengan tanda vertikal |.</translation>
     </message>
     <message>
         <source>Third party transaction URLs</source>
@@ -995,18 +855,6 @@
         <translation>&amp;Jaringan</translation>
     </message>
     <message>
-        <source>Automatically start Bitcoin Core after logging in to the system.</source>
-        <translation>Buka Bitcoin Core secara otomatis setelah Anda log-in ke sistem Anda.</translation>
-    </message>
-    <message>
-        <source>&amp;Start Bitcoin Core on system login</source>
-        <translation>&amp;Mulai Bitcoin Core saat log-in sistem</translation>
-    </message>
-    <message>
-        <source>(0 = auto, &lt;0 = leave that many cores free)</source>
-        <translation>(0 = auto, &lt;0 = leave that many cores free)</translation>
-    </message>
-    <message>
         <source>W&amp;allet</source>
         <translation>D&amp;ompet</translation>
     </message>
@@ -1027,16 +875,12 @@
         <translation>&amp;Perubahan saldo untuk transaksi yang belum dikonfirmasi</translation>
     </message>
     <message>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Otomatis membuka port client Bitcoin di router. Hanya berjalan apabila router anda mendukung UPnP dan di-enable.</translation>
+        <source>Automatically open the Myriad client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Otomatis membuka port client Myriad di router. Hanya berjalan apabila router anda mendukung UPnP dan di-enable.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
         <translation>Petakan port dengan &amp;UPnP</translation>
-    </message>
-    <message>
-        <source>Connect to the Bitcoin network through a SOCKS5 proxy.</source>
-        <translation>Hubungkan ke jaringan Bitcoin melalui SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1111,10 +955,6 @@
         <translation>Restart klien diperlukan untuk mengaktifkan perubahan.</translation>
     </message>
     <message>
-        <source>Client will be shut down. Do you want to proceed?</source>
-        <translation>Klien akan dimatikan, apakah anda hendak melanjutkan?</translation>
-    </message>
-    <message>
         <source>This change would require a client restart.</source>
         <translation>Perubahan ini akan memerlukan restart klien</translation>
     </message>
@@ -1130,8 +970,8 @@
         <translation>Formulir</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Informasi terlampir mungkin sudah kedaluwarsa. Dompet Anda secara otomatis mensinkronisasi dengan jaringan Bitcoin ketika sebuah hubungan terbentuk, namun proses ini belum selesai.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriad network after a connection is established, but this process has not completed yet.</source>
+        <translation>Informasi terlampir mungkin sudah kedaluwarsa. Dompet Anda secara otomatis mensinkronisasi dengan jaringan Myriad ketika sebuah hubungan terbentuk, namun proses ini belum selesai.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1158,10 +998,6 @@
         <translation>Saldo ditambang yang masih terlalu muda</translation>
     </message>
     <message>
-        <source>Balances</source>
-        <translation>Saldo:</translation>
-    </message>
-    <message>
         <source>Total:</source>
         <translation>Jumlah:</translation>
     </message>
@@ -1181,20 +1017,12 @@
         <translation>Alamat pembayaran salah %1</translation>
     </message>
     <message>
-        <source>Payment request rejected</source>
-        <translation>Permintaan pembayaran ditolak</translation>
-    </message>
-    <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
         <translation>Nilai pembayaran %1 yang diminta oleh Anda terlalu sedikit (dianggap debu).</translation>
     </message>
     <message>
         <source>Payment request error</source>
         <translation>Gagalan permintaan pembayaran</translation>
-    </message>
-    <message>
-        <source>Payment request expired.</source>
-        <translation>Permintaan pembayaran telah kadaluarsa</translation>
     </message>
     <message>
         <source>Refund from %1</source>
@@ -1219,20 +1047,12 @@
 </context>
 <context>
     <name>PeerTableModel</name>
-    <message>
-        <source>User Agent</source>
-        <translation>Agen Pengguna</translation>
-    </message>
     </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Amount</source>
         <translation>Nilai</translation>
-    </message>
-    <message>
-        <source>Enter a Bitcoin address (e.g. %1)</source>
-        <translation>Masukkan alamat Bitcoin (contoh %1)</translation>
     </message>
     <message>
         <source>%1 h</source>
@@ -1321,22 +1141,6 @@
         <translation>Jumlah blok terkini</translation>
     </message>
     <message>
-        <source>Sent</source>
-        <translation>Terkirim</translation>
-    </message>
-    <message>
-        <source>Version</source>
-        <translation>Versi</translation>
-    </message>
-    <message>
-        <source>User Agent</source>
-        <translation>Agen Pengguna</translation>
-    </message>
-    <message>
-        <source>Services</source>
-        <translation>Layanan</translation>
-    </message>
-    <message>
         <source>Last block time</source>
         <translation>Waktu blok terakhir</translation>
     </message>
@@ -1381,10 +1185,6 @@
         <translation>Bersihkan konsol</translation>
     </message>
     <message>
-        <source>Welcome to the Bitcoin Core RPC console.</source>
-        <translation>Selamat datang di konsol RPC Bitcoin.</translation>
-    </message>
-    <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
         <translation>Gunakan panah keatas dan kebawah untuk menampilkan sejarah, dan &lt;b&gt;Ctrl-L&lt;/b&gt; untuk bersihkan layar.</translation>
     </message>
@@ -1407,10 +1207,6 @@
     <message>
         <source>%1 GB</source>
         <translation>%1 GB</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation>Tidak diketahui</translation>
     </message>
     </context>
 <context>
@@ -1633,26 +1429,6 @@
         <translation>Alamat uang kembali yang kustom</translation>
     </message>
     <message>
-        <source>Transaction Fee:</source>
-        <translation>Biaya Transaksi:</translation>
-    </message>
-    <message>
-        <source>Recommended:</source>
-        <translation>Disarankan</translation>
-    </message>
-    <message>
-        <source>Confirmation time:</source>
-        <translation>Waktu konfirmasi:</translation>
-    </message>
-    <message>
-        <source>normal</source>
-        <translation>normal</translation>
-    </message>
-    <message>
-        <source>fast</source>
-        <translation>cepat</translation>
-    </message>
-    <message>
         <source>Send to multiple recipients at once</source>
         <translation>Kirim ke beberapa penerima sekaligus</translation>
     </message>
@@ -1663,10 +1439,6 @@
     <message>
         <source>Clear all fields of the form.</source>
         <translation>Hapus informasi dari form.</translation>
-    </message>
-    <message>
-        <source>Dust:</source>
-        <translation>Dust:</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -1741,24 +1513,12 @@
         <translation>Gagal: Transaksi ditolak. Ini mungkin terjadi jika beberapa dari koin dalam dompet Anda telah digunakan, seperti ketika Anda menggunakan salinan wallet.dat dan beberapa koin telah dibelanjakan dalam salinan tersebut tetapi disini tidak tertandai sebagai terpakai.</translation>
     </message>
     <message>
-        <source>A fee higher than %1 is considered an absurdly high fee.</source>
-        <translation>Biaya yang lebih tinggi dari %1 dianggap biaya tak masuk akal.</translation>
-    </message>
-    <message>
-        <source>Payment request expired.</source>
-        <translation>Permintaan pembayaran telah kadaluarsa</translation>
-    </message>
-    <message>
-        <source>Warning: Invalid Bitcoin address</source>
-        <translation>Awas: Alamat Bitcoin tidak sah</translation>
+        <source>Warning: Invalid Myriad address</source>
+        <translation>Awas: Alamat Myriad tidak sah</translation>
     </message>
     <message>
         <source>(no label)</source>
         <translation>(tidak ada label)</translation>
-    </message>
-    <message>
-        <source>Copy dust</source>
-        <translation>Salin dust</translation>
     </message>
     <message>
         <source>Are you sure you want to send?</source>
@@ -1831,8 +1591,8 @@
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Bitcoin Core is shutting down...</source>
-        <translation>Bitcoin Core sementara dimatikan...</translation>
+        <source>Myriad Core is shutting down...</source>
+        <translation>Myriad Core sementara dimatikan...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -1878,8 +1638,8 @@
         <translation>Salin tanda tangan terpilih ke sistem klipboard</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Tandai pesan untuk menyetujui kamu pemiliki alamat Bitcoin ini</translation>
+        <source>Sign the message to prove you own this Myriad address</source>
+        <translation>Tandai pesan untuk menyetujui kamu pemiliki alamat Myriad ini</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -1957,12 +1717,12 @@
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Bitcoin Core</translation>
+        <source>Myriad Core</source>
+        <translation>Myriad Core</translation>
     </message>
     <message>
-        <source>The Bitcoin Core developers</source>
-        <translation>Pembangun Bitcoin Core</translation>
+        <source>The Myriad Core developers</source>
+        <translation>Pembangun Myriad Core</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2439,8 +2199,8 @@
         <translation>Jalankan perintah ketika perubahan transaksi dompet (%s di cmd digantikan oleh TxID)</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. Bitcoin Core is probably already running.</source>
-        <translation>Tidak bisa mengikat dengan %s di computer ini. Kemungkinan Bitcoin Core sudah mulai.</translation>
+        <source>Unable to bind to %s on this computer. Myriad Core is probably already running.</source>
+        <translation>Tidak bisa mengikat dengan %s di computer ini. Kemungkinan Myriad Core sudah mulai.</translation>
     </message>
     <message>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
@@ -2559,24 +2319,12 @@
         <translation>Impor blok dari eksternal berkas blk000???.dat</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. Bitcoin Core is probably already running.</source>
-        <translation>Tidak bisa mengunci data directory %s. Kemungkinan Bitcoin Core sudah mulai.</translation>
-    </message>
-    <message>
-        <source>Cannot resolve -whitebind address: '%s'</source>
-        <translation>Tidak dapat menyelesaikan alamat -whitebind: '%s'</translation>
-    </message>
-    <message>
-        <source>Connect through SOCKS5 proxy</source>
-        <translation>Hubungkan melalui proxy SOCKS</translation>
+        <source>Cannot obtain a lock on data directory %s. Myriad Core is probably already running.</source>
+        <translation>Tidak bisa mengunci data directory %s. Kemungkinan Myriad Core sudah mulai.</translation>
     </message>
     <message>
         <source>Information</source>
         <translation>Informasi</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
-        <translation>Nilai salah untuk -maxtxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
@@ -2593,10 +2341,6 @@
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Kirim info jejak/debug ke konsol bukan berkas debug.log</translation>
-    </message>
-    <message>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>Pilih sertifikat root SSL untuk permintaan pembayaran {default: -system-)</translation>
     </message>
     <message>
         <source>Set language, for example "de_DE" (default: system locale)</source>
@@ -2629,10 +2373,6 @@
     <message>
         <source>Transaction too large</source>
         <translation>Transaksi terlalu besar</translation>
-    </message>
-    <message>
-        <source>UI Options:</source>
-        <translation>Pilihan UI:</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>

@@ -2,16 +2,12 @@
 <context>
     <name>AddressBookPage</name>
     <message>
-        <source>Right-click to edit address or label</source>
-        <translation>Click derecho para editar tu dirección o etiqueta</translation>
-    </message>
-    <message>
         <source>Create a new address</source>
         <translation>Crear una dirección nueva</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>Nuevo</translation>
+        <translation>&amp;Nuevo</translation>
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
@@ -19,7 +15,7 @@
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>Copiar</translation>
+        <translation>&amp;Copiar</translation>
     </message>
     <message>
         <source>C&amp;lose</source>
@@ -27,7 +23,7 @@
     </message>
     <message>
         <source>&amp;Copy Address</source>
-        <translation>Copiar dirección</translation>
+        <translation>&amp;Copiar dirección</translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
@@ -66,20 +62,20 @@
         <translation>Recibiendo direcciones</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Estas son tus direcciones de Bitcoin para enviar pagos. Siempre revise la cantidad y la dirección receptora antes de enviar monedas</translation>
+        <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Estas son tus direcciones de Myriad para enviar pagos. Siempre revise la cantidad y la dirección receptora antes de enviar monedas</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Estas son tus direcciones Bitcoin para recibir pagos. Es recomendado usar una nueva dirección receptora para cada transacción.</translation>
+        <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Estas son tus direcciones Myriad para recibir pagos. Es recomendado usar una nueva dirección receptora para cada transacción.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
-        <translation>Copiar y etiquetar</translation>
+        <translation>Copiar &amp;Etiqueta</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>Editar</translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>Export Address List</source>
@@ -152,8 +148,8 @@
         <translation>Confirmar la encriptación de cartera</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>Advertencia: Si encripta su cartera y pierde su contraseña, &lt;b&gt;PERDERÁ TODOS SUS BITCOINS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <translation>Advertencia: Si encripta su cartera y pierde su contraseña, &lt;b&gt;PERDERÁ TODOS SUS MYRIADS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -271,10 +267,6 @@
         <translation>Abrir &amp;URL...</translation>
     </message>
     <message>
-        <source>Bitcoin Core client</source>
-        <translation>cliente Bitcoin Core</translation>
-    </message>
-    <message>
         <source>Importing blocks from disk...</source>
         <translation>Importando bloques desde el disco...</translation>
     </message>
@@ -283,8 +275,8 @@
         <translation>Reindexando bloques en el disco...</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Enviar monedas a una dirección Bitcoin</translation>
+        <source>Send coins to a Myriad address</source>
+        <translation>Enviar monedas a una dirección Myriad</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -307,22 +299,6 @@
         <translation>&amp;Verificar mensaje...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
-    </message>
-    <message>
-        <source>Wallet</source>
-        <translation>Cartera</translation>
-    </message>
-    <message>
-        <source>&amp;Send</source>
-        <translation>&amp;Enviar</translation>
-    </message>
-    <message>
-        <source>&amp;Receive</source>
-        <translation>&amp;Recibir</translation>
-    </message>
-    <message>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
@@ -339,36 +315,16 @@
         <translation>Pestañas</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>nucleo Bitcoin</translation>
-    </message>
-    <message>
-        <source>&amp;About Bitcoin Core</source>
-        <translation>Acerca de Bitcoin Core</translation>
-    </message>
-    <message>
-        <source>Modify configuration options for Bitcoin Core</source>
-        <translation>Modificar las opciones de configuración de Bitcoin Core</translation>
+        <source>Myriad Core</source>
+        <translation>nucleo Myriad</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>opciones de la &amp;Linea de comandos</translation>
     </message>
     <message>
-        <source>Show the Bitcoin Core help message to get a list with possible Bitcoin command-line options</source>
-        <translation>Mostrar mensaje de ayuda del nucleo de Bitcoin para optener una lista con los posibles comandos  de Bitcoin</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Aviso</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Información </translation>
+        <source>Show the Myriad Core help message to get a list with possible Myriad command-line options</source>
+        <translation>Mostrar mensaje de ayuda del nucleo de Myriad para optener una lista con los posibles comandos  de Myriad</translation>
     </message>
     <message>
         <source>Up to date</source>
@@ -401,10 +357,6 @@
 <context>
     <name>CoinControlDialog</name>
     <message>
-        <source>Quantity:</source>
-        <translation>Cantidad</translation>
-    </message>
-    <message>
         <source>Bytes:</source>
         <translation>Bytes:</translation>
     </message>
@@ -421,14 +373,6 @@
         <translation>Cuota:</translation>
     </message>
     <message>
-        <source>After Fee:</source>
-        <translation>Después de los cargos por comisión. </translation>
-    </message>
-    <message>
-        <source>Change:</source>
-        <translation>Cambio</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Monto</translation>
     </message>
@@ -441,10 +385,6 @@
         <translation>Confirmado </translation>
     </message>
     <message>
-        <source>Priority</source>
-        <translation>Prioridad</translation>
-    </message>
-    <message>
         <source>Copy address</source>
         <translation>Copiar dirección </translation>
     </message>
@@ -455,10 +395,6 @@
     <message>
         <source>Copy amount</source>
         <translation>copiar monto</translation>
-    </message>
-    <message>
-        <source>Copy transaction ID</source>
-        <translation>Copiar identificación de la transacción. </translation>
     </message>
     <message>
         <source>Copy quantity</source>
@@ -485,30 +421,10 @@
         <translation>copiar cambio</translation>
     </message>
     <message>
-        <source>low</source>
-        <translation>Bajo</translation>
-    </message>
-    <message>
-        <source>none</source>
-        <translation>Ninguno </translation>
-    </message>
-    <message>
-        <source>yes</source>
-        <translation>si</translation>
-    </message>
-    <message>
-        <source>no</source>
-        <translation>no</translation>
-    </message>
-    <message>
         <source>(no label)</source>
         <translation>(sin etiqueta)</translation>
     </message>
-    <message>
-        <source>(change)</source>
-        <translation>(cambio)</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>EditAddressDialog</name>
     <message>
@@ -554,16 +470,12 @@
 </context>
 <context>
     <name>FreespaceChecker</name>
-    <message>
-        <source>name</source>
-        <translation>nombre</translation>
-    </message>
     </context>
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>nucleo Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>nucleo Myriad</translation>
     </message>
     <message>
         <source>version</source>
@@ -574,12 +486,8 @@
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About Bitcoin Core</source>
-        <translation>Acerca de Bitcoin Core</translation>
-    </message>
-    <message>
-        <source>Command-line options</source>
-        <translation>opciones de la Linea de comandos</translation>
+        <source>About Myriad Core</source>
+        <translation>Acerca de Myriad Core</translation>
     </message>
     <message>
         <source>Usage:</source>
@@ -593,12 +501,8 @@
 <context>
     <name>Intro</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>nucleo Bitcoin</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation>Error</translation>
+        <source>Myriad Core</source>
+        <translation>nucleo Myriad</translation>
     </message>
     </context>
 <context>
@@ -613,14 +517,6 @@
     <message>
         <source>Active command-line options that override above options:</source>
         <translation>Activar las opciones de linea de comando que sobre escriben las siguientes opciones:</translation>
-    </message>
-    <message>
-        <source>W&amp;allet</source>
-        <translation>Cartera</translation>
-    </message>
-    <message>
-        <source>none</source>
-        <translation>Ninguno </translation>
     </message>
     </context>
 <context>
@@ -648,28 +544,16 @@
     </context>
 <context>
     <name>RPCConsole</name>
-    <message>
-        <source>Debug window</source>
-        <translation>Depurar ventana</translation>
-    </message>
     </context>
 <context>
     <name>ReceiveCoinsDialog</name>
-    <message>
-        <source>&amp;Amount:</source>
-        <translation>Monto:</translation>
-    </message>
     <message>
         <source>&amp;Label:</source>
         <translation>&amp;Etiqueta</translation>
     </message>
     <message>
-        <source>&amp;Message:</source>
-        <translation>Mensaje:</translation>
-    </message>
-    <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
-        <translation>Mensaje opcional para agregar a la solicitud de pago, el cual será mostrado cuando la solicitud este abierta. Nota: El mensaje no se manda con el pago a travéz de la red de Bitcoin.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriad network.</source>
+        <translation>Mensaje opcional para agregar a la solicitud de pago, el cual será mostrado cuando la solicitud este abierta. Nota: El mensaje no se manda con el pago a travéz de la red de Myriad.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -691,10 +575,6 @@
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
-        <source>Copy &amp;Address</source>
-        <translation>&amp;Copiar dirección</translation>
-    </message>
-    <message>
         <source>Address</source>
         <translation>Domicilio</translation>
     </message>
@@ -706,10 +586,6 @@
         <source>Label</source>
         <translation>Etiqueta</translation>
     </message>
-    <message>
-        <source>Message</source>
-        <translation>Mensaje</translation>
-    </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
@@ -720,10 +596,6 @@
     <message>
         <source>Label</source>
         <translation>Etiqueta</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>Mensaje</translation>
     </message>
     <message>
         <source>Amount</source>
@@ -741,10 +613,6 @@
         <translation>Mandar monedas</translation>
     </message>
     <message>
-        <source>Quantity:</source>
-        <translation>Cantidad</translation>
-    </message>
-    <message>
         <source>Bytes:</source>
         <translation>Bytes:</translation>
     </message>
@@ -759,18 +627,6 @@
     <message>
         <source>Fee:</source>
         <translation>Cuota:</translation>
-    </message>
-    <message>
-        <source>After Fee:</source>
-        <translation>Después de los cargos por comisión. </translation>
-    </message>
-    <message>
-        <source>Change:</source>
-        <translation>Cambio</translation>
-    </message>
-    <message>
-        <source>fast</source>
-        <translation>rápido</translation>
     </message>
     <message>
         <source>Send to multiple recipients at once</source>
@@ -833,8 +689,8 @@
         <translation>¡La transación fue rechazada! Esto puede ocurrir si algunas de tus monedas en tu cartera han sido gastadas, al igual que si usas una cartera copiada y la monedas fueron gastadas en la copia pero no se marcaron como gastadas.</translation>
     </message>
     <message>
-        <source>Warning: Invalid Bitcoin address</source>
-        <translation>Advertencia: Dirección de Bitcoin invalida</translation>
+        <source>Warning: Invalid Myriad address</source>
+        <translation>Advertencia: Dirección de Myriad invalida</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -895,8 +751,8 @@
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Bitcoin Core is shutting down...</source>
-        <translation>Apagando el nucleo de Bitcoin...</translation>
+        <source>Myriad Core is shutting down...</source>
+        <translation>Apagando el nucleo de Myriad...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -917,20 +773,16 @@
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
-    <message>
-        <source>Signature</source>
-        <translation>Firma</translation>
-    </message>
     </context>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>nucleo Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>nucleo Myriad</translation>
     </message>
     <message>
-        <source>The Bitcoin Core developers</source>
-        <translation>Los desarrolladores de Bitcoin Core</translation>
+        <source>The Myriad Core developers</source>
+        <translation>Los desarrolladores de Myriad Core</translation>
     </message>
     </context>
 <context>
@@ -951,40 +803,12 @@
         <translation>%1 confirmaciones</translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>Estado</translation>
-    </message>
-    <message>
         <source>Date</source>
         <translation>Fecha</translation>
     </message>
     <message>
-        <source>From</source>
-        <translation>De</translation>
-    </message>
-    <message>
-        <source>To</source>
-        <translation>Para</translation>
-    </message>
-    <message>
-        <source>label</source>
-        <translation>etiqueta</translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <translation>Mensaje</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation>Comentario</translation>
-    </message>
-    <message>
         <source>Transaction ID</source>
         <translation>ID</translation>
-    </message>
-    <message>
-        <source>Transaction</source>
-        <translation>Transacción</translation>
     </message>
     <message>
         <source>Amount</source>
@@ -1042,7 +866,7 @@
     </message>
     <message>
         <source>Received with</source>
-        <translation>Recibido con</translation>
+        <translation>Recivido con</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -1101,7 +925,7 @@
     </message>
     <message>
         <source>Received with</source>
-        <translation>Recibido con</translation>
+        <translation>Recivido con</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -1138,10 +962,6 @@
     <message>
         <source>Copy amount</source>
         <translation>copiar monto</translation>
-    </message>
-    <message>
-        <source>Copy transaction ID</source>
-        <translation>Copiar identificación de la transacción. </translation>
     </message>
     <message>
         <source>Edit label</source>
@@ -1231,20 +1051,8 @@
 <context>
     <name>bitcoin-core</name>
     <message>
-        <source>Options:</source>
-        <translation>Opciones:</translation>
-    </message>
-    <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;categoria&gt; puede ser:</translation>
-    </message>
-    <message>
-        <source>Verifying blocks...</source>
-        <translation>Verificando bloques...</translation>
-    </message>
-    <message>
-        <source>Verifying wallet...</source>
-        <translation>Verificando cartera...</translation>
     </message>
     <message>
         <source>Wallet options:</source>
@@ -1253,10 +1061,6 @@
     <message>
         <source>Choose data directory on startup (default: 0)</source>
         <translation>Escojer el directorio de información al iniciar (por defecto : 0)</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Información </translation>
     </message>
     <message>
         <source>Set language, for example "de_DE" (default: system locale)</source>
@@ -1269,10 +1073,6 @@
     <message>
         <source>Start minimized</source>
         <translation>Iniciar minimizado</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Aviso</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
@@ -1290,9 +1090,5 @@
         <source>Done loading</source>
         <translation>Carga completa</translation>
     </message>
-    <message>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-</context>
+    </context>
 </TS>

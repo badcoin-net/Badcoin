@@ -62,12 +62,12 @@
         <translation>Direccións para recibir</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Estas son as túas direccións Bitcoin para enviar pagos. Revisa sempre a cantidade e a dirección receptora antes de enviar moedas.</translation>
+        <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Estas son as túas direccións Myriad para enviar pagos. Revisa sempre a cantidade e a dirección receptora antes de enviar moedas.</translation>
     </message>
     <message>
-        <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Estas son as túas direccións Bitcoin para recibir pagos. Recoméndase empregar unha nova dirección de recepción por cada transacción.</translation>
+        <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Estas son as túas direccións Myriad para recibir pagos. Recoméndase empregar unha nova dirección de recepción por cada transacción.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -152,8 +152,8 @@
         <translation>Confirmar encriptación de moedeiro</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>Precaución: Se encriptas o teu moedeiro e perdes o teu contrasinal, ti &lt;b&gt;PERDERÁS TÓDOLOS TEUS BITCOINS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <translation>Precaución: Se encriptas o teu moedeiro e perdes o teu contrasinal, ti &lt;b&gt;PERDERÁS TÓDOLOS TEUS MYRIADS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -259,10 +259,6 @@
         <translation>&amp;Cambiar contrasinal...</translation>
     </message>
     <message>
-        <source>&amp;Receiving addresses...</source>
-        <translation>Direccións para recibir</translation>
-    </message>
-    <message>
         <source>Importing blocks from disk...</source>
         <translation>Importando bloques de disco...</translation>
     </message>
@@ -271,8 +267,8 @@
         <translation>Reindexando bloques no disco...</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcoin address</source>
-        <translation>Enviar moedas a unha dirección Bitcoin</translation>
+        <source>Send coins to a Myriad address</source>
+        <translation>Enviar moedas a unha dirección Myriad</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -295,8 +291,8 @@
         <translation>&amp;Verificar mensaxe...</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
-        <translation>Bitcoin</translation>
+        <source>Myriad</source>
+        <translation>Myriad</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -323,12 +319,12 @@
         <translation>Encriptar as claves privadas que pertencen ao teu moedeiro</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>Asina mensaxes coas túas direccións Bitcoin para probar que te pertencen</translation>
+        <source>Sign messages with your Myriad addresses to prove you own them</source>
+        <translation>Asina mensaxes coas túas direccións Myriad para probar que te pertencen</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>Verificar mensaxes para asegurar que foron asinados con direccións Bitcoin dadas.</translation>
+        <source>Verify messages to ensure they were signed with specified Myriad addresses</source>
+        <translation>Verificar mensaxes para asegurar que foron asinados con direccións Myriad dadas.</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -347,16 +343,16 @@
         <translation>Barra de ferramentas</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Core de Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Core de Myriad</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>Solicitar pagos (xenera códigos QR e bitcoin: URIs)</translation>
+        <source>Request payments (generates QR codes and myriad: URIs)</source>
+        <translation>Solicitar pagos (xenera códigos QR e myriad: URIs)</translation>
     </message>
     <message>
-        <source>&amp;About Bitcoin Core</source>
-        <translation>&amp;Sobre Bitcoin Core</translation>
+        <source>&amp;About Myriad Core</source>
+        <translation>&amp;Sobre Myriad Core</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -367,12 +363,8 @@
         <translation>Amosar a listaxe de etiquetas e direccións para recibir empregadas</translation>
     </message>
     <message>
-        <source>Open a bitcoin: URI or payment request</source>
-        <translation>Abrir un bitcoin: URI ou solicitude de pago</translation>
-    </message>
-    <message>
-        <source>&amp;Command-line options</source>
-        <translation>Opcións da liña de comandos</translation>
+        <source>Open a myriad: URI or payment request</source>
+        <translation>Abrir un myriad: URI ou solicitude de pago</translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -640,8 +632,8 @@
         <translation>A dirección introducida "%1" xa está no libro de direccións.</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation>A dirección introducida '%1' non é unha dirección Bitcoin válida.</translation>
+        <source>The entered address "%1" is not a valid Myriad address.</source>
+        <translation>A dirección introducida '%1' non é unha dirección Myriad válida.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -678,16 +670,16 @@
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Core de Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Core de Myriad</translation>
     </message>
     <message>
         <source>version</source>
         <translation>versión</translation>
     </message>
     <message>
-        <source>About Bitcoin Core</source>
-        <translation>Sobre Bitcoin core</translation>
+        <source>About Myriad Core</source>
+        <translation>Sobre Myriad core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -717,8 +709,8 @@
         <translation>Empregar un directorio de datos personalizado</translation>
     </message>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Core de Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Core de Myriad</translation>
     </message>
     <message>
         <source>Error</source>
@@ -771,12 +763,8 @@
         <translation>&amp;Rede</translation>
     </message>
     <message>
-        <source>W&amp;allet</source>
-        <translation>Moedeiro</translation>
-    </message>
-    <message>
-        <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Abrir automáticamente o porto do cliente Bitcoin no router. Esto so funciona se o teu router soporta UPnP e está habilitado.</translation>
+        <source>Automatically open the Myriad client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Abrir automáticamente o porto do cliente Myriad no router. Esto so funciona se o teu router soporta UPnP e está habilitado.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -854,8 +842,8 @@
         <translation>Formulario</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>A información amosada por estar desactualizada. O teu moedeiro sincronízase automáticamente coa rede Bitcoin despois de que se estableza unha conexión, pero este proceso non está todavía rematado.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriad network after a connection is established, but this process has not completed yet.</source>
+        <translation>A información amosada por estar desactualizada. O teu moedeiro sincronízase automáticamente coa rede Myriad despois de que se estableza unha conexión, pero este proceso non está todavía rematado.</translation>
     </message>
     <message>
         <source>Your current spendable balance</source>
@@ -975,10 +963,6 @@
     <message>
         <source>&amp;Information</source>
         <translation>&amp;Información</translation>
-    </message>
-    <message>
-        <source>Debug window</source>
-        <translation>Ventana de Depuración</translation>
     </message>
     <message>
         <source>Using OpenSSL version</source>
@@ -1201,10 +1185,6 @@
         <translation>Moedas Enviadas</translation>
     </message>
     <message>
-        <source>Insufficient funds!</source>
-        <translation>Fondos insuficientes</translation>
-    </message>
-    <message>
         <source>Quantity:</source>
         <translation>Cantidade:</translation>
     </message>
@@ -1227,10 +1207,6 @@
     <message>
         <source>Change:</source>
         <translation>Cambiar:</translation>
-    </message>
-    <message>
-        <source>Transaction Fee:</source>
-        <translation>Tarifa de transacción:</translation>
     </message>
     <message>
         <source>Send to multiple recipients at once</source>
@@ -1309,8 +1285,8 @@
         <translation>O total sobrepasa o teu balance cando se inclúe a tarifa de transacción %1.</translation>
     </message>
     <message>
-        <source>Warning: Invalid Bitcoin address</source>
-        <translation>Atención:  Enderezo Bitcoin non válido</translation>
+        <source>Warning: Invalid Myriad address</source>
+        <translation>Atención:  Enderezo Myriad non válido</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -1372,10 +1348,6 @@
         <translation>Eliminar esta entrada</translation>
     </message>
     <message>
-        <source>Message:</source>
-        <translation>Mensaxe:</translation>
-    </message>
-    <message>
         <source>Enter a label for this address to add it to the list of used addresses</source>
         <translation>Introduce unha etiqueta para esta dirección para engadila á listaxe de direccións empregadas</translation>
     </message>
@@ -1430,8 +1402,8 @@
         <translation>Copiar a sinatura actual ao portapapeis do sistema</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Asina a mensaxe para probar que posees esta dirección Bitcoin</translation>
+        <source>Sign the message to prove you own this Myriad address</source>
+        <translation>Asina a mensaxe para probar que posees esta dirección Myriad</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -1450,8 +1422,8 @@
         <translation>&amp;Verificar Mensaxe</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>Verificar a mensaxe para asegurar que foi asinada coa dirección Bitcoin especificada</translation>
+        <source>Verify the message to ensure it was signed with the specified Myriad address</source>
+        <translation>Verificar a mensaxe para asegurar que foi asinada coa dirección Myriad especificada</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -1517,12 +1489,12 @@
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Bitcoin Core</source>
-        <translation>Core de Bitcoin</translation>
+        <source>Myriad Core</source>
+        <translation>Core de Myriad</translation>
     </message>
     <message>
-        <source>The Bitcoin Core developers</source>
-        <translation>Os desarrolladores de Bitcoin Core</translation>
+        <source>The Myriad Core developers</source>
+        <translation>Os desarrolladores de Myriad Core</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2087,20 +2059,12 @@
         <translation>Executar comando cando se recibe unha alerta relevante ou vemos un fork realmente longo (%s no cmd é substituído pola mensaxe)</translation>
     </message>
     <message>
-        <source>Cannot resolve -whitebind address: '%s'</source>
-        <translation>Non se pode resolver dirección -whitebind: '%s'</translation>
-    </message>
-    <message>
         <source>Choose data directory on startup (default: 0)</source>
         <translation>Escolle directorio de datos ao arrancar (por defecto: 0)</translation>
     </message>
     <message>
         <source>Information</source>
         <translation>Información</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
-        <translation>Cantidade inválida para -maxtxfee=&lt;cantidade&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>

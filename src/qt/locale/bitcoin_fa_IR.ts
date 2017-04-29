@@ -247,10 +247,6 @@
         <translation>تغییر رمز/پَس فرِیز</translation>
     </message>
     <message>
-        <source>&amp;Receiving addresses...</source>
-        <translation>دریافت آدرس ها</translation>
-    </message>
-    <message>
         <source>Backup wallet to another location</source>
         <translation>گرفتن نسخه پیشتیبان در آدرسی دیگر</translation>
     </message>
@@ -259,7 +255,7 @@
         <translation>رمز مربوط به رمزگذاریِ wallet را تغییر دهید</translation>
     </message>
     <message>
-        <source>Bitcoin</source>
+        <source>Myriad</source>
         <translation>bitcoin</translation>
     </message>
     <message>
@@ -393,8 +389,8 @@
         <translation>ویرایش حساب ارسال کننده</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation>آدرس وارد شده "%1" یک آدرس صحیح برای bitcoin نسشت</translation>
+        <source>The entered address "%1" is not a valid Myriad address.</source>
+        <translation>آدرس وارد شده "%1" یک آدرس صحیح برای myriad نسشت</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -436,14 +432,6 @@
         <translation>انتخاب/آپشن</translation>
     </message>
     <message>
-        <source>&amp;Network</source>
-        <translation>شبکه</translation>
-    </message>
-    <message>
-        <source>W&amp;allet</source>
-        <translation>کیف پول</translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation>و تایید</translation>
     </message>
@@ -463,8 +451,8 @@
         <translation>فرم</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>اطلاعات نمایش داده شده ممکن است روزآمد نباشد. wallet شما به صورت خودکار بعد از برقراری اتصال با شبکه bitcoin به روز می شود اما این فرایند هنوز تکمیل نشده است.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriad network after a connection is established, but this process has not completed yet.</source>
+        <translation>اطلاعات نمایش داده شده ممکن است روزآمد نباشد. wallet شما به صورت خودکار بعد از برقراری اتصال با شبکه myriad به روز می شود اما این فرایند هنوز تکمیل نشده است.</translation>
     </message>
     </context>
 <context>
@@ -513,16 +501,8 @@
 <context>
     <name>ReceiveCoinsDialog</name>
     <message>
-        <source>&amp;Amount:</source>
-        <translation>میزان وجه:</translation>
-    </message>
-    <message>
         <source>&amp;Label:</source>
         <translation>و برچسب</translation>
-    </message>
-    <message>
-        <source>&amp;Message:</source>
-        <translation>پیام:</translation>
     </message>
     <message>
         <source>Copy label</source>
@@ -535,10 +515,6 @@
 </context>
 <context>
     <name>ReceiveRequestDialog</name>
-    <message>
-        <source>Copy &amp;Address</source>
-        <translation>کپی آدرس</translation>
-    </message>
     <message>
         <source>Address</source>
         <translation>حساب</translation>
@@ -592,10 +568,6 @@
     <message>
         <source>Send Coins</source>
         <translation>سکه های ارسالی</translation>
-    </message>
-    <message>
-        <source>Insufficient funds!</source>
-        <translation>وجوه ناکافی</translation>
     </message>
     <message>
         <source>Amount:</source>
@@ -684,7 +656,7 @@
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Bitcoin Core is shutting down...</source>
+        <source>Myriad Core is shutting down...</source>
         <translation>هسته بیت کوین در حال خاموش شدن است...</translation>
     </message>
     <message>
@@ -709,10 +681,6 @@
     <message>
         <source>Alt+P</source>
         <translation>Alt و P</translation>
-    </message>
-    <message>
-        <source>Sign &amp;Message</source>
-        <translation>و امضای پیام </translation>
     </message>
     </context>
 <context>
@@ -1031,18 +999,6 @@
     <message>
         <source>The transaction amount is too small to send after the fee has been deducted</source>
         <translation>مبلغ تراکنش کمتر از آن است که پس از کسر هزینه  تراکنش قابل ارسال باشد</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
-        <translation>میزان اشتباه است for -maxtxfee=&lt;amount&gt;: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
-        <translation>میزان اشتباه است for -minrelaytxfee=&lt;amount&gt;: '%s'</translation>
-    </message>
-    <message>
-        <source>Invalid amount for -mintxfee=&lt;amount&gt;: '%s'</source>
-        <translation>میزان اشتباه است for -mintxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>RPC server options:</source>
