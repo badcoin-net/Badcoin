@@ -47,6 +47,7 @@ extern bool fLogTimestamps;
 extern bool fLogIPs;
 extern volatile bool fReopenDebugLog;
 extern CTranslationInterface translationInterface;
+extern int miningAlgo;
 
 /**
  * Translation function: Call Translate signal on UI interface, which returns a boost::optional result.

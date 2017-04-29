@@ -111,6 +111,9 @@ public:
     //! pointer to the index of some further predecessor of this block
     CBlockIndex* pskip;
 
+    //! pointer to the AuxPoW header, if this block has one
+    boost::shared_ptr<CAuxPow> pauxpow;
+
     //! height of the entry in the chain. The genesis block has height 0
     int nHeight;
 
@@ -139,7 +142,7 @@ public:
     unsigned int nStatus;
 
     //! block header
-    int nVersion;
+    CBlockVersion nVersion;
     uint256 hashMerkleRoot;
     unsigned int nTime;
     unsigned int nBits;
@@ -153,6 +156,7 @@ public:
         phashBlock = NULL;
         pprev = NULL;
         pskip = NULL;
+        pauxpow.reset();
         nHeight = 0;
         nFile = 0;
         nDataPos = 0;
@@ -163,7 +167,7 @@ public:
         nStatus = 0;
         nSequenceId = 0;
 
-        nVersion       = 0;
+        nVersion.SetNull();
         hashMerkleRoot = uint256();
         nTime          = 0;
         nBits          = 0;
@@ -204,24 +208,25 @@ public:
         return ret;
     }
 
-    CBlockHeader GetBlockHeader() const
-    {
-        CBlockHeader block;
-        block.nVersion       = nVersion;
-        if (pprev)
-            block.hashPrevBlock = pprev->GetBlockHash();
-        block.hashMerkleRoot = hashMerkleRoot;
-        block.nTime          = nTime;
-        block.nBits          = nBits;
-        block.nNonce         = nNonce;
-        return block;
-    }
+    CBlockHeader GetBlockHeader() const;
 
     uint256 GetBlockHash() const
     {
         return *phashBlock;
     }
+    
+    uint256 GetBlockPoWHash() const
+    {
+        CBlockHeader block = GetBlockHeader();
+        int algo = block.GetAlgo();
+        return block.GetPoWHash(algo);
+    }
 
+    int GetAlgo() const
+    {
+        return ::GetAlgo(nVersion.GetFullVersion());
+    }
+    
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;
@@ -320,6 +325,13 @@ public:
         READWRITE(nTime);
         READWRITE(nBits);
         READWRITE(nNonce);
+        if (this->nVersion.IsAuxpow()) {
+            if (ser_action.ForRead())
+                pauxpow.reset(new CAuxPow());
+            assert(pauxpow);
+            READWRITE(*pauxpow);
+        } else if (ser_action.ForRead())
+            pauxpow.reset();
     }
 
     uint256 GetBlockHash() const

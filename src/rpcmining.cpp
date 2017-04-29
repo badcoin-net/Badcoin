@@ -101,7 +101,7 @@ Value getgenerate(const Array& params, bool fHelp)
         throw runtime_error(
             "getgenerate\n"
             "\nReturn if the server is set to generate coins or not. The default is false.\n"
-            "It is set with the command line argument -gen (or bitcoin.conf setting gen)\n"
+            "It is set with the command line argument -gen (or myriadcoin.conf setting gen)\n"
             "It can also be set with the setgenerate call.\n"
             "\nResult\n"
             "true|false      (boolean) If the server is set to generate coins or not\n"
@@ -151,15 +151,16 @@ Value generate(const Array& params, bool fHelp)
     Array blockHashes;
     while (nHeight < nHeightEnd)
     {
-        auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey));
+        auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, miningAlgo));
         if (!pblocktemplate.get())
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Wallet keypool empty");
         CBlock *pblock = &pblocktemplate->block;
+        int algo = pblock->GetAlgo();
         {
             LOCK(cs_main);
             IncrementExtraNonce(pblock, chainActive.Tip(), nExtraNonce);
         }
-        while (!CheckProofOfWork(pblock->GetHash(), pblock->nBits, Params().GetConsensus())) {
+        while (!CheckProofOfWork(pblock->GetPoWHash(algo), pblock->nBits, Params().GetConsensus())) {
             // Yes, there is a chance every nonce could fail to satisfy the -regtest
             // target -- 1 in 2^(2^32). That ain't gonna happen.
             ++pblock->nNonce;
@@ -233,7 +234,12 @@ Value getmininginfo(const Array& params, bool fHelp)
             "  \"blocks\": nnn,             (numeric) The current block\n"
             "  \"currentblocksize\": nnn,   (numeric) The last block size\n"
             "  \"currentblocktx\": nnn,     (numeric) The last block transaction\n"
-            "  \"difficulty\": xxx.xxxxx    (numeric) The current difficulty\n"
+            "  \"difficulty\": xxx.xxxxx    (numeric) The current difficulty for configured algorithm\n"
+            "  \"difficulty_sha256d\": xxxxxx,   (numeric) the current difficulty for sha256d\n"
+            "  \"difficulty_scrypt\": xxxxxx,    (numeric) the current difficulty for scrypt\n"
+            "  \"difficulty_groestl\": xxxxxx,   (numeric) the current difficulty for myr-groestl\n"
+            "  \"difficulty_skein\": xxxxxx,     (numeric) the current difficulty for skein\n"
+            "  \"difficulty_qubit\": xxxxxx,     (numeric) the current difficulty for qubit\n"
             "  \"errors\": \"...\"          (string) Current errors\n"
             "  \"generate\": true|false     (boolean) If the generation is on or off (see getgenerate or setgenerate calls)\n"
             "  \"genproclimit\": n          (numeric) The processor limit for generation. -1 if no generation. (see getgenerate or setgenerate calls)\n"
@@ -253,10 +259,18 @@ Value getmininginfo(const Array& params, bool fHelp)
     obj.push_back(Pair("blocks",           (int)chainActive.Height()));
     obj.push_back(Pair("currentblocksize", (uint64_t)nLastBlockSize));
     obj.push_back(Pair("currentblocktx",   (uint64_t)nLastBlockTx));
-    obj.push_back(Pair("difficulty",       (double)GetDifficulty()));
+    obj.push_back(Pair("pow_algo_id",        miningAlgo));
+    obj.push_back(Pair("pow_algo",           GetAlgoName(miningAlgo)));
+    obj.push_back(Pair("difficulty",         (double)GetDifficulty(NULL, miningAlgo)));
+    obj.push_back(Pair("difficulty_sha256d", (double)GetDifficulty(NULL, ALGO_SHA256D)));
+    obj.push_back(Pair("difficulty_scrypt",  (double)GetDifficulty(NULL, ALGO_SCRYPT)));
+    obj.push_back(Pair("difficulty_groestl", (double)GetDifficulty(NULL, ALGO_GROESTL)));
+    obj.push_back(Pair("difficulty_skein",   (double)GetDifficulty(NULL, ALGO_SKEIN)));
+    obj.push_back(Pair("difficulty_qubit",   (double)GetDifficulty(NULL, ALGO_QUBIT)));
+    obj.push_back(Pair("difficulty_yescrypt",(double)GetDifficulty(NULL, ALGO_YESCRYPT)));
     obj.push_back(Pair("errors",           GetWarnings("statusbar")));
     obj.push_back(Pair("genproclimit",     (int)GetArg("-genproclimit", -1)));
-    obj.push_back(Pair("networkhashps",    getnetworkhashps(params, false)));
+//    obj.push_back(Pair("networkhashps",    getnetworkhashps(params, false)));
     obj.push_back(Pair("pooledtx",         (uint64_t)mempool.size()));
     obj.push_back(Pair("testnet",          Params().TestnetToBeDeprecatedFieldRPC()));
     obj.push_back(Pair("chain",            Params().NetworkIDString()));
@@ -433,10 +447,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Bitcoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Myriad is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Bitcoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Myriad is downloading blocks...");
 
     static unsigned int nTransactionsUpdatedLast;
 
@@ -508,7 +522,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
             pblocktemplate = NULL;
         }
         CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = CreateNewBlock(scriptDummy);
+        pblocktemplate = CreateNewBlock(scriptDummy, miningAlgo);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 
@@ -570,7 +584,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
 
     Object result;
     result.push_back(Pair("capabilities", aCaps));
-    result.push_back(Pair("version", pblock->nVersion));
+    result.push_back(Pair("version", pblock->nVersion.GetFullVersion()));
     result.push_back(Pair("previousblockhash", pblock->hashPrevBlock.GetHex()));
     result.push_back(Pair("transactions", transactions));
     result.push_back(Pair("coinbaseaux", aux));
@@ -727,3 +741,193 @@ Value estimatepriority(const Array& params, bool fHelp)
 
     return mempool.estimatePriority(nBlocks);
 }
+
+/* ************************************************************************** */
+/* Merge mining.  */
+
+#ifdef ENABLE_WALLET
+Value getauxblockbip22(const Array& params, bool fHelp)
+{
+    if (fHelp || (params.size() != 0 && params.size() != 2))
+        throw std::runtime_error(
+            "getauxblock (hash auxpow)\n"
+            "\nCreate or submit a merge-mined block.\n"
+            "\nWithout arguments, create a new block and return information\n"
+            "required to merge-mine it.  With arguments, submit a solved\n"
+            "auxpow for a previously returned block.\n"
+            "\nArguments:\n"
+            "1. \"hash\"    (string, optional) hash of the block to submit\n"
+            "2. \"auxpow\"  (string, optional) serialised auxpow found\n"
+            "\nResult (without arguments):\n"
+            "{\n"
+            "  \"hash\"               (string) hash of the created block\n"
+            "  \"chainid\"            (numeric) chain ID for this block\n"
+            "  \"previousblockhash\"  (string) hash of the previous block\n"
+            "  \"coinbasevalue\"      (numeric) value of the block's coinbase\n"
+            "  \"bits\"               (string) compressed target of the block\n"
+            "  \"height\"             (numeric) height of the block\n"
+            "  \"target\"             (string) target in reversed byte order\n"
+            "}\n"
+            "\nResult (with arguments):\n"
+            "xxxxx        (boolean) whether the submitted block was correct\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getauxblock", "")
+            + HelpExampleCli("getauxblock", "\"hash\" \"serialised auxpow\"")
+            + HelpExampleRpc("getauxblock", "")
+            );
+
+    if (pwalletMain == NULL)
+        throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found (disabled)");
+
+    if (vNodes.empty() && !Params().MineBlocksOnDemand())
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED,
+                           "Myriad is not connected!");
+
+    if (IsInitialBlockDownload() && !Params().MineBlocksOnDemand())
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD,
+                           "Myriad is downloading blocks...");
+    
+    /* The variables below are used to keep track of created and not yet
+       submitted auxpow blocks.  Lock them, just in case.  In principle
+       there's only one RPC thread, so it should be fine without locking
+       as well.  But it cannot hurt to be safe.  */
+    static CCriticalSection cs_auxblockCache;
+    LOCK(cs_auxblockCache);
+    static std::map<uint256, CBlock*> mapNewBlock;
+    static std::vector<CBlockTemplate*> vNewBlockTemplate;
+
+    /* Create a new block?  */
+    if (params.size() == 0)
+    {
+        static unsigned nTransactionsUpdatedLast;
+        static const CBlockIndex* pindexPrev = NULL;
+        static uint64_t nStart;
+        static CBlockTemplate* pblocktemplate;
+        static unsigned nExtraNonce = 0;
+        CReserveKey reservekey(pwalletMain);
+
+        // Update block
+        {
+        LOCK(cs_main);
+        if (pindexPrev != chainActive.Tip()
+            || (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast
+                && GetTime() - nStart > 60))
+        {
+            if (pindexPrev != chainActive.Tip())
+            {
+                // Deallocate old blocks since they're obsolete now
+                mapNewBlock.clear();
+                BOOST_FOREACH(CBlockTemplate* pbt, vNewBlockTemplate)
+                    delete pbt;
+                vNewBlockTemplate.clear();
+            }
+
+            // Create new block with nonce = 0 and extraNonce = 1
+            pblocktemplate = CreateNewBlockWithKey(reservekey, miningAlgo);
+            if (!pblocktemplate)
+                throw JSONRPCError(RPC_OUT_OF_MEMORY, "out of memory");
+
+            // Update state only when CreateNewBlock succeeded
+            nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
+            pindexPrev = chainActive.Tip();
+            nStart = GetTime();
+
+            // Finalise it by setting the version and building the merkle root
+            CBlock* pblock = &pblocktemplate->block;
+            IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
+            pblock->nVersion.SetAuxpow(true);
+            pblock->hashMerkleRoot = pblock->BuildMerkleTree();
+
+            // Save
+            mapNewBlock[pblock->GetHash()] = pblock;
+            vNewBlockTemplate.push_back(pblocktemplate);
+        }
+        }
+
+        const CBlock& block = pblocktemplate->block;
+
+        arith_uint256 target;
+        bool fNegative, fOverflow;
+        target.SetCompact(block.nBits, &fNegative, &fOverflow);
+        if (fNegative || fOverflow || target == 0)
+            throw std::runtime_error("invalid difficulty bits in block");
+
+        json_spirit::Object result;
+        result.push_back(Pair("hash", block.GetHash().GetHex()));
+        result.push_back(Pair("chainid", block.nVersion.GetChainId()));
+        result.push_back(Pair("previousblockhash", block.hashPrevBlock.GetHex()));
+        result.push_back(Pair("coinbasevalue", (int64_t)block.vtx[0].vout[0].nValue));
+        result.push_back(Pair("bits", strprintf("%08x", block.nBits)));
+        result.push_back(Pair("height", static_cast<int64_t> (pindexPrev->nHeight + 1)));
+        result.push_back(Pair("target", HexStr(BEGIN(target), END(target))));
+
+        return result;
+    }
+
+    /* Submit a block instead.  Note that this need not lock cs_main,
+       since ProcessBlockFound below locks it instead.  */
+
+    assert(params.size() == 2);
+    uint256 hash;
+    hash.SetHex(params[0].get_str());
+
+    const std::map<uint256, CBlock*>::iterator mit = mapNewBlock.find(hash);
+    if (mit == mapNewBlock.end())
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "block hash unknown");
+    CBlock& block = *mit->second;
+
+    const std::vector<unsigned char> vchAuxPow = ParseHex(params[1].get_str());
+    CDataStream ss(vchAuxPow, SER_GETHASH, PROTOCOL_VERSION);
+    CAuxPow pow;
+    ss >> pow;
+    block.SetAuxpow(new CAuxPow(pow));
+    assert(block.GetHash() == hash);
+
+    // This is a straight cut & paste job from submitblock()
+    bool fBlockPresent = false;
+    {
+        LOCK(cs_main);
+        BlockMap::iterator mi = mapBlockIndex.find(hash);
+        if (mi != mapBlockIndex.end()) {
+            CBlockIndex *pindex = mi->second;
+            if (pindex->IsValid(BLOCK_VALID_SCRIPTS))
+                return "duplicate";
+            if (pindex->nStatus & BLOCK_FAILED_MASK)
+                return "duplicate-invalid";
+            // Otherwise, we might only have the header - process the block before returning
+            fBlockPresent = true;
+        }
+    }
+
+    CValidationState state;
+    submitblock_StateCatcher sc(block.GetHash());
+    RegisterValidationInterface(&sc);
+    bool fAccepted = ProcessNewBlock(state, NULL, &block, true, NULL);
+    UnregisterValidationInterface(&sc);
+    if (fBlockPresent)
+    {
+        if (fAccepted && !sc.found)
+            return "duplicate-inconclusive";
+        return "duplicate";
+    }
+    if (fAccepted)
+    {
+        if (!sc.found)
+            return "inconclusive";
+        state = sc.state;
+    }
+    return BIP22ValidationResult(state);
+}
+
+Value getauxblock(const Array& params, bool fHelp)
+{
+    Value response = getauxblockbip22(params, fHelp);
+
+    // this is a request for a new blocktemplate: return response
+    if (params.size() == 0)
+        return response;
+
+    // this is a new block submission: return bool
+    return (response == Value::null);
+}
+#endif // ENABLE_WALLET
