@@ -1,12 +1,12 @@
 *.tar.gz
 
 *.exe
-src/bitcoin
-src/bitcoind
-src/bitcoin-cli
-src/bitcoin-tx
-src/test/test_bitcoin
-src/qt/test/test_bitcoin-qt
+src/myriadcoin
+src/myriadcoind
+src/myriadcoin-cli
+src/myriadcoin-tx
+src/test/test_myriadcoin
+src/qt/test/test_myriadcoin-qt
 
 # autoreconf
 Makefile.in
@@ -55,7 +55,7 @@ src/qt/test/moc*.cpp
 *.o
 *.o-*
 *.patch
-.bitcoin
+.myriadcoin
 *.a
 *.pb.cc
 *.pb.h
@@ -74,12 +74,12 @@ src/qt/test/moc*.cpp
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-bitcoin-qt
-Bitcoin-Qt.app
+myriad-qt
+Myriad-Qt.app
 
 # Unit-tests
 Makefile.test
-bitcoin-qt_test
+myriadcoin-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -109,6 +109,12 @@ qa/pull-tester/cache/*
 qa/pull-tester/test.*/*
 
 !src/leveldb*/Makefile
+
+!depends/Makefile
+!depends/patches/boost/*.patch
+!depends/patches/native_cdrkit/*.patch
+!depends/patches/qt/*.patch
+!depends/patches/qt46/*.patch
 
 /doc/doxygen/
 

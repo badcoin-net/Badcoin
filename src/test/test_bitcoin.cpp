@@ -2,7 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#define BOOST_TEST_MODULE Bitcoin Test Suite
+#define BOOST_TEST_MODULE Myriad Test Suite
 
 #include "test_bitcoin.h"
 
@@ -49,9 +49,8 @@ TestingSetup::TestingSetup()
         pathTemp = GetTempPath() / strprintf("test_bitcoin_%lu_%i", (unsigned long)GetTime(), (int)(GetRand(100000)));
         boost::filesystem::create_directories(pathTemp);
         mapArgs["-datadir"] = pathTemp.string();
-        bool isObfuscated;
-        pblocktree = new CBlockTreeDB(1 << 20, isObfuscated, true);
-        pcoinsdbview = new CCoinsViewDB(1 << 23, isObfuscated, true);
+        pblocktree = new CBlockTreeDB(1 << 20, true);
+        pcoinsdbview = new CCoinsViewDB(1 << 23, true);
         pcoinsTip = new CCoinsViewCache(pcoinsdbview);
         InitBlockIndex();
 #ifdef ENABLE_WALLET
