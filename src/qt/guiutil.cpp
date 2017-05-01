@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2013 The Bitcoin Core developers
+// Copyright (c) 2011-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,7 +11,7 @@
 
 #include "primitives/transaction.h"
 #include "init.h"
-#include "main.h"
+#include "main.h" // For minRelayTxFee
 #include "protocol.h"
 #include "script/script.h"
 #include "script/standard.h"
@@ -62,6 +62,10 @@
 #include <QUrlQuery>
 #endif
 
+#if QT_VERSION >= 0x50200
+#include <QFontDatabase>
+#endif
+
 #if BOOST_FILESYSTEM_VERSION >= 3
 static boost::filesystem::detail::utf8_codecvt_facet utf8;
 #endif
@@ -88,8 +92,11 @@ QString dateTimeStr(qint64 nTime)
     return dateTimeStr(QDateTime::fromTime_t((qint32)nTime));
 }
 
-QFont bitcoinAddressFont()
+QFont fixedPitchFont()
 {
+#if QT_VERSION >= 0x50200
+    return QFontDatabase::systemFont(QFontDatabase::FixedFont);
+#else
     QFont font("Monospace");
 #if QT_VERSION >= 0x040800
     font.setStyleHint(QFont::Monospace);
@@ -97,13 +104,14 @@ QFont bitcoinAddressFont()
     font.setStyleHint(QFont::TypeWriter);
 #endif
     return font;
+#endif
 }
 
 void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
 {
     parent->setFocusProxy(widget);
 
-    widget->setFont(bitcoinAddressFont());
+    widget->setFont(fixedPitchFont());
 #if QT_VERSION >= 0x040700
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
@@ -265,6 +273,19 @@ void copyEntryData(QAbstractItemView *view, int column, int role)
     }
 }
 
+QString getEntryData(QAbstractItemView *view, int column, int role)
+{
+    if(!view || !view->selectionModel())
+        return QString();
+    QModelIndexList selection = view->selectionModel()->selectedRows(column);
+
+    if(!selection.isEmpty()) {
+        // Return first item
+        return (selection.at(0).data(role).toString());
+    }
+    return QString();
+}
+
 QString getSaveFileName(QWidget *parent, const QString &caption, const QString &dir,
     const QString &filter,
     QString *selectedSuffixOut)
@@ -391,7 +412,7 @@ void SubstituteFonts(const QString& language)
 {
 #if defined(Q_OS_MAC)
 // Background:
-// OSX's default font changed in 10.9 and QT is unable to find it with its
+// OSX's default font changed in 10.9 and Qt is unable to find it with its
 // usual fallback methods when building against the 10.7 sdk or lower.
 // The 10.8 SDK added a function to let it find the correct fallback font.
 // If this fallback is not properly loaded, some characters may fail to
@@ -568,12 +589,12 @@ TableViewLastColumnResizingFixer::TableViewLastColumnResizingFixer(QTableView* t
 #ifdef WIN32
 boost::filesystem::path static StartupShortcutPath()
 {
-    if (GetBoolArg("-testnet", false))
+    std::string chain = ChainNameFromCommandLine();
+    if (chain == CBaseChainParams::MAIN)
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "Myriad.lnk";
+    if (chain == CBaseChainParams::TESTNET) // Remove this special case when CBaseChainParams::TESTNET = "testnet4"
         return GetSpecialFolderPath(CSIDL_STARTUP) / "Myriad (testnet).lnk";
-    else if (GetBoolArg("-regtest", false))
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "Myriad (regtest).lnk";
-
-    return GetSpecialFolderPath(CSIDL_STARTUP) / "Myriad.lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("Myriad (%s).lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
@@ -668,7 +689,10 @@ boost::filesystem::path static GetAutostartDir()
 
 boost::filesystem::path static GetAutostartFilePath()
 {
-    return GetAutostartDir() / "myriad.desktop";
+    std::string chain = ChainNameFromCommandLine();
+    if (chain == CBaseChainParams::MAIN)
+        return GetAutostartDir() / "myriad.desktop";
+    return GetAutostartDir() / strprintf("bitcoin-%s.lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
@@ -706,15 +730,14 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         boost::filesystem::ofstream optionFile(GetAutostartFilePath(), std::ios_base::out|std::ios_base::trunc);
         if (!optionFile.good())
             return false;
+        std::string chain = ChainNameFromCommandLine();
         // Write a bitcoin.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
-        if (GetBoolArg("-testnet", false))
-            optionFile << "Name=Myriad (testnet)\n";
-        else if (GetBoolArg("-regtest", false))
-            optionFile << "Name=Myriad (regtest)\n";
-        else
+        if (chain == CBaseChainParams::MAIN)
             optionFile << "Name=Myriad\n";
+        else
+            optionFile << strprintf("Name=Myriad (%s)\n", chain);
         optionFile << "Exec=" << pszExePath << strprintf(" -min -testnet=%d -regtest=%d\n", GetBoolArg("-testnet", false), GetBoolArg("-regtest", false));
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";
@@ -882,6 +905,9 @@ QString formatServicesStr(quint64 mask)
                 break;
             case NODE_GETUTXO:
                 strList.append("GETUTXO");
+                break;
+            case NODE_BLOOM:
+                strList.append("BLOOM");
                 break;
             default:
                 strList.append(QString("%1[%2]").arg("UNKNOWN").arg(check));

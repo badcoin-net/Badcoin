@@ -1,4 +1,4 @@
-<TS language="lv_LV" version="2.0">
+<TS language="lv_LV" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -43,11 +43,11 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>Izvēlies adresi uz kuru sūtīt myriads</translation>
+        <translation>Izvēlies adresi uz kuru sūtīt myriadcoins</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>Izvēlies adresi ar kuru saņemt myriads</translation>
+        <translation>Izvēlies adresi ar kuru saņemt myriadcoins</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -60,6 +60,14 @@
     <message>
         <source>Receiving addresses</source>
         <translation>Saņemšanas adreses</translation>
+    </message>
+    <message>
+        <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Šīs ir jūsu Myriad adreses maksājumu sūtīšanai. Vienmēr  pārbaudiet summu un saņēmēja adresi pirms monētu sūtīšanas.</translation>
+    </message>
+    <message>
+        <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Šīs ir jūsu Myriad adreses maksājumu saņemšanai. Ir ieteicams katram darījumam izmantot jaunu saņemšanas adresi.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -81,7 +89,11 @@
         <source>Exporting Failed</source>
         <translation>Eksportēšana Neizdevās</translation>
     </message>
-    </context>
+    <message>
+        <source>There was an error trying to save the address list to %1. Please try again.</source>
+        <translation>Radās kļūda, saglabājot adrešu sarakstu %1. Lūdzu, mēģiniet vēlreiz!</translation>
+    </message>
+</context>
 <context>
     <name>AddressTableModel</name>
     <message>
@@ -144,12 +156,20 @@
         <translation>Apstiprināt maciņa šifrēšanu</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
-        <translation>Brīdinājums: Ja tu nošifrē savu maciņu un pazaudē paroli, tu &lt;b&gt;PAZAUDĒSI VISAS SAVAS MYRIADS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation>Brīdinājums: Ja tu nošifrē savu maciņu un pazaudē paroli, tu &lt;b&gt;PAZAUDĒSI VISAS SAVAS BITCOINS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Vai tu tiešām vēlies šifrēt savu maciņu?</translation>
+    </message>
+    <message>
+        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>Myriad Core tiks aizvērts, lai pabeigtu šifrēšansa procesu. Atcerieties, ka jūsu maka šifrēšana nevar pilnībā pasargāt jūsu monētas no to nozagašanas, inficējot datoru ar ļaunprātīgām programmām.</translation>
+    </message>
+    <message>
+        <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
+        <translation>SVARĪGI: Iepriekšējie maka faila dublējumi ir jāaizvieto ar jauno, šifrēto maka failu. Drošības apsvērumu dēļ iepriekšējie nešifrētā maka dublējumi vairs nebūs derīgi, tiklīdz sāksiet izmantot jauno, šifrēto maku.</translation>
     </message>
     <message>
         <source>Warning: The Caps Lock key is on!</source>
@@ -158,6 +178,10 @@
     <message>
         <source>Wallet encrypted</source>
         <translation>Maciņš nošifrēts</translation>
+    </message>
+    <message>
+        <source>Enter the old passphrase and new passphrase to the wallet.</source>
+        <translation>Ievadiet veco un jauno maka paroli.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -188,6 +212,9 @@
         <translation>Maciņa parole tika veiksmīgi nomainīta.</translation>
     </message>
 </context>
+<context>
+    <name>BanTableModel</name>
+    </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -299,8 +326,8 @@
         <translation>&amp;Pārbaudīt ziņojumu...</translation>
     </message>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -359,16 +386,16 @@
         <translation>Myriad Core</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and myriad: URIs)</source>
-        <translation>Pieprasīt maksājumus (izveido QR kodu un myriad: URIs)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation>Pieprasīt maksājumus (izveido QR kodu un bitcoin: URIs)</translation>
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
         <translation>Par &amp;Myriad Core</translation>
     </message>
     <message>
-        <source>Open a myriad: URI or payment request</source>
-        <translation>Atvērt myriad URI vai maksājuma pieprasījumu</translation>
+        <source>Open a bitcoin: URI or payment request</source>
+        <translation>Atvērt bitcoin URI vai maksājuma pieprasījumu</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -694,6 +721,10 @@
         <translation>Par Myriad Core</translation>
     </message>
     <message>
+        <source>Command-line options</source>
+        <translation>Komandrindas iespējas</translation>
+    </message>
+    <message>
         <source>Usage:</source>
         <translation>Lietojums:</translation>
     </message>
@@ -701,7 +732,7 @@
         <source>command-line options</source>
         <translation>komandrindas izvēles</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>Intro</name>
     <message>
@@ -775,8 +806,16 @@
         <translation>Skriptu &amp;pārbaudes pavedienu skaits</translation>
     </message>
     <message>
+        <source>Allow incoming connections</source>
+        <translation>Atļaut ienākošos savienojumus</translation>
+    </message>
+    <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
         <translation>Starpniekservera IP adrese (piem. IPv4: 127.0.0.1 / IPv6: ::1)</translation>
+    </message>
+    <message>
+        <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
+        <translation>Minimizēt nevis aizvērt aplikāciju, kad logs tiek aizvērts. Kad šī iespēja ir ieslēgta, aplikācija tiks aizvērta, izvēloties Aizvērt izvēlnē.</translation>
     </message>
     <message>
         <source>Third party transaction URLs</source>
@@ -808,7 +847,7 @@
     </message>
     <message>
         <source>Enable coin &amp;control features</source>
-        <translation>Ieslēgt myriad &amp;kontroles funkcijas</translation>
+        <translation>Ieslēgt bitcoin &amp;kontroles funkcijas</translation>
     </message>
     <message>
         <source>&amp;Spend unconfirmed change</source>
@@ -945,12 +984,20 @@
         <translation>Nederīga maksājuma adrese %1</translation>
     </message>
     <message>
+        <source>Payment request rejected</source>
+        <translation>Maksājuma pieprasījums noraidīts</translation>
+    </message>
+    <message>
+        <source>Payment request network doesn't match client network.</source>
+        <translation>Maksājuma pieprasījuma tīkls neatbilst klienta tīklam.</translation>
+    </message>
+    <message>
         <source>Payment request error</source>
         <translation>Maksājumu pieprasījuma kļūda</translation>
     </message>
     <message>
-        <source>Cannot start myriad: click-to-pay handler</source>
-        <translation>Nevar palaist Myriad: nospied-lai-maksātu apstrādātāju</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation>Nevar palaist Bitcoin: nospied-lai-maksātu apstrādātāju</translation>
     </message>
     <message>
         <source>Refund from %1</source>
@@ -1331,6 +1378,10 @@
     <message>
         <source>Custom change address</source>
         <translation>Pielāgota atlikuma adrese</translation>
+    </message>
+    <message>
+        <source>Transaction Fee:</source>
+        <translation>Transakcijas maksa:</translation>
     </message>
     <message>
         <source>Send to multiple recipients at once</source>
@@ -2071,20 +2122,8 @@
         <translation>Darbināt fonā kā servisu un pieņemt komandas</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>Izmantot testa tīklu</translation>
-    </message>
-    <message>
-        <source>(default: 1)</source>
-        <translation>(noklusējums: 1)</translation>
-    </message>
-    <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;category&gt; var būt:</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation>Mēģināt atgūt privātās atslēgas no bojāta wallet.dat</translation>
     </message>
     <message>
         <source>Block creation options:</source>
@@ -2111,10 +2150,6 @@
         <translation>Kļūda: Zema diska vieta!</translation>
     </message>
     <message>
-        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation>Ja &lt;category&gt; nav norādīta, izvadīt visu atkļūdošanas informāciju.</translation>
-    </message>
-    <message>
         <source>Importing...</source>
         <translation>Importē...</translation>
     </message>
@@ -2131,12 +2166,24 @@
         <translation>Maciņa iespējas:</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Importēt blokus no ārējās blk000??.dat datnes</translation>
+        <source>Cannot resolve -whitebind address: '%s'</source>
+        <translation>Nevar atrisināt -whitebind adresi: '%s'</translation>
     </message>
     <message>
         <source>Information</source>
         <translation>Informācija</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Nederīgs daudzums priekš -maxtxfee=&lt;amount&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Nederīgs daudzums priekš -minrelaytxfee=&lt;amount&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -mintxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Nederīgs daudzums priekš -mintxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>RPC server options:</source>
@@ -2147,20 +2194,8 @@
         <translation>Debug/trace informāciju izvadīt konsolē, nevis debug.log failā</translation>
     </message>
     <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Uzstādiet valodu, piemēram "de_DE" (pēc noklusēšanas: sistēmas lokāle)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: 1)</source>
-        <translation>Uzsākot, parādīt programmas informācijas logu (pēc noklusēšanas: 1)</translation>
-    </message>
-    <message>
         <source>Signing transaction failed</source>
         <translation>Transakcijas parakstīšana neizdevās</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Sākt minimizētu</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -2183,10 +2218,6 @@
         <translation>Brīdinājums</translation>
     </message>
     <message>
-        <source>on startup</source>
-        <translation>startēšanas laikā</translation>
-    </message>
-    <message>
         <source>wallet.dat corrupt, salvage failed</source>
         <translation>wallet.dat ir bojāts, glābšana neizdevās</translation>
     </message>
@@ -2197,18 +2228,6 @@
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Izpildīt komandu, kad labāk atbilstošais bloks izmainās (%s cmd aizvieto ar bloka hešu)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Atjaunot maciņa formātu uz jaunāko</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Atkārtoti skanēt bloku virkni, meklējot trūkstošās maciņa transakcijas</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>JSON-RPC savienojumiem izmantot OpenSSL (https)</translation>
     </message>
     <message>
         <source>This help message</source>

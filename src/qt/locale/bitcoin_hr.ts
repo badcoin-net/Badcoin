@@ -1,4 +1,4 @@
-<TS language="hr" version="2.0">
+<TS language="hr" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -160,7 +160,7 @@
         <translation>Potvrdi šifriranje novčanika</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation>Upozorenje: Ako šifrirate vaš novčanik i izgubite lozinku, &lt;b&gt;IZGUBIT ĆETE SVE SVOJE BITCOINE!&lt;/b&gt;</translation>
     </message>
     <message>
@@ -216,6 +216,9 @@
         <translation>Lozinka novčanika je uspješno promijenjena.</translation>
     </message>
 </context>
+<context>
+    <name>BanTableModel</name>
+    </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -304,7 +307,7 @@
     </message>
     <message>
         <source>Send coins to a Myriad address</source>
-        <translation>Slanje novca na myriad adresu</translation>
+        <translation>Slanje novca na bitcoin adresu</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -327,8 +330,8 @@
         <translation>&amp;Potvrdite poruku...</translation>
     </message>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -360,11 +363,11 @@
     </message>
     <message>
         <source>Sign messages with your Myriad addresses to prove you own them</source>
-        <translation>Poruku potpišemo s myriad adresom, kako bi dokazali vlasništvo nad tom adresom</translation>
+        <translation>Poruku potpišemo s bitcoin adresom, kako bi dokazali vlasništvo nad tom adresom</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Myriad addresses</source>
-        <translation>Provjeravanje poruke, kao dokaz, da je potpisana navedenom myriad adresom</translation>
+        <translation>Provjeravanje poruke, kao dokaz, da je potpisana navedenom bitcoin adresom</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -387,8 +390,8 @@
         <translation>Myriad Core</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and myriad: URIs)</source>
-        <translation>Zatraži uplatu (stvara QR kod i myriad: URI adresu)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation>Zatraži uplatu (stvara QR kod i bitcoin: URI adresu)</translation>
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
@@ -407,8 +410,8 @@
         <translation>Prikaži popis korištenih adresa i oznaka za primanje novca</translation>
     </message>
     <message>
-        <source>Open a myriad: URI or payment request</source>
-        <translation>Otvori myriad: URI adresu ili zahtjev za uplatu</translation>
+        <source>Open a bitcoin: URI or payment request</source>
+        <translation>Otvori bitcoin: URI adresu ili zahtjev za uplatu</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -683,7 +686,7 @@
     </message>
     <message>
         <source>The label associated with this address list entry</source>
-        <translation>Oznaka myriad adrese</translation>
+        <translation>Oznaka bitcoin adrese</translation>
     </message>
     <message>
         <source>The address associated with this address list entry. This can only be modified for sending addresses.</source>
@@ -715,7 +718,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Myriad address.</source>
-        <translation>Upisana adresa "%1" nije valjana myriad adresa.</translation>
+        <translation>Upisana adresa "%1" nije valjana bitcoin adresa.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -771,7 +774,7 @@
         <source>command-line options</source>
         <translation>opcije programa u naredbenoj liniji</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>Intro</name>
     <message>
@@ -926,7 +929,7 @@
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Izaberite željeni najmanji dio myriada koji će biti prikazan u sučelju i koji će se koristiti za plaćanje.</translation>
+        <translation>Izaberite željeni najmanji dio bitcoina koji će biti prikazan u sučelju i koji će se koristiti za plaćanje.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1011,6 +1014,10 @@
         <translation>&amp;Informacije</translation>
     </message>
     <message>
+        <source>Debug window</source>
+        <translation>Konzola za dijagnostiku</translation>
+    </message>
+    <message>
         <source>Using OpenSSL version</source>
         <translation>OpenSSL verzija u upotrebi</translation>
     </message>
@@ -1055,14 +1062,6 @@
         <translation>Trajanje veze</translation>
     </message>
     <message>
-        <source>Bytes Sent</source>
-        <translation>Bajtova poslano</translation>
-    </message>
-    <message>
-        <source>Bytes Received</source>
-        <translation>Bajtova primljeno</translation>
-    </message>
-    <message>
         <source>Last block time</source>
         <translation>Posljednje vrijeme bloka</translation>
     </message>
@@ -1098,7 +1097,7 @@
         <source>Unknown</source>
         <translation>Nepoznato</translation>
     </message>
-    </context>
+</context>
 <context>
     <name>ReceiveCoinsDialog</name>
     <message>
@@ -1219,6 +1218,10 @@
         <translation>Slanje novca</translation>
     </message>
     <message>
+        <source>Insufficient funds!</source>
+        <translation>Nedovoljna sredstva</translation>
+    </message>
+    <message>
         <source>Quantity:</source>
         <translation>Količina:</translation>
     </message>
@@ -1241,6 +1244,10 @@
     <message>
         <source>Change:</source>
         <translation>Vraćeno:</translation>
+    </message>
+    <message>
+        <source>Transaction Fee:</source>
+        <translation>Naknada za transakciju:</translation>
     </message>
     <message>
         <source>Send to multiple recipients at once</source>
@@ -1372,11 +1379,19 @@
         <translation>Potpis</translation>
     </message>
     <message>
+        <source>Sign &amp;Message</source>
+        <translation>&amp;Potpišite poruku</translation>
+    </message>
+    <message>
         <source>Clear &amp;All</source>
         <translation>Obriši &amp;sve</translation>
     </message>
     <message>
         <source>&amp;Verify Message</source>
+        <translation>&amp;Potvrdite poruku</translation>
+    </message>
+    <message>
+        <source>Verify &amp;Message</source>
         <translation>&amp;Potvrdite poruku</translation>
     </message>
     <message>
@@ -1769,14 +1784,6 @@
         <translation>Izvršavaj u pozadini kao uslužnik i prihvaćaj komande</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>Koristi test mrežu</translation>
-    </message>
-    <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Upozorenje: -paytxfee je podešen na preveliki iznos.  To je iznos koji ćete platiti za obradu transakcije.</translation>
-    </message>
-    <message>
         <source>Block creation options:</source>
         <translation>Opcije za kreiranje bloka:</translation>
     </message>
@@ -1789,24 +1796,24 @@
         <translation>Pogreška: Nema dovoljno prostora na disku!</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Uvozi blokove sa vanjske blk000??.dat datoteke</translation>
-    </message>
-    <message>
         <source>Information</source>
         <translation>Informacija</translation>
     </message>
     <message>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Nevaljali iznos za opciju -maxtxfee=&lt;iznos&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Nevaljali iznos za opciju -minrelaytxfee=&lt;iznos&gt;: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -mintxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Nevaljali iznos za opciju -mintxfee=&lt;iznos&gt;: '%s'</translation>
+    </message>
+    <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Šalji trace/debug informacije na konzolu umjesto u debug.log datoteku</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Pokreni minimiziran</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Pokušaj koristiti UPnP da otvoriš port za uslugu (default: 1 when listening)</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>
@@ -1823,18 +1830,6 @@
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Izvršite naredbu kada se najbolji blok promjeni (%s u cmd je zamjenjen sa block hash)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Nadogradite novčanik u posljednji format.</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Ponovno pretraži lanac blokova za transakcije koje nedostaju</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>Koristi OpenSSL (https) za JSON-RPC povezivanje</translation>
     </message>
     <message>
         <source>This help message</source>

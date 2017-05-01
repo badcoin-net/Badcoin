@@ -1,4 +1,4 @@
-<TS language="ro_RO" version="2.0">
+<TS language="ro_RO" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -27,7 +27,7 @@
     </message>
     <message>
         <source>&amp;Copy Address</source>
-        <translation>&amp;Copiază adresa</translation>
+        <translation>&amp;Copiază Adresa</translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
@@ -43,15 +43,15 @@
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>Şterge</translation>
+        <translation>&amp;Şterge</translation>
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>Alegeţi adresa unde vreţi să trimiteţi monezile</translation>
+        <translation>Alegeţi adresa unde vreţi să trimiteţi monedele</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>Alegeţi adresa unde vreţi să primiţi monezile</translation>
+        <translation>Alegeţi adresa unde vreţi să primiţi monedele</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -67,7 +67,7 @@
     </message>
     <message>
         <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Acestea sînt adresele dumneavoastră Myriad pentru efectuarea plăţilor. Verificaţi întotdeauna cantitatea şi adresa de primire înainte de a trimite monezi.</translation>
+        <translation>Acestea sînt adresele dumneavoastră Myriad pentru efectuarea plăţilor. Verificaţi întotdeauna cantitatea şi adresa de primire înainte de a trimite monede.</translation>
     </message>
     <message>
         <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
@@ -160,7 +160,7 @@
         <translation>Confirmaţi criptarea portofelului</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation>Atenţie: Dacă pierdeţi parola portofelului electronic după criptare, &lt;b&gt;VEŢI PIERDE ÎNTREAGA SUMĂ DE BITCOIN ACUMULATĂ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -168,7 +168,7 @@
         <translation>Sigur doriţi să criptaţi portofelul dvs.?</translation>
     </message>
     <message>
-        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriads from being stolen by malware infecting your computer.</source>
+        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
         <translation>Myriad se va închide acum pentru a termina procesul de criptare. Ţineţi minte că criptarea portofelului nu vă poate proteja în totalitate de furtul monedelor de către programe dăunătoare care vă infectează calculatorul.</translation>
     </message>
     <message>
@@ -218,6 +218,17 @@
     <message>
         <source>Wallet passphrase was successfully changed.</source>
         <translation>Parola portofelului electronic a fost schimbată.</translation>
+    </message>
+</context>
+<context>
+    <name>BanTableModel</name>
+    <message>
+        <source>IP/Netmask</source>
+        <translation>IP/Netmask</translation>
+    </message>
+    <message>
+        <source>Banned Until</source>
+        <translation>Banat până la</translation>
     </message>
 </context>
 <context>
@@ -308,7 +319,7 @@
     </message>
     <message>
         <source>Send coins to a Myriad address</source>
-        <translation>Trimite monede către o adresă Myriad</translation>
+        <translation>Trimite monede către o adresă Bitcoin</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -331,8 +342,8 @@
         <translation>&amp;Verifică mesaj...</translation>
     </message>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -388,19 +399,19 @@
     </message>
     <message>
         <source>Myriad Core</source>
-        <translation>Nucleul Myriad</translation>
+        <translation>Nucleul Bitcoin</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and myriad: URIs)</source>
-        <translation>Cereţi plăţi (generează coduri QR şi myriad-uri: URls)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation>Cereţi plăţi (generează coduri QR şi bitcoin-uri: URls)</translation>
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
-        <translation>&amp;Despre Nucleul Myriad</translation>
+        <translation>&amp;Despre Nucleul Bitcoin</translation>
     </message>
     <message>
         <source>Modify configuration options for Myriad Core</source>
-        <translation>Modifică opţiunile de configurare pentru Myriad</translation>
+        <translation>Modifică opţiunile de configurare pentru Bitcoin</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -411,8 +422,8 @@
         <translation>Arată lista de adrese pentru primire şi etichetele</translation>
     </message>
     <message>
-        <source>Open a myriad: URI or payment request</source>
-        <translation>Deschidere myriad: o adresa URI sau o cerere de plată</translation>
+        <source>Open a bitcoin: URI or payment request</source>
+        <translation>Deschidere bitcoin: o adresa URI sau o cerere de plată</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -420,11 +431,11 @@
     </message>
     <message>
         <source>Show the Myriad Core help message to get a list with possible Myriad command-line options</source>
-        <translation>Arată mesajul de ajutor Myriad Core pentru a obţine o listă cu opţiunile posibile de linii de comandă Myriad</translation>
+        <translation>Arată mesajul de ajutor Myriad Core pentru a obţine o listă cu opţiunile posibile de linii de comandă Bitcoin</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Myriad network</source>
-        <translation><numerusform>%n conexiune activă către reţeaua Myriad</numerusform><numerusform>%n conexiuni active către reţeaua Myriad</numerusform><numerusform>%n de conexiuni active către reţeaua Myriad</numerusform></translation>
+        <translation><numerusform>%n conexiune activă către reţeaua Bitcoin</numerusform><numerusform>%n conexiuni active către reţeaua Bitcoin</numerusform><numerusform>%n de conexiuni active către reţeaua Bitcoin</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -544,7 +555,7 @@
     <name>CoinControlDialog</name>
     <message>
         <source>Coin Selection</source>
-        <translation>Selectarea monezii</translation>
+        <translation>Selectarea monedei</translation>
     </message>
     <message>
         <source>Quantity:</source>
@@ -707,6 +718,10 @@
         <translation>cea mai scăzută</translation>
     </message>
     <message>
+        <source>(%1 locked)</source>
+        <translation>(%1 blocat)</translation>
+    </message>
+    <message>
         <source>none</source>
         <translation>nimic</translation>
     </message>
@@ -733,6 +748,10 @@
     <message>
         <source>no</source>
         <translation>nu</translation>
+    </message>
+    <message>
+        <source>This means a fee of at least %1 per kB is required.</source>
+        <translation>Aceasta înseamnă o taxă de cel puţin %1 pe kB necesar.</translation>
     </message>
     <message>
         <source>Can vary +/- 1 byte per input.</source>
@@ -799,7 +818,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Myriad address.</source>
-        <translation>Adresa introdusă "%1" nu este o adresă myriad validă.</translation>
+        <translation>Adresa introdusă "%1" nu este o adresă bitcoin validă.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -837,7 +856,7 @@
     <name>HelpMessageDialog</name>
     <message>
         <source>Myriad Core</source>
-        <translation>Nucleul Myriad</translation>
+        <translation>Nucleul Bitcoin</translation>
     </message>
     <message>
         <source>version</source>
@@ -849,7 +868,7 @@
     </message>
     <message>
         <source>About Myriad Core</source>
-        <translation>Despre Nucleul Myriad</translation>
+        <translation>Despre Nucleul Bitcoin</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -863,6 +882,34 @@
         <source>command-line options</source>
         <translation>Opţiuni linie de comandă</translation>
     </message>
+    <message>
+        <source>UI Options:</source>
+        <translation>Opţiuni UI:</translation>
+    </message>
+    <message>
+        <source>Choose data directory on startup (default: %u)</source>
+        <translation>Alege dosarul de date la pornire (implicit: %u)</translation>
+    </message>
+    <message>
+        <source>Set language, for example "de_DE" (default: system locale)</source>
+        <translation>Setează limba, de exemplu: "ro_RO" (implicit: sistem local)</translation>
+    </message>
+    <message>
+        <source>Start minimized</source>
+        <translation>Porniţi minimizat</translation>
+    </message>
+    <message>
+        <source>Set SSL root certificates for payment request (default: -system-)</source>
+        <translation>Setare rădăcină certificat SSL pentru cerere de plată (implicit: -sistem- )</translation>
+    </message>
+    <message>
+        <source>Show splash screen on startup (default: %u)</source>
+        <translation>Afişează ecran splash la pornire (implicit: %u)</translation>
+    </message>
+    <message>
+        <source>Reset all settings changes made over the GUI</source>
+        <translation>Resetează toate schimbările făcute în GUI</translation>
+    </message>
 </context>
 <context>
     <name>Intro</name>
@@ -872,11 +919,15 @@
     </message>
     <message>
         <source>Welcome to Myriad Core.</source>
-        <translation>Bine aţi venit la Nucleul Myriad.</translation>
+        <translation>Bine aţi venit la Nucleul Bitcoin.</translation>
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where Myriad Core will store its data.</source>
         <translation>Dacă aceasta este prima dată cînd programul este lansat, puteţi alege unde Nucleul Myriad va stoca datele.</translation>
+    </message>
+    <message>
+        <source>Myriad Core will download and store a copy of the Myriad block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Nucleul Myriad se va descărca şi va stoca o copie a lanţului blocului Bitcoin. Cel puţin %1GB de date vor fi stocate în acest dosar şi se va mări în timp. Portofelul va fi, de asemenea, stocat în acest dosar.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -888,7 +939,7 @@
     </message>
     <message>
         <source>Myriad Core</source>
-        <translation>Nucleul Myriad</translation>
+        <translation>Nucleul Bitcoin</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -970,7 +1021,7 @@
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting Myriad Core.</source>
-        <translation>Limba interfeţei utilizatorului poate fi setată aici. Această setare va avea efect după repornirea Nucleului Myriad.</translation>
+        <translation>Limba interfeţei utilizatorului poate fi setată aici. Această setare va avea efect după repornirea Nucleului Bitcoin.</translation>
     </message>
     <message>
         <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
@@ -995,6 +1046,10 @@
     <message>
         <source>&amp;Network</source>
         <translation>Reţea</translation>
+    </message>
+    <message>
+        <source>Automatically start Myriad Core after logging in to the system.</source>
+        <translation>Porneşte automat Myriad Core după logarea în sistem.</translation>
     </message>
     <message>
         <source>&amp;Start Myriad Core on system login</source>
@@ -1026,7 +1081,7 @@
     </message>
     <message>
         <source>Automatically open the Myriad client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Deschide automat în router portul aferent clientului Myriad. Funcţionează doar dacă routerul duportă UPnP şi e activat.</translation>
+        <translation>Deschide automat în router portul aferent clientului Bitcoin. Funcţionează doar dacă routerul duportă UPnP şi e activat.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1051,6 +1106,18 @@
     <message>
         <source>Port of the proxy (e.g. 9050)</source>
         <translation>Portul proxy (de exemplu: 9050)</translation>
+    </message>
+    <message>
+        <source>IPv4</source>
+        <translation>IPv4</translation>
+    </message>
+    <message>
+        <source>IPv6</source>
+        <translation>IPv6</translation>
+    </message>
+    <message>
+        <source>Tor</source>
+        <translation>Tor</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -1082,7 +1149,7 @@
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Alegeţi subdiviziunea folosită la afişarea interfeţei şi la trimiterea de myriad.</translation>
+        <translation>Alegeţi subdiviziunea folosită la afişarea interfeţei şi la trimiterea de bitcoin.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1122,7 +1189,7 @@
     </message>
     <message>
         <source>The supplied proxy address is invalid.</source>
-        <translation>Adresa myriad pe care aţi specificat-o nu este validă.</translation>
+        <translation>Adresa bitcoin pe care aţi specificat-o nu este validă.</translation>
     </message>
 </context>
 <context>
@@ -1231,8 +1298,8 @@
         <translation>Eroare la cererea de plată</translation>
     </message>
     <message>
-        <source>Cannot start myriad: click-to-pay handler</source>
-        <translation>Nu poate porni myriad: manipulator clic-pentru-plată</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation>Nu poate porni bitcoin: manipulator clic-pentru-plată</translation>
     </message>
     <message>
         <source>Payment request fetch URL is invalid: %1</source>
@@ -1271,10 +1338,6 @@
         <translation>Cererea de plată %1 este prea mare (%2 octeţi, permis %3 octeţi).</translation>
     </message>
     <message>
-        <source>Payment request DoS protection</source>
-        <translation>Protecţie DoS cerere de plată</translation>
-    </message>
-    <message>
         <source>Error communicating with %1: %2</source>
         <translation>Eroare la comunicarea cu %1: %2</translation>
     </message>
@@ -1300,6 +1363,10 @@
     <message>
         <source>User Agent</source>
         <translation>Agent utilizator</translation>
+    </message>
+    <message>
+        <source>Node/Service</source>
+        <translation>Nod/Serviciu</translation>
     </message>
     <message>
         <source>Ping Time</source>
@@ -1423,6 +1490,14 @@
         <translation>Numărul curent de blocuri</translation>
     </message>
     <message>
+        <source>Current number of transactions</source>
+        <translation>Numărul curent de tranzacţii</translation>
+    </message>
+    <message>
+        <source>Memory usage</source>
+        <translation>Memorie folosită</translation>
+    </message>
+    <message>
         <source>Received</source>
         <translation>Recepţionat</translation>
     </message>
@@ -1439,12 +1514,28 @@
         <translation>Selectaţi un partener pentru a vedea informaţiile detaliate.</translation>
     </message>
     <message>
+        <source>Whitelisted</source>
+        <translation>Whitelisted</translation>
+    </message>
+    <message>
         <source>Direction</source>
         <translation>Direcţie</translation>
     </message>
     <message>
         <source>Version</source>
         <translation>Versiune</translation>
+    </message>
+    <message>
+        <source>Starting Block</source>
+        <translation>Bloc de început</translation>
+    </message>
+    <message>
+        <source>Synced Headers</source>
+        <translation>Headere Sincronizate</translation>
+    </message>
+    <message>
+        <source>Synced Blocks</source>
+        <translation>Blocuri Sincronizate</translation>
     </message>
     <message>
         <source>User Agent</source>
@@ -1465,14 +1556,6 @@
     <message>
         <source>Last Receive</source>
         <translation>Ultima primire</translation>
-    </message>
-    <message>
-        <source>Bytes Sent</source>
-        <translation>Octeţi trimişi</translation>
-    </message>
-    <message>
-        <source>Bytes Received</source>
-        <translation>Octeţi primiţi</translation>
     </message>
     <message>
         <source>Ping Time</source>
@@ -1523,6 +1606,26 @@
         <translation>Curăţă consola</translation>
     </message>
     <message>
+        <source>&amp;Disconnect Node</source>
+        <translation>&amp;Deconectare nod</translation>
+    </message>
+    <message>
+        <source>1 &amp;hour</source>
+        <translation>1 &amp;oră</translation>
+    </message>
+    <message>
+        <source>1 &amp;day</source>
+        <translation>1 &amp;zi</translation>
+    </message>
+    <message>
+        <source>1 &amp;week</source>
+        <translation>1 &amp;săptămână</translation>
+    </message>
+    <message>
+        <source>1 &amp;year</source>
+        <translation>1 &amp;an</translation>
+    </message>
+    <message>
         <source>Welcome to the Myriad Core RPC console.</source>
         <translation>Bun venit la consola Nucleului Myriad RPC.</translation>
     </message>
@@ -1567,12 +1670,16 @@
         <translation>Ieşire</translation>
     </message>
     <message>
-        <source>Unknown</source>
-        <translation>Necunoscut</translation>
+        <source>Yes</source>
+        <translation>Da</translation>
     </message>
     <message>
-        <source>Fetching...</source>
-        <translation>Preluare...</translation>
+        <source>No</source>
+        <translation>Nu</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Necunoscut</translation>
     </message>
 </context>
 <context>
@@ -1599,7 +1706,7 @@
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriad network.</source>
-        <translation>Un mesaj opţional de ataşat la cererea de plată, care va fi afişat cînd cererea este deschisă. Notă: Acest mesaj nu va fi trimis cu plata către reţeaua Myriad.</translation>
+        <translation>Un mesaj opţional de ataşat la cererea de plată, care va fi afişat cînd cererea este deschisă. Notă: Acest mesaj nu va fi trimis cu plata către reţeaua Bitcoin.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1919,6 +2026,10 @@
         <translation>Copiază rest</translation>
     </message>
     <message>
+        <source>Total Amount %1</source>
+        <translation>Suma totală %1</translation>
+    </message>
+    <message>
         <source>or</source>
         <translation>sau</translation>
     </message>
@@ -1947,16 +2058,16 @@
         <translation>Cererea de plată a expirat.</translation>
     </message>
     <message>
-        <source>Pay only the minimum fee of %1</source>
-        <translation>Plăteşte doar taxa minimă de %1</translation>
-    </message>
-    <message>
         <source>The recipient address is not valid. Please recheck.</source>
         <translation>Adresa destinatarului nu este validă, vă rugăm să o verificaţi.</translation>
     </message>
     <message>
+        <source>Duplicate address found: addresses should only be used once each.</source>
+        <translation>Adresă duplicat găsită: fiecare adresă ar trebui folosită o singură dată.</translation>
+    </message>
+    <message>
         <source>Warning: Invalid Myriad address</source>
-        <translation>Atenţie: Adresa myriad nevalidă!</translation>
+        <translation>Atenţie: Adresa bitcoin nevalidă!</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -2007,7 +2118,7 @@
     </message>
     <message>
         <source>The Myriad address to send the payment to</source>
-        <translation>Adresa myriad către care se face plata</translation>
+        <translation>Adresa bitcoin către care se face plata</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2034,8 +2145,8 @@
         <translation>Introduceţi eticheta pentru ca această adresa să fie introdusă în lista de adrese folosite</translation>
     </message>
     <message>
-        <source>A message that was attached to the myriad: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriad network.</source>
-        <translation>un mesaj a fost ataşat la myriad: URI care va fi stocat cu tranzacţia pentru referinţa dvs. Notă: Acest mesaj nu va fi trimis către reţeaua myriad.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriad network.</source>
+        <translation>un mesaj a fost ataşat la bitcoin: URI care va fi stocat cu tranzacţia pentru referinţa dvs. Notă: Acest mesaj nu va fi trimis către reţeaua bitcoin.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -2101,7 +2212,7 @@
     </message>
     <message>
         <source>Sign the message to prove you own this Myriad address</source>
-        <translation>Semnează mesajul pentru a dovedi ca deţineţi acestă adresă Myriad</translation>
+        <translation>Semnează mesajul pentru a dovedi ca deţineţi acestă adresă Bitcoin</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2121,7 +2232,7 @@
     </message>
     <message>
         <source>The Myriad address the message was signed with</source>
-        <translation>Introduceţi o adresă Myriad</translation>
+        <translation>Introduceţi o adresă Bitcoin</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Myriad address</source>
@@ -2192,11 +2303,11 @@
     <name>SplashScreen</name>
     <message>
         <source>Myriad Core</source>
-        <translation>Nucleul Myriad</translation>
+        <translation>Nucleul Bitcoin</translation>
     </message>
     <message>
         <source>The Myriad Core developers</source>
-        <translation>Dezvoltatorii Nucleului Myriad</translation>
+        <translation>Dezvoltatorii Nucleului Bitcoin</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2322,7 +2433,7 @@
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to "not accepted" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Monezile generate trebuie să crească %1 blocuri înainte să poată fi cheltuite. Cînd aţi generat acest bloc, a fost transmis reţelei pentru a fi adaugat la lanţul de blocuri. Aceasta  se poate întîmpla ocazional dacă alt nod generează un bloc la numai cîteva secunde de al dvs.</translation>
+        <translation>Monedele generate trebuie să crească %1 blocuri înainte să poată fi cheltuite. Cînd aţi generat acest bloc, a fost transmis reţelei pentru a fi adaugat la lanţul de blocuri. Aceasta se poate întîmpla ocazional dacă alt nod generează un bloc la numai cîteva secunde de al dvs.</translation>
     </message>
     <message>
         <source>Debug information</source>
@@ -2351,6 +2462,10 @@
     <message>
         <source>, has not been successfully broadcast yet</source>
         <translation>, nu s-a propagat încă</translation>
+    </message>
+    <message numerus="yes">
+        <source>Open for %n more block(s)</source>
+        <translation><numerusform>Deschis pentru încă %n bloc</numerusform><numerusform>Deschis pentru încă %n blocuri</numerusform><numerusform>Deschis pentru încă %n de blocuri</numerusform></translation>
     </message>
     <message>
         <source>unknown</source>
@@ -2381,6 +2496,10 @@
     <message>
         <source>Immature (%1 confirmations, will be available after %2)</source>
         <translation>Imatur (%1 confirmări, va fi disponibil după %2)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Open for %n more block(s)</source>
+        <translation><numerusform>Deschis pentru încă %n bloc</numerusform><numerusform>Deschis pentru încă %n blocuri</numerusform><numerusform>Deschis pentru încă %n de blocuri</numerusform></translation>
     </message>
     <message>
         <source>Open until %1</source>
@@ -2628,7 +2747,7 @@
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Trimitere myriad</translation>
+        <translation>Trimitere bitcoin</translation>
     </message>
 </context>
 <context>
@@ -2693,10 +2812,6 @@
         <translation>Rulează în fundal ca un demon şi acceptă comenzi</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>Utilizează reţeaua de test</translation>
-    </message>
-    <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
         <translation>Acceptă conexiuni din afară (implicit: 1 dacă nu se foloseşte -proxy sau -connect)</translation>
     </message>
@@ -2725,10 +2840,6 @@
         <translation>Nu se poate lega la %s pe acest calculator. Nucleul Myriad probabil deja rulează.</translation>
     </message>
     <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Atenţie: setarea -paytxfee este foarte mare! Aceasta este taxa tranzacţiei pe care o veţi plăti dacă trimiteţi o tranzacţie.</translation>
-    </message>
-    <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
         <translation>Atenţie: Reţeaua nu pare să fie de acord în totalitate! Aparent nişte mineri au probleme.</translation>
     </message>
@@ -2737,24 +2848,12 @@
         <translation>Atenţie: Aparent, nu sîntem de acord cu toţi partenerii noştri! Va trebui să faceţi o actualizare, sau alte noduri necesită actualizare.</translation>
     </message>
     <message>
-        <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation>Atenţie: eroare la citirea fişierului wallet.dat! Toate cheile sînt citite corect, dar datele tranzactiei sau anumite intrări din agenda sînt incorecte sau lipsesc.</translation>
-    </message>
-    <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation>Atenţie: fişierul wallet.dat este corupt, date salvate! Fişierul original wallet.dat a fost salvat ca wallet.{timestamp}.bak in %s; dacă balansul sau tranzactiile sînt incorecte ar trebui să restauraţi dintr-o copie de siguranţă.</translation>
     </message>
     <message>
-        <source>(default: 1)</source>
-        <translation>(iniţial: 1)</translation>
-    </message>
-    <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;category&gt; poate fi:</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation>Încercare de recuperare a cheilor private dintr-un wallet.dat corupt</translation>
     </message>
     <message>
         <source>Block creation options:</source>
@@ -2809,10 +2908,6 @@
         <translation>Nu s-a reuşit ascultarea pe orice port. Folosiţi -listen=0 dacă vreţi asta.</translation>
     </message>
     <message>
-        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation>Dacă &lt;category&gt; nu este furnizat, produce toate informaţiile de depanare.</translation>
-    </message>
-    <message>
         <source>Importing...</source>
         <translation>Import...</translation>
     </message>
@@ -2865,20 +2960,16 @@
         <translation>Opţiuni portofel:</translation>
     </message>
     <message>
+        <source>Warning: This version is obsolete; upgrade required!</source>
+        <translation>Atenţie: această versiune este depăşită, actualizarea este necesară !</translation>
+    </message>
+    <message>
         <source>You need to rebuild the database using -reindex to change -txindex</source>
         <translation>Trebuie să reconstruiţi baza de date folosind -reindex pentru a schimba -txindex</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Importă blocuri dintr-un fişier extern blk000??.dat</translation>
-    </message>
-    <message>
         <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
         <translation>Permite conexiunile JSON-RPC din sursa specificată. Valid pentru &lt;ip&gt; sînt IP singulare (ex. 1.2.3.4), o reţea/mască-reţea (ex. 1.2.3.4/255.255.255.0) sau o reţea/CIDR (ex. 1.2.3.4/24). Această opţiune poate fi specificată de mai multe ori</translation>
-    </message>
-    <message>
-        <source>An error occurred while setting up the RPC address %s port %u for listening: %s</source>
-        <translation>A apărut o eroare la setarea adresei RPC %s portul %u pentru ascultare: %s</translation>
     </message>
     <message>
         <source>Cannot obtain a lock on data directory %s. Myriad Core is probably already running.</source>
@@ -2897,12 +2988,16 @@
         <translation>Acest produs include programe dezvoltate de către Proiectul OpenSSL pentru a fi folosite în OpenSSL Toolkit &lt;https://www.openssl.org/&gt; şi programe criptografice scrise de către Eric Young şi programe UPnP scrise de către Thomas Bernard.</translation>
     </message>
     <message>
+        <source>(default: %u)</source>
+        <translation>(implicit: %u)</translation>
+    </message>
+    <message>
         <source>Accept public REST requests (default: %u)</source>
         <translation>Acceptă cererile publice REST (implicit: %u)</translation>
     </message>
     <message>
-        <source>Choose data directory on startup (default: 0)</source>
-        <translation>Alege dosarul de date la pornire (implicit: 0)</translation>
+        <source>Cannot resolve -whitebind address: '%s'</source>
+        <translation>Nu se poate rezolva adresa -whitebind: '%s'</translation>
     </message>
     <message>
         <source>Connect through SOCKS5 proxy</source>
@@ -2910,19 +3005,11 @@
     </message>
     <message>
         <source>Copyright (C) 2009-%i The Myriad Core Developers</source>
-        <translation>Copyright (C) 2009-%i Dezvoltatorii Myriad</translation>
+        <translation>Copyright (C) 2009-%i Dezvoltatorii Bitcoin</translation>
     </message>
     <message>
         <source>Error reading from database, shutting down.</source>
         <translation>Eroare la citirea bazei de date. Oprire.</translation>
-    </message>
-    <message>
-        <source>Error: Unsupported argument -tor found, use -onion.</source>
-        <translation>Eroare: Argument nesuportat -tor găsit, folosiţi -onion.</translation>
-    </message>
-    <message>
-        <source>Fee (in BTC/kB) to add to transactions you send (default: %s)</source>
-        <translation>Taxa (în BTC/kB) de adăugat la tranzacţiile pe care le trimiteţi(implicit: %s)</translation>
     </message>
     <message>
         <source>Information</source>
@@ -2957,16 +3044,8 @@
         <translation>Trebuie să specificaţi un port cu -whitebind: '%s'</translation>
     </message>
     <message>
-        <source>RPC SSL options: (see the Myriad Wiki for SSL setup instructions)</source>
-        <translation>Opţiuni RPC SSL: (vedeţi Wiki Myriad pentru intrucţiunile de setare SSL)</translation>
-    </message>
-    <message>
         <source>RPC server options:</source>
         <translation>Opţiuni server RPC:</translation>
-    </message>
-    <message>
-        <source>RPC support for HTTP persistent connections (default: %d)</source>
-        <translation>RPC suportă pentru HTTP conexiuni persistente (implicit: %d)</translation>
     </message>
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
@@ -2977,20 +3056,8 @@
         <translation>Trimitere tranzacţii ca tranzacţii taxă-zero dacă este posibil (implicit: %u)</translation>
     </message>
     <message>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>Setare rădăcină certificat SSL pentru cerere de plată (implicit: -sistem- )</translation>
-    </message>
-    <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Setează limba, de exemplu: "de_DE" (implicit: sistem local)</translation>
-    </message>
-    <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>
         <translation>Arată toate opţiunile de depanare (uz: --help -help-debug)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: 1)</source>
-        <translation>Afişează pe ecran splash la pornire (implicit: 1)</translation>
     </message>
     <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
@@ -2999,10 +3066,6 @@
     <message>
         <source>Signing transaction failed</source>
         <translation>Nu s-a reuşit semnarea tranzacţiei</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Începe minimizat</translation>
     </message>
     <message>
         <source>This is experimental software.</source>
@@ -3029,10 +3092,6 @@
         <translation>Nu se poate lega la %s pe acest calculator. (Legarea a întors eroarea %s)</translation>
     </message>
     <message>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Foloseşte UPnP pentru a vedea porturile (implicit: 1 cînd ascultă)</translation>
-    </message>
-    <message>
         <source>Username for JSON-RPC connections</source>
         <translation>Utilizator pentru conexiunile JSON-RPC</translation>
     </message>
@@ -3045,20 +3104,8 @@
         <translation>Avertisment</translation>
     </message>
     <message>
-        <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
-        <translation>Avertisment: Argument nesuportat -benchmark ignorat, folosiţi -debug=bench.</translation>
-    </message>
-    <message>
-        <source>Warning: Unsupported argument -debugnet ignored, use -debug=net.</source>
-        <translation>Avertisment: Argument nesuportat -debugnet ignorat, folosiţi -debug=net.</translation>
-    </message>
-    <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Şterge toate tranzacţiile din portofel...</translation>
-    </message>
-    <message>
-        <source>on startup</source>
-        <translation>la pornire</translation>
     </message>
     <message>
         <source>wallet.dat corrupt, salvage failed</source>
@@ -3071,18 +3118,6 @@
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Execută comanda cînd cel mai bun bloc se modifică (%s în cmd este înlocuit cu hash-ul blocului)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Actualizează portofelul la ultimul format</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Rescanează lanţul de bloc pentru tranzacţiile portofel lipsă</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>Foloseşte OpenSSL (https) pentru conexiunile JSON-RPC</translation>
     </message>
     <message>
         <source>This help message</source>
@@ -3109,10 +3144,6 @@
         <translation>(implicit: %s)</translation>
     </message>
     <message>
-        <source>Acceptable ciphers (default: %s)</source>
-        <translation>Cifruri acceptabile (implicit: %s)</translation>
-    </message>
-    <message>
         <source>Error loading wallet.dat</source>
         <translation>Eroare la încărcarea wallet.dat</translation>
     </message>
@@ -3127,14 +3158,6 @@
     <message>
         <source>Invalid -proxy address: '%s'</source>
         <translation>Adresa -proxy nevalidă: '%s'</translation>
-    </message>
-    <message>
-        <source>Server certificate file (default: %s)</source>
-        <translation>Fişierul certificat al serverului (implicit: %s)</translation>
-    </message>
-    <message>
-        <source>Server private key (default: %s)</source>
-        <translation>Cheia privată a serverului (implicit: %s)</translation>
     </message>
     <message>
         <source>Set minimum block size in bytes (default: %u)</source>

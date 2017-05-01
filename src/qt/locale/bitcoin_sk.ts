@@ -1,4 +1,4 @@
-<TS language="sk" version="2.0">
+<TS language="sk" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -63,7 +63,7 @@
     </message>
     <message>
         <source>Receiving addresses</source>
-        <translation>Adresa prijatia</translation>
+        <translation>Prijímacia adresa</translation>
     </message>
     <message>
         <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
@@ -160,7 +160,7 @@
         <translation>Potvrďte šifrovanie peňaženky</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation>Varovanie: Ak zašifrujete peňaženku a stratíte heslo, &lt;b&gt;STRATÍTE VŠETKY VAŠE BITCOINY&lt;/b&gt;!⏎</translation>
     </message>
     <message>
@@ -168,8 +168,8 @@
         <translation>Ste si istí, že si želáte zašifrovať peňaženku?</translation>
     </message>
     <message>
-        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriads from being stolen by malware infecting your computer.</source>
-        <translation>Jadro Myriad sa teraz ukončí pre dokončenie procesu šifrovania. Pamätaj, že šifrovanie peňaženky Ťa nemôže úplne ochrániť pred krádežou myriadov pomocou škodlivého software.</translation>
+        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>Jadro Myriad sa teraz ukončí pre dokončenie procesu šifrovania. Pamätaj, že šifrovanie peňaženky Ťa nemôže úplne ochrániť pred krádežou bitcoinov pomocou škodlivého software.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -218,6 +218,17 @@
     <message>
         <source>Wallet passphrase was successfully changed.</source>
         <translation>Heslo k peňaženke bolo úspešne zmenené.</translation>
+    </message>
+</context>
+<context>
+    <name>BanTableModel</name>
+    <message>
+        <source>IP/Netmask</source>
+        <translation>IP/Maska stiete</translation>
+    </message>
+    <message>
+        <source>Banned Until</source>
+        <translation>Blokovaný do</translation>
     </message>
 </context>
 <context>
@@ -308,7 +319,7 @@
     </message>
     <message>
         <source>Send coins to a Myriad address</source>
-        <translation>Poslať myriads na adresu</translation>
+        <translation>Poslať myriadcoins na adresu</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -331,8 +342,8 @@
         <translation>O&amp;veriť správu...</translation>
     </message>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -388,19 +399,19 @@
     </message>
     <message>
         <source>Myriad Core</source>
-        <translation>Jadro Myriad</translation>
+        <translation>Jadro Bitcoin</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and myriad: URIs)</source>
-        <translation>Vyžiadať platby (vygeneruje QR kódy a myriad: URI)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation>Vyžiadať platby (vygeneruje QR kódy a bitcoin: URI)</translation>
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
-        <translation>O jadre Myriad</translation>
+        <translation>O jadre Bitcoin</translation>
     </message>
     <message>
         <source>Modify configuration options for Myriad Core</source>
-        <translation>Upraviť možnosti nastavenia pre Jadro Myriad</translation>
+        <translation>Upraviť možnosti nastavenia pre Jadro Bitcoin</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -411,8 +422,8 @@
         <translation>Zobraziť zoznam použitých prijímacích adries a ich popisov</translation>
     </message>
     <message>
-        <source>Open a myriad: URI or payment request</source>
-        <translation>Otvoriť myriad URI alebo výzvu k platbe</translation>
+        <source>Open a bitcoin: URI or payment request</source>
+        <translation>Otvoriť bitcoin URI alebo výzvu k platbe</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -424,7 +435,7 @@
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Myriad network</source>
-        <translation><numerusform>%n aktívne pripojenie do siete Myriad</numerusform><numerusform>%n aktívne pripojenia do siete Myriad</numerusform><numerusform>%n aktívnych pripojení do siete Myriad</numerusform></translation>
+        <translation><numerusform>%n aktívne pripojenie do siete Bitcoin</numerusform><numerusform>%n aktívne pripojenia do siete Bitcoin</numerusform><numerusform>%n aktívnych pripojení do siete Bitcoin</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -807,7 +818,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Myriad address.</source>
-        <translation>Vložená adresa "%1" nieje platnou adresou myriad.</translation>
+        <translation>Vložená adresa "%1" nieje platnou adresou bitcoin.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -845,7 +856,7 @@
     <name>HelpMessageDialog</name>
     <message>
         <source>Myriad Core</source>
-        <translation>Jadro Myriad</translation>
+        <translation>Jadro Bitcoin</translation>
     </message>
     <message>
         <source>version</source>
@@ -857,7 +868,7 @@
     </message>
     <message>
         <source>About Myriad Core</source>
-        <translation>O jadre Myriad</translation>
+        <translation>O jadre Bitcoin</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -871,6 +882,34 @@
         <source>command-line options</source>
         <translation>voľby príkazového riadku</translation>
     </message>
+    <message>
+        <source>UI Options:</source>
+        <translation>Možnosti používateľského rozhrania:</translation>
+    </message>
+    <message>
+        <source>Choose data directory on startup (default: %u)</source>
+        <translation>Vyberte dátový priečinok pri štarte (predvolené: %u)</translation>
+    </message>
+    <message>
+        <source>Set language, for example "de_DE" (default: system locale)</source>
+        <translation>Nastavte jazyk, napríklad "de_DE" (predvolené: podľa systému)</translation>
+    </message>
+    <message>
+        <source>Start minimized</source>
+        <translation>Spustiť minimalizované</translation>
+    </message>
+    <message>
+        <source>Set SSL root certificates for payment request (default: -system-)</source>
+        <translation>Nastaviť SSL root certifikáty pre vyžiadanie platby (predvolené: -system-)</translation>
+    </message>
+    <message>
+        <source>Show splash screen on startup (default: %u)</source>
+        <translation>Zobraziť uvítaciu obrazovku pri štarte (predvolené: %u)</translation>
+    </message>
+    <message>
+        <source>Reset all settings changes made over the GUI</source>
+        <translation>Reštartovať všetky nastavenia urobené v používateľskom rozhraní.</translation>
+    </message>
 </context>
 <context>
     <name>Intro</name>
@@ -880,7 +919,7 @@
     </message>
     <message>
         <source>Welcome to Myriad Core.</source>
-        <translation>Vitajte v jadre Myriad.</translation>
+        <translation>Vitajte v jadre Bitcoin.</translation>
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where Myriad Core will store its data.</source>
@@ -900,7 +939,7 @@
     </message>
     <message>
         <source>Myriad Core</source>
-        <translation>Jadro Myriad</translation>
+        <translation>Jadro Bitcoin</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -982,7 +1021,7 @@
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting Myriad Core.</source>
-        <translation>Tu sa dá nastaviť jazyk užívateľského rozhrania. Toto nastavenie bude účinné po reštartovaní Jadra Myriad.</translation>
+        <translation>Tu sa dá nastaviť jazyk užívateľského rozhrania. Toto nastavenie bude účinné po reštartovaní Jadra Bitcoin.</translation>
     </message>
     <message>
         <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items. %s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
@@ -1006,7 +1045,7 @@
     </message>
     <message>
         <source>&amp;Network</source>
-        <translation>Sieť</translation>
+        <translation>&amp;Sieť</translation>
     </message>
     <message>
         <source>Automatically start Myriad Core after logging in to the system.</source>
@@ -1022,7 +1061,7 @@
     </message>
     <message>
         <source>W&amp;allet</source>
-        <translation>Peňaženka</translation>
+        <translation>&amp;Peňaženka</translation>
     </message>
     <message>
         <source>Expert</source>
@@ -1069,8 +1108,36 @@
         <translation>Port proxy (napr. 9050)</translation>
     </message>
     <message>
+        <source>Used for reaching peers via:</source>
+        <translation>Použité pre získavanie peerov cez:</translation>
+    </message>
+    <message>
+        <source>Shows, if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
+        <translation>Zobrazuje, či je poskytované predvolené SOCKS5 proxy používané pre získavanie peerov cez tento typ siete.</translation>
+    </message>
+    <message>
+        <source>IPv4</source>
+        <translation>IPv4</translation>
+    </message>
+    <message>
+        <source>IPv6</source>
+        <translation>IPv6</translation>
+    </message>
+    <message>
+        <source>Tor</source>
+        <translation>Tor</translation>
+    </message>
+    <message>
+        <source>Connect to the Myriad network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Pripojiť k Bitcoinovej sieti cez separované SOCKS5 proxy pre skrytú službu Tor.</translation>
+    </message>
+    <message>
+        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
+        <translation>Použiť samostatný SOCKS5 proxy server na dosiahnutie počítačov cez skryté služby Tor:</translation>
+    </message>
+    <message>
         <source>&amp;Window</source>
-        <translation>Okno</translation>
+        <translation>&amp;Okno</translation>
     </message>
     <message>
         <source>Show only a tray icon after minimizing the window.</source>
@@ -1086,7 +1153,7 @@
     </message>
     <message>
         <source>&amp;Display</source>
-        <translation>&amp;Displej</translation>
+        <translation>&amp;Zobrazenie</translation>
     </message>
     <message>
         <source>User Interface &amp;language:</source>
@@ -1098,7 +1165,7 @@
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Zvoľte ako deliť myriad pri zobrazovaní pri platbách a užívateľskom rozhraní.</translation>
+        <translation>Zvoľte ako deliť bitcoin pri zobrazovaní pri platbách a užívateľskom rozhraní.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1247,8 +1314,8 @@
         <translation>Chyba pri vyžiadaní platby</translation>
     </message>
     <message>
-        <source>Cannot start myriad: click-to-pay handler</source>
-        <translation>Nedá sa spustiť obslužný program myriad: click-to-pay zaplatiť kliknutím</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation>Nedá sa spustiť obslužný program bitcoin: click-to-pay zaplatiť kliknutím</translation>
     </message>
     <message>
         <source>Payment request fetch URL is invalid: %1</source>
@@ -1285,10 +1352,6 @@
     <message>
         <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
         <translation>Požiadavka na platbu %1 je príliš veľká (%2 bajtov, povolené je %3 bajtov).</translation>
-    </message>
-    <message>
-        <source>Payment request DoS protection</source>
-        <translation>Ochrana pred zahltením požiadavkami na platbu</translation>
     </message>
     <message>
         <source>Error communicating with %1: %2</source>
@@ -1334,7 +1397,7 @@
     </message>
     <message>
         <source>Enter a Myriad address (e.g. %1)</source>
-        <translation>Zadajte myriad adresu (napr. %1)</translation>
+        <translation>Zadajte bitcoin adresu (napr. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1443,6 +1506,18 @@
         <translation>Aktuálny počet blokov</translation>
     </message>
     <message>
+        <source>Memory Pool</source>
+        <translation>Pamäť Poolu</translation>
+    </message>
+    <message>
+        <source>Current number of transactions</source>
+        <translation>Aktuálny počet tranzakcií</translation>
+    </message>
+    <message>
+        <source>Memory usage</source>
+        <translation>Využitie pamäte</translation>
+    </message>
+    <message>
         <source>Open the Myriad Core debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Otvoriť Myriad log súbor pre ladenie z aktuálneho dátového adresára. Toto môže trvať niekoľko sekúnd pre veľké súbory.</translation>
     </message>
@@ -1459,8 +1534,16 @@
         <translation>&amp;Partneri</translation>
     </message>
     <message>
+        <source>Banned peers</source>
+        <translation>Zablokované spojenia</translation>
+    </message>
+    <message>
         <source>Select a peer to view detailed information.</source>
         <translation>Vyberte počítač pre zobrazenie podrobností.</translation>
+    </message>
+    <message>
+        <source>Whitelisted</source>
+        <translation>Povolené</translation>
     </message>
     <message>
         <source>Direction</source>
@@ -1471,20 +1554,25 @@
         <translation>Verzia</translation>
     </message>
     <message>
+        <source>Starting Block</source>
+        <translation>Počiatočný Blok</translation>
+    </message>
+    <message>
+        <source>Synced Headers</source>
+        <translation>Synchronizované hlavičky
+</translation>
+    </message>
+    <message>
+        <source>Synced Blocks</source>
+        <translation>Synchronizované bloky</translation>
+    </message>
+    <message>
         <source>User Agent</source>
         <translation>Aplikácia</translation>
     </message>
     <message>
         <source>Services</source>
         <translation>Služby</translation>
-    </message>
-    <message>
-        <source>Starting Height</source>
-        <translation>Počiatočná výška</translation>
-    </message>
-    <message>
-        <source>Sync Height</source>
-        <translation>Synchronizovaná výška</translation>
     </message>
     <message>
         <source>Ban Score</source>
@@ -1503,16 +1591,12 @@
         <translation>Posledné prijatie</translation>
     </message>
     <message>
-        <source>Bytes Sent</source>
-        <translation>Odoslaných bajtov</translation>
-    </message>
-    <message>
-        <source>Bytes Received</source>
-        <translation>Prijatých bajtov</translation>
-    </message>
-    <message>
         <source>Ping Time</source>
         <translation>Čas odozvy</translation>
+    </message>
+    <message>
+        <source>Ping Wait</source>
+        <translation>Čakanie na ping</translation>
     </message>
     <message>
         <source>Time Offset</source>
@@ -1563,8 +1647,36 @@
         <translation>Vymazať konzolu</translation>
     </message>
     <message>
+        <source>&amp;Disconnect Node</source>
+        <translation>&amp;Odpojené uzly</translation>
+    </message>
+    <message>
+        <source>Ban Node for</source>
+        <translation>Blokovať uzol na</translation>
+    </message>
+    <message>
+        <source>1 &amp;hour</source>
+        <translation>1 &amp;hodinu</translation>
+    </message>
+    <message>
+        <source>1 &amp;day</source>
+        <translation>1 &amp;deň</translation>
+    </message>
+    <message>
+        <source>1 &amp;week</source>
+        <translation>1 &amp;týždeň</translation>
+    </message>
+    <message>
+        <source>1 &amp;year</source>
+        <translation>1 &amp;rok</translation>
+    </message>
+    <message>
+        <source>&amp;Unban Node</source>
+        <translation>&amp;odblokovať uzol</translation>
+    </message>
+    <message>
         <source>Welcome to the Myriad Core RPC console.</source>
-        <translation>Vitajte v RPC konzole pre Jadro Myriad.</translation>
+        <translation>Vitajte v RPC konzole pre Jadro Bitcoin.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1591,6 +1703,10 @@
         <translation>%1 GB</translation>
     </message>
     <message>
+        <source>(node id: %1)</source>
+        <translation>(ID uzlu: %1)</translation>
+    </message>
+    <message>
         <source>via %1</source>
         <translation>cez %1</translation>
     </message>
@@ -1607,12 +1723,16 @@
         <translation>Odchádzajúce</translation>
     </message>
     <message>
-        <source>Unknown</source>
-        <translation>neznámy</translation>
+        <source>Yes</source>
+        <translation>Áno</translation>
     </message>
     <message>
-        <source>Fetching...</source>
-        <translation>Získava sa...</translation>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>neznámy</translation>
     </message>
 </context>
 <context>
@@ -1639,7 +1759,7 @@
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriad network.</source>
-        <translation>Pridať voliteľnú správu k výzve na zaplatenie, ktorá sa zobrazí keď bude výzva otvorená. Poznámka: Správa nebude poslaná s platbou cez sieť Myriad.</translation>
+        <translation>Pridať voliteľnú správu k výzve na zaplatenie, ktorá sa zobrazí keď bude výzva otvorená. Poznámka: Správa nebude poslaná s platbou cez sieť Bitcoin.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1788,7 +1908,7 @@
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Poslať Myriads</translation>
+        <translation>Poslať Bitcoins</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -1871,7 +1991,7 @@
         <translation>spolu aspoň</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for myriad transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
         <translation>Zaplatenie len minimálneho poplatku je v poriadku, pokiaľ existuje menej transakcií ako miesta v blokoch. Uvedomte si však, že ak bude vyšší dopyt po transakciách ako dokáže sieť spracovať, môže byť vaša transakcia odsúvaná a nepotvrdená donekonečna.</translation>
     </message>
     <message>
@@ -1944,7 +2064,7 @@
     </message>
     <message>
         <source>Confirm send coins</source>
-        <translation>Potvrdiť odoslanie myriads</translation>
+        <translation>Potvrdiť odoslanie myriadcoins</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -1979,6 +2099,10 @@
         <translation>Kopírovať zmenu</translation>
     </message>
     <message>
+        <source>Total Amount %1</source>
+        <translation>Celkové množstvo %1</translation>
+    </message>
+    <message>
         <source>or</source>
         <translation>alebo</translation>
     </message>
@@ -2011,8 +2135,8 @@
         <translation>Vypršala platnosť požiadavky na platbu.</translation>
     </message>
     <message>
-        <source>Pay only the minimum fee of %1</source>
-        <translation>Zaplatiť minimálny poplatok %1</translation>
+        <source>Pay only the required fee of %1</source>
+        <translation>Zaplatiť len vyžadovaný poplatok z %1</translation>
     </message>
     <message>
         <source>The recipient address is not valid. Please recheck.</source>
@@ -2094,6 +2218,10 @@
         <translation>Odstrániť túto položku</translation>
     </message>
     <message>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less myriadcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation>Poplatok sa odpočíta od čiastky, ktorú odosielate. Príjemca dostane menej bitcoinov ako zadáte. Ak je vybraných viacero príjemcov, poplatok je rozdelený rovným dielom.</translation>
+    </message>
+    <message>
         <source>S&amp;ubtract fee from amount</source>
         <translation>Odpočítať poplatok od s&amp;umy</translation>
     </message>
@@ -2114,8 +2242,8 @@
         <translation>Vložte popis pre túto adresu aby sa uložila do zoznamu použitých adries</translation>
     </message>
     <message>
-        <source>A message that was attached to the myriad: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriad network.</source>
-        <translation>Správa ktorá bola pripojená k myriad: URI a ktorá bude uložená s transakcou pre Vaše potreby. Poznámka: Táto správa nebude poslaná cez sieť Myriad.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriad network.</source>
+        <translation>Správa ktorá bola pripojená k bitcoin: URI a ktorá bude uložená s transakcou pre Vaše potreby. Poznámka: Táto správa nebude poslaná cez sieť Bitcoin.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -2146,6 +2274,10 @@
     <message>
         <source>&amp;Sign Message</source>
         <translation>&amp;Podpísať Správu</translation>
+    </message>
+    <message>
+        <source>The Myriad address to sign the message with</source>
+        <translation>Myriad adresa pre podpísanie správy s</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2197,7 +2329,7 @@
     </message>
     <message>
         <source>The Myriad address the message was signed with</source>
-        <translation>Adresa Myriad, ktorou bola podpísaná správa</translation>
+        <translation>Adresa Bitcoin, ktorou bola podpísaná správa</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Myriad address</source>
@@ -2268,11 +2400,11 @@
     <name>SplashScreen</name>
     <message>
         <source>Myriad Core</source>
-        <translation>Jadro Myriad</translation>
+        <translation>Jadro Bitcoin</translation>
     </message>
     <message>
         <source>The Myriad Core developers</source>
-        <translation>Vývojári jadra Myriad</translation>
+        <translation>Vývojári jadra Bitcoin</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2622,6 +2754,10 @@
         <translation>Kopírovať ID transakcie</translation>
     </message>
     <message>
+        <source>Copy raw transaction</source>
+        <translation>Kopírovať celú tranzakciu</translation>
+    </message>
+    <message>
         <source>Edit label</source>
         <translation>Editovať popis</translation>
     </message>
@@ -2708,7 +2844,7 @@
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Poslať Myriads</translation>
+        <translation>Poslať Bitcoins</translation>
     </message>
 </context>
 <context>
@@ -2769,12 +2905,28 @@
         <translation>Prijímať príkazy z príkazového riadku a JSON-RPC</translation>
     </message>
     <message>
+        <source>Please check that your computer's date and time are correct! If your clock is wrong Myriad Core will not work properly.</source>
+        <translation>Skontrolujte správnosť nastavenia dátumu a času na vašom počítači! Ak je čas nesprávny Jadro Myriad nebude správne fungovať.</translation>
+    </message>
+    <message>
+        <source>Error: A fatal internal error occurred, see debug.log for details</source>
+        <translation>Chyba: Vyskytla sa interná chyba, pre viac informácií zobrazte debug.log</translation>
+    </message>
+    <message>
+        <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
+        <translation>Poplatok (za %s/kB) pridaný do tranzakcie, ktorú posielate (predvolené: %s)</translation>
+    </message>
+    <message>
+        <source>Pruning blockstore...</source>
+        <translation>Redukovanie blockstore...</translation>
+    </message>
+    <message>
         <source>Run in the background as a daemon and accept commands</source>
         <translation>Bežať na pozadí ako démon a prijímať príkazy</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>Použiť testovaciu sieť</translation>
+        <source>Unable to start HTTP server. See debug log for details.</source>
+        <translation>Nepodarilo sa spustiť HTTP server. Pre viac detailov zobrazte debug log.</translation>
     </message>
     <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
@@ -2802,15 +2954,19 @@
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
-        <translation>Toto je pred-testovacia verzia - použitie je na vlastné riziko - nepoužívajte na tvorbu myriad ani obchodovanie.</translation>
+        <translation>Toto je pred-testovacia verzia - použitie je na vlastné riziko - nepoužívajte na tvorbu bitcoin ani obchodovanie.</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer. Myriad Core is probably already running.</source>
         <translation>Nepodarilo sa pripojiť na %s na tomto počítači. Myriad Jadro je už pravdepodobne spustené.</translation>
     </message>
     <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Varovanie: -paytxfee je nastavené veľmi vysoko. Toto sú transakčné poplatky ktoré zaplatíte ak odošlete transakciu.</translation>
+        <source>WARNING: abnormally high number of blocks generated, %d blocks received in the last %d hours (%d expected)</source>
+        <translation>VAROVANIE: príliš veľa vygenerovaných blokov; %d prijatých blokov v posledných %d hodinách (očakávaných %d)</translation>
+    </message>
+    <message>
+        <source>WARNING: check your network connection, %d blocks received in the last %d hours (%d expected)</source>
+        <translation>VAROVANIE: skontrolujte sieťové pripojenie, %d prijatých blokov za posledných %d hodín (očakávané %d)</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -2823,10 +2979,6 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Varovanie: Zjavne sa úplne nezhodujeme s našimi peer-mi! Možno potrebujete prejsť na novšiu verziu alebo ostatné uzly potrebujú vyššiu verziu.</translation>
     </message>
     <message>
-        <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation>Varovanie: chyba pri čítaní wallet.dad! Všetky kľúče sú čitateľné ale transakčné dáta alebo záznamy v adresári môžu byť nesprávne.</translation>
-    </message>
-    <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation>Varovanie: wallet.dat je poškodený, údaje úspešne získané! Pôvodný wallet.dat uložený ako wallet.{timestamp}.bak v %s; ak váš zostatok alebo transakcie niesu správne, mali by ste súbor obnoviť zo zálohy.</translation>
     </message>
@@ -2835,16 +2987,12 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Uzle na zoznam povolených, ktoré sa pripájajú z danej netmask alebo IP adresy. Môže byť zadané viac krát.</translation>
     </message>
     <message>
-        <source>(default: 1)</source>
-        <translation>(predvolené: 1)</translation>
+        <source>-maxmempool must be at least %d MB</source>
+        <translation>-maxmempool musí byť najmenej %d MB</translation>
     </message>
     <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;category&gt; môže byť:</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation>Pokus zachrániť súkromné kľúče z poškodeného wallet.dat</translation>
     </message>
     <message>
         <source>Block creation options:</source>
@@ -2875,6 +3023,18 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Chcete znovu zostaviť databázu blokov?</translation>
     </message>
     <message>
+        <source>Enable publish hash block in &lt;address&gt;</source>
+        <translation>Povoliť zverejneneie hash blokov pre &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish hash transaction in &lt;address&gt;</source>
+        <translation>Povoliť zverejnenie hash tranzakcií pre &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish raw block in &lt;address&gt;</source>
+        <translation>Povoliť zverejnenie raw bloku pre &lt;address&gt;</translation>
+    </message>
+    <message>
         <source>Error initializing block database</source>
         <translation>Chyba inicializácie databázy blokov</translation>
     </message>
@@ -2899,10 +3059,6 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Chyba počúvania na ktoromkoľvek porte. Použi -listen=0 ak toto chcete.</translation>
     </message>
     <message>
-        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation>Ak nie je uvedená &lt;category&gt;, na výstupe zobrazuj všetky informácie pre ladenie.</translation>
-    </message>
-    <message>
         <source>Importing...</source>
         <translation>Prebieha import ...</translation>
     </message>
@@ -2923,6 +3079,14 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Pripojiť iba k uzlom v sieti &lt;net&gt; (ipv4, ipv6, alebo onion)</translation>
     </message>
     <message>
+        <source>Prune cannot be configured with a negative value.</source>
+        <translation>Redukovanie nemôže byť nastavené na zápornú hodnotu.</translation>
+    </message>
+    <message>
+        <source>Prune mode is incompatible with -txindex.</source>
+        <translation>Redukovanie je nekompatibilné s -txindex.</translation>
+    </message>
+    <message>
         <source>Set database cache size in megabytes (%d to %d, default: %d)</source>
         <translation>Nastaviť veľkosť pomocnej pamäti databázy v megabajtoch (%d do %d, prednastavené: %d)</translation>
     </message>
@@ -2933,6 +3097,18 @@ The network does not appear to fully agree! Some miners appear to be experiencin
     <message>
         <source>Specify wallet file (within data directory)</source>
         <translation>Označ súbor peňaženky (v priečinku s dátami)</translation>
+    </message>
+    <message>
+        <source>Unsupported argument -benchmark ignored, use -debug=bench.</source>
+        <translation>Nepodporovaný parameter -benchmark bol ignorovaný, použite -debug=bench.</translation>
+    </message>
+    <message>
+        <source>Unsupported argument -debugnet ignored, use -debug=net.</source>
+        <translation>Nepodporovaný argument -debugnet bol ignorovaný, použite -debug=net.</translation>
+    </message>
+    <message>
+        <source>Unsupported argument -tor found, use -onion.</source>
+        <translation>Nepodporovaný argument -tor, použite -onion.</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
@@ -2955,20 +3131,16 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Voľby peňaženky:</translation>
     </message>
     <message>
+        <source>Warning: This version is obsolete; upgrade required!</source>
+        <translation>Varovanie: Táto verzia je zastaralá; vyžaduje sa aktualizácia!</translation>
+    </message>
+    <message>
         <source>You need to rebuild the database using -reindex to change -txindex</source>
         <translation>Potrebujete prebudovať databázu použitím -reindex zmeniť -txindex</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Importuje bloky z externého súboru blk000??.dat</translation>
-    </message>
-    <message>
         <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
         <translation>Povoliť JSON-RPC pripojenia zo zadaného zdroja. Pre &lt;ip&gt; sú platné jednoduché IP (napr. 1.2.3.4), sieť/netmask (napr. 1.2.3.4/255.255.255.0) alebo sieť/CIDR (napr. 1.2.3.4/24). Táto možnosť môže byť zadaná niekoľko krát</translation>
-    </message>
-    <message>
-        <source>An error occurred while setting up the RPC address %s port %u for listening: %s</source>
-        <translation>Pri nastavovaní RPC adresy %s na porte %u pre počúvanie došlo k chybe: %s</translation>
     </message>
     <message>
         <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
@@ -2987,20 +3159,16 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Vytvoriť nové súbory z predvolenými systémovými právami, namiesto umask 077 (funguje iba z vypnutou funkcionalitou peňaženky)</translation>
     </message>
     <message>
+        <source>Discover own IP addresses (default: 1 when listening and no -externalip or -proxy)</source>
+        <translation>Zisti vlastnú IP adresu (predvolené: 1 pre listen a -externalip alebo -proxy)</translation>
+    </message>
+    <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
         <translation>Chyba: Počúvanie prichádzajúcich spojení zlyhalo (vrátená chyba je %s)</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation>Chyba: Nájdený nepodporovaný argument -socks. Nastavenie SOCKS verzie nie je už možné, podporované sú už iba proxy SOCKS5.</translation>
-    </message>
-    <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
         <translation>Vykonať príkaz po prijatí patričného varovania alebo uvidíme veľmi dlhé rozdvojenie siete (%s v cmd je nahradené správou)</translation>
-    </message>
-    <message>
-        <source>Fees (in BTC/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Poplatky (v BTC/Kb) nižšie ako toľkoto sa považujú za nulové pri postupovaní transakcií (predvolené: %s)</translation>
     </message>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
@@ -3027,12 +3195,12 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Nastaviť počet vlákien pre generáciu mincí (-1 = všetky jadrá, predvolené: %d)</translation>
     </message>
     <message>
-        <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
-        <translation>Tento produkt obsahuje softvér vyvinutý projektom OpenSSL pre použitie sady nástrojov OpenSSL &lt;https://www.openssl.org/&gt; a kryptografického softvéru napísaného Eric Young a UPnP softvér napísaný Thomas Bernard.</translation>
+        <source>The transaction amount is too small to send after the fee has been deducted</source>
+        <translation>Suma je príliš malá pre odoslanie tranzakcie</translation>
     </message>
     <message>
-        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation>Upozornenie: -maxtxfee je nastavené príliš vysoko! Takto vysoké poplatky by mali byť zaplatené za jednu transakciu.</translation>
+        <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
+        <translation>Tento produkt obsahuje softvér vyvinutý projektom OpenSSL pre použitie sady nástrojov OpenSSL &lt;https://www.openssl.org/&gt; a kryptografického softvéru napísaného Eric Young a UPnP softvér napísaný Thomas Bernard.</translation>
     </message>
     <message>
         <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
@@ -3047,12 +3215,20 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Akceptovať verejné REST žiadosti (predvolené: %u)</translation>
     </message>
     <message>
-        <source>Cannot resolve -whitebind address: '%s'</source>
-        <translation>Nedá sa vyriešiť -whitebind adresa: '%s'</translation>
+        <source>Activating best chain...</source>
+        <translation>Aktivácia najlepšej reťaze...</translation>
     </message>
     <message>
-        <source>Choose data directory on startup (default: 0)</source>
-        <translation>Zvoľte dátový priečinok pri štarte (prednastavené: 0)</translation>
+        <source>Attempt to recover private keys from a corrupt wallet.dat on startup</source>
+        <translation>Pokus o obnovenie privátnych kľúčov z poškodenej wallet.dat pri spustení</translation>
+    </message>
+    <message>
+        <source>Automatically create Tor hidden service (default: %d)</source>
+        <translation>Automaticky vytvoriť skrytú službu Tor (predvolené: %d)</translation>
+    </message>
+    <message>
+        <source>Cannot resolve -whitebind address: '%s'</source>
+        <translation>Nedá sa vyriešiť -whitebind adresa: '%s'</translation>
     </message>
     <message>
         <source>Connect through SOCKS5 proxy</source>
@@ -3060,31 +3236,27 @@ The network does not appear to fully agree! Some miners appear to be experiencin
     </message>
     <message>
         <source>Copyright (C) 2009-%i The Myriad Core Developers</source>
-        <translation>Autorské práva (C) 2009-%i Vývojári jadra Myriad</translation>
-    </message>
-    <message>
-        <source>Could not parse -rpcbind value %s as network address</source>
-        <translation>Nedá sa analyzovať -rpcbind hodnota %s ako sieťová adresa</translation>
+        <translation>Autorské práva (C) 2009-%i Vývojári jadra Bitcoin</translation>
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of Myriad Core</source>
-        <translation>Chyba pri čítaní wallet.dat: Peňaženka vyžaduje vyššiu verziu Jadra Myriad</translation>
+        <translation>Chyba pri čítaní wallet.dat: Peňaženka vyžaduje vyššiu verziu Jadra Bitcoin</translation>
     </message>
     <message>
         <source>Error reading from database, shutting down.</source>
         <translation>Chyba pri načítaní z databázy, ukončuje sa.</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -tor found, use -onion.</source>
-        <translation>Chyba: nájdený nepodporovaný argument -tor, použite -onion.</translation>
-    </message>
-    <message>
-        <source>Fee (in BTC/kB) to add to transactions you send (default: %s)</source>
-        <translation>Poplatok (v BTC/kB), ktorý sa pridá k transakciám, ktoré odosielate (predvolený: %s)</translation>
+        <source>Imports blocks from external blk000??.dat file on startup</source>
+        <translation>Importovať bloky z externého súboru blk000??.dat pri štarte</translation>
     </message>
     <message>
         <source>Information</source>
         <translation>Informácia</translation>
+    </message>
+    <message>
+        <source>Initialization sanity check failed. Myriad Core is shutting down.</source>
+        <translation>Inicializačná kontrola zlyhala. Jadro Myriad sa ukončuje.</translation>
     </message>
     <message>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
@@ -3119,16 +3291,8 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Prenosové možnosti uzla:</translation>
     </message>
     <message>
-        <source>RPC SSL options: (see the Myriad Wiki for SSL setup instructions)</source>
-        <translation>Možnosti RPC SSL: (Pozri v Myriad Wiki pokyny pre SSL nastavenie)</translation>
-    </message>
-    <message>
         <source>RPC server options:</source>
         <translation>Možnosti servra RPC:</translation>
-    </message>
-    <message>
-        <source>RPC support for HTTP persistent connections (default: %d)</source>
-        <translation>Podpora RPC pre trvalé HTTP spojenia (predvolené: %d)</translation>
     </message>
     <message>
         <source>Receive and display P2P network alerts (default: %u)</source>
@@ -3143,20 +3307,8 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Poslať ako transakcie bez poplatku, ak je to možné (predvolené: %u)</translation>
     </message>
     <message>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>Nastaviť koreňový certifikát pre výzvy na platbu (prednastavené: -system-)</translation>
-    </message>
-    <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Nastaviť jazyk, napríklad "sk_SK" (predvolené: systémový)</translation>
-    </message>
-    <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>
         <translation>Zobraziť všetky možnosti ladenia (použitie: --help --help-debug)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: 1)</source>
-        <translation>Zobraziť splash screen pri spustení (predvolené: 1)</translation>
     </message>
     <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
@@ -3167,12 +3319,16 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Podpísanie správy zlyhalo</translation>
     </message>
     <message>
-        <source>Start minimized</source>
-        <translation>Spustiť minimalizované</translation>
+        <source>The transaction amount is too small to pay the fee</source>
+        <translation>Suma tranzakcie je príliš malá na zaplatenie poplatku</translation>
     </message>
     <message>
         <source>This is experimental software.</source>
         <translation>Toto je experimentálny softvér.</translation>
+    </message>
+    <message>
+        <source>Tor control port password (default: empty)</source>
+        <translation>Heslo na kontrolu portu pre Tor (predvolené: žiadne)</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -3191,40 +3347,28 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>Transakcia príliš veľká</translation>
     </message>
     <message>
-        <source>UI Options:</source>
-        <translation>Možnosti používateľského rozhrania:</translation>
-    </message>
-    <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
         <translation>Na tomto počítači sa nedá vytvoriť väzba %s (vytvorenie väzby vrátilo chybu %s)</translation>
     </message>
     <message>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Skúsiť použiť UPnP pre mapovanie počúvajúceho portu (default: 1 when listening)</translation>
+        <source>Upgrade wallet to latest format on startup</source>
+        <translation>Aktualizovať peňaženku na posledný formát pri štarte</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>
         <translation>Užívateľské meno pre JSON-RPC spojenia</translation>
     </message>
     <message>
+        <source>Wallet needed to be rewritten: restart Myriad Core to complete</source>
+        <translation>Peňaženka musí byť prepísaná: pre dokončenie reštartujte Jadro Bitcoin</translation>
+    </message>
+    <message>
         <source>Warning</source>
         <translation>Upozornenie</translation>
     </message>
     <message>
-        <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
-        <translation>Upozornenie: Nepodporovaný argument -benchmark bol ignorovaný, použite -debug=bench.</translation>
-    </message>
-    <message>
-        <source>Warning: Unsupported argument -debugnet ignored, use -debug=net.</source>
-        <translation>Upozornenie: Nepodporovaný argument -debugnet bol ignorovaný, použite -debug=net.</translation>
-    </message>
-    <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Zmazať všetky transakcie z peňaženky...</translation>
-    </message>
-    <message>
-        <source>on startup</source>
-        <translation>pri štarte</translation>
     </message>
     <message>
         <source>wallet.dat corrupt, salvage failed</source>
@@ -3237,18 +3381,6 @@ The network does not appear to fully agree! Some miners appear to be experiencin
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Vykonaj príkaz, ak zmeny v najlepšom bloku (%s v príkaze nahradí blok hash)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Aktualizuj peňaženku na najnovší formát.</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Znovu skenovať reťaz blokov pre chýbajúce transakcie</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>Použiť OpenSSL (https) pre JSON-RPC spojenia</translation>
     </message>
     <message>
         <source>This help message</source>
@@ -3295,16 +3427,16 @@ The network does not appear to fully agree! Some miners appear to be experiencin
         <translation>(predvolené: %s)</translation>
     </message>
     <message>
-        <source>Acceptable ciphers (default: %s)</source>
-        <translation>Prijateľné šifry (predvolené: %s)</translation>
-    </message>
-    <message>
         <source>Always query for peer addresses via DNS lookup (default: %u)</source>
         <translation>Vždy sa dotazovať adresy partnerských uzlov cez vyhľadávanie DNS (predvolené: %u)</translation>
     </message>
     <message>
         <source>Error loading wallet.dat</source>
         <translation>Chyba načítania wallet.dat</translation>
+    </message>
+    <message>
+        <source>Generate coins (default: %u)</source>
+        <translation>Generovať mince (predvolené: %u)</translation>
     </message>
     <message>
         <source>How many blocks to check at startup (default: %u, 0 = all)</source>
@@ -3349,14 +3481,6 @@ The network does not appear to fully agree! Some miners appear to be experiencin
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
         <translation>Prenášať non-P2SH multi-podpis (predvolené: %u)</translation>
-    </message>
-    <message>
-        <source>Server certificate file (default: %s)</source>
-        <translation>Certifikačný súbor servera (predvolené: %s)</translation>
-    </message>
-    <message>
-        <source>Server private key (default: %s)</source>
-        <translation>Privátny kľúč servera (predvolené: %s)</translation>
     </message>
     <message>
         <source>Set key pool size to &lt;n&gt; (default: %u)</source>

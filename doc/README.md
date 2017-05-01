@@ -1,4 +1,4 @@
-Bitcoin Core 0.11.2
+Bitcoin Core 0.12.1
 =====================
 
 Setup
@@ -11,16 +11,10 @@ The following are some helpful notes on how to run Bitcoin on your native platfo
 
 ### Unix
 
-You need the Qt4 run-time libraries to run Bitcoin-Qt. On Debian or Ubuntu:
-
-	sudo apt-get install libqtgui4
-
 Unpack the files into a directory and run:
 
-- bin/32/bitcoin-qt (GUI, 32-bit) or bin/32/bitcoind (headless, 32-bit)
-- bin/64/bitcoin-qt (GUI, 64-bit) or bin/64/bitcoind (headless, 64-bit)
-
-
+- `bin/bitcoin-qt` (GUI) or
+- `bin/bitcoind` (headless)
 
 ### Windows
 
@@ -28,7 +22,7 @@ Unpack the files into a directory, and then run bitcoin-qt.exe.
 
 ### OS X
 
-Drag Bitcoin-Qt to your applications folder, and then run Bitcoin-Qt.
+Drag Bitcoin-Core to your applications folder, and then run Bitcoin-Core.
 
 ### Need Help?
 
@@ -43,11 +37,13 @@ The following are developer notes on how to build Bitcoin on your native platfor
 
 - [OS X Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
+- [Windows Build Notes](build-windows.md)
+- [OpenBSD Build Notes](build-openbsd.md)
 - [Gitian Building Guide](gitian-building.md)
 
 Development
 ---------------------
-The Bitcoin repo's [root README](https://github.com/bitcoin/bitcoin/blob/master/README.md) contains relevant information on the development process and automated testing.
+The Bitcoin repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
@@ -58,12 +54,14 @@ The Bitcoin repo's [root README](https://github.com/bitcoin/bitcoin/blob/master/
 - [Translation Strings Policy](translation_strings_policy.md)
 - [Unit Tests](unit-tests.md)
 - [Unauthenticated REST Interface](REST-interface.md)
+- [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
 - [Dnsseed Policy](dnsseed-policy.md)
 
 ### Resources
 * Discuss on the [BitcoinTalk](https://bitcointalk.org/) forums, in the [Development & Technical Discussion board](https://bitcointalk.org/index.php?board=6.0).
-* Discuss on [#bitcoin-dev](http://webchat.freenode.net/?channels=bitcoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=bitcoin-dev).
+* Discuss project-specific development on #bitcoin-core-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=bitcoin-core-dev).
+* Discuss general Bitcoin development on #bitcoin-dev on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=bitcoin-dev).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

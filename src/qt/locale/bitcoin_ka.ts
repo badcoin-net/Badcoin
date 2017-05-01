@@ -1,4 +1,4 @@
-<TS language="ka" version="2.0">
+<TS language="ka" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -63,11 +63,11 @@
     </message>
     <message>
         <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>ეს არის თქვენი Myriad-მისამართები გადახდების შესასრულებლად. მონეტების გაგზავნამდე ყოველთვის შეამოწმეთ თანხა და მიმღების მისამართი.</translation>
+        <translation>ეს არის თქვენი Bitcoin-მისამართები გადახდების შესასრულებლად. მონეტების გაგზავნამდე ყოველთვის შეამოწმეთ თანხა და მიმღების მისამართი.</translation>
     </message>
     <message>
         <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>ეს არის თქვენი Myriad-მისამართები გადახდების მისაღებად. რეკომენდებულია ყოველი ტრანსაქციისათვის ახალი მიღების მისამართის გამოყენება.</translation>
+        <translation>ეს არის თქვენი Bitcoin-მისამართები გადახდების მისაღებად. რეკომენდებულია ყოველი ტრანსაქციისათვის ახალი მიღების მისამართის გამოყენება.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -152,7 +152,7 @@
         <translation>დაადასტურეთ საფულის დაშიფრვა</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation>ყურადღება: საფულის დაშიფრვის შემდეგ თუ თქვენ დაკარგავთ ფრაზა-პაროლს,  &lt;b&gt;ყველა ბიტქოინი დაგეკარგებათ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -200,6 +200,9 @@
         <translation>საფულის ფრაზა-პაროლი შეცვლილია.</translation>
     </message>
 </context>
+<context>
+    <name>BanTableModel</name>
+    </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -284,7 +287,7 @@
     </message>
     <message>
         <source>Send coins to a Myriad address</source>
-        <translation>მონეტების გაგზავნა Myriad-მისამართზე</translation>
+        <translation>მონეტების გაგზავნა Bitcoin-მისამართზე</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -307,8 +310,8 @@
         <translation>&amp;ვერიფიკაცია</translation>
     </message>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -336,11 +339,11 @@
     </message>
     <message>
         <source>Sign messages with your Myriad addresses to prove you own them</source>
-        <translation>მესიჯებზე ხელმოწერა თქვენი Myriad-მისამართებით იმის დასტურად, რომ ის თქვენია</translation>
+        <translation>მესიჯებზე ხელმოწერა თქვენი Bitcoin-მისამართებით იმის დასტურად, რომ ის თქვენია</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Myriad addresses</source>
-        <translation>შეამოწმეთ, რომ მესიჯები ხელმოწერილია მითითებული Myriad-მისამართით</translation>
+        <translation>შეამოწმეთ, რომ მესიჯები ხელმოწერილია მითითებული Bitcoin-მისამართით</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -363,8 +366,8 @@
         <translation>Myriad Core</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and myriad: URIs)</source>
-        <translation>გადახდის მოთხოვნა (შეიქმნება QR-კოდები და myriad: ბმულები)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation>გადახდის მოთხოვნა (შეიქმნება QR-კოდები და bitcoin: ბმულები)</translation>
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
@@ -379,8 +382,8 @@
         <translation>გამოყენებული მიღების მისამართებისა და ნიშნულების სიის ჩვენება</translation>
     </message>
     <message>
-        <source>Open a myriad: URI or payment request</source>
-        <translation>myriad: URI-ის ან გადახდის მოთხოვნის გახსნა</translation>
+        <source>Open a bitcoin: URI or payment request</source>
+        <translation>bitcoin: URI-ის ან გადახდის მოთხოვნის გახსნა</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -388,7 +391,7 @@
     </message>
     <message>
         <source>Show the Myriad Core help message to get a list with possible Myriad command-line options</source>
-        <translation>Myriad Core-ს დახმარების ჩვენება Myriad-ის საკომანდო სტრიქონის დასაშვები ოპციების სანახავად</translation>
+        <translation>Myriad Core-ს დახმარების ჩვენება Bitcoin-ის საკომანდო სტრიქონის დასაშვები ოპციების სანახავად</translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -685,7 +688,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Myriad address.</source>
-        <translation>შეყვანილი მისამართი "%1" არ არის ვალიდური Myriad-მისამართი.</translation>
+        <translation>შეყვანილი მისამართი "%1" არ არის ვალიდური Bitcoin-მისამართი.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -745,7 +748,7 @@
         <source>command-line options</source>
         <translation>კომანდების ზოლის ოპციები</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>Intro</name>
     <message>
@@ -759,6 +762,10 @@
     <message>
         <source>As this is the first time the program is launched, you can choose where Myriad Core will store its data.</source>
         <translation>ეს პროგრამის პირველი გაშვებაა; შეგიძლიათ მიუთითოთ, სად შეინახოს მონაცემები Myriad Core-მ.</translation>
+    </message>
+    <message>
+        <source>Myriad Core will download and store a copy of the Myriad block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Myriad Core გადმოტვირთავს და შეინახავს Bitcoin-ის ბლოკთა ჯაჭვს. მითითებულ კატალოგში დაგროვდება სულ ცოტა %1 გბ მონაცემები, და მომავალში უფრო გაიზრდება. საფულეც ამავე კატალოგში შეინახება.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -852,7 +859,7 @@
     </message>
     <message>
         <source>Automatically open the Myriad client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>როუტერში Myriad-კლიენტის პორტის ავტომატური გახსნა. მუშაობს, თუ თქვენს როუტერს ჩართული აქვს UPnP.</translation>
+        <translation>როუტერში Bitcoin-კლიენტის პორტის ავტომატური გახსნა. მუშაობს, თუ თქვენს როუტერს ჩართული აქვს UPnP.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -947,7 +954,7 @@
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriad network after a connection is established, but this process has not completed yet.</source>
-        <translation>ნაჩვენები ინფორმაცია შეიძლება მოძველებული იყოს. თქვენი საფულე ავტომატურად სინქრონიზდება Myriad-ის ქსელთან კავშირის დამყარების შემდეგ, ეს პროცესი ჯერ არ არის დასრულებული.</translation>
+        <translation>ნაჩვენები ინფორმაცია შეიძლება მოძველებული იყოს. თქვენი საფულე ავტომატურად სინქრონიზდება Bitcoin-ის ქსელთან კავშირის დამყარების შემდეგ, ეს პროცესი ჯერ არ არის დასრულებული.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1001,8 +1008,8 @@
         <translation>გადახდის მოთხოვნის შეცდომა</translation>
     </message>
     <message>
-        <source>Cannot start myriad: click-to-pay handler</source>
-        <translation>ვერ გაიშვა myriad: click-to-pay</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation>ვერ გაიშვა bitcoin: click-to-pay</translation>
     </message>
     <message>
         <source>Payment request fetch URL is invalid: %1</source>
@@ -1429,6 +1436,10 @@
         <translation>ხურდის მისამართი</translation>
     </message>
     <message>
+        <source>Transaction Fee:</source>
+        <translation>ტრანსაქციის საფასური - საკომისიო:</translation>
+    </message>
+    <message>
         <source>Send to multiple recipients at once</source>
         <translation>გაგზავნა რამდენიმე რეციპიენტთან ერთდროულად</translation>
     </message>
@@ -1505,6 +1516,10 @@
         <translation>თანხა აღემატება თქვენს ბალანსს</translation>
     </message>
     <message>
+        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
+        <translation>საკომისიო %1-ის დამატების შემდეგ თანხა აჭარბებს თქვენს ბალანსს</translation>
+    </message>
+    <message>
         <source>Transaction creation failed!</source>
         <translation>შეცდომა ტრანსაქციის შექმნისას!</translation>
     </message>
@@ -1514,7 +1529,7 @@
     </message>
     <message>
         <source>Warning: Invalid Myriad address</source>
-        <translation>ყურადღება: არასწორია Myriad-მისამართი</translation>
+        <translation>ყურადღება: არასწორია Bitcoin-მისამართი</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -1584,7 +1599,7 @@
         <translation>შეიყვანეთ ამ მისამართის ნიშნული გამოყენებული მისამართების სიაში დასამატებლად</translation>
     </message>
     <message>
-        <source>A message that was attached to the myriad: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriad network.</source>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriad network.</source>
         <translation>მესიჯი, რომელიც თან ერთვის მონეტებს:  URI, რომელიც შეინახება ტრანსაქციასთან ერთად თქვენთვის. შენიშვნა: მესიჯი არ გაყვება გადახდას ბითქოინის ქსელში.</translation>
     </message>
     <message>
@@ -1667,7 +1682,7 @@
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Myriad address</source>
-        <translation>შეამოწმეთ, რომ მესიჯი ხელმოწერილია მითითებული Myriad-მისამართით</translation>
+        <translation>შეამოწმეთ, რომ მესიჯი ხელმოწერილია მითითებული Bitcoin-მისამართით</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2199,10 +2214,6 @@
         <translation>რეზიდენტულად გაშვება და კომანდების მიღება</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>სატესტო ქსელის გამოყენება</translation>
-    </message>
-    <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
         <translation>გარედან შეერთებების დაშვება (ნაგულისხმევი: 1 თუ არ გამოიყენება -proxy ან -connect)</translation>
     </message>
@@ -2219,10 +2230,6 @@
         <translation>ეს არის წინასწარი სატესტო ვერსია - გამოიყენეთ საკუთარი რისკით - არ გამოიყენოთ მოპოვებისა ან კომერციული მიზნებისათვის</translation>
     </message>
     <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>ყურადღება:  ძალიან მაღალია -paytxfee - საკომისო, რომელსაც თქვენ გადაიხდით ამ ტრანსაქციის გაგზავნის საფასურად.</translation>
-    </message>
-    <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
         <translation>ყურადღება: ქსელში შეუთანხმებლობაა. შესაძლოა ცალკეულ მომპოვებლებს პრობლემები ექმნებათ!</translation>
     </message>
@@ -2231,20 +2238,12 @@
         <translation>ყურადღება: ჩვენ არ ვეთანხმებით ყველა პირს. შესაძლოა თქვენ ან სხვა კვანძებს განახლება გჭირდებათ.</translation>
     </message>
     <message>
-        <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation>ყურადღება: არ იკითხება wallet.dat! ყველა გასაღები წაკითხულია, მაგრამ გამორჩენილი ან არასწორია ტრანსაქციის თარიღი ან ჩანაწერები მისამართების წიგნში.</translation>
-    </message>
-    <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation>ყურადღება: wallet.dat დაზიანებულია! ორიგინალური wallet.dat შენახულია როგორც wallet.{timestamp}.bak %s-ში; თუ შეამჩნიეთ უზუსტობა ნაშთში ან ტრანსაქციებში, აღადგინეთ არქივიდან.</translation>
     </message>
     <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;category&gt; შეიძლება იყოს:</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation>პირადი გასაღებების აღდგენის მცდელობა wallet.dat-იდან</translation>
     </message>
     <message>
         <source>Block creation options:</source>
@@ -2291,10 +2290,6 @@
         <translation>ვერ ხერხდება პორტების მიყურადება. თუ გსურთ, გამოიყენეთ -listen=0.</translation>
     </message>
     <message>
-        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation>თუ &lt;category&gt; არ არის მითითებული, ნაჩვენები იქნება სრული დახვეწის ინფორმაცია.</translation>
-    </message>
-    <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
         <translation>საწყისი ბლოკი არ არსებობს ან არასწორია. ქსელის მონაცემთა კატალოგი datadir ხომ არის არასწორი?</translation>
     </message>
@@ -2335,10 +2330,6 @@
         <translation>საჭიროა ბაზის ხელახალი აგება, გამოიყენეთ -reindex რათა შეცვალოთ -txindex</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>ბლოკების იმპორტი გარე blk000??.dat ფაილიდან</translation>
-    </message>
-    <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
         <translation>ბრძანების შესრულება შესაბამისი უწყების მიღებისას ან როცა შეინიშნება საგრძნობი გახლეჩა (cmd-ში %s შეიცვლება მესიჯით)</translation>
     </message>
@@ -2347,12 +2338,16 @@
         <translation>მაღალპრიორიტეტული/დაბალსაკომისიოიანი ტრანსაქციების მაქსიმალური ზომა ბაიტებში (ნაგულისხმევი: %d)</translation>
     </message>
     <message>
-        <source>Choose data directory on startup (default: 0)</source>
-        <translation>მონაცემთა კატალოგის მითითება ყოველი გაშვებისას (ნაგულისხმევი: 0)</translation>
+        <source>Cannot resolve -whitebind address: '%s'</source>
+        <translation>ვერ ხერხდება -whitebind მისამართის გარკვევა: '%s'</translation>
     </message>
     <message>
         <source>Information</source>
         <translation>ინფორმაცია</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
+        <translation>დაუშვებელი მნიშვნელობა -pmaxtxfee&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
@@ -2367,24 +2362,12 @@
         <translation>ტრასირების/დახვეწის ინფოს გაგზავნა კონსოლზე debug.log ფაილის ნაცვლად</translation>
     </message>
     <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>აირჩიეთ ენა, მაგალითად "de_DE" (ნაგულისხმევია სისტემური ლოკალი)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: 1)</source>
-        <translation>მისალმების ეკრანის ჩვენება გაშვებისას (ნაგულისხმევი:1)</translation>
-    </message>
-    <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
         <translation>debug.log ფაილის შეკუმშვა გაშვებისას (ნაგულისხმევია: 1 როცა არ აყენია -debug)</translation>
     </message>
     <message>
         <source>Signing transaction failed</source>
         <translation>ტრანსაქციების ხელმოწერა ვერ მოხერხდა</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>გაშვება მინიმიზებული ეკრანით</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -2397,10 +2380,6 @@
     <message>
         <source>Transaction too large</source>
         <translation>ტრანსაქცია ძალიან დიდია</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>გამოიყენეთ UPnP მისაყურადებელი პორტის გადასამისამართებლად (ნაგულისხმევი: 1 როცა ჩართულია მიყურადება)</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>
@@ -2425,18 +2404,6 @@
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>კომანდის შესრულება უკეთესი ბლოკის გამოჩენისას (%s კომანდაში ჩანაცვლდება ბლოკის ჰეშით)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>საფულის ფორმატის განახლება</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>ბლოკების ჯაჭვის გადამოწმება საფულეში გამორჩენილ ტრანსაქციებზე</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>OpenSSL-ის (https) გამოყენება JSON-RPC-შეერთებებისათვის</translation>
     </message>
     <message>
         <source>This help message</source>

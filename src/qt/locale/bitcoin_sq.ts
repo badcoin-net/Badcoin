@@ -1,4 +1,4 @@
-<TS language="sq" version="2.0">
+<TS language="sq" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -169,6 +169,9 @@
     </message>
     </context>
 <context>
+    <name>BanTableModel</name>
+    </context>
+<context>
     <name>BitcoinGUI</name>
     <message>
         <source>Synchronizing with network...</source>
@@ -199,12 +202,16 @@
         <translation>&amp;Opsione</translation>
     </message>
     <message>
+        <source>&amp;Receiving addresses...</source>
+        <translation>Duke marr adresen</translation>
+    </message>
+    <message>
         <source>Change the passphrase used for wallet encryption</source>
         <translation>Ndrysho frazkalimin e përdorur per enkriptimin e portofolit</translation>
     </message>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -240,7 +247,7 @@
     </message>
     <message>
         <source>Myriad Core</source>
-        <translation>Berthama Myriad</translation>
+        <translation>Berthama Bitcoin</translation>
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
@@ -379,7 +386,7 @@
     <name>HelpMessageDialog</name>
     <message>
         <source>Myriad Core</source>
-        <translation>Berthama Myriad</translation>
+        <translation>Berthama Bitcoin</translation>
     </message>
     <message>
         <source>version</source>
@@ -398,11 +405,11 @@
     </message>
     <message>
         <source>Welcome to Myriad Core.</source>
-        <translation>Miresevini ne Berthamen Myriad</translation>
+        <translation>Miresevini ne Berthamen Bitcoin</translation>
     </message>
     <message>
         <source>Myriad Core</source>
-        <translation>Berthama Myriad</translation>
+        <translation>Berthama Bitcoin</translation>
     </message>
     <message>
         <source>Error</source>
@@ -417,6 +424,10 @@
     <message>
         <source>Options</source>
         <translation>Opsionet</translation>
+    </message>
+    <message>
+        <source>W&amp;allet</source>
+        <translation>Portofol</translation>
     </message>
     </context>
 <context>
@@ -445,6 +456,10 @@
 <context>
     <name>RPCConsole</name>
     <message>
+        <source>&amp;Information</source>
+        <translation>Informacion</translation>
+    </message>
+    <message>
         <source>&amp;Open</source>
         <translation>&amp;Hap</translation>
     </message>
@@ -460,16 +475,28 @@
         <source>Unknown</source>
         <translation>i/e panjohur</translation>
     </message>
-    </context>
+</context>
 <context>
     <name>ReceiveCoinsDialog</name>
+    <message>
+        <source>&amp;Amount:</source>
+        <translation>Shuma:</translation>
+    </message>
     <message>
         <source>&amp;Label:</source>
         <translation>&amp;Etiketë:</translation>
     </message>
+    <message>
+        <source>Clear</source>
+        <translation>Pastro</translation>
+    </message>
     </context>
 <context>
     <name>ReceiveRequestDialog</name>
+    <message>
+        <source>Copy &amp;Address</source>
+        <translation>&amp;Kopjo adresen</translation>
+    </message>
     <message>
         <source>Address</source>
         <translation>Adresë</translation>
@@ -507,6 +534,10 @@
     <message>
         <source>Send Coins</source>
         <translation>Dërgo Monedha</translation>
+    </message>
+    <message>
+        <source>Insufficient funds!</source>
+        <translation>Fonde te pamjaftueshme</translation>
     </message>
     <message>
         <source>Amount:</source>
@@ -567,6 +598,10 @@
         <source>Alt+P</source>
         <translation>Alt+P</translation>
     </message>
+    <message>
+        <source>Pay To:</source>
+        <translation>Paguaj drejt:</translation>
+    </message>
     </context>
 <context>
     <name>ShutdownWindow</name>
@@ -590,7 +625,7 @@
     <name>SplashScreen</name>
     <message>
         <source>Myriad Core</source>
-        <translation>Berthama Myriad</translation>
+        <translation>Berthama Bitcoin</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -617,6 +652,10 @@
     <message>
         <source>Date</source>
         <translation>Data</translation>
+    </message>
+    <message>
+        <source>Transaction</source>
+        <translation>transaksionit</translation>
     </message>
     <message>
         <source>Amount</source>
@@ -754,6 +793,10 @@
     </context>
 <context>
     <name>bitcoin-core</name>
+    <message>
+        <source>Options:</source>
+        <translation>Opsionet:</translation>
+    </message>
     <message>
         <source>Information</source>
         <translation>Informacion</translation>

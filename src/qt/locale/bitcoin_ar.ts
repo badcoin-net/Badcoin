@@ -1,4 +1,4 @@
-<TS language="ar" version="2.0">
+<TS language="ar" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -93,7 +93,11 @@
         <source>Exporting Failed</source>
         <translation>فشل التصدير</translation>
     </message>
-    </context>
+    <message>
+        <source>There was an error trying to save the address list to %1. Please try again.</source>
+        <translation>لقد حدث خطأ أثناء  حفظ قائمة العناوين إلى %1. يرجى المحاولة مرة أخرى.</translation>
+    </message>
+</context>
 <context>
     <name>AddressTableModel</name>
     <message>
@@ -156,12 +160,16 @@
         <translation>تأكيد تشفير المحفظة</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
-        <translation>تحذير: إذا قمت بتشفير محفظتك وفقدت كلمة المرور الخاص بك, ستفقد كل عملات MYRIADS الخاصة بك.</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation>تحذير: إذا قمت بتشفير محفظتك وفقدت كلمة المرور الخاص بك, ستفقد كل عملات BITCOINS الخاصة بك.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>هل أنت متأكد من رغبتك في تشفير محفظتك ؟</translation>
+    </message>
+    <message>
+        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>بتكوين سوف يغلق الآن لإنهاء عملية التشفير. تذكر أن التشفير لا يستطيع حماية محفظتك تمامًا من السرقة من خلال البرمجيات الخبيثة التي تصيب جهازك </translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -178,6 +186,10 @@
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
         <translation>أدخل عبارة مرور جديدة إلى المحفظة. الرجاء استخدام عبارة مرور تتكون من10 حروف عشوائية على الاقل, أو أكثر من 7 كلمات</translation>
+    </message>
+    <message>
+        <source>Enter the old passphrase and new passphrase to the wallet.</source>
+        <translation>أدخل كلمة المرور القديمة والجديدة للمحفظة.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -208,6 +220,9 @@
         <translation>لقد تم تغير عبارة مرور المحفظة بنجاح</translation>
     </message>
 </context>
+<context>
+    <name>BanTableModel</name>
+    </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -311,16 +326,24 @@
         <translation>&amp;نافذة المعالجة</translation>
     </message>
     <message>
+        <source>Open debugging and diagnostic console</source>
+        <translation>إفتح وحدة التصحيح و التشخيص</translation>
+    </message>
+    <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;التحقق من الرسالة...</translation>
     </message>
     <message>
-        <source>Myriad</source>
+        <source>Bitcoin</source>
         <translation>بت كوين</translation>
     </message>
     <message>
         <source>Wallet</source>
         <translation>محفظة</translation>
+    </message>
+    <message>
+        <source>&amp;Send</source>
+        <translation>&amp;ارسل</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
@@ -341,6 +364,14 @@
     <message>
         <source>Encrypt the private keys that belong to your wallet</source>
         <translation>تشفير المفتاح الخاص بمحفظتك</translation>
+    </message>
+    <message>
+        <source>Sign messages with your Myriad addresses to prove you own them</source>
+        <translation>وقَع الرسائل بواسطة ال: Myriad الخاص بك لإثبات امتلاكك لهم</translation>
+    </message>
+    <message>
+        <source>Verify messages to ensure they were signed with specified Myriad addresses</source>
+        <translation>تحقق من الرسائل للتأكد من أنَها وُقعت برسائل Myriad محدَدة</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -364,7 +395,27 @@
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
-        <translation>حول myriad core</translation>
+        <translation>حول bitcoin core</translation>
+    </message>
+    <message>
+        <source>Modify configuration options for Myriad Core</source>
+        <translation>تغيير خيارات الإعداد لأساس Bitcoin</translation>
+    </message>
+    <message>
+        <source>Show the list of used sending addresses and labels</source>
+        <translation>عرض قائمة عناوين الإرسال المستخدمة والملصقات</translation>
+    </message>
+    <message>
+        <source>Show the list of used receiving addresses and labels</source>
+        <translation>عرض قائمة عناوين الإستقبال المستخدمة والملصقات</translation>
+    </message>
+    <message>
+        <source>Open a bitcoin: URI or payment request</source>
+        <translation>فتح URI : Myriad أو طلب دفع</translation>
+    </message>
+    <message>
+        <source>%1 and %2</source>
+        <translation>%1 و %2</translation>
     </message>
     <message>
         <source>Error</source>
@@ -768,6 +819,10 @@
     </context>
 <context>
     <name>PaymentServer</name>
+    <message>
+        <source>Bad response from server %1</source>
+        <translation>استجابة سيئة من الملقم %1</translation>
+    </message>
     </context>
 <context>
     <name>PeerTableModel</name>
@@ -777,6 +832,14 @@
     <message>
         <source>Amount</source>
         <translation>المبلغ</translation>
+    </message>
+    <message>
+        <source>%1 h</source>
+        <translation>%1 ساعة</translation>
+    </message>
+    <message>
+        <source>%1 m</source>
+        <translation>%1 دقيقة</translation>
     </message>
     <message>
         <source>N/A</source>
@@ -819,6 +882,10 @@
     <message>
         <source>&amp;Information</source>
         <translation>المعلومات</translation>
+    </message>
+    <message>
+        <source>Debug window</source>
+        <translation>نافذة المعالجة</translation>
     </message>
     <message>
         <source>General</source>
@@ -897,12 +964,32 @@
         <translation>استخدم اسهم الاعلى و الاسفل للتنقل بين السجلات و &lt;b&gt;Ctrl-L&lt;/b&gt;  لمسح الشاشة</translation>
     </message>
     <message>
-        <source>Unknown</source>
-        <translation>غير معرف</translation>
+        <source>%1 B</source>
+        <translation>%1 بايت</translation>
     </message>
     <message>
-        <source>Fetching...</source>
-        <translation>جاري الجلب...</translation>
+        <source>%1 KB</source>
+        <translation>%1 كيلو بايت</translation>
+    </message>
+    <message>
+        <source>%1 MB</source>
+        <translation>%1 ميقا بايت</translation>
+    </message>
+    <message>
+        <source>%1 GB</source>
+        <translation>%1 قيقا بايت</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>نعم</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>لا</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>غير معرف</translation>
     </message>
 </context>
 <context>
@@ -1061,6 +1148,10 @@
         <translation>تعديل :</translation>
     </message>
     <message>
+        <source>Transaction Fee:</source>
+        <translation>رسوم المعاملة:</translation>
+    </message>
+    <message>
         <source>Send to multiple recipients at once</source>
         <translation>إرسال إلى عدة مستلمين في وقت واحد</translation>
     </message>
@@ -1091,6 +1182,10 @@
     <message>
         <source>Confirm send coins</source>
         <translation>تأكيد الإرسال Coins</translation>
+    </message>
+    <message>
+        <source>%1 to %2</source>
+        <translation>%1 الى %2</translation>
     </message>
     <message>
         <source>Copy quantity</source>
@@ -1129,12 +1224,20 @@
         <translation>القيمة تتجاوز رصيدك</translation>
     </message>
     <message>
+        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
+        <translation>المجموع يتجاوز رصيدك عندما يتم اضافة %1 رسوم العملية</translation>
+    </message>
+    <message>
         <source>(no label)</source>
         <translation>(لا وصف)</translation>
     </message>
     </context>
 <context>
     <name>SendCoinsEntry</name>
+    <message>
+        <source>A&amp;mount:</source>
+        <translation>&amp;القيمة</translation>
+    </message>
     <message>
         <source>Pay &amp;To:</source>
         <translation>ادفع &amp;الى :</translation>
@@ -1162,6 +1265,10 @@
     <message>
         <source>Message:</source>
         <translation>الرسائل</translation>
+    </message>
+    <message>
+        <source>Pay To:</source>
+        <translation>ادفع &amp;الى :</translation>
     </message>
     </context>
 <context>
@@ -1283,8 +1390,20 @@
 <context>
     <name>TransactionDesc</name>
     <message>
+        <source>Open until %1</source>
+        <translation>مفتوح حتى %1</translation>
+    </message>
+    <message>
         <source>conflicted</source>
         <translation>يتعارض</translation>
+    </message>
+    <message>
+        <source>%1/offline</source>
+        <translation>%1 غير متواجد</translation>
+    </message>
+    <message>
+        <source>%1/unconfirmed</source>
+        <translation>غير مؤكدة/%1</translation>
     </message>
     <message>
         <source>%1 confirmations</source>
@@ -1397,6 +1516,10 @@
         <translation>النوع</translation>
     </message>
     <message>
+        <source>Open until %1</source>
+        <translation>مفتوح حتى %1</translation>
+    </message>
+    <message>
         <source>This block was not received by any other nodes and will probably not be accepted!</source>
         <translation>لم يتم تلقى هذه الكتلة (Block) من قبل أي العقد الأخرى وربما لن تكون مقبولة!</translation>
     </message>
@@ -1411,6 +1534,10 @@
     <message>
         <source>Label</source>
         <translation>وصف</translation>
+    </message>
+    <message>
+        <source>Conflicted</source>
+        <translation>يتعارض</translation>
     </message>
     <message>
         <source>Received with</source>
@@ -1627,10 +1754,6 @@
         <translation>حدد مجلد المعلومات</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>استخدم التحقق من الشبكه</translation>
-    </message>
-    <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
         <translation>قبول الاتصالات من خارج</translation>
     </message>
@@ -1679,10 +1802,6 @@
         <translation>تحذير</translation>
     </message>
     <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>تحديث المحفظة للنسخة الاخيرة</translation>
-    </message>
-    <message>
         <source>This help message</source>
         <translation>رسالة المساعدة هذه</translation>
     </message>
@@ -1703,12 +1822,24 @@
         <translation>عنوان البروكسي غير صحيح : '%s'</translation>
     </message>
     <message>
+        <source>Make the wallet broadcast transactions</source>
+        <translation>إنتاج معاملات بث المحفظة</translation>
+    </message>
+    <message>
         <source>Insufficient funds</source>
         <translation>اموال غير كافية</translation>
     </message>
     <message>
+        <source>Loading block index...</source>
+        <translation>تحميل مؤشر الكتلة</translation>
+    </message>
+    <message>
         <source>Loading wallet...</source>
         <translation>تحميل المحفظه</translation>
+    </message>
+    <message>
+        <source>Cannot downgrade wallet</source>
+        <translation>لا يمكن تخفيض قيمة المحفظة</translation>
     </message>
     <message>
         <source>Cannot write default address</source>

@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Bitcoin Core developers
+// Copyright (c) 2009-2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,6 +26,13 @@ class CBlockHeader : public CPureBlockHeader
 public:
     // auxpow (if this is a merge-minded block)
     boost::shared_ptr<CAuxPow> auxpow;
+    // header
+    int32_t nVersion;
+    uint256 hashPrevBlock;
+    uint256 hashMerkleRoot;
+    uint32_t nTime;
+    uint32_t nBits;
+    uint32_t nNonce;
 
     CBlockHeader()
     {
@@ -52,6 +59,17 @@ public:
     {
         CPureBlockHeader::SetNull();
         auxpow.reset();
+        nVersion = 0;
+        hashPrevBlock.SetNull();
+        hashMerkleRoot.SetNull();
+        nTime = 0;
+        nBits = 0;
+        nNonce = 0;
+    }
+
+    bool IsNull() const
+    {
+        return (nBits == 0);
     }
 
     int64_t GetBlockTime() const
@@ -75,7 +93,7 @@ public:
     std::vector<CTransaction> vtx;
 
     // memory only
-    mutable std::vector<uint256> vMerkleTree;
+    mutable bool fChecked;
 
     CBlock()
     {
@@ -100,7 +118,7 @@ public:
     {
         CBlockHeader::SetNull();
         vtx.clear();
-        vMerkleTree.clear();
+        fChecked = false;
     }
 
     CBlockHeader GetBlockHeader() const
@@ -116,14 +134,6 @@ public:
         return block;
     }
 
-    // Build the in-memory merkle tree for this block and return the merkle root.
-    // If non-NULL, *mutated is set to whether mutation was detected in the merkle
-    // tree (a duplication of transactions in the block leading to an identical
-    // merkle root).
-    uint256 BuildMerkleTree(bool* mutated = NULL) const;
-
-    std::vector<uint256> GetMerkleBranch(int nIndex) const;
-    static uint256 CheckMerkleBranch(uint256 hash, const std::vector<uint256>& vMerkleBranch, int nIndex);
     std::string ToString() const;
 };
 

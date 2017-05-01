@@ -1,4 +1,4 @@
-<TS language="da" version="2.0">
+<TS language="da" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -47,11 +47,11 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>Vælg adresse at sende myriads til</translation>
+        <translation>Vælg adresse at sende myriadcoins til</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>Vælg adresse at modtage myriads med</translation>
+        <translation>Vælg adresse at modtage myriadcoins med</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -67,11 +67,11 @@
     </message>
     <message>
         <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Disse er dine Myriad-adresser for at sende betalinger. Tjek altid beløb og modtageradresse, inden du sender myriads.</translation>
+        <translation>Disse er dine Bitcoin-adresser for at sende betalinger. Tjek altid beløb og modtageradresse, inden du sender myriadcoins.</translation>
     </message>
     <message>
         <source>These are your Myriad addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dette er dine Myriad-adresser til at modtage betalinger med. Det anbefales are bruge en ny modtagelsesadresse for hver transaktion.</translation>
+        <translation>Dette er dine Bitcoin-adresser til at modtage betalinger med. Det anbefales are bruge en ny modtagelsesadresse for hver transaktion.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -160,16 +160,16 @@
         <translation>Bekræft tegnebogskryptering</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
-        <translation>Advarsel: Hvis du krypterer din tegnebog og mister din adgangskode, vil du &lt;b&gt;MISTE ALLE DINE MYRIADS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
+        <translation>Advarsel: Hvis du krypterer din tegnebog og mister din adgangskode, vil du &lt;b&gt;MISTE ALLE DINE BITCOINS&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Er du sikker på, at du ønsker at kryptere din tegnebog?</translation>
     </message>
     <message>
-        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriads from being stolen by malware infecting your computer.</source>
-        <translation>Myriad Core vil nu lukke for at færdiggøre krypteringsprocessen. Husk at kryptering af din tegnebog kan ikke beskytte dine myriad fuldt ud mod at blive stjålet af eventuel malware, der måtte have inficeret din computer.</translation>
+        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
+        <translation>Myriad Core vil nu lukke for at færdiggøre krypteringsprocessen. Husk at kryptering af din tegnebog kan ikke beskytte dine bitcoin fuldt ud mod at blive stjålet af eventuel malware, der måtte have inficeret din computer.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -218,6 +218,17 @@
     <message>
         <source>Wallet passphrase was successfully changed.</source>
         <translation>Tegnebogens adgangskode blev ændret.</translation>
+    </message>
+</context>
+<context>
+    <name>BanTableModel</name>
+    <message>
+        <source>IP/Netmask</source>
+        <translation>IP/Netmaske</translation>
+    </message>
+    <message>
+        <source>Banned Until</source>
+        <translation>Bandlyst indtil</translation>
     </message>
 </context>
 <context>
@@ -308,7 +319,7 @@
     </message>
     <message>
         <source>Send coins to a Myriad address</source>
-        <translation>Send myriads til en Myriad-adresse</translation>
+        <translation>Send myriadcoins til en Bitcoin-adresse</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -331,8 +342,8 @@
         <translation>&amp;Verificér besked…</translation>
     </message>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -364,11 +375,11 @@
     </message>
     <message>
         <source>Sign messages with your Myriad addresses to prove you own them</source>
-        <translation>Underskriv beskeder med dine Myriad-adresser for at bevise, at de tilhører dig</translation>
+        <translation>Underskriv beskeder med dine Bitcoin-adresser for at bevise, at de tilhører dig</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Myriad addresses</source>
-        <translation>Verificér beskeder for at sikre, at de er underskrevet med de angivne Myriad-adresser</translation>
+        <translation>Verificér beskeder for at sikre, at de er underskrevet med de angivne Bitcoin-adresser</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -391,8 +402,8 @@
         <translation>Myriad Core</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and myriad: URIs)</source>
-        <translation>Anmod om betalinger (genererer QR-koder og "myriad:"-URI'er)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation>Anmod om betalinger (genererer QR-koder og "bitcoin:"-URI'er)</translation>
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
@@ -411,8 +422,8 @@
         <translation>Vis listen over brugte modtagelsesadresser og -mærkater</translation>
     </message>
     <message>
-        <source>Open a myriad: URI or payment request</source>
-        <translation>Åbn en "myriad:"-URI eller betalingsanmodning</translation>
+        <source>Open a bitcoin: URI or payment request</source>
+        <translation>Åbn en "bitcoin:"-URI eller betalingsanmodning</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -424,7 +435,7 @@
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Myriad network</source>
-        <translation><numerusform>%n aktiv forbindelse til Myriad-netværket</numerusform><numerusform>%n aktive forbindelser til Myriad-netværket</numerusform></translation>
+        <translation><numerusform>%n aktiv forbindelse til Bitcoin-netværket</numerusform><numerusform>%n aktive forbindelser til Bitcoin-netværket</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -807,7 +818,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Myriad address.</source>
-        <translation>Den indtastede adresse "%1" er ikke en gyldig Myriad-adresse.</translation>
+        <translation>Den indtastede adresse "%1" er ikke en gyldig Bitcoin-adresse.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -871,6 +882,34 @@
         <source>command-line options</source>
         <translation>kommandolinjetilvalg</translation>
     </message>
+    <message>
+        <source>UI Options:</source>
+        <translation>Indstillinger for brugergrænseflade:</translation>
+    </message>
+    <message>
+        <source>Choose data directory on startup (default: %u)</source>
+        <translation>Vælg datamappe under opstart (standard: %u)</translation>
+    </message>
+    <message>
+        <source>Set language, for example "de_DE" (default: system locale)</source>
+        <translation>Vælg sprog; fx "da_DK" (standard: systemsprog)</translation>
+    </message>
+    <message>
+        <source>Start minimized</source>
+        <translation>Start minimeret</translation>
+    </message>
+    <message>
+        <source>Set SSL root certificates for payment request (default: -system-)</source>
+        <translation>Opsæt SSL-rodcertifikater til betalingsadmodninger (standard: -system-)</translation>
+    </message>
+    <message>
+        <source>Show splash screen on startup (default: %u)</source>
+        <translation>Vis startskærm under opstart (standard: %u)</translation>
+    </message>
+    <message>
+        <source>Reset all settings changes made over the GUI</source>
+        <translation>Nulstil alle indstillinger, der er foretaget i den grafiske brugerflade</translation>
+    </message>
 </context>
 <context>
     <name>Intro</name>
@@ -888,7 +927,7 @@
     </message>
     <message>
         <source>Myriad Core will download and store a copy of the Myriad block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Myriad Core vil downloade og gemme et kopi af Myriad-blokkæden. Mindst %1 GB data vil blive gemt i denne mappe, og den vil vokse over tid. Tegnebogen vil også blive gemt i denne mappe.</translation>
+        <translation>Myriad Core vil downloade og gemme et kopi af Bitcoin-blokkæden. Mindst %1 GB data vil blive gemt i denne mappe, og den vil vokse over tid. Tegnebogen vil også blive gemt i denne mappe.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -914,7 +953,11 @@
         <source>%n GB of free space available</source>
         <translation><numerusform>%n GB fri plads tilgængelig</numerusform><numerusform>%n GB fri plads tilgængelig</numerusform></translation>
     </message>
-    </context>
+    <message numerus="yes">
+        <source>(of %n GB needed)</source>
+        <translation><numerusform>(ud af %n GB behøvet)</numerusform><numerusform>(ud af %n GB behøvet)</numerusform></translation>
+    </message>
+</context>
 <context>
     <name>OpenURIDialog</name>
     <message>
@@ -1038,7 +1081,7 @@
     </message>
     <message>
         <source>Automatically open the Myriad client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Åbn automatisk Myriad-klientens port på routeren. Dette virker kun, når din router understøtter UPnP, og UPnP er aktiveret.</translation>
+        <translation>Åbn automatisk Bitcoin-klientens port på routeren. Dette virker kun, når din router understøtter UPnP, og UPnP er aktiveret.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1046,7 +1089,7 @@
     </message>
     <message>
         <source>Connect to the Myriad network through a SOCKS5 proxy.</source>
-        <translation>Forbind til Myriad-netværket gennem en SOCKS5-proxy.</translation>
+        <translation>Forbind til Bitcoin-netværket gennem en SOCKS5-proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1063,6 +1106,34 @@
     <message>
         <source>Port of the proxy (e.g. 9050)</source>
         <translation>Port for proxyen (fx 9050)</translation>
+    </message>
+    <message>
+        <source>Used for reaching peers via:</source>
+        <translation>Bruges til at nå knuder via:</translation>
+    </message>
+    <message>
+        <source>Shows, if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
+        <translation>Viser om den angivne standard-SOCKS5-proxy bruges til at nå knuder via denne netværkstype.</translation>
+    </message>
+    <message>
+        <source>IPv4</source>
+        <translation>IPv4</translation>
+    </message>
+    <message>
+        <source>IPv6</source>
+        <translation>IPv6</translation>
+    </message>
+    <message>
+        <source>Tor</source>
+        <translation>Tor</translation>
+    </message>
+    <message>
+        <source>Connect to the Myriad network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Forbind til Bitcoin-netværket gennem en separat SOCKS5-proxy for skjulte Tor-tjenester.</translation>
+    </message>
+    <message>
+        <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
+        <translation>Brug separat SOCKS5-proxy for at nå knuder via skjulte Tor-tjenester.</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -1090,11 +1161,11 @@
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>&amp;Enhed at vise beløb i:</translation>
+        <translation>&amp;Enhed, som beløb vises i:</translation>
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Vælg standard for underopdeling af enhed, som skal vises i brugergrænsefladen og ved afsendelse af myriads.</translation>
+        <translation>Vælg standard for underopdeling af enhed, som skal vises i brugergrænsefladen og ved afsendelse af myriadcoins.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1102,7 +1173,7 @@
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;O.k.</translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -1145,7 +1216,7 @@
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Myriad network after a connection is established, but this process has not completed yet.</source>
-        <translation>Den viste information kan være forældet. Din tegnebog synkroniserer automatisk med Myriad-netværket, når en forbindelse etableres, men denne proces er ikke gennemført endnu.</translation>
+        <translation>Den viste information kan være forældet. Din tegnebog synkroniserer automatisk med Bitcoin-netværket, når en forbindelse etableres, men denne proces er ikke gennemført endnu.</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1161,7 +1232,7 @@
     </message>
     <message>
         <source>Pending:</source>
-        <translation>Uafgjort:</translation>
+        <translation>Afventende:</translation>
     </message>
     <message>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the spendable balance</source>
@@ -1243,8 +1314,8 @@
         <translation>Fejl i betalingsanmodning</translation>
     </message>
     <message>
-        <source>Cannot start myriad: click-to-pay handler</source>
-        <translation>Kan ikke starte myriad: click-to-pay-håndtering</translation>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
+        <translation>Kan ikke starte bitcoin: click-to-pay-håndtering</translation>
     </message>
     <message>
         <source>Payment request fetch URL is invalid: %1</source>
@@ -1252,7 +1323,7 @@
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid Myriad address or malformed URI parameters.</source>
-        <translation>URI kan ikke tolkes! Dette kan skyldes en ugyldig Myriad-adresse eller forkert udformede URL-parametre.</translation>
+        <translation>URI kan ikke tolkes! Dette kan skyldes en ugyldig Bitcoin-adresse eller forkert udformede URL-parametre.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1281,10 +1352,6 @@
     <message>
         <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
         <translation>Betalingsanmodning %1 er for stor (%2 byte, %3 byte tilladt).</translation>
-    </message>
-    <message>
-        <source>Payment request DoS protection</source>
-        <translation>Beskyttelse mod DoS-angreb via betalingsanmodninger</translation>
     </message>
     <message>
         <source>Error communicating with %1: %2</source>
@@ -1330,7 +1397,7 @@
     </message>
     <message>
         <source>Enter a Myriad address (e.g. %1)</source>
-        <translation>Indtast en Myriad-adresse (fx %1)</translation>
+        <translation>Indtast en Bitcoin-adresse (fx %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1439,6 +1506,18 @@
         <translation>Nuværende antal blokke</translation>
     </message>
     <message>
+        <source>Memory Pool</source>
+        <translation>Hukommelsespulje</translation>
+    </message>
+    <message>
+        <source>Current number of transactions</source>
+        <translation>Aktuelt antal transaktioner</translation>
+    </message>
+    <message>
+        <source>Memory usage</source>
+        <translation>Hukommelsesforbrug</translation>
+    </message>
+    <message>
         <source>Open the Myriad Core debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Åbn Myriad Cores fejlsøgningslogfil fra den aktuelle datamappe. Dette kan tage nogle få sekunder for store logfiler.</translation>
     </message>
@@ -1455,8 +1534,16 @@
         <translation>Andre &amp;knuder</translation>
     </message>
     <message>
+        <source>Banned peers</source>
+        <translation>Bandlyste knuder</translation>
+    </message>
+    <message>
         <source>Select a peer to view detailed information.</source>
         <translation>Vælg en anden knude for at se detaljeret information.</translation>
+    </message>
+    <message>
+        <source>Whitelisted</source>
+        <translation>På hvidliste</translation>
     </message>
     <message>
         <source>Direction</source>
@@ -1467,20 +1554,24 @@
         <translation>Version</translation>
     </message>
     <message>
+        <source>Starting Block</source>
+        <translation>Startblok</translation>
+    </message>
+    <message>
+        <source>Synced Headers</source>
+        <translation>Synkroniserede headers</translation>
+    </message>
+    <message>
+        <source>Synced Blocks</source>
+        <translation>Synkroniserede blokke</translation>
+    </message>
+    <message>
         <source>User Agent</source>
         <translation>Brugeragent</translation>
     </message>
     <message>
         <source>Services</source>
         <translation>Tjenester</translation>
-    </message>
-    <message>
-        <source>Starting Height</source>
-        <translation>Starthøjde</translation>
-    </message>
-    <message>
-        <source>Sync Height</source>
-        <translation>Synkroniseringshøjde</translation>
     </message>
     <message>
         <source>Ban Score</source>
@@ -1499,16 +1590,16 @@
         <translation>Seneste modtagelse</translation>
     </message>
     <message>
-        <source>Bytes Sent</source>
-        <translation>Byte sendt</translation>
-    </message>
-    <message>
-        <source>Bytes Received</source>
-        <translation>Byte modtaget</translation>
-    </message>
-    <message>
         <source>Ping Time</source>
         <translation>Ping-tid</translation>
+    </message>
+    <message>
+        <source>The duration of a currently outstanding ping.</source>
+        <translation>Varigheden af den aktuelt igangværende ping.</translation>
+    </message>
+    <message>
+        <source>Ping Wait</source>
+        <translation>Ping-ventetid</translation>
     </message>
     <message>
         <source>Time Offset</source>
@@ -1559,6 +1650,34 @@
         <translation>Ryd konsol</translation>
     </message>
     <message>
+        <source>&amp;Disconnect Node</source>
+        <translation>&amp;Afbryd forbindelse til knude</translation>
+    </message>
+    <message>
+        <source>Ban Node for</source>
+        <translation>Bandlys knude i</translation>
+    </message>
+    <message>
+        <source>1 &amp;hour</source>
+        <translation>1 &amp;time</translation>
+    </message>
+    <message>
+        <source>1 &amp;day</source>
+        <translation>1 &amp;dag</translation>
+    </message>
+    <message>
+        <source>1 &amp;week</source>
+        <translation>1 &amp;uge</translation>
+    </message>
+    <message>
+        <source>1 &amp;year</source>
+        <translation>1 &amp;år</translation>
+    </message>
+    <message>
+        <source>&amp;Unban Node</source>
+        <translation>&amp;Fjern bandlysning af knude</translation>
+    </message>
+    <message>
         <source>Welcome to the Myriad Core RPC console.</source>
         <translation>Velkommen til Myriad Cores RPC-konsol.</translation>
     </message>
@@ -1587,6 +1706,10 @@
         <translation>%1 GB</translation>
     </message>
     <message>
+        <source>(node id: %1)</source>
+        <translation>(knude-id: %1)</translation>
+    </message>
+    <message>
         <source>via %1</source>
         <translation>via %1</translation>
     </message>
@@ -1603,12 +1726,16 @@
         <translation>Udgående</translation>
     </message>
     <message>
-        <source>Unknown</source>
-        <translation>Ukendt</translation>
+        <source>Yes</source>
+        <translation>Ja</translation>
     </message>
     <message>
-        <source>Fetching...</source>
-        <translation>Henter…</translation>
+        <source>No</source>
+        <translation>Nej</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Ukendt</translation>
     </message>
 </context>
 <context>
@@ -1635,7 +1762,7 @@
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Myriad network.</source>
-        <translation>En valgfri besked, der føjes til betalingsanmodningen, og som vil vises, når anmodningen åbnes. Bemærk: Beskeden vil ikke sendes sammen med betalingen over Myriad-netværket.</translation>
+        <translation>En valgfri besked, der føjes til betalingsanmodningen, og som vil vises, når anmodningen åbnes. Bemærk: Beskeden vil ikke sendes sammen med betalingen over Bitcoin-netværket.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1784,7 +1911,7 @@
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>Send myriads</translation>
+        <translation>Send myriadcoins</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -1867,8 +1994,8 @@
         <translation>total mindst</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for myriad transactions than the network can process.</source>
-        <translation>Det er helt fint kun at betale det minimale gebyr, så længe den totale transaktionsvolumen er mindre end den plads, der er tilgængelig i blokkene. Men vær opmærksom på, at dette kan ende ud i transaktioner, der aldrig bliver bekræftet, når der bliver større forespørgsel efter myriad-transaktioner, end hvad netværket kan bearbejde.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for bitcoin transactions than the network can process.</source>
+        <translation>Det er helt fint kun at betale det minimale gebyr, så længe den totale transaktionsvolumen er mindre end den plads, der er tilgængelig i blokkene. Men vær opmærksom på, at dette kan ende ud i transaktioner, der aldrig bliver bekræftet, når der bliver større forespørgsel efter bitcoin-transaktioner, end hvad netværket kan bearbejde.</translation>
     </message>
     <message>
         <source>(read the tooltip)</source>
@@ -1940,7 +2067,7 @@
     </message>
     <message>
         <source>Confirm send coins</source>
-        <translation>Bekræft afsendelse af myriads</translation>
+        <translation>Bekræft afsendelse af myriadcoins</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -1975,6 +2102,10 @@
         <translation>Kopiér byttepenge</translation>
     </message>
     <message>
+        <source>Total Amount %1</source>
+        <translation>Totalbeløb %1</translation>
+    </message>
+    <message>
         <source>or</source>
         <translation>eller</translation>
     </message>
@@ -1996,7 +2127,7 @@
     </message>
     <message>
         <source>The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Transaktionen blev afvist! Dette kan ske, hvis nogle af dine myriads i din tegnebog allerede er brugt, som hvis du brugte en kopi af wallet.dat og dine myriads er blevet brugt i kopien, men ikke er markeret som brugt her.</translation>
+        <translation>Transaktionen blev afvist! Dette kan ske, hvis nogle af dine myriadcoins i din tegnebog allerede er brugt, som hvis du brugte en kopi af wallet.dat og dine myriadcoins er blevet brugt i kopien, men ikke er markeret som brugt her.</translation>
     </message>
     <message>
         <source>A fee higher than %1 is considered an absurdly high fee.</source>
@@ -2006,17 +2137,13 @@
         <source>Payment request expired.</source>
         <translation>Betalingsanmodning er udløbet.</translation>
     </message>
+    <message>
+        <source>Pay only the required fee of %1</source>
+        <translation>Betal kun det påkrævede gebyr på %1</translation>
+    </message>
     <message numerus="yes">
         <source>Estimated to begin confirmation within %n block(s).</source>
         <translation><numerusform>Bekræftelse estimeres til at begynde inden for %n blok.</numerusform><numerusform>Bekræftelse estimeres til at begynde inden for %n blokke.</numerusform></translation>
-    </message>
-    <message>
-        <source>Pay only the minimum fee of %1</source>
-        <translation>Betal kun det minimale gebyr på %1</translation>
-    </message>
-    <message>
-        <source>Total Amount %1&lt;span style='font-size:10pt;font-weight:normal;'&gt;&lt;br /&gt;(=%2)&lt;/span&gt;</source>
-        <translation>Totalbeløb %1&lt;span style='font-size:10pt;font-weight:normal;'&gt;&lt;br /&gt;(=%2)&lt;/span&gt;</translation>
     </message>
     <message>
         <source>The recipient address is not valid. Please recheck.</source>
@@ -2028,7 +2155,7 @@
     </message>
     <message>
         <source>Warning: Invalid Myriad address</source>
-        <translation>Advarsel: Ugyldig Myriad-adresse</translation>
+        <translation>Advarsel: Ugyldig Bitcoin-adresse</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -2079,7 +2206,7 @@
     </message>
     <message>
         <source>The Myriad address to send the payment to</source>
-        <translation>Myriad-adresse, som betalingen skal sendes til</translation>
+        <translation>Bitcoin-adresse, som betalingen skal sendes til</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2098,8 +2225,8 @@
         <translation>Fjern denne indgang</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less myriads than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>Gebyret vil blive trukket fra det sendte beløb. Modtageren vil modtage færre myriad, end du indtaster i beløbfeltet. Hvis flere modtagere vælges, vil gebyret deles ligeligt.</translation>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less myriadcoins than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation>Gebyret vil blive trukket fra det sendte beløb. Modtageren vil modtage færre bitcoin, end du indtaster i beløbfeltet. Hvis flere modtagere vælges, vil gebyret deles ligeligt.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -2122,8 +2249,8 @@
         <translation>Indtast et mærkat for denne adresse for at føje den til listen over brugte adresser</translation>
     </message>
     <message>
-        <source>A message that was attached to the myriad: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriad network.</source>
-        <translation>En besked, som blev føjet til "bitcon:"-URI'en, som vil gemmes med transaktionen til din reference. Bemærk: Denne besked vil ikke blive sendt over Myriad-netværket.</translation>
+        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Myriad network.</source>
+        <translation>En besked, som blev føjet til "bitcon:"-URI'en, som vil gemmes med transaktionen til din reference. Bemærk: Denne besked vil ikke blive sendt over Bitcoin-netværket.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -2156,12 +2283,12 @@
         <translation>&amp;Underskriv besked</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive myriads sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation>Du kan signere beskeder/aftaler med dine adresser for at bevise, at du kan modtage myriad, der bliver sendt til adresserne. Vær forsigtig med ikke at signere noget vagt eller tilfældigt, da eventuelle phishing-angreb kan snyde dig til at overlade din identitet til dem. Signér kun fuldt ud detaljerede udsagn, som du er enig i.</translation>
+        <source>You can sign messages/agreements with your addresses to prove you can receive myriadcoins sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <translation>Du kan signere beskeder/aftaler med dine adresser for at bevise, at du kan modtage bitcoin, der bliver sendt til adresserne. Vær forsigtig med ikke at signere noget vagt eller tilfældigt, da eventuelle phishing-angreb kan snyde dig til at overlade din identitet til dem. Signér kun fuldt ud detaljerede udsagn, som du er enig i.</translation>
     </message>
     <message>
         <source>The Myriad address to sign the message with</source>
-        <translation>Myriad-adresse, som beskeden skal signeres med</translation>
+        <translation>Bitcoin-adresse, som beskeden skal signeres med</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2193,7 +2320,7 @@
     </message>
     <message>
         <source>Sign the message to prove you own this Myriad address</source>
-        <translation>Underskriv denne besked for at bevise, at Myriad-adressen tilhører dig</translation>
+        <translation>Underskriv denne besked for at bevise, at Bitcoin-adressen tilhører dig</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2217,11 +2344,11 @@
     </message>
     <message>
         <source>The Myriad address the message was signed with</source>
-        <translation>Myriad-adressen, som beskeden blev signeret med</translation>
+        <translation>Bitcoin-adressen, som beskeden blev signeret med</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Myriad address</source>
-        <translation>Verificér beskeden for at sikre, at den er underskrevet med den angivne Myriad-adresse</translation>
+        <translation>Verificér beskeden for at sikre, at den er underskrevet med den angivne Bitcoin-adresse</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2418,7 +2545,7 @@
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to "not accepted" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Minede myriads skal modne %1 blokke, før de kan bruges. Da du genererede denne blok, blev den transmitteret til netværket for at blive føjet til blokkæden. Hvis det ikke lykkes at få den i kæden, vil dens tilstand ændres til "ikke accepteret", og den vil ikke kunne bruges. Dette kan ske nu og da, hvis en anden knude udvinder en blok inden for nogle få sekunder fra din.</translation>
+        <translation>Minede myriadcoins skal modne %1 blokke, før de kan bruges. Da du genererede denne blok, blev den transmitteret til netværket for at blive føjet til blokkæden. Hvis det ikke lykkes at få den i kæden, vil dens tilstand ændres til "ikke accepteret", og den vil ikke kunne bruges. Dette kan ske nu og da, hvis en anden knude udvinder en blok inden for nogle få sekunder fra din.</translation>
     </message>
     <message>
         <source>Debug information</source>
@@ -2650,6 +2777,10 @@
         <translation>Kopiér transaktions-ID</translation>
     </message>
     <message>
+        <source>Copy raw transaction</source>
+        <translation>Kopiér rå transaktion</translation>
+    </message>
+    <message>
         <source>Edit label</source>
         <translation>Redigér mærkat</translation>
     </message>
@@ -2736,7 +2867,7 @@
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Send myriads</translation>
+        <translation>Send myriadcoins</translation>
     </message>
 </context>
 <context>
@@ -2797,12 +2928,52 @@
         <translation>Acceptér kommandolinje- og JSON-RPC-kommandoer</translation>
     </message>
     <message>
+        <source>If &lt;category&gt; is not supplied or if &lt;category&gt; = 1, output all debugging information.</source>
+        <translation>Hvis &lt;category&gt; ikke angives eller hvis &lt;category&gt; = 1, udskriv al fejlretningsinformation.</translation>
+    </message>
+    <message>
+        <source>Maximum total fees (in %s) to use in a single wallet transaction; setting this too low may abort large transactions (default: %s)</source>
+        <translation>Maksimalt totalgebyr (i %s) for brug i en enkelt tegnebogstransaktion; ved at sætte dette for lavt, kan store transaktioner afbrydes (standard: %s)</translation>
+    </message>
+    <message>
+        <source>Please check that your computer's date and time are correct! If your clock is wrong Myriad Core will not work properly.</source>
+        <translation>Kontrollér venligst, at din computers dato og tid er korrekt! Hvis uret ikke passer, vil Myriad Core ikke fungere korrekt.</translation>
+    </message>
+    <message>
+        <source>Prune configured below the minimum of %d MiB.  Please use a higher number.</source>
+        <translation>Beskæring er sat under minimumsgrænsen på %d MiB. Brug venligst et større tal.</translation>
+    </message>
+    <message>
+        <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
+        <translation>Beskæring: Seneste synkronisering rækker udover beskårne data. Du er nødt til at bruge -reindex (downloade hele blokkæden igen i fald af beskåret knude)</translation>
+    </message>
+    <message>
+        <source>Reduce storage requirements by pruning (deleting) old blocks. This mode is incompatible with -txindex and -rescan. Warning: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, &gt;%u = target size in MiB to use for block files)</source>
+        <translation>Reducér lagringskravene ved at beskære (slette) gamle blokke. Denne tilstand er ikke kompatibel med -txindex og -rescan. Advarsel: Fortrydelse af denne indstilling kræver gendownload af hele blokkæden. (standard: 0 = slå beskæring af blokke fra, &gt;%u = målstørrelse i MiB der skal bruges på blokfiler)</translation>
+    </message>
+    <message>
+        <source>Rescans are not possible in pruned mode. You will need to use -reindex which will download the whole blockchain again.</source>
+        <translation>Genindlæsninger er ikke mulige i beskåret tilstand. Du er nødt til at bruge -reindex, hvilket vil downloade hele blokkæden igen.</translation>
+    </message>
+    <message>
+        <source>Error: A fatal internal error occurred, see debug.log for details</source>
+        <translation>Fejl: En alvorlig intern fejl er opstået. Se debug.log for detaljer</translation>
+    </message>
+    <message>
+        <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
+        <translation>Gebyr (i %s/kB) der skal lægges til de transaktioner du sender (standard: %s)</translation>
+    </message>
+    <message>
+        <source>Pruning blockstore...</source>
+        <translation>Beskærer bloklager…</translation>
+    </message>
+    <message>
         <source>Run in the background as a daemon and accept commands</source>
         <translation>Kør i baggrunden som en service, og acceptér kommandoer</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>Brug testnetværket</translation>
+        <source>Unable to start HTTP server. See debug log for details.</source>
+        <translation>Kunne ikke starte HTTP-server. Se fejlretningslog for detaljer.</translation>
     </message>
     <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
@@ -2825,16 +2996,12 @@
         <translation>Udfør kommando, når en transaktion i tegnebogen ændres (%s i kommandoen erstattes med TxID)</translation>
     </message>
     <message>
-        <source>Maximum total fees to use in a single wallet transaction; setting this too low may abort large transactions (default: %s)</source>
-        <translation>Maksimalt totalt gebyr der kan bruges i en enkelt tegnebogstransaktion. For lav en værdi kan afbryde store transaktioner (standard: %s)</translation>
-    </message>
-    <message>
-        <source>Reduce storage requirements by pruning (deleting) old blocks. This mode disables wallet support and is incompatible with -txindex. Warning: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, &gt;%u = target size in MiB to use for block files)</source>
-        <translation>Reducér pladskravene ved at beskære (slette, "prune") gamle blokke. Denne tilstand slår understøttelse af tegnebogen fra og er ikke kompatibel med -txindex. Advarsel: Fortrydelse af denne indstilling kræver download af hele blokkæden igen. (standard: 0 = slå beskæring af blokke fra, &gt;%u = målstørrelse i MiB der skal bruges til blokfiler)</translation>
-    </message>
-    <message>
         <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
         <translation>Sæt antallet af scriptverificeringstråde (%u til %d, 0 = auto, &lt;0 = efterlad det antal kernet fri, standard: %d)</translation>
+    </message>
+    <message>
+        <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
+        <translation>Blokdatabasen indeholder en blok, som ser ud til at være fra fremtiden. Dette kan skyldes, at din computers dato og tid ikke er sat korrekt. Genopbyg kun blokdatabasen, hvis du er sikker på, at din computers dato og tid er korrekt</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
@@ -2845,16 +3012,16 @@
         <translation>Ikke i stand til at tildele til %s på denne computer. Myriad Core kører sansynligvis allerede.</translation>
     </message>
     <message>
+        <source>Use UPnP to map the listening port (default: 1 when listening and no -proxy)</source>
+        <translation>Brug UPnP for at konfigurere den lyttende port (standard: 1 under lytning og ingen -proxy)</translation>
+    </message>
+    <message>
         <source>WARNING: abnormally high number of blocks generated, %d blocks received in the last %d hours (%d expected)</source>
         <translation>ADVARSEL: unormalt mange blokke er genereret; %d blokke er modtaget i løbet af de seneste %d timer (%d forventet)</translation>
     </message>
     <message>
         <source>WARNING: check your network connection, %d blocks received in the last %d hours (%d expected)</source>
         <translation>ADVARSEL: tjek din netværksforbindelse; %d blokke er modtaget i løbet af de seneste %d timer (%d forventet)</translation>
-    </message>
-    <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Advarsel: -paytxfee er sat meget højt! Dette er det gebyr du vil betale, hvis du sender en transaktion.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -2865,10 +3032,6 @@
         <translation>Advarsel: Vi ser ikke ud til at være fuldt ud enige med andre knuder! Du kan være nødt til at opgradere, eller andre knuder kan være nødt til at opgradere.</translation>
     </message>
     <message>
-        <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation>Advarsel: fejl under læsning af wallet.dat! Alle nøgler blev læst korrekt, men transaktionsdata eller adressebogsposter kan mangle eller være forkerte.</translation>
-    </message>
-    <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation>Advarsel: wallet.dat ødelagt, data reddet! Oprindelig wallet.dat gemt som wallet.{timestamp}.bak i %s; hvis din saldo eller dine transaktioner er forkert, bør du genskabe fra en sikkerhedskopi.</translation>
     </message>
@@ -2877,16 +3040,12 @@
         <translation>Sæt andre knuder, der forbinder fra den angivne netmaske eller IP, på hvidliste. Kan angives flere gange.</translation>
     </message>
     <message>
-        <source>(default: 1)</source>
-        <translation>(standard: 1)</translation>
+        <source>-maxmempool must be at least %d MB</source>
+        <translation>-maxmempool skal være mindst %d MB</translation>
     </message>
     <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;kategori&gt; kan være:</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation>Forsøg at genskabe private nøgler fra ødelagt wallet.dat</translation>
     </message>
     <message>
         <source>Block creation options:</source>
@@ -2917,6 +3076,22 @@
         <translation>Ønsker du at genopbygge blokdatabasen nu?</translation>
     </message>
     <message>
+        <source>Enable publish hash block in &lt;address&gt;</source>
+        <translation>Aktivér offentliggørelse af hash-blok i &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish hash transaction in &lt;address&gt;</source>
+        <translation>Aktivér offentliggørelse af hash-transaktion i &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish raw block in &lt;address&gt;</source>
+        <translation>Aktivér offentliggørelse af rå blok i &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish raw transaction in &lt;address&gt;</source>
+        <translation>Aktivér offentliggørelse af rå transaktion i &lt;address&gt;</translation>
+    </message>
+    <message>
         <source>Error initializing block database</source>
         <translation>Klargøring af blokdatabase mislykkedes</translation>
     </message>
@@ -2941,10 +3116,6 @@
         <translation>Lytning på enhver port mislykkedes. Brug -listen=0, hvis du ønsker dette.</translation>
     </message>
     <message>
-        <source>If &lt;category&gt; is not supplied, output all debugging information.</source>
-        <translation>Hvis &lt;kategori&gt; ikke angives, udskriv al fejlsøgningsinformation.</translation>
-    </message>
-    <message>
         <source>Importing...</source>
         <translation>Importerer…</translation>
     </message>
@@ -2955,6 +3126,10 @@
     <message>
         <source>Invalid -onion address: '%s'</source>
         <translation>Ugyldig -onion adresse: "%s"</translation>
+    </message>
+    <message>
+        <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
+        <translation>Hold hukommelsespuljen med transaktioner under &lt;n&gt; megabyte (standard: %u)</translation>
     </message>
     <message>
         <source>Not enough file descriptors available.</source>
@@ -2985,8 +3160,24 @@
         <translation>Angiv tegnebogsfil (inden for datamappe)</translation>
     </message>
     <message>
+        <source>Unsupported argument -benchmark ignored, use -debug=bench.</source>
+        <translation>Argument -benchmark understøttes ikke og ignoreres; brug -debug=bench.</translation>
+    </message>
+    <message>
+        <source>Unsupported argument -debugnet ignored, use -debug=net.</source>
+        <translation>Argument -debugnet understøttes ikke og ignoreres; brug -debug=net.</translation>
+    </message>
+    <message>
+        <source>Unsupported argument -tor found, use -onion.</source>
+        <translation>Argument -tor understøttes ikke; brug -onion.</translation>
+    </message>
+    <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
         <translation>Brug UPnP til at konfigurere den lyttende port (standard: %u)</translation>
+    </message>
+    <message>
+        <source>User Agent comment (%s) contains unsafe characters.</source>
+        <translation>Brugeragent-kommentar (%s) indeholder usikre tegn.</translation>
     </message>
     <message>
         <source>Verifying blocks...</source>
@@ -3013,16 +3204,8 @@
         <translation>Du er nødt til at genopbygge databasen ved hjælp af -reindex for at ændre -txindex</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Importerer blokke fra ekstern blk000??.dat fil</translation>
-    </message>
-    <message>
         <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
         <translation>Tillad JSON-RPC-forbindelser fra angivet kilde. Gyldig for &lt;ip&gt; er en enkelt IP (fx 1.2.3.4), et netværk/netmaske (fx 1.2.3.4/255.255.255.0) eller et netværk/CIDR (fx 1.2.3.4/24). Dette tilvalg kan angives flere gange</translation>
-    </message>
-    <message>
-        <source>An error occurred while setting up the RPC address %s port %u for listening: %s</source>
-        <translation>Der opstod en fejl under opsætning af RPC-adresse %s port %u for lytning: %s</translation>
     </message>
     <message>
         <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
@@ -3049,16 +3232,12 @@
         <translation>Fejl: Lytning efter indkommende forbindelser mislykkedes (lytning resultarede i fejl %s)</translation>
     </message>
     <message>
-        <source>Error: Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation>Fejl: Ikke understøttet argument -socks blev fundet. Det er ikke muligt at angive SOCKS-version længere, da kun SOCKS5-proxier er understøttet.</translation>
-    </message>
-    <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
         <translation>Udfør kommando, når en relevant alarm modtages eller vi ser en virkelig lang udsplitning (%s i cmd erstattes af besked)</translation>
     </message>
     <message>
-        <source>Fees (in BTC/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Gebyrer (i BTC/Kb) mindre end dette opfattes som nulgebyr for videresendelse (standard: %s)</translation>
+        <source>Fees (in %s/kB) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</source>
+        <translation>Gebyrer (i %s/kB) mindre end dette opfattes som intet gebyr for videresendelse, mining og oprettelse af transaktioner (standard: %s)</translation>
     </message>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
@@ -3071,10 +3250,6 @@
     <message>
         <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
         <translation>Maksimal størrelse på data i transaktioner til dataoverførsel, som vi videresender og miner (standard: %u)</translation>
-    </message>
-    <message>
-        <source>Prune configured below the minimum of %d MB.  Please use a higher number.</source>
-        <translation>Beskæring opsat under minimumsværdien %d MB. Brug venligst en højere værdi.</translation>
     </message>
     <message>
         <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect)</source>
@@ -3101,38 +3276,6 @@
         <translation>Dette produkt indeholder software, der er udviklet af OpenSSL-projektet for brug i OpenSSL-værktøjskassen &lt;https://www.openssl.org/&gt;, samt kryptografisk software, der er skrevet af Eric Young, samt UPnP-software, der er skrevet af Thomas Bernard.</translation>
     </message>
     <message>
-        <source>To use myriadcoind, or the -server option to myriadcoin-qt, you must set an rpcpassword in the configuration file:
-%s
-It is recommended you use the following random password:
-rpcuser=myriadcoinrpc
-rpcpassword=%s
-(you do not need to remember this password)
-The username and password MUST NOT be the same.
-If the file does not exist, create it with owner-readable-only file permissions.
-It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
-</source>
-        <translation>For at bruge myriadcoind eller valgmuligheden -server i myriadcoin-qt skal du oprette et rpcpassword i konfigurationsfilen:
-%s
-Det anbefales, at du bruger følgende tilfældige adgangskode:
-rpcuser=myriadcoinrpc
-rpcpassword=%s
-(du behøver ikke at huske adgangskoden)
-Brugernavnet og adgangskoden MÅ IKKE være det samme.
-Hvis filen ikke eksisterer, opret den da så kun ejeren har læserettigheder.
-Det anbefales også at sætte alertnotify, så du får besked omkring problemer;
-for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
-</translation>
-    </message>
-    <message>
-        <source>Warning: -maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation>Advarsel: -maxtxfee er sat meget højt! Så store gebyrer kan betales på en enkelt transaktion.</translation>
-    </message>
-    <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Myriad Core will not work properly.</source>
-        <translation>Advarsel: Undersøg venligst at din computers dato og klokkeslet er korrekt indstillet! Hvis der er fejl i disse vil Myriad Core ikke fungere korrekt.</translation>
-    </message>
-    <message>
         <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
         <translation>Andre knuder på hvidliste kan ikke DoS-bandlyses, og deres transaktioner videresendes altid, selv hvis de allerede er i mempool'en. Brugbart til fx et adgangspunkt</translation>
     </message>
@@ -3153,16 +3296,20 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Aktiverer bedste kæde…</translation>
     </message>
     <message>
-        <source>Can't run with a wallet in prune mode.</source>
-        <translation>Kan ikke køre med en tegnebog i beskåret tilstand.</translation>
+        <source>Always relay transactions received from whitelisted peers (default: %d)</source>
+        <translation>Videresend altid transaktioner, der modtages fra hvidlistede knuder (standard: %d)</translation>
+    </message>
+    <message>
+        <source>Attempt to recover private keys from a corrupt wallet.dat on startup</source>
+        <translation>Forsøg at genskabe private nøgler fra en ødelagt wallet.dat under opstart</translation>
+    </message>
+    <message>
+        <source>Automatically create Tor hidden service (default: %d)</source>
+        <translation>Opret automatisk skjult Tor-tjeneste (standard: %d)</translation>
     </message>
     <message>
         <source>Cannot resolve -whitebind address: '%s'</source>
         <translation>Kan ikke løse -whitebind adresse: "%s"</translation>
-    </message>
-    <message>
-        <source>Choose data directory on startup (default: 0)</source>
-        <translation>Vælg datamappe ved opstart (standard: 0)</translation>
     </message>
     <message>
         <source>Connect through SOCKS5 proxy</source>
@@ -3173,10 +3320,6 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Ophavsret © 2009-%i Udviklerne af Myriad Core</translation>
     </message>
     <message>
-        <source>Could not parse -rpcbind value %s as network address</source>
-        <translation>Kunne ikke tolke -rpcbind-værdi %s som en netværksadresse</translation>
-    </message>
-    <message>
         <source>Error loading wallet.dat: Wallet requires newer version of Myriad Core</source>
         <translation>Fejl ved indlæsning af wallet.dat: Tegnebog kræver en nyere version af Myriad Core</translation>
     </message>
@@ -3185,16 +3328,8 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Fejl under læsning fra database; lukker ned.</translation>
     </message>
     <message>
-        <source>Error: A fatal internal error occurred, see debug.log for details</source>
-        <translation>Fejl: En alvorlig intern fejl er opstået. Se debug.log for detaljer</translation>
-    </message>
-    <message>
-        <source>Error: Unsupported argument -tor found, use -onion.</source>
-        <translation>Fejl: Ikke understøttet argument -tor fundet, brug -onion.</translation>
-    </message>
-    <message>
-        <source>Fee (in BTC/kB) to add to transactions you send (default: %s)</source>
-        <translation>Gebyr (i BTC/kB) som skal føjes til transaktioner, du sender (standard: %s)</translation>
+        <source>Imports blocks from external blk000??.dat file on startup</source>
+        <translation>Importerer blokeringer fra ekstern blk000??.dat-fil under opstart</translation>
     </message>
     <message>
         <source>Information</source>
@@ -3237,20 +3372,8 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Videresendelsesvalgmuligheder for knude:</translation>
     </message>
     <message>
-        <source>Pruning blockstore...</source>
-        <translation>Beskærer bloklager…</translation>
-    </message>
-    <message>
-        <source>RPC SSL options: (see the Myriad Wiki for SSL setup instructions)</source>
-        <translation>Tilvalg for RPC SSL: (se Myriad Wiki for instruktioner i SSL-opstart)</translation>
-    </message>
-    <message>
         <source>RPC server options:</source>
         <translation>Tilvalg for RPC-server:</translation>
-    </message>
-    <message>
-        <source>RPC support for HTTP persistent connections (default: %d)</source>
-        <translation>RPC-understøttelse for HTTP-persistente forbindelser (standard: %d)</translation>
     </message>
     <message>
         <source>Rebuild block chain index from current blk000??.dat files on startup</source>
@@ -3261,6 +3384,14 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Modtag og vis P2P-netværksadvarsler (standard: %u)</translation>
     </message>
     <message>
+        <source>Reducing -maxconnections from %d to %d, because of system limitations.</source>
+        <translation>Reducerer -maxconnections fra %d til %d på grund af systembegrænsninger.</translation>
+    </message>
+    <message>
+        <source>Rescan the block chain for missing wallet transactions on startup</source>
+        <translation>Genindlæs blokkæden efter manglende tegnebogstransaktioner under opstart</translation>
+    </message>
+    <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
         <translation>Send sporings-/fejlsøgningsinformation til konsollen i stedet for debug.log filen</translation>
     </message>
@@ -3269,20 +3400,8 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Send transaktioner som nul-gebyr-transaktioner hvis muligt (standard: %u)</translation>
     </message>
     <message>
-        <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>Sæt SSL-rodcertifikater for betalingsanmodning (standard: -system-)</translation>
-    </message>
-    <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Angiv sprog, fx "da_DK" (standard: systemlokalitet)</translation>
-    </message>
-    <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>
         <translation>Vis alle tilvalg for fejlsøgning (brug: --help -help-debug)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: 1)</source>
-        <translation>Vis opstartsbillede ved opstart (standard: 1)</translation>
     </message>
     <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
@@ -3293,16 +3412,20 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Underskrift af transaktion mislykkedes</translation>
     </message>
     <message>
-        <source>Start minimized</source>
-        <translation>Start minimeret</translation>
-    </message>
-    <message>
         <source>The transaction amount is too small to pay the fee</source>
         <translation>Transaktionsbeløbet er for lille til at betale gebyret</translation>
     </message>
     <message>
         <source>This is experimental software.</source>
         <translation>Dette er eksperimentelt software.</translation>
+    </message>
+    <message>
+        <source>Tor control port password (default: empty)</source>
+        <translation>Adgangskode for Tor kontrolport (standard: tom)</translation>
+    </message>
+    <message>
+        <source>Tor control port to use if onion listening enabled (default: %s)</source>
+        <translation>Tor kontrolport, der skal bruges, hvis onion-lytning er slået til (standard: %s)</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
@@ -3321,16 +3444,12 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Transaktionen er for stor</translation>
     </message>
     <message>
-        <source>UI Options:</source>
-        <translation>Indstillinger for brugerflade:</translation>
-    </message>
-    <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
         <translation>Ikke i stand til at tildele til %s på denne computer (bind returnerede fejl %s)</translation>
     </message>
     <message>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Brug UPnP til at konfigurere den lyttende port (standard: 1 under lytning)</translation>
+        <source>Upgrade wallet to latest format on startup</source>
+        <translation>Opgradér tegnebog til seneste format under opstart</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>
@@ -3345,20 +3464,16 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Advarsel</translation>
     </message>
     <message>
-        <source>Warning: Unsupported argument -benchmark ignored, use -debug=bench.</source>
-        <translation>Advarsel: Ikke understøttet argument -benchmark ignoreret, brug -debug=bench.</translation>
-    </message>
-    <message>
-        <source>Warning: Unsupported argument -debugnet ignored, use -debug=net.</source>
-        <translation>Advarsel: Ikke understøttet argument -debugnet ignoreret, brug -debug=net.</translation>
+        <source>Whether to operate in a blocks only mode (default: %u)</source>
+        <translation>Hvorvidt der skal arbejdes i kun-blokke-tilstand (standard: %u)</translation>
     </message>
     <message>
         <source>Zapping all transactions from wallet...</source>
         <translation>Zapper alle transaktioner fra tegnebog…</translation>
     </message>
     <message>
-        <source>on startup</source>
-        <translation>under opstart</translation>
+        <source>ZeroMQ notification options:</source>
+        <translation>ZeroMQ-notifikationsindstillinger:</translation>
     </message>
     <message>
         <source>wallet.dat corrupt, salvage failed</source>
@@ -3371,18 +3486,6 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Udfør kommando, når den bedste blok ændres (%s i kommandoen erstattes med blokhash)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Opgrader tegnebog til seneste format</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Gennemsøg blokkæden for manglende tegnebogstransaktioner</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>Brug OpenSSL (https) for JSON-RPC-forbindelser</translation>
     </message>
     <message>
         <source>This help message</source>
@@ -3405,6 +3508,26 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>(1 = behold metadata for transaktion, fx kontoindehaver og information om betalingsanmodning, 2 = drop metadata for transaktion)</translation>
     </message>
     <message>
+        <source>-maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
+        <translation>-maxtxfee er sat meget højt! Gebyrer så store risikeres betalt på en enkelt transaktion.</translation>
+    </message>
+    <message>
+        <source>-paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
+        <translation>-paytxfee er sat meget højt! Dette er transaktionsgebyret, som du betaler, hvis du sender en transaktion.</translation>
+    </message>
+    <message>
+        <source>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</source>
+        <translation>Behold ikke transaktioner i hukommelsespuljen i mere end &lt;n&gt; timer (default: %u)</translation>
+    </message>
+    <message>
+        <source>Error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
+        <translation>Fejl under læsning af wallet.dat! Alle nøgler blev læst korrekt, men transaktionsdata eller indgange i adressebogen kan mangle eller være ukorrekte.</translation>
+    </message>
+    <message>
+        <source>Fees (in %s/kB) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Gebyrer (i %s/kB) mindre end dette opfattes som intet gebyr under oprettelse af transaktioner (standard: %s)</translation>
+    </message>
+    <message>
         <source>How thorough the block verification of -checkblocks is (0-4, default: %u)</source>
         <translation>Hvor gennemarbejdet blokverificeringen for -checkblocks er (0-4; standard: %u)</translation>
     </message>
@@ -3421,16 +3544,32 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
         <translation>Udskriv fejlsøgningsinformation (standard: %u, angivelse af &lt;kategori&gt; er valgfri)</translation>
     </message>
     <message>
+        <source>Support filtering of blocks and transaction with bloom filters (default: %u)</source>
+        <translation>Understøt filtrering af blokke og transaktioner med Bloom-filtre (standard: %u)</translation>
+    </message>
+    <message>
+        <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</source>
+        <translation>Den totale længde på netværksversionsstrengen (%i) overstiger maksimallængden (%i). Reducér antaller af eller størrelsen på uacomments.</translation>
+    </message>
+    <message>
+        <source>Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit (default: %d)</source>
+        <translation>Prøver at holde udadgående traffik under det givne mål (i MiB pr. 24 timer), 0 = ingen grænse (standard: %d)</translation>
+    </message>
+    <message>
+        <source>Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
+        <translation>Argument -socks understøttes ikke. Det er ikke længere muligt at sætte SOCKS-version; kun SOCKS5-proxier understøttes.</translation>
+    </message>
+    <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
-        <translation>Brug separat SOCS5-proxy for at nå andre knuder via Tor skjulte tjenester (standard: %s)</translation>
+        <translation>Brug separat SOCS5-proxy for at nå knuder via skjulte Tor-tjenester (standard: %s)</translation>
+    </message>
+    <message>
+        <source>Username and hashed password for JSON-RPC connections. The field &lt;userpw&gt; comes in the format: &lt;USERNAME&gt;:&lt;SALT&gt;$&lt;HASH&gt;. A canonical python script is included in share/rpcuser. This option can be specified multiple times</source>
+        <translation>Brugernavn og hashet adgangskode for JSON-RPC-forbindelser. Feltet &lt;userpw&gt; er i formatet: &lt;BRUGERNAVN&gt;:&lt;SALT&gt;$&lt;HASH&gt;. Et kanonisk Python-skript inkluderes i share/rpcuser. Dette tilvalg kan angives flere gange</translation>
     </message>
     <message>
         <source>(default: %s)</source>
         <translation>(standard: %s)</translation>
-    </message>
-    <message>
-        <source>Acceptable ciphers (default: %s)</source>
-        <translation>Accepterede kodninger (standard: %s)</translation>
     </message>
     <message>
         <source>Always query for peer addresses via DNS lookup (default: %u)</source>
@@ -3442,7 +3581,7 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
     </message>
     <message>
         <source>Generate coins (default: %u)</source>
-        <translation>Generér myriads (standard: %u)</translation>
+        <translation>Generér myriadcoins (standard: %u)</translation>
     </message>
     <message>
         <source>How many blocks to check at startup (default: %u, 0 = all)</source>
@@ -3491,15 +3630,6 @@ for eksempel: alertnotify=echo %%s | mail -s "Myriad Alert" admin@foo.com
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
         <translation>Videresend ikke-P2SH multisig (standard: %u)</translation>
-    </message>
-    <message>
-        <source>Server certificate file (default: %s)</source>
-        <translation>Servercertifikat-fil (standard: %s)
-</translation>
-    </message>
-    <message>
-        <source>Server private key (default: %s)</source>
-        <translation>Serverens private nøgle (standard: %s)</translation>
     </message>
     <message>
         <source>Set key pool size to &lt;n&gt; (default: %u)</source>

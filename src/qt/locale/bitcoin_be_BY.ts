@@ -1,4 +1,4 @@
-<TS language="be_BY" version="2.0">
+<TS language="be_BY" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -160,7 +160,7 @@
         <translation>Пацвердзіце шыфраванне гаманца</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation>Увага: калі вы зашыфруеце свой гаманец і страціце парольную фразу, то &lt;b&gt;СТРАЦІЦЕ ЎСЕ СВАЕ БІТКОЙНЫ&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -168,7 +168,7 @@
         <translation>Ці ўпэўненыя вы, што жадаеце зашыфраваць свой гаманец?</translation>
     </message>
     <message>
-        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriads from being stolen by malware infecting your computer.</source>
+        <source>Myriad Core will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your myriadcoins from being stolen by malware infecting your computer.</source>
         <translation>Myriad Core зараз будзе зачынены, каб фіналізаваць працэс шыфравання. Памятайце, што шыфраванне вашага гаманца не гарантуе абсалютную абарону ад магчымасці крадзяжу біткойнаў шкоднымі праграмамі, якія могуць інфікаваць ваш камп'ютар.</translation>
     </message>
     <message>
@@ -220,6 +220,9 @@
         <translation>Парольная фраза гаманца паспяхова зменена.</translation>
     </message>
 </context>
+<context>
+    <name>BanTableModel</name>
+    </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -331,7 +334,7 @@
         <translation>Праверыць паведамленне...</translation>
     </message>
     <message>
-        <source>Myriad</source>
+        <source>Bitcoin</source>
         <translation>Біткойн</translation>
     </message>
     <message>
@@ -387,7 +390,7 @@
         <translation>Myriad Core</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and myriad: URIs)</source>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
         <translation>Запатрабаваць плацёж (генеруецца QR-код для біткойн URI)</translation>
     </message>
     <message>
@@ -407,7 +410,7 @@
         <translation>Паказаць спіс адрасоў і метак для прымання</translation>
     </message>
     <message>
-        <source>Open a myriad: URI or payment request</source>
+        <source>Open a bitcoin: URI or payment request</source>
         <translation>Адкрыць біткойн: URI ці запыт плацяжу</translation>
     </message>
     <message>
@@ -420,7 +423,7 @@
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Myriad network</source>
-        <translation><numerusform>%n актыўнае злучэнне з сецівам Myriad</numerusform><numerusform>%n актыўных злучэнняў з сецівам Myriad</numerusform><numerusform>%n актыўных злучэнняў з сецівам Myriad</numerusform><numerusform>%n актыўных злучэнняў з сецівам Myriad</numerusform></translation>
+        <translation><numerusform>%n актыўнае злучэнне з сецівам Bitcoin</numerusform><numerusform>%n актыўных злучэнняў з сецівам Bitcoin</numerusform><numerusform>%n актыўных злучэнняў з сецівам Bitcoin</numerusform><numerusform>%n актыўных злучэнняў з сецівам Bitcoin</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -795,7 +798,7 @@
         <source>command-line options</source>
         <translation>опцыі каманднага радка</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>Intro</name>
     <message>
@@ -840,6 +843,10 @@
         <source>MB</source>
         <translation>Мб</translation>
     </message>
+    <message>
+        <source>W&amp;allet</source>
+        <translation>Гаманец</translation>
+    </message>
     </context>
 <context>
     <name>OverviewPage</name>
@@ -866,9 +873,21 @@
     </context>
 <context>
     <name>RPCConsole</name>
+    <message>
+        <source>&amp;Information</source>
+        <translation>Інфармацыя</translation>
+    </message>
+    <message>
+        <source>Debug window</source>
+        <translation>Вакно адладкі</translation>
+    </message>
     </context>
 <context>
     <name>ReceiveCoinsDialog</name>
+    <message>
+        <source>&amp;Amount:</source>
+        <translation>&amp;Колькасць:</translation>
+    </message>
     <message>
         <source>&amp;Label:</source>
         <translation>Метка:</translation>
@@ -884,6 +903,10 @@
 </context>
 <context>
     <name>ReceiveRequestDialog</name>
+    <message>
+        <source>Copy &amp;Address</source>
+        <translation>Капіяваць адрас</translation>
+    </message>
     <message>
         <source>Address</source>
         <translation>Адрас</translation>
@@ -929,6 +952,10 @@
     <message>
         <source>Send Coins</source>
         <translation>Даслаць Манеты</translation>
+    </message>
+    <message>
+        <source>Insufficient funds!</source>
+        <translation>Недастаткова сродкаў</translation>
     </message>
     <message>
         <source>Quantity:</source>
@@ -1040,6 +1067,14 @@
     <message>
         <source>Alt+P</source>
         <translation>Alt+P</translation>
+    </message>
+    <message>
+        <source>Message:</source>
+        <translation>Паведамленне:</translation>
+    </message>
+    <message>
+        <source>Pay To:</source>
+        <translation>Заплаціць да:</translation>
     </message>
     <message>
         <source>Memo:</source>
@@ -1373,10 +1408,6 @@
         <translation>Запусціць у фоне як дэман і прымаць каманды</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>Ужываць тэставае сеціва</translation>
-    </message>
-    <message>
         <source>Do you want to rebuild the block database now?</source>
         <translation>Ці жадаеце вы перабудаваць зараз базу звестак блокаў?</translation>
     </message>
@@ -1425,10 +1456,6 @@
         <translation>Опцыі гаманца:</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Імпартаванне блокаў з вонкавага blk000??.dat файла</translation>
-    </message>
-    <message>
         <source>Activating best chain...</source>
         <translation>Актывацыя лепшага ланцуга...</translation>
     </message>
@@ -1447,10 +1474,6 @@
     <message>
         <source>Signing transaction failed</source>
         <translation>Памылка подпісу транзакцыі</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Стартаваць ммінімізаванай</translation>
     </message>
     <message>
         <source>This is experimental software.</source>
@@ -1479,18 +1502,6 @@
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Выканаць каманду калі лепшы блок зменіцца (%s замяняецца на хэш блока)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Абнавіць гаманец на новы фармат</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Перасканаваць ланцуг блокаў дзеля пошуку адсутных транзакцый</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>Ужываць OpenSSL (https) для JSON-RPC злучэнняў</translation>
     </message>
     <message>
         <source>Loading addresses...</source>

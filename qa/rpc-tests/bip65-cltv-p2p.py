@@ -1,17 +1,20 @@
-#!/usr/bin/env python2
-#
-# Distributed under the MIT/X11 software license, see the accompanying
+#!/usr/bin/env python3
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#
 
 from test_framework.test_framework import ComparisonTestFramework
 from test_framework.util import *
 from test_framework.mininode import CTransaction, NetworkThread
 from test_framework.blocktools import create_coinbase, create_block
 from test_framework.comptool import TestInstance, TestManager
-from test_framework.script import CScript, OP_1NEGATE, OP_NOP2, OP_DROP
-from binascii import hexlify, unhexlify
-import cStringIO
+from test_framework.script import CScript, OP_1NEGATE, OP_CHECKLOCKTIMEVERIFY, OP_DROP
+
+from test_framework.test_framework import ComparisonTestFramework
+from test_framework.util import *
+from test_framework.mininode import CTransaction, NetworkThread
+from test_framework.blocktools import create_coinbase, create_block
+from test_framework.comptool import TestInstance, TestManager
+from test_framework.script import CScript, OP_1NEGATE, OP_CHECKLOCKTIMEVERIFY, OP_DROP
+from io import BytesIO
 import time
 
 def cltv_invalidate(tx):
@@ -19,7 +22,7 @@ def cltv_invalidate(tx):
 
     Prepends -1 CLTV DROP in the scriptSig itself.
     '''
-    tx.vin[0].scriptSig = CScript([OP_1NEGATE, OP_NOP2, OP_DROP] +
+    tx.vin[0].scriptSig = CScript([OP_1NEGATE, OP_CHECKLOCKTIMEVERIFY, OP_DROP] +
                                   list(CScript(tx.vin[0].scriptSig)))
 
 '''
@@ -60,39 +63,42 @@ class BIP65Test(ComparisonTestFramework):
         rawtx = node.createrawtransaction(inputs, outputs)
         signresult = node.signrawtransaction(rawtx)
         tx = CTransaction()
-        f = cStringIO.StringIO(unhexlify(signresult['hex']))
+        f = BytesIO(hex_str_to_bytes(signresult['hex']))
         tx.deserialize(f)
         return tx
 
     def get_tests(self):
 
         self.coinbase_blocks = self.nodes[0].generate(2)
-        self.tip = int ("0x" + self.nodes[0].getbestblockhash() + "L", 0)
+        height = 3  # height of the next block to build
+        self.tip = int("0x" + self.nodes[0].getbestblockhash(), 0)
         self.nodeaddress = self.nodes[0].getnewaddress()
         self.last_block_time = time.time()
 
         ''' 98 more version 3 blocks '''
         test_blocks = []
-        for i in xrange(98):
-            block = create_block(self.tip, create_coinbase(2), self.last_block_time + 1)
+        for i in range(98):
+            block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
             block.nVersion = 3
             block.rehash()
             block.solve()
             test_blocks.append([block, True])
             self.last_block_time += 1
             self.tip = block.sha256
+            height += 1
         yield TestInstance(test_blocks, sync_every_block=False)
 
         ''' Mine 749 version 4 blocks '''
         test_blocks = []
-        for i in xrange(749):
-            block = create_block(self.tip, create_coinbase(2), self.last_block_time + 1)
+        for i in range(749):
+            block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
             block.nVersion = 4
             block.rehash()
             block.solve()
             test_blocks.append([block, True])
             self.last_block_time += 1
             self.tip = block.sha256
+            height += 1
         yield TestInstance(test_blocks, sync_every_block=False)
 
         '''
@@ -104,7 +110,10 @@ class BIP65Test(ComparisonTestFramework):
         cltv_invalidate(spendtx)
         spendtx.rehash()
 
-        block = create_block(self.tip, create_coinbase(2), self.last_block_time + 1)
+        block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
+        block.nVersion = 4
+        block.vtx.append(spendtx)
+        block.hashMerkleRoot = block.calc_merkle_root()
         block.nVersion = 4
         block.vtx.append(spendtx)
         block.hashMerkleRoot = block.calc_merkle_root()
@@ -113,6 +122,8 @@ class BIP65Test(ComparisonTestFramework):
 
         self.last_block_time += 1
         self.tip = block.sha256
+        height += 1
+        height += 1
         yield TestInstance([[block, True]])
 
         '''
@@ -124,7 +135,7 @@ class BIP65Test(ComparisonTestFramework):
         cltv_invalidate(spendtx)
         spendtx.rehash()
 
-        block = create_block(self.tip, create_coinbase(1), self.last_block_time + 1)
+        block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
         block.nVersion = 4
         block.vtx.append(spendtx)
         block.hashMerkleRoot = block.calc_merkle_root()
@@ -135,8 +146,8 @@ class BIP65Test(ComparisonTestFramework):
 
         ''' Mine 199 new version blocks on last valid tip '''
         test_blocks = []
-        for i in xrange(199):
-            block = create_block(self.tip, create_coinbase(1), self.last_block_time + 1)
+        for i in range(199):
+            block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
             block.nVersion = 4
             block.rehash()
             block.solve()
@@ -146,7 +157,7 @@ class BIP65Test(ComparisonTestFramework):
         yield TestInstance(test_blocks, sync_every_block=False)
 
         ''' Mine 1 old version block '''
-        block = create_block(self.tip, create_coinbase(1), self.last_block_time + 1)
+        block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
         block.nVersion = 3
         block.rehash()
         block.solve()
@@ -155,7 +166,7 @@ class BIP65Test(ComparisonTestFramework):
         yield TestInstance([[block, True]])
 
         ''' Mine 1 new version block '''
-        block = create_block(self.tip, create_coinbase(1), self.last_block_time + 1)
+        block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
         block.nVersion = 4
         block.rehash()
         block.solve()
@@ -164,7 +175,7 @@ class BIP65Test(ComparisonTestFramework):
         yield TestInstance([[block, True]])
 
         ''' Mine 1 old version block, should be invalid '''
-        block = create_block(self.tip, create_coinbase(1), self.last_block_time + 1)
+        block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
         block.nVersion = 3
         block.rehash()
         block.solve()

@@ -1,4 +1,4 @@
-<TS language="eo" version="2.0">
+<TS language="eo" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -160,7 +160,7 @@
         <translation>Konfirmo de ĉifrado de la monujo</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation>Atentu! Se vi ĉifras vian monujon kaj perdas la pasfrazon, vi &lt;b&gt;PERDOS LA TUTON DE VIA BITMONO&lt;b&gt;!</translation>
     </message>
     <message>
@@ -178,6 +178,10 @@
     <message>
         <source>Wallet encrypted</source>
         <translation>La monujo estas ĉifrita</translation>
+    </message>
+    <message>
+        <source>Enter the old passphrase and new passphrase to the wallet.</source>
+        <translation>Tajpu la malnovan pasvorton kaj la novan pasvorton por la monujo.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -208,6 +212,9 @@
         <translation>Vi sukcese ŝanĝis la pasfrazon de la monujo.</translation>
     </message>
 </context>
+<context>
+    <name>BanTableModel</name>
+    </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -319,7 +326,7 @@
         <translation>&amp;Kontroli mesaĝon...</translation>
     </message>
     <message>
-        <source>Myriad</source>
+        <source>Bitcoin</source>
         <translation>Bitmono</translation>
     </message>
     <message>
@@ -379,8 +386,8 @@
         <translation>Kerno de Bitmono</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and myriad: URIs)</source>
-        <translation>Peti pagon (kreas QR-kodojn kaj URI-ojn kun prefikso myriad:)</translation>
+        <source>Request payments (generates QR codes and bitcoin: URIs)</source>
+        <translation>Peti pagon (kreas QR-kodojn kaj URI-ojn kun prefikso bitcoin:)</translation>
     </message>
     <message>
         <source>&amp;About Myriad Core</source>
@@ -395,8 +402,8 @@
         <translation>Vidigi la liston de uzitaj ricevaj adresoj kaj etikedoj</translation>
     </message>
     <message>
-        <source>Open a myriad: URI or payment request</source>
-        <translation>Malfermi myriad:-URI-on aŭ pagpeton</translation>
+        <source>Open a bitcoin: URI or payment request</source>
+        <translation>Malfermi bitcoin:-URI-on aŭ pagpeton</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -406,9 +413,25 @@
         <source>No block source available...</source>
         <translation>Neniu fonto de blokoj trovebla...</translation>
     </message>
+    <message numerus="yes">
+        <source>%n hour(s)</source>
+        <translation><numerusform>%n horo</numerusform><numerusform>%n horoj</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n day(s)</source>
+        <translation><numerusform>%n tago</numerusform><numerusform>%n tagoj</numerusform></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n week(s)</source>
+        <translation><numerusform>%n semajno</numerusform><numerusform>%n semajnoj</numerusform></translation>
+    </message>
     <message>
         <source>%1 and %2</source>
         <translation>%1 kaj %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n year(s)</source>
+        <translation><numerusform>%n jaro</numerusform><numerusform>%n jaroj</numerusform></translation>
     </message>
     <message>
         <source>%1 behind</source>
@@ -441,6 +464,36 @@
     <message>
         <source>Catching up...</source>
         <translation>Ĝisdatigante...</translation>
+    </message>
+    <message>
+        <source>Date: %1
+</source>
+        <translation>Dato: %1
+</translation>
+    </message>
+    <message>
+        <source>Amount: %1
+</source>
+        <translation>Sumo: %1
+</translation>
+    </message>
+    <message>
+        <source>Type: %1
+</source>
+        <translation>Tipo: %1
+</translation>
+    </message>
+    <message>
+        <source>Label: %1
+</source>
+        <translation>Etikedo: %1
+</translation>
+    </message>
+    <message>
+        <source>Address: %1
+</source>
+        <translation>Adreso: %1
+</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -773,7 +826,11 @@
         <source>command-line options</source>
         <translation>komandliniaj agordaĵoj</translation>
     </message>
-</context>
+    <message>
+        <source>UI Options:</source>
+        <translation>Uzantinterfaco ebloj:</translation>
+    </message>
+    </context>
 <context>
     <name>Intro</name>
     <message>
@@ -807,6 +864,10 @@
     <message>
         <source>Error</source>
         <translation>Eraro</translation>
+    </message>
+    <message numerus="yes">
+        <source>%n GB of free space available</source>
+        <translation><numerusform>%n gigabajto de libera loko disponeble</numerusform><numerusform>%n gigabajtoj de libera loko disponebla.</numerusform></translation>
     </message>
     </context>
 <context>
@@ -851,6 +912,14 @@
         <translation>MB</translation>
     </message>
     <message>
+        <source>Accept connections from outside</source>
+        <translation>Akcepti konektojn el ekstere</translation>
+    </message>
+    <message>
+        <source>Allow incoming connections</source>
+        <translation>Permesi envenantajn konektojn</translation>
+    </message>
+    <message>
         <source>Reset all client options to default.</source>
         <translation>Reagordi ĉion al defaŭlataj valoroj.</translation>
     </message>
@@ -861,6 +930,10 @@
     <message>
         <source>&amp;Network</source>
         <translation>&amp;Reto</translation>
+    </message>
+    <message>
+        <source>W&amp;allet</source>
+        <translation>Monujo</translation>
     </message>
     <message>
         <source>Expert</source>
@@ -885,6 +958,14 @@
     <message>
         <source>Port of the proxy (e.g. 9050)</source>
         <translation>la pordo de la prokurilo (ekz. 9050)</translation>
+    </message>
+    <message>
+        <source>IPv4</source>
+        <translation>IPv4</translation>
+    </message>
+    <message>
+        <source>IPv6</source>
+        <translation>IPv6</translation>
     </message>
     <message>
         <source>&amp;Window</source>
@@ -974,12 +1055,24 @@
         <translation>Minita saldo, kiu ankoraŭ ne maturiĝis</translation>
     </message>
     <message>
+        <source>Balances</source>
+        <translation>Saldoj</translation>
+    </message>
+    <message>
         <source>Total:</source>
         <translation>Totalo:</translation>
     </message>
     <message>
         <source>Your current total balance</source>
         <translation>via aktuala totala saldo</translation>
+    </message>
+    <message>
+        <source>Spendable:</source>
+        <translation>Elspezebla:</translation>
+    </message>
+    <message>
+        <source>Recent transactions</source>
+        <translation>Lastaj transakcioj</translation>
     </message>
     </context>
 <context>
@@ -1001,7 +1094,7 @@
         <translation>Eraro dum pagopeto</translation>
     </message>
     <message>
-        <source>Cannot start myriad: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation>Ne eblas lanĉi la ilon 'klaki-por-pagi'</translation>
     </message>
     <message>
@@ -1027,6 +1120,10 @@
 </context>
 <context>
     <name>PeerTableModel</name>
+    <message>
+        <source>User Agent</source>
+        <translation>Uzanto Agento</translation>
+    </message>
     </context>
 <context>
     <name>QObject</name>
@@ -1041,6 +1138,10 @@
     <message>
         <source>%1 m</source>
         <translation>%1 m</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Neniu</translation>
     </message>
     <message>
         <source>N/A</source>
@@ -1121,8 +1222,32 @@
         <translation>Aktuala nombro de blokoj</translation>
     </message>
     <message>
-        <source>Bytes Sent</source>
-        <translation>Bajtoj Senditaj:</translation>
+        <source>Received</source>
+        <translation>Ricevita</translation>
+    </message>
+    <message>
+        <source>Sent</source>
+        <translation>Sendita</translation>
+    </message>
+    <message>
+        <source>&amp;Peers</source>
+        <translation>&amp;Samuloj</translation>
+    </message>
+    <message>
+        <source>Banned peers</source>
+        <translation>Malpermesita samuloj.</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Versio</translation>
+    </message>
+    <message>
+        <source>User Agent</source>
+        <translation>Uzanto Agento</translation>
+    </message>
+    <message>
+        <source>Services</source>
+        <translation>Servoj</translation>
     </message>
     <message>
         <source>Last block time</source>
@@ -1375,6 +1500,10 @@
     <message>
         <source>Change:</source>
         <translation>Restmono:</translation>
+    </message>
+    <message>
+        <source>Transaction Fee:</source>
+        <translation>Krompago:</translation>
     </message>
     <message>
         <source>Send to multiple recipients at once</source>
@@ -2099,10 +2228,6 @@
         <translation>Ruli fone kiel demono kaj akcepti komandojn</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>Uzi la test-reton</translation>
-    </message>
-    <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
         <translation>Akcepti konektojn el ekstere (defaŭlte: 1 se ne estas -proxy nek -connect)</translation>
     </message>
@@ -2119,10 +2244,6 @@
         <translation>Tiu ĉi estas antaŭeldona testa versio - uzu laŭ via propra risko - ne uzu por minado aŭ por aplikaĵoj por vendistoj</translation>
     </message>
     <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Averto: -paytxfee estas agordita per tre alta valoro! Tio estas la krompago, kion vi pagos se vi sendas la transakcion.</translation>
-    </message>
-    <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
         <translation>Averto: La reto ne tute konsentas! Kelkaj minantoj ŝajne spertas problemojn aktuale.</translation>
     </message>
@@ -2131,20 +2252,12 @@
         <translation>Averto: ŝajne ni ne tute konsentas kun niaj samtavolanoj! Eble vi devas ĝisdatigi vian klienton, aŭ eble aliaj nodoj faru same.</translation>
     </message>
     <message>
-        <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation>Averto: okazis eraro dum lego de wallet.dat! Ĉiuj ŝlosiloj sukcese legiĝis, sed la transakciaj datumoj aŭ la adresaro eble mankas aŭ malĝustas.</translation>
-    </message>
-    <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation>Averto: via wallet.dat estas difektita, sed la datumoj sukcese saviĝis! La originala wallet.dat estas nun konservita kiel wallet.{timestamp}.bak en %s; se via saldo aŭ transakcioj estas malĝustaj vi devus restaŭri per alia sekurkopio.</translation>
     </message>
     <message>
         <source>&lt;category&gt; can be:</source>
         <translation>&lt;category&gt; povas esti:</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation>Provo ripari privatajn ŝlosilojn el difektita wallet.dat</translation>
     </message>
     <message>
         <source>Block creation options:</source>
@@ -2223,20 +2336,20 @@
         <translation>Vi devas rekontrui la datumbazon kun -reindex por ŝanĝi -txindex</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Importas blokojn el ekstera dosiero blk000??.dat</translation>
-    </message>
-    <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
         <translation>Plenumi komandon kiam rilata alerto riceviĝas, aŭ kiam ni vidas tre longan forkon (%s en cms anstataŭiĝas per mesaĝo)</translation>
     </message>
     <message>
-        <source>Choose data directory on startup (default: 0)</source>
-        <translation>Elekti dosierujon por datumoj dum lanĉo (defaŭlte: 0)</translation>
+        <source>Cannot resolve -whitebind address: '%s'</source>
+        <translation>Ne eblas trovi la adreson -whitebind: '%s'</translation>
     </message>
     <message>
         <source>Information</source>
         <translation>Informoj</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
+        <translation>Nevalida sumo por -maxtxfee=&lt;amount&gt;: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
@@ -2251,24 +2364,12 @@
         <translation>Sendi spurajn/sencimigajn informojn al la konzolo anstataŭ al dosiero debug.log</translation>
     </message>
     <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Agordi lingvon, ekzemple "de_DE" (defaŭlte: tiu de la sistemo)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: 1)</source>
-        <translation>Montri salutŝildon dum lanĉo (defaŭlte: 1)</translation>
-    </message>
-    <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
         <translation>Malpligrandigi la sencimigan protokol-dosieron kiam kliento lanĉiĝas (defaŭlte: 1 kiam mankas -debug)</translation>
     </message>
     <message>
         <source>Signing transaction failed</source>
         <translation>Subskriba transakcio fiaskis</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Lanĉiĝi plejete</translation>
     </message>
     <message>
         <source>This is experimental software.</source>
@@ -2285,10 +2386,6 @@
     <message>
         <source>Transaction too large</source>
         <translation>Transakcio estas tro granda</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Uzi UPnP por mapi la aŭskultan pordon (defaŭlte: 1 dum aŭskultado)</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>
@@ -2309,18 +2406,6 @@
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Plenumi komandon kiam plej bona bloko ŝanĝiĝas (%s en cmd anstataŭiĝas per bloka haketaĵo)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Ĝisdatigi monujon al plej lasta formato</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Reskani la blokĉenon por mankantaj monujaj transakcioj</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>Uzi OpenSSL (https) por konektoj JSON-RPC</translation>
     </message>
     <message>
         <source>This help message</source>

@@ -1,4 +1,4 @@
-<TS language="et" version="2.0">
+<TS language="et" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
@@ -47,7 +47,7 @@
     </message>
     <message>
         <source>These are your Myriad addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Need on sinu Myriadi aadressid maksete saatmiseks. Müntide saatmisel kontrolli alati summat ning saaja aadressi.</translation>
+        <translation>Need on sinu Bitcoini aadressid maksete saatmiseks. Müntide saatmisel kontrolli alati summat ning saaja aadressi.</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -128,7 +128,7 @@
         <translation>Kinnita rahakoti krüpteering</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MYRIADS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
         <translation>Hoiatus: Kui sa kaotad oma, rahakoti krüpteerimisel kasutatud, salafraasi, siis &lt;b&gt;KAOTAD KA KÕIK OMA BITCOINID&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -176,6 +176,9 @@
         <translation>Rahakoti salafraasi muutmine õnnestus.</translation>
     </message>
 </context>
+<context>
+    <name>BanTableModel</name>
+    </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
@@ -248,7 +251,7 @@
     </message>
     <message>
         <source>Send coins to a Myriad address</source>
-        <translation>Saada münte Myriadi aadressile</translation>
+        <translation>Saada münte Bitcoini aadressile</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -271,8 +274,8 @@
         <translation>&amp;Kontrolli sõnumit...</translation>
     </message>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -300,11 +303,11 @@
     </message>
     <message>
         <source>Sign messages with your Myriad addresses to prove you own them</source>
-        <translation>Omandi tõestamiseks allkirjasta sõnumid oma Myriadi aadressiga</translation>
+        <translation>Omandi tõestamiseks allkirjasta sõnumid oma Bitcoini aadressiga</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Myriad addresses</source>
-        <translation>Kinnita sõnumid kindlustamaks et need allkirjastati määratud Myriadi aadressiga</translation>
+        <translation>Kinnita sõnumid kindlustamaks et need allkirjastati määratud Bitcoini aadressiga</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -324,7 +327,15 @@
     </message>
     <message>
         <source>Myriad Core</source>
-        <translation>Myriadi tuumik</translation>
+        <translation>Bitcoini tuumik</translation>
+    </message>
+    <message>
+        <source>&amp;About Myriad Core</source>
+        <translation>Kirjeldus Bitcoini Tuumast</translation>
+    </message>
+    <message>
+        <source>&amp;Command-line options</source>
+        <translation>Käsurea valikud</translation>
     </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
@@ -559,7 +570,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Myriad address.</source>
-        <translation>Sisestatud aadress "%1" ei ole Myriadis kehtiv.</translation>
+        <translation>Sisestatud aadress "%1" ei ole Bitcoinis kehtiv.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -581,7 +592,7 @@
     <name>HelpMessageDialog</name>
     <message>
         <source>Myriad Core</source>
-        <translation>Myriadi tuumik</translation>
+        <translation>Bitcoini tuumik</translation>
     </message>
     <message>
         <source>version</source>
@@ -589,7 +600,7 @@
     </message>
     <message>
         <source>About Myriad Core</source>
-        <translation>Kirjeldus Myriadi Tuumast</translation>
+        <translation>Kirjeldus Bitcoini Tuumast</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -603,7 +614,7 @@
         <source>command-line options</source>
         <translation>käsurea valikud</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>Intro</name>
     <message>
@@ -612,7 +623,7 @@
     </message>
     <message>
         <source>Myriad Core</source>
-        <translation>Myriadi tuumik</translation>
+        <translation>Bitcoini tuumik</translation>
     </message>
     <message>
         <source>Error</source>
@@ -635,6 +646,10 @@
     <message>
         <source>Options</source>
         <translation>Valikud</translation>
+    </message>
+    <message>
+        <source>&amp;Main</source>
+        <translation>&amp;Peamine</translation>
     </message>
     <message>
         <source>MB</source>
@@ -662,7 +677,7 @@
     </message>
     <message>
         <source>Automatically open the Myriad client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Myriadi kliendi pordi automaatne avamine ruuteris. Toimib, kui sinu ruuter aktsepteerib UPnP ühendust.</translation>
+        <translation>Bitcoini kliendi pordi automaatne avamine ruuteris. Toimib, kui sinu ruuter aktsepteerib UPnP ühendust.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -763,7 +778,7 @@
         <translation>URI käsitsemine</translation>
     </message>
     <message>
-        <source>Cannot start myriad: click-to-pay handler</source>
+        <source>Cannot start bitcoin: click-to-pay handler</source>
         <translation>Myriad ei käivitu: vajuta-maksa toiming</translation>
     </message>
     </context>
@@ -805,6 +820,10 @@
     <message>
         <source>&amp;Information</source>
         <translation>&amp;Informatsioon</translation>
+    </message>
+    <message>
+        <source>Debug window</source>
+        <translation>Debugimise aken</translation>
     </message>
     <message>
         <source>General</source>
@@ -945,6 +964,10 @@
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
+        <source>Copy &amp;Address</source>
+        <translation>&amp;Kopeeri Aadress</translation>
+    </message>
+    <message>
         <source>Address</source>
         <translation>Aadress</translation>
     </message>
@@ -1007,6 +1030,10 @@
         <translation>Müntide saatmine</translation>
     </message>
     <message>
+        <source>Insufficient funds!</source>
+        <translation>Liiga suur summa</translation>
+    </message>
+    <message>
         <source>Quantity:</source>
         <translation>Kogus:</translation>
     </message>
@@ -1017,6 +1044,10 @@
     <message>
         <source>Fee:</source>
         <translation>Tasu:</translation>
+    </message>
+    <message>
+        <source>Transaction Fee:</source>
+        <translation>Tehingu tasu:</translation>
     </message>
     <message>
         <source>Choose...</source>
@@ -1129,6 +1160,10 @@
         <source>Message:</source>
         <translation>Sõnum:</translation>
     </message>
+    <message>
+        <source>Pay To:</source>
+        <translation>Maksa :</translation>
+    </message>
     </context>
 <context>
     <name>ShutdownWindow</name>
@@ -1169,7 +1204,7 @@
     </message>
     <message>
         <source>Sign the message to prove you own this Myriad address</source>
-        <translation>Allkirjasta sõnum Myriadi aadressi sulle kuulumise tõestamiseks</translation>
+        <translation>Allkirjasta sõnum Bitcoini aadressi sulle kuulumise tõestamiseks</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -1189,7 +1224,7 @@
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Myriad address</source>
-        <translation>Kinnita sõnum tõestamaks selle allkirjastatust määratud Myriadi aadressiga.</translation>
+        <translation>Kinnita sõnum tõestamaks selle allkirjastatust määratud Bitcoini aadressiga.</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -1256,11 +1291,11 @@
     <name>SplashScreen</name>
     <message>
         <source>Myriad Core</source>
-        <translation>Myriadi tuumik</translation>
+        <translation>Bitcoini tuumik</translation>
     </message>
     <message>
         <source>The Myriad Core developers</source>
-        <translation>Myriadi Tuuma arendajad</translation>
+        <translation>Bitcoini Tuuma arendajad</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -1279,6 +1314,10 @@
     <message>
         <source>Open until %1</source>
         <translation>Avatud kuni %1</translation>
+    </message>
+    <message>
+        <source>%1/offline</source>
+        <translation>%1/offline'is</translation>
     </message>
     <message>
         <source>%1/unconfirmed</source>
@@ -1657,10 +1696,6 @@
         <translation>Tööta taustal ning aktsepteeri käsklusi</translation>
     </message>
     <message>
-        <source>Use the test network</source>
-        <translation>Testvõrgu kasutamine</translation>
-    </message>
-    <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>
         <translation>Luba välisühendusi (vaikeväärtus: 1 kui puudub -proxy või -connect)</translation>
     </message>
@@ -1677,20 +1712,8 @@
         <translation>See on test-versioon - kasutamine omal riisikol - ära kasuta mining'uks ega kaupmeeste programmides</translation>
     </message>
     <message>
-        <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>Hoiatus: -paytxfee on seatud väga kõrgeks! See on sinu poolt makstav tehingu lisatasu.</translation>
-    </message>
-    <message>
-        <source>Warning: error reading wallet.dat! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation>Hoiatus: ilmnes tõrge wallet.dat faili lugemisel! Võtmed on terved, kuid tehingu andmed või aadressiraamatu kirjed võivad olla kadunud või vigased.</translation>
-    </message>
-    <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
         <translation>Hoiatus: toimus wallet.dat faili andmete päästmine! Originaal wallet.dat nimetati kaustas %s ümber wallet.{ajatempel}.bak'iks, jäägi või tehingute ebakõlade puhul tuleks teha backup'ist taastamine.</translation>
-    </message>
-    <message>
-        <source>Attempt to recover private keys from a corrupt wallet.dat</source>
-        <translation>Püüa vigasest wallet.dat failist taastada turvavõtmed</translation>
     </message>
     <message>
         <source>Block creation options:</source>
@@ -1745,12 +1768,28 @@
         <translation>Rahakoti valikud:</translation>
     </message>
     <message>
-        <source>Imports blocks from external blk000??.dat file</source>
-        <translation>Impordi blokid välisest blk000??.dat failist</translation>
+        <source>(default: %u)</source>
+        <translation>(vaikimisi: %u)</translation>
+    </message>
+    <message>
+        <source>Cannot resolve -whitebind address: '%s'</source>
+        <translation>Tundmatu -whitebind aadress: '%s'</translation>
     </message>
     <message>
         <source>Information</source>
         <translation>Informatsioon</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s'</source>
+        <translation>-maxtxfee=&lt;amount&gt; jaoks vigane kogus: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
+        <translation>-minrelaytxfee=&lt;amount&gt; jaoks vigane kogus: '%s'</translation>
+    </message>
+    <message>
+        <source>Invalid amount for -mintxfee=&lt;amount&gt;: '%s'</source>
+        <translation>-mintxfee=&lt;amount&gt; jaoks vigane kogus: '%s'</translation>
     </message>
     <message>
         <source>RPC server options:</source>
@@ -1761,24 +1800,12 @@
         <translation>Saada jälitus/debug, debug.log faili asemel, konsooli</translation>
     </message>
     <message>
-        <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>Keele valik, nt "ee_ET" (vaikeväärtus: system locale)</translation>
-    </message>
-    <message>
-        <source>Show splash screen on startup (default: 1)</source>
-        <translation>Käivitamisel teabeakna kuvamine (vaikeväärtus: 1)</translation>
-    </message>
-    <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
         <translation>Kahanda programmi käivitamisel debug.log faili (vaikeväärtus: 1, kui ei ole -debug)</translation>
     </message>
     <message>
         <source>Signing transaction failed</source>
         <translation>Tehingu allkirjastamine ebaõnnestus</translation>
-    </message>
-    <message>
-        <source>Start minimized</source>
-        <translation>Käivitu tegumiribale</translation>
     </message>
     <message>
         <source>The transaction amount is too small to pay the fee</source>
@@ -1793,24 +1820,12 @@
         <translation>Tehing liiga suur</translation>
     </message>
     <message>
-        <source>UI Options:</source>
-        <translation>UI Valikud:</translation>
-    </message>
-    <message>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Kasuta kuulatava pordi määramiseks UPnP ühendust (vaikeväärtus: 1, kui kuulatakse)</translation>
-    </message>
-    <message>
         <source>Username for JSON-RPC connections</source>
         <translation>JSON-RPC ühenduste kasutajatunnus</translation>
     </message>
     <message>
         <source>Warning</source>
         <translation>Hoiatus</translation>
-    </message>
-    <message>
-        <source>on startup</source>
-        <translation>käivitamisel</translation>
     </message>
     <message>
         <source>wallet.dat corrupt, salvage failed</source>
@@ -1823,18 +1838,6 @@
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
         <translation>Käivita käsklus, kui parim plokk muutub (käskluse %s asendatakse ploki hash'iga)</translation>
-    </message>
-    <message>
-        <source>Upgrade wallet to latest format</source>
-        <translation>Uuenda rahakott uusimasse vormingusse</translation>
-    </message>
-    <message>
-        <source>Rescan the block chain for missing wallet transactions</source>
-        <translation>Otsi ploki jadast rahakoti kadunud tehinguid</translation>
-    </message>
-    <message>
-        <source>Use OpenSSL (https) for JSON-RPC connections</source>
-        <translation>Kasuta JSON-RPC ühenduste jaoks OpenSSL'i (https)</translation>
     </message>
     <message>
         <source>This help message</source>

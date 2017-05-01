@@ -1,4 +1,4 @@
-<TS language="bs" version="2.0">
+<TS language="bs" version="2.1">
 <context>
     <name>AddressBookPage</name>
     </context>
@@ -9,10 +9,13 @@
     <name>AskPassphraseDialog</name>
     </context>
 <context>
+    <name>BanTableModel</name>
+    </context>
+<context>
     <name>BitcoinGUI</name>
     <message>
-        <source>Myriad</source>
-        <translation>Myriad</translation>
+        <source>Bitcoin</source>
+        <translation>Bitcoin</translation>
     </message>
     <message>
         <source>Myriad Core</source>
