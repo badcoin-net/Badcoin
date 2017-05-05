@@ -68,10 +68,15 @@ def make_utxo(node, amount, confirmed=True, scriptPubKey=CScript([1])):
 
 class ReplaceByFeeTest(BitcoinTestFramework):
 
+    def __init__(self):
+        super().__init__()
+        self.num_nodes = 1
+        self.setup_clean_chain = False
+
     def setup_network(self):
         self.nodes = []
         self.nodes.append(start_node(0, self.options.tmpdir, ["-maxorphantx=1000", "-debug",
-                                                              "-relaypriority=0", "-whitelist=127.0.0.1",
+                                                              "-whitelist=127.0.0.1",
                                                               "-limitancestorcount=50",
                                                               "-limitancestorsize=101",
                                                               "-limitdescendantcount=200",
@@ -388,7 +393,6 @@ class ReplaceByFeeTest(BitcoinTestFramework):
         utxo = make_utxo(self.nodes[0], initial_nValue)
         fee = int(0.0001*COIN)
         split_value = int((initial_nValue-fee)/(MAX_REPLACEMENT_LIMIT+1))
-        actual_fee = initial_nValue - split_value*(MAX_REPLACEMENT_LIMIT+1)
 
         outputs = []
         for i in range(MAX_REPLACEMENT_LIMIT+1):

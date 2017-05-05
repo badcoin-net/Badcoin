@@ -3,28 +3,24 @@ Myriad Core integration/staging tree
 
 http://www.myriadcoin.org
 
-Copyright (c) 2009-2015 Bitcoin Core Developers
+Copyright (c) 2009-2017 Bitcoin Core Developers
+Copyright (c) 2014-2017 Myriad Core Developers
 
-Copyright (c) 2014-2016 Myriad Core Developers
-
-
-What is Myriad?
--------------------
-
-Myriad is an experimental new digital currency that enables instant payments to
-anyone, anywhere in the world. Myriad uses peer-to-peer technology to operate
+Myriad is an experimental digital currency that enables instant payments to
+anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
 with no central authority: managing transactions and issuing money are carried
 out collectively by the network. Myriad Core is the name of open source
 software which enables the use of this currency.
 
-For more information, as well as an immediately usable, binary version of
-the Myriadcoin Core software, see http://www.myriadcoin.org/
+For more information, as well as an immediately useable, binary version of
+the Myriad Core software, see http://www.myriadcoin.org, or read the
+[original bitcoin whitepaper](https://bitcoincore.org/bitcoin.pdf).
 
 License
 -------
 
 Myriad Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
-information or see http://opensource.org/licenses/MIT.
+information or see https://opensource.org/licenses/MIT.
 
 Building
 --------
@@ -82,13 +78,16 @@ Development tips and tricks
 
 **compiling for debugging**
 
-Run configure with the --enable-debug option, then make. Or run configure with
-CXXFLAGS="-g -ggdb -O0" or whatever debug flags you need.
+Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
+submit new unit tests for old code. Unit tests can be compiled and run
+(assuming they weren't disabled in configure) with: `make check`. Further details on running
+and extending unit tests can be found in [/src/test/README.md](/src/test/README.md).
 
-**debug.log**
+There are also [regression and integration tests](/qa) of the RPC interface, written
+in Python, that are run automatically on the build server.
+These tests can be run (if the [test dependencies](/qa) are installed) with: `qa/pull-tester/rpc-tests.py`
 
-If the code is behaving strangely, take a look in the debug.log file in the data directory;
-error and debugging message are written there.
+The Travis CI system makes sure that every pull request is built for Windows, Linux, and OS X, and that unit/sanity tests are run automatically.
 
 The -debug=... command-line option controls debugging; running with just -debug will turn
 on all categories (and give you a very large debug.log file).

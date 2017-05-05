@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015 The Bitcoin Core developers
+# Copyright (c) 2015-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+from test_framework.blockstore import BlockStore
 from test_framework.test_framework import ComparisonTestFramework
 from test_framework.util import *
 from test_framework.mininode import CTransaction, NetworkThread
@@ -31,10 +32,11 @@ test that enforcement has triggered
 class BIP9SoftForksTest(ComparisonTestFramework):
 
     def __init__(self):
+        super().__init__()
         self.num_nodes = 1
 
     def setup_network(self):
-        self.nodes = start_nodes(1, self.options.tmpdir,
+        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir,
                                  extra_args=[['-debug', '-whitelist=127.0.0.1']],
                                  binary=[self.options.testbinary])
 
@@ -76,13 +78,12 @@ class BIP9SoftForksTest(ComparisonTestFramework):
 
     def get_bip9_status(self, key):
         info = self.nodes[0].getblockchaininfo()
-        for row in info['bip9_softforks']:
-            if row['id'] == key:
-                return row
-        raise IndexError ('key:"%s" not found' % key)
-
+        return info['bip9_softforks'][key]
 
     def test_BIP(self, bipName, activated_version, invalidate, invalidatePostSignature, bitno):
+        assert_equal(self.get_bip9_status(bipName)['status'], 'defined')
+        assert_equal(self.get_bip9_status(bipName)['since'], 0)
+
         # generate some coins for later
         self.coinbase_blocks = self.nodes[0].generate(2)
         self.height = 3  # height of the next block to build
@@ -91,6 +92,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         self.last_block_time = int(time.time())
 
         assert_equal(self.get_bip9_status(bipName)['status'], 'defined')
+        assert_equal(self.get_bip9_status(bipName)['since'], 0)
         tmpl = self.nodes[0].getblocktemplate({})
         assert(bipName not in tmpl['rules'])
         assert(bipName not in tmpl['vbavailable'])
@@ -103,6 +105,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         yield TestInstance(test_blocks, sync_every_block=False)
 
         assert_equal(self.get_bip9_status(bipName)['status'], 'started')
+        assert_equal(self.get_bip9_status(bipName)['since'], 144)
         tmpl = self.nodes[0].getblocktemplate({})
         assert(bipName not in tmpl['rules'])
         assert_equal(tmpl['vbavailable'][bipName], bitno)
@@ -119,6 +122,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         yield TestInstance(test_blocks, sync_every_block=False)
 
         assert_equal(self.get_bip9_status(bipName)['status'], 'started')
+        assert_equal(self.get_bip9_status(bipName)['since'], 144)
         tmpl = self.nodes[0].getblocktemplate({})
         assert(bipName not in tmpl['rules'])
         assert_equal(tmpl['vbavailable'][bipName], bitno)
@@ -135,6 +139,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         yield TestInstance(test_blocks, sync_every_block=False)
 
         assert_equal(self.get_bip9_status(bipName)['status'], 'locked_in')
+        assert_equal(self.get_bip9_status(bipName)['since'], 432)
         tmpl = self.nodes[0].getblocktemplate({})
         assert(bipName not in tmpl['rules'])
 
@@ -144,6 +149,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         yield TestInstance(test_blocks, sync_every_block=False)
 
         assert_equal(self.get_bip9_status(bipName)['status'], 'locked_in')
+        assert_equal(self.get_bip9_status(bipName)['since'], 432)
         tmpl = self.nodes[0].getblocktemplate({})
         assert(bipName not in tmpl['rules'])
 
@@ -169,6 +175,7 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         yield TestInstance([[block, True]])
 
         assert_equal(self.get_bip9_status(bipName)['status'], 'active')
+        assert_equal(self.get_bip9_status(bipName)['since'], 576)
         tmpl = self.nodes[0].getblocktemplate({})
         assert(bipName in tmpl['rules'])
         assert(bipName not in tmpl['vbavailable'])
@@ -195,11 +202,12 @@ class BIP9SoftForksTest(ComparisonTestFramework):
         yield TestInstance([[block, False]])
 
         # Restart all
+        self.test.block_store.close()
         stop_nodes(self.nodes)
-        wait_bitcoinds()
         shutil.rmtree(self.options.tmpdir)
         self.setup_chain()
         self.setup_network()
+        self.test.block_store = BlockStore(self.options.tmpdir)
         self.test.clear_all_connections()
         self.test.add_all_connections(self.nodes)
         NetworkThread().start() # Start up network handling in another thread

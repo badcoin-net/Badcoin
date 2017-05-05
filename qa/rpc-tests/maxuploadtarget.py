@@ -75,52 +75,24 @@ class TestNode(NodeConnCB):
         def received_pong():
             return (self.last_pong.nonce == self.ping_counter)
         self.connection.send_message(msg_ping(nonce=self.ping_counter))
-        success = wait_until(received_pong, timeout)
+        success = wait_until(received_pong, timeout=timeout)
         self.ping_counter += 1
         return success
 
 class MaxUploadTest(BitcoinTestFramework):
-    def __init__(self):
-        self.utxo = []
-        self.txouts = gen_return_txouts()
  
-    def add_options(self, parser):
-        parser.add_option("--testbinary", dest="testbinary",
-                          default=os.getenv("BITCOIND", "bitcoind"),
-                          help="bitcoind binary to test")
+    def __init__(self):
+        super().__init__()
+        self.setup_clean_chain = True
+        self.num_nodes = 1
 
-    def setup_chain(self):
-        initialize_chain_clean(self.options.tmpdir, 2)
+        # Cache for utxos, as the listunspent may take a long time later in the test
+        self.utxo_cache = []
 
     def setup_network(self):
         # Start a node with maxuploadtarget of 200 MB (/24h)
         self.nodes = []
-        self.nodes.append(start_node(0, self.options.tmpdir, ["-debug", "-maxuploadtarget=200", "-blockmaxsize=999000"]))
-
-    def mine_full_block(self, node, address):
-        # Want to create a full block
-        # We'll generate a 66k transaction below, and 14 of them is close to the 1MB block limit
-        for j in range(14):
-            if len(self.utxo) < 14:
-                self.utxo = node.listunspent()
-            inputs=[]
-            outputs = {}
-            t = self.utxo.pop()
-            inputs.append({ "txid" : t["txid"], "vout" : t["vout"]})
-            remchange = t["amount"] - Decimal("0.001000")
-            outputs[address]=remchange
-            # Create a basic transaction that will send change back to ourself after account for a fee
-            # And then insert the 128 generated transaction outs in the middle rawtx[92] is where the #
-            # of txouts is stored and is the only thing we overwrite from the original transaction
-            rawtx = node.createrawtransaction(inputs, outputs)
-            newtx = rawtx[0:92]
-            newtx = newtx + self.txouts
-            newtx = newtx + rawtx[94:]
-            # Appears to be ever so slightly faster to sign with SIGHASH_NONE
-            signresult = node.signrawtransaction(newtx,None,None,"NONE")
-            txid = node.sendrawtransaction(signresult["hex"], True)
-        # Mine a full sized block which will be these transactions we just created
-        node.generate(1)
+        self.nodes.append(start_node(0, self.options.tmpdir, ["-debug", "-maxuploadtarget=800", "-blockmaxsize=999000"]))
 
     def run_test(self):
         # Before we connect anything, we first set the time on the node
@@ -149,7 +121,7 @@ class MaxUploadTest(BitcoinTestFramework):
         # Test logic begins here
 
         # Now mine a big block
-        self.mine_full_block(self.nodes[0], self.nodes[0].getnewaddress())
+        mine_large_block(self.nodes[0], self.utxo_cache)
 
         # Store the hash; we'll request this later
         big_old_block = self.nodes[0].getbestblockhash()
@@ -160,11 +132,10 @@ class MaxUploadTest(BitcoinTestFramework):
         self.nodes[0].setmocktime(int(time.time()) - 2*60*60*24)
 
         # Mine one more block, so that the prior block looks old
-        self.mine_full_block(self.nodes[0], self.nodes[0].getnewaddress())
+        mine_large_block(self.nodes[0], self.utxo_cache)
 
         # We'll be requesting this new block too
         big_new_block = self.nodes[0].getbestblockhash()
-        new_block_size = self.nodes[0].getblock(big_new_block)['size']
         big_new_block = int(big_new_block, 16)
 
         # test_nodes[0] will test what happens if we just keep requesting the
@@ -173,13 +144,13 @@ class MaxUploadTest(BitcoinTestFramework):
         getdata_request = msg_getdata()
         getdata_request.inv.append(CInv(2, big_old_block))
 
-        max_bytes_per_day = 200*1024*1024
-        daily_buffer = 144 * MAX_BLOCK_SIZE
+        max_bytes_per_day = 800*1024*1024
+        daily_buffer = 144 * 4000000
         max_bytes_available = max_bytes_per_day - daily_buffer
         success_count = max_bytes_available // old_block_size
 
-        # 144MB will be reserved for relaying new blocks, so expect this to
-        # succeed for ~70 tries.
+        # 576MB will be reserved for relaying new blocks, so expect this to
+        # succeed for ~235 tries.
         for i in range(success_count):
             test_nodes[0].send_message(getdata_request)
             test_nodes[0].sync_with_ping()
@@ -196,9 +167,9 @@ class MaxUploadTest(BitcoinTestFramework):
 
         # Requesting the current block on test_nodes[1] should succeed indefinitely,
         # even when over the max upload target.
-        # We'll try 200 times
+        # We'll try 800 times
         getdata_request.inv = [CInv(2, big_new_block)]
-        for i in range(200):
+        for i in range(800):
             test_nodes[1].send_message(getdata_request)
             test_nodes[1].sync_with_ping()
             assert_equal(test_nodes[1].block_receive_map[big_new_block], i+1)

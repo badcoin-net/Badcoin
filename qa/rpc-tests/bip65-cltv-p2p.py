@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2015-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-
-from test_framework.test_framework import ComparisonTestFramework
-from test_framework.util import *
-from test_framework.mininode import CTransaction, NetworkThread
-from test_framework.blocktools import create_coinbase, create_block
-from test_framework.comptool import TestInstance, TestManager
-from test_framework.script import CScript, OP_1NEGATE, OP_CHECKLOCKTIMEVERIFY, OP_DROP
 
 from test_framework.test_framework import ComparisonTestFramework
 from test_framework.util import *
@@ -42,11 +37,12 @@ Mine 1 old version block, see that the node rejects.
 class BIP65Test(ComparisonTestFramework):
 
     def __init__(self):
+        super().__init__()
         self.num_nodes = 1
 
     def setup_network(self):
         # Must set the blockversion for this test
-        self.nodes = start_nodes(1, self.options.tmpdir,
+        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir,
                                  extra_args=[['-debug', '-whitelist=127.0.0.1', '-blockversion=3']],
                                  binary=[self.options.testbinary])
 
@@ -73,11 +69,11 @@ class BIP65Test(ComparisonTestFramework):
         height = 3  # height of the next block to build
         self.tip = int("0x" + self.nodes[0].getbestblockhash(), 0)
         self.nodeaddress = self.nodes[0].getnewaddress()
-        self.last_block_time = time.time()
+        self.last_block_time = int(time.time())
 
-        ''' 98 more version 3 blocks '''
+        ''' 398 more version 3 blocks '''
         test_blocks = []
-        for i in range(98):
+        for i in range(398):
             block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
             block.nVersion = 3
             block.rehash()
@@ -126,24 +122,6 @@ class BIP65Test(ComparisonTestFramework):
         height += 1
         yield TestInstance([[block, True]])
 
-        '''
-        Check that the new CLTV rules are enforced in the 751st version 4
-        block.
-        '''
-        spendtx = self.create_transaction(self.nodes[0],
-                self.coinbase_blocks[1], self.nodeaddress, 1.0)
-        cltv_invalidate(spendtx)
-        spendtx.rehash()
-
-        block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
-        block.nVersion = 4
-        block.vtx.append(spendtx)
-        block.hashMerkleRoot = block.calc_merkle_root()
-        block.rehash()
-        block.solve()
-        self.last_block_time += 1
-        yield TestInstance([[block, False]])
-
         ''' Mine 199 new version blocks on last valid tip '''
         test_blocks = []
         for i in range(199):
@@ -173,6 +151,24 @@ class BIP65Test(ComparisonTestFramework):
         self.last_block_time += 1
         self.tip = block.sha256
         yield TestInstance([[block, True]])
+
+        '''
+        Check that the new CLTV rules are enforced in the 951st version 4
+        block.
+        '''
+        spendtx = self.create_transaction(self.nodes[0],
+                self.coinbase_blocks[1], self.nodeaddress, 1.0)
+        cltv_invalidate(spendtx)
+        spendtx.rehash()
+
+        block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)
+        block.nVersion = 4
+        block.vtx.append(spendtx)
+        block.hashMerkleRoot = block.calc_merkle_root()
+        block.rehash()
+        block.solve()
+        self.last_block_time += 1
+        yield TestInstance([[block, False]])
 
         ''' Mine 1 old version block, should be invalid '''
         block = create_block(self.tip, create_coinbase(height), self.last_block_time + 1)

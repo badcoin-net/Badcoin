@@ -11,6 +11,10 @@ from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import *
 
 class BIP65Test(BitcoinTestFramework):
+    def __init__(self):
+        super().__init__()
+        self.num_nodes = 3
+        self.setup_clean_chain = False
 
     def setup_network(self):
         self.nodes = []
@@ -26,7 +30,8 @@ class BIP65Test(BitcoinTestFramework):
         cnt = self.nodes[0].getblockcount()
 
         # Mine some old-version blocks
-        self.nodes[1].generate(100)
+        self.nodes[1].generate(200)
+        cnt += 100
         self.sync_all()
         if (self.nodes[0].getblockcount() != cnt + 100):
             raise AssertionError("Failed to mine 100 version=3 blocks")
