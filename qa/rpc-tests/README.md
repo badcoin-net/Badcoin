@@ -10,7 +10,6 @@ Base class for new regression tests.
 ### [test_framework/util.py](test_framework/util.py)
 Generally useful functions.
 
-=======
 ### [test_framework/mininode.py](test_framework/mininode.py)
 Basic code to support p2p connectivity to a bitcoind.
 

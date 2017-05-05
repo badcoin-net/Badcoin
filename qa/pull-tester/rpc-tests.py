@@ -132,7 +132,6 @@ testScripts = [
     'rest.py',
     'mempool_spendcoinbase.py',
     'mempool_reorg.py',
-    'mempool_limit.py',
     'httpbasics.py',
     'multi_rpc.py',
     'proxy_test.py',
@@ -178,7 +177,6 @@ testScriptsExt = [
     # vv Tests less than 30s vv
     'bip65-cltv.py',
     'bip65-cltv-p2p.py',
-    'bip68-sequence.py',
     'bipdersig-p2p.py',
     'bipdersig.py',
     'getblocktemplate_proposals.py',

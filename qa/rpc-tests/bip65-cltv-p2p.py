@@ -110,15 +110,11 @@ class BIP65Test(ComparisonTestFramework):
         block.nVersion = 4
         block.vtx.append(spendtx)
         block.hashMerkleRoot = block.calc_merkle_root()
-        block.nVersion = 4
-        block.vtx.append(spendtx)
-        block.hashMerkleRoot = block.calc_merkle_root()
         block.rehash()
         block.solve()
 
         self.last_block_time += 1
         self.tip = block.sha256
-        height += 1
         height += 1
         yield TestInstance([[block, True]])
 
@@ -132,6 +128,7 @@ class BIP65Test(ComparisonTestFramework):
             test_blocks.append([block, True])
             self.last_block_time += 1
             self.tip = block.sha256
+            height += 1
         yield TestInstance(test_blocks, sync_every_block=False)
 
         ''' Mine 1 old version block '''
@@ -141,6 +138,7 @@ class BIP65Test(ComparisonTestFramework):
         block.solve()
         self.last_block_time += 1
         self.tip = block.sha256
+        height += 1
         yield TestInstance([[block, True]])
 
         ''' Mine 1 new version block '''
@@ -150,6 +148,7 @@ class BIP65Test(ComparisonTestFramework):
         block.solve()
         self.last_block_time += 1
         self.tip = block.sha256
+        height += 1
         yield TestInstance([[block, True]])
 
         '''
