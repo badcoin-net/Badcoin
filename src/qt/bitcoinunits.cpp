@@ -20,8 +20,8 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
     unitlist.append(BTC);
     unitlist.append(kBTC);
     unitlist.append(MBTC);
-    //unitlist.append(mBTC);
-    //unitlist.append(uBTC);
+    unitlist.append(mBTC);
+    unitlist.append(uBTC);
     return unitlist;
 }
 
@@ -58,11 +58,11 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case MBTC: return QString("Mega-Myriad (1,000,000)");
-    case kBTC: return QString("Kilo-Myriad (1,000)");
-    case BTC: return QString("Myriad");
-    case mBTC: return QString("Milli-Myriad (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Micro-Myriad (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case MBTC: return QString("Mega-Myriadcoins (1,000,000)");
+    case kBTC: return QString("Kilo-Myriadcoins (1,000)");
+    case BTC: return QString("Myriadcoins");
+    case mBTC: return QString("Milli-Myriadcoins (1 / 1" THIN_SP_UTF8 "000)");
+    case uBTC: return QString("Micro-Myriadcoins (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }

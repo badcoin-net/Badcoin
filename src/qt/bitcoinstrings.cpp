@@ -15,9 +15,6 @@ QT_TRANSLATE_NOOP("bitcoin-core", ""
 "(1 = keep tx meta data e.g. account owner and payment request information, 2 "
 "= drop tx meta data)"),
 QT_TRANSLATE_NOOP("bitcoin-core", ""
-"-fallbackfee is set very high! This is the transaction fee you may pay when "
-"fee estimates are not available."),
-QT_TRANSLATE_NOOP("bitcoin-core", ""
 "-maxtxfee is set very high! Fees this large could be paid on a single "
 "transaction."),
 QT_TRANSLATE_NOOP("bitcoin-core", ""
@@ -26,12 +23,6 @@ QT_TRANSLATE_NOOP("bitcoin-core", ""
 QT_TRANSLATE_NOOP("bitcoin-core", ""
 "Accept connections from outside (default: 1 if no -proxy or -connect/-"
 "noconnect)"),
-QT_TRANSLATE_NOOP("bitcoin-core", ""
-"Accept relayed transactions received from whitelisted peers even when not "
-"relaying transactions (default: %d)"),
-QT_TRANSLATE_NOOP("bitcoin-core", ""
-"A fee rate (in %s/kB) that will be used when fee estimation has insufficient "
-"data (default: %s)"),
 QT_TRANSLATE_NOOP("bitcoin-core", ""
 "Accept relayed transactions received from whitelisted peers even when not "
 "relaying transactions (default: %d)"),
@@ -320,7 +311,6 @@ QT_TRANSLATE_NOOP("bitcoin-core", "Maintain at most <n> connections to peers (de
 QT_TRANSLATE_NOOP("bitcoin-core", "Make the wallet broadcast transactions"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Maximum per-connection receive buffer, <n>*1000 bytes (default: %u)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Maximum per-connection send buffer, <n>*1000 bytes (default: %u)"),
-QT_TRANSLATE_NOOP("bitcoin-core", "Minimum bytes per sigop in transactions we relay and mine (default: %u)"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Need to specify a port with -whitebind: '%s'"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Node relay options:"),
 QT_TRANSLATE_NOOP("bitcoin-core", "Not enough file descriptors available."),
