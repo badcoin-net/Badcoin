@@ -13,11 +13,8 @@
 * mempool.dat: dump of the mempool's transactions; since 0.14.0.
 * peers.dat: peer IP address database (custom format); since 0.7.0
 * wallet.dat: personal wallet (BDB) with keys and transactions
-<<<<<<< HEAD
-=======
 * .cookie: session RPC authentication cookie (written at start when cookie authentication is used, deleted on shutdown): since 0.12.0
 * onion_private_key: cached Tor hidden service private key for `-listenonion`: since 0.12.0
->>>>>>> c1b7421781b7a53485c6db4a6005a80e32267c9f
 
 Only used in pre-0.8.0
 ---------------------
