@@ -17,9 +17,6 @@ static const int INIT_PROTO_VERSION = 209;
 //! In this version, 'getheaders' was introduced.
 static const int GETHEADERS_VERSION = 31800;
 
-//! AUX-POW on SHA256D and Scrypt algorithim starts with this version
-static const int AUX_POW_SHA_SCRYPT_VERSION = 70003;
-
 //! Switch algo Qubit to Yescrypt starts with this version
 static const int QUBIT_TO_YESCRYPT_VERSION = 70004;
 
@@ -35,6 +32,9 @@ static const int BIP0031_VERSION = 60000;
 
 //! "mempool" command, enhanced "getdata" behavior starts with this version
 static const int MEMPOOL_GD_VERSION = 60002;
+
+//! AUX-POW on SHA256D and Scrypt algorithim starts with this version
+static const int AUX_POW_SHA_SCRYPT_VERSION = 70003;
 
 //! "filter*" commands are disabled without NODE_BLOOM after and including this version
 static const int NO_BLOOM_VERSION = 70011;

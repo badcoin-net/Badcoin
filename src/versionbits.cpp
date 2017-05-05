@@ -167,6 +167,11 @@ ThresholdState VersionBitsState(const CBlockIndex* pindexPrev, const Consensus::
     return VersionBitsConditionChecker(pos).GetStateFor(pindexPrev, params, cache.caches[pos]);
 }
 
+int VersionBitsStateSinceHeight(const CBlockIndex* pindexPrev, const Consensus::Params& params, Consensus::DeploymentPos pos, VersionBitsCache& cache)
+{
+    return VersionBitsConditionChecker(pos).GetStateSinceHeightFor(pindexPrev, params, cache.caches[pos]);
+}
+
 uint32_t VersionBitsMask(const Consensus::Params& params, Consensus::DeploymentPos pos)
 {
     return VersionBitsConditionChecker(pos).Mask(params);

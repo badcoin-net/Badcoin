@@ -819,7 +819,4 @@ public:
 /** Return a timestamp in the future (in microseconds) for exponentially distributed events. */
 int64_t PoissonNextSend(int64_t nNow, int average_interval_seconds);
 
-/** Return a timestamp in the future (in microseconds) for exponentially distributed events. */
-int64_t PoissonNextSend(int64_t nNow, int average_interval_seconds);
-
 #endif // BITCOIN_NET_H

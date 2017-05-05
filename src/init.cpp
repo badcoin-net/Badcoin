@@ -794,21 +794,6 @@ void InitParameterInteraction()
     else
         miningAlgo = ALGO_SHA256D;
     
-    // disable walletbroadcast and whitelistrelay in blocksonly mode
-    if (GetBoolArg("-blocksonly", DEFAULT_BLOCKSONLY)) {
-        if (SoftSetBoolArg("-whitelistrelay", false))
-            LogPrintf("%s: parameter interaction: -blocksonly=1 -> setting -whitelistrelay=0\n", __func__);
-#ifdef ENABLE_WALLET
-        if (SoftSetBoolArg("-walletbroadcast", false))
-            LogPrintf("%s: parameter interaction: -blocksonly=1 -> setting -walletbroadcast=0\n", __func__);
-#endif
-    }
-
-    // Forcing relay from whitelisted hosts implies we will accept relays from them in the first place.
-    if (GetBoolArg("-whitelistforcerelay", DEFAULT_WHITELISTFORCERELAY)) {
-        if (SoftSetBoolArg("-whitelistrelay", true))
-            LogPrintf("%s: parameter interaction: -whitelistforcerelay=1 -> setting -whitelistrelay=1\n", __func__);
-    }
 }
 
 static std::string ResolveErrMsg(const char * const optname, const std::string& strBind)
