@@ -1,82 +1,56 @@
-Myriad Core integration/staging tree
-========================================
+Myriadcoin Core integration/staging tree
+=====================================
+
+[![Build Status](https://travis-ci.org/myriadteam/myriadcoin.svg?branch=master)](https://travis-ci.org/myriadteam/myriadcoin)
 
 http://www.myriadcoin.org
 
-Copyright (c) 2009-2017 Bitcoin Core Developers
-Copyright (c) 2014-2017 Myriad Core Developers
+What is Myriadcoin?
+----------------
 
-Myriad is an experimental digital currency that enables instant payments to
-anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
+Myriadcoin is an experimental digital currency that enables instant payments to
+anyone, anywhere in the world. Myriadcoin uses peer-to-peer technology to operate
 with no central authority: managing transactions and issuing money are carried
-out collectively by the network. Myriad Core is the name of open source
+out collectively by the network. Myriadcoin Core is the name of open source
 software which enables the use of this currency.
 
-For more information, as well as an immediately useable, binary version of
-the Myriad Core software, see http://www.myriadcoin.org, or read the
-[original bitcoin whitepaper](https://bitcoincore.org/bitcoin.pdf).
+For more information, as well as an immediately usable, binary version of
+the Myriadcoin Core software, see http://www.myriadcoin.org, or read the
+[original Bitcoin whitepaper](https://bitcoincore.org/bitcoin.pdf).
+
+Myriadcoin is different in that it pioneered the use of multiple independent POW 
+algorithms on the on the same chain.
 
 License
 -------
 
-Myriad Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
-information or see https://opensource.org/licenses/MIT.
+Myriadcoin is a fork of Bitcoin Core and inherits the terms of the MIT license. See 
+[COPYING](COPYING) for more information or see https://opensource.org/licenses/MIT.
 
-Building
---------
+Development Process
+-------------------
 
-See files in the [doc](doc) directory for generic build instructions for Windows,
-OSX and Unix. Basic requirements:
+The `master` branch is occasionally built and tested, but is not guaranteed to be
+completely stable. [Tags](https://github.com/myriadteam/myriadcoin/tags) are created
+regularly to indicate new official, stable release versions of Myriadcoin Core.
 
-* GCC and binuntils
-* Git
-* Boost C++ libraries
-* Berkeley DB - Should be version 4.8, newer versions are known to work but not guaranteed
-* libssl (part of openssl)
-* [miniupnpc](http://miniupnp.free.fr/) for optional UPNP support
+The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Requirements to build the GUI:
+The developer [subreddit](https://www.reddit.com/r/myriadcoin)
+should be used to discuss complicated or controversial changes before working
+on a patch set.
 
-* QT4 or QT5 development libraries
-* protobuf development libraries
-* libqrencode development libraries
+Developer IRC can be found on Freenode at ##myriadcoin.
 
-A common question is how to build from Ubuntu, instructions follow:
+Testing
+-------
 
-1. sudo add-apt-repository ppa:bitcoin/bitcoin -y
-2. sudo apt-get update
-3. sudo apt-get install build-essential curl git libminiupnpc-dev libssl-dev m4 -y
-4. sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
-5. sudo apt-get install libprotoc-dev libprotobuf-dev -y
-6. sudo apt-get install libtool automake autoconf make pkg-config -y
-7. sudo apt-get install libpng-dev -y
-8. sudo apt-get install libqrencode-dev -y
-9. sudo apt-get install libqt4-dev -y
-10. sudo apt-get install libboost-all-dev -y
-11. sudo apt-get install libcurl4-openssl-dev -y
-12. git clone git://github.com/myriadteam/myriadcoin.git
-13. cd myriadcoin
-14. ./autogen.sh
-15. ./configure
-16. make
+Testing and code review is the bottleneck for development; we get more pull
+requests than we can review and test on short notice. Please be patient and help out by testing
+other people's pull requests, and remember this is a security-critical project where any mistake might cost people
+lots of money.
 
-Other Build Notes:
-
-If you are compiling yourself, please configure with something like this:
-```
-CFLAGS="-O2 -fPIC" CPPFLAGS="-O2 -fPIC" ./configure
-```
-otherwise you'll probably get some errors later on. Additionally, if your CPU supports SSE2, and most modern CPU's do, use this:
-```
-CFLAGS="-O2 -fPIC -DUSE_SSE2" CPPFLAGS="-O2 -fPIC -DUSE_SSE2" ./configure
-```
-That will enable the SSE2 version of the Scrypt algorithm. This may reduce the CPU load when syncing the blockchain.
-
-
-Development tips and tricks
----------------------------
-
-**compiling for debugging**
+### Automated Testing
 
 Developers are strongly encouraged to write [unit tests](src/test/README.md) for new code, and to
 submit new unit tests for old code. Unit tests can be compiled and run
@@ -89,24 +63,23 @@ These tests can be run (if the [test dependencies](/qa) are installed) with: `qa
 
 The Travis CI system makes sure that every pull request is built for Windows, Linux, and OS X, and that unit/sanity tests are run automatically.
 
-The -debug=... command-line option controls debugging; running with just -debug will turn
-on all categories (and give you a very large debug.log file).
+### Manual Quality Assurance (QA) Testing
 
-The Qt code routes qDebug() output to debug.log under category "qt": run with -debug=qt
-to see it.
+Changes should be tested by somebody other than the developer who wrote the
+code. This is especially important for large or high-risk changes. It is useful
+to add a test plan to the pull request description if testing the changes is
+not straightforward.
 
-**testnet and regtest modes**
+Translations
+------------
 
-Run with the -testnet option to run with "play myriad" on the test network, if you
-are testing multi-machine code that needs to operate across the internet.
+Changes to translations as well as new translations can be submitted to
+[Myriadcoin Core's Transifex page](https://www.transifex.com/projects/p/myriadcoin/).
 
-If you are testing something that can run on one machine, run with the -regtest option.
-In regression test mode blocks can be created on-demand; see qa/rpc-tests/ for tests
-that run in -regest mode.
+Translations are periodically pulled from Transifex and merged into the git repository. See the
+[translation process](doc/translation_process.md) for details on how this works.
 
-**DEBUG_LOCKORDER**
+**Important**: We do not accept translation changes as GitHub pull requests because the next
+pull from Transifex would automatically overwrite them again.
 
-Myriad Core is a multithreaded application, and deadlocks or other multithreading bugs
-can be very difficult to track down. Compiling with -DDEBUG_LOCKORDER (configure
-CXXFLAGS="-DDEBUG_LOCKORDER -g") inserts run-time checks to keep track of what locks
-are held, and adds warning to the debug.log file if inconsistencies are detected.
+Translators should also visit the [myriadcoin subreddit](https://www.reddit.com/r/myriadcoin).
