@@ -62,7 +62,7 @@ struct Params {
     bool fPowNoRetargeting;
     int64_t nPowTargetSpacing;
     int64_t nPowTargetTimespan;
-    int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacing; }
+    int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacingV1; }
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
     int64_t nAveragingInterval;
@@ -85,8 +85,6 @@ struct Params {
     int64_t nBlockAlgoNormalisedWorkDecayStart2;
     int64_t nGeoAvgWork_Start;
     int64_t nFork1MinBlock;
-    
-    int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacingV1; }
     
     /** Auxpow parameters */
     int16_t nAuxpowChainId;
