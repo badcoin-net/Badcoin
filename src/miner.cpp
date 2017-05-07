@@ -132,7 +132,7 @@ void BlockAssembler::resetBlock()
     blockFinished = false;
 }
 
-std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn, bool fMineWitnessTx)
+std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& scriptPubKeyIn, int algo, bool fMineWitnessTx)
 {
     int64_t nTimeStart = GetTimeMicros();
 
@@ -625,74 +625,6 @@ void BlockAssembler::addPriorityTxs()
                     std::push_heap(vecPriority.begin(), vecPriority.end(), pricomparer);
                     waitPriMap.erase(wpiter);
                 }
-                if (!fvNodesEmpty && !IsInitialBlockDownload())
-                    break;
-                MilliSleep(1000);
-            } while (true);
-        }
-
-        //
-        // Create new block
-        //
-        unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
-        CBlockIndex* pindexPrev = chainActive.Tip();
-
-        auto_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, algo));
-        if (!pblocktemplate.get())
-        {
-            LogPrintf("Error in MyriadMiner[Generic]: Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
-            return;
-        }
-        CBlock *pblock = &pblocktemplate->block;
-        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
-
-        LogPrintf("Running MyriadMiner[Generic] with %u transactions in block (%u bytes)\n",
-               pblock->vtx.size(),
-               ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
-
-        //
-        // Search
-        //
-        int64_t nStart = GetTime();
-        arith_uint256 hashTarget = arith_uint256().SetCompact(pblock->nBits);
-        LogPrintf("MyriadMiner[Generic] target hash: %s\n", hashTarget.GetHex());
-        uint256 hash;
-        while(true)
-        {
-            hash = pblock->GetPoWHash(algo);
-            if (UintToArith256(hash) <= hashTarget){
-                SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                LogPrintf("MyriadMiner[Generic]:\n");
-                LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
-                ProcessBlockFound(pblock, *pwallet, reservekey);
-                SetThreadPriority(THREAD_PRIORITY_LOWEST);
-                
-                // In regression test mode, stop mining after a block is found.
-                if (chainparams.MineBlocksOnDemand())
-                    throw boost::thread_interrupted();
-                
-                break;
-            }
-            ++pblock->nNonce;
-
-            // Check for stop or if block needs to be rebuilt
-            boost::this_thread::interruption_point();
-            // Regtest mode doesn't require peers
-            if (vNodes.empty() && chainparams.MiningRequiresPeers())
-                break;
-            if (pblock->nNonce >= 0xffff0000)
-                break;
-            if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 60)
-                break;
-            if (pindexPrev != chainActive.Tip())
-                break;
-
-            // Update nTime every few seconds
-            UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev);
-            if (chainparams.GetConsensus().fPowAllowMinDifficultyBlocks)
-            {
-                // Changing pblock->nTime can change work required on testnet:
-                hashTarget.SetCompact(pblock->nBits);
             }
         }
     }

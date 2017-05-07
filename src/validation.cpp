@@ -599,14 +599,6 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
     if (fRequireStandard && !IsStandardTx(tx, reason, witnessEnabled))
         return state.DoS(0, false, REJECT_NONSTANDARD, reason);
 
-    // Don't relay version 2 transactions until CSV is active, and we can be
-    // sure that such transactions will be mined (unless we're on
-    // -testnet/-regtest).
-    const CChainParams& chainparams = Params();
-    if (fRequireStandard && tx.nVersion >= 2 && VersionBitsTipState(chainparams.GetConsensus(), Consensus::DEPLOYMENT_CSV) != THRESHOLD_ACTIVE) {
-        return state.DoS(0, false, REJECT_NONSTANDARD, "premature-version2-tx");
-    }
-
     // Only accept nLockTime-using transactions that can be mined in the next
     // block; we don't want our mempool filled up with transactions that can't
     // be mined yet.
@@ -1156,7 +1148,7 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
     }
 
     // AuxPow: We don't necessarily have block height, so we depend on using the base parameters
-    if (!CheckAuxPowProofOfWork(block, Params().GetConsensus()))
+    if (!CheckAuxPowProofOfWork(block, consensusParams))
         return error("ReadBlockFromDisk (AuxPow): Errors in block header at %s", pos.ToString());
 
     // Check the header
@@ -1175,6 +1167,7 @@ static bool ReadBlockOrHeader(T& block, const CBlockIndex* pindex)
         return error("ReadBlockOrHeader(CBlock&, CBlockIndex*): GetHash() doesn't match index for %s at %s",
                 pindex->ToString(), pindex->GetBlockPos().ToString());
     return true;
+}
 
 bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus::Params& consensusParams)
 {
@@ -1207,12 +1200,13 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     // Force block reward to zero when right shift is undefined.
     // if (halvings >= 64)
         // return 0;
+    // Tail Emission
+    if(nSubsidy < 1 * COIN)
+        nSubsidy = 1 * COIN;
 
     CAmount nSubsidy = 1000 * COIN;
     // Subsidy is cut in half every 967680 blocks.
     nSubsidy >>= halvings;
-    if(nSubsidy < 1 * COIN)
-        nSubsidy = 1 * COIN;
     return nSubsidy;
 }
 
@@ -1768,48 +1762,6 @@ public:
 static ThresholdConditionCache warningcache[VERSIONBITS_NUM_BITS];
 
 // Protected by cs_main
-VersionBitsCache versionbitscache;
-
-int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Params& params)
-{
-    LOCK(cs_main);
-    int32_t nVersion = VERSIONBITS_TOP_BITS;
-
-    for (int i = 0; i < (int)Consensus::MAX_VERSION_BITS_DEPLOYMENTS; i++) {
-        ThresholdState state = VersionBitsState(pindexPrev, params, (Consensus::DeploymentPos)i, versionbitscache);
-        if (state == THRESHOLD_LOCKED_IN || state == THRESHOLD_STARTED) {
-            nVersion |= VersionBitsMask(params, (Consensus::DeploymentPos)i);
-        }
-    }
-
-    return nVersion;
-}
-
-/**
- * Threshold condition checker that triggers when unknown versionbits are seen on the network.
- */
-class WarningBitsConditionChecker : public AbstractThresholdConditionChecker
-{
-private:
-    int bit;
-
-public:
-    WarningBitsConditionChecker(int bitIn) : bit(bitIn) {}
-
-    int64_t BeginTime(const Consensus::Params& params) const { return 0; }
-    int64_t EndTime(const Consensus::Params& params) const { return std::numeric_limits<int64_t>::max(); }
-    int Period(const Consensus::Params& params) const { return params.nMinerConfirmationWindow; }
-    int Threshold(const Consensus::Params& params) const { return params.nRuleChangeActivationThreshold; }
-
-    bool Condition(const CBlockIndex* pindex, const Consensus::Params& params) const
-    {
-        return ((pindex->nVersion & VERSIONBITS_TOP_MASK) == VERSIONBITS_TOP_BITS) &&
-               ((pindex->nVersion >> bit) & 1) != 0 &&
-               ((ComputeBlockVersion(pindex->pprev, params) >> bit) & 1) == 0;
-    }
-};
-
-// Protected by cs_main
 static ThresholdConditionCache warningcache[VERSIONBITS_NUM_BITS];
 
 static int64_t nTimeCheck = 0;
@@ -1898,14 +1850,15 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     //Only continue to enforce if we're below BIP34 activation height or the block hash at that height doesn't correspond.
     fEnforceBIP30 = fEnforceBIP30 && (!pindexBIP34height || !(pindexBIP34height->GetBlockHash() == chainparams.GetConsensus().BIP34Hash));
 
-    if (fEnforceBIP30) {
+    // Always enforce BIP30
+    // if (fEnforceBIP30) {
         for (const auto& tx : block.vtx) {
             const CCoins* coins = view.AccessCoins(tx->GetHash());
             if (coins && !coins->IsPruned())
                 return state.DoS(100, error("ConnectBlock(): tried to overwrite transaction"),
                                  REJECT_INVALID, "bad-txns-BIP30");
         }
-    //}
+    // }
 
     // BIP16 didn't become active until Apr 1 2012
     // Always enforce BIP16
@@ -2923,18 +2876,17 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW)
 {
     // Check proof of work matches claimed amount
+    //if (fCheckPOW && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
+    //    return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed");
 
     // We don't have block height as this is called without context (i.e. without
     // knowing the previous block), but that's okay, as the checks done are permissive
     // (i.e. doesn't check work limit or whether AuxPoW is enabled)
     //LogPrintf("Version is %d for block %s \n", block.nVersion.GetFullVersion(), block.GetHash().ToString());
 
-    //if (fCheckPOW && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
-    //    return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed");
-
     if(block.nVersion.IsAuxpow())
     {
-        if (fCheckPOW && !CheckAuxPowProofOfWork(block, Params().GetConsensus()))        
+        if (fCheckPOW && !CheckAuxPowProofOfWork(block, consensusParams))        
             return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "AUX-POW proof of work failed");
     }
     else
@@ -3016,14 +2968,6 @@ static bool CheckIndexAgainstCheckpoint(const CBlockIndex* pindexPrev, CValidati
         return true;
 
     int nHeight = pindexPrev->nHeight+1;
-    int algo = GetAlgo(block.nVersion.GetFullVersion());
-
-    // Disallow AuxPow blocks before it is activated.
-    if (nHeight < consensusParams.nStartAuxPow && block.nVersion.IsAuxpow())
-        return state.DoS(100, error("%s : auxpow blocks are not allowed at height %d, parameters effective from %d",
-                                    __func__, pindexPrev->nHeight + 1, consensusParams.nStartAuxPow),
-                         REJECT_INVALID, "early-auxpow-block");
-
     // Don't accept any forks from the main chain prior to last checkpoint
     CBlockIndex* pcheckpoint = Checkpoints::GetLastCheckpoint(chainparams.Checkpoints());
     if (pcheckpoint && nHeight < pcheckpoint->nHeight)
@@ -3097,13 +3041,22 @@ std::vector<unsigned char> GenerateCoinbaseCommitment(CBlock& block, const CBloc
 bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev, int64_t nAdjustedTime)
 {
     const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
+    int algo = GetAlgo(block.nVersion.GetFullVersion());
+    // Disallow AuxPow blocks before it is activated.
+    if (nHeight < consensusParams.nStartAuxPow && block.nVersion.IsAuxpow())
+        return state.DoS(100, false, REJECT_INVALID, "early-auxpow-block","auxpow blocks are not allowed at this height");
+
     // Check proof of work
-    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams, algo))
         return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 
     // Check timestamp against prev
     if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
         return state.Invalid(false, REJECT_INVALID, "time-too-old", "block's timestamp is too early");
+
+    // Check timestamp
+    if (block.GetBlockTime() > nAdjustedTime + 2 * 60 * 60)
+        return state.Invalid(false, REJECT_INVALID, "time-too-new", "block timestamp too far in the future");
 
     // Check for algo switch 1
     // Active when fork block reached
@@ -3111,19 +3064,13 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     if (bAlgoSwitch1)
     {
         if (algo == ALGO_QUBIT)
-            return state.Invalid(error("%s: invalid QUBIT block", __func__),
-                                 REJECT_INVALID, "invalid-algo");
+            return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid QUBIT block");
     }
     else
     {
         if (algo == ALGO_YESCRYPT)
-            return state.Invalid(error("%s: invalid YESCRYPT block", __func__),
-                                 REJECT_INVALID, "invalid-algo");
+            return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid YESCRYPT block");
     }
-
-    // Check timestamp
-    if (block.GetBlockTime() > nAdjustedTime + 2 * 60 * 60)
-        return state.Invalid(false, REJECT_INVALID, "time-too-new", "block timestamp too far in the future");
 
     // Reject outdated version blocks when 95% (75% on testnet) of the network has upgraded:
     // check for version 2, 3 and 4 upgrades
@@ -3133,27 +3080,12 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
             return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
                                  strprintf("rejected nVersion=0x%08x block", block.nVersion));
 
-    // Reject block.nVersion=3 blocks when 95% (75% on testnet) of the network has upgraded:
-    if (block.nVersion < 4 && IsSuperMajority(4, pindexPrev, consensusParams.nMajorityRejectBlockOutdated, consensusParams))
-        return state.Invalid(error("%s : rejected nVersion=3 block", __func__),
-                             REJECT_OBSOLETE, "bad-version");
-
     return true;
 }
 
 bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     const int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
-
-    // Start enforcing BIP113 (Median Time Past) using versionbits logic.
-    int nLockTimeFlags = 0;
-    if (VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_CSV, versionbitscache) == THRESHOLD_ACTIVE) {
-        nLockTimeFlags |= LOCKTIME_MEDIAN_TIME_PAST;
-    }
-
-    int64_t nLockTimeCutoff = (nLockTimeFlags & LOCKTIME_MEDIAN_TIME_PAST)
-                              ? pindexPrev->GetMedianTimePast()
-                              : block.GetBlockTime();
 
     // Start enforcing BIP113 (Median Time Past) using versionbits logic.
     int nLockTimeFlags = 0;
@@ -3234,8 +3166,6 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
 
 static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, const CChainParams& chainparams, CBlockIndex** ppindex)
 {
-    const CChainParams& chainparams = Params();
-    
     AssertLockHeld(cs_main);
     // Check for duplicate
     uint256 hash = block.GetHash();
@@ -3264,9 +3194,16 @@ static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state
         pindexPrev = (*mi).second;
         if (pindexPrev->nStatus & BLOCK_FAILED_MASK)
             return state.DoS(100, error("%s: prev block invalid", __func__), REJECT_INVALID, "bad-prevblk");
+
+        assert(pindexPrev);
+        if (fCheckpointsEnabled && !CheckIndexAgainstCheckpoint(pindexPrev, state, chainparams, hash))
+            return error("%s: CheckIndexAgainstCheckpoint(): %s", __func__, state.GetRejectReason().c_str());
+
+        if (!ContextualCheckBlockHeader(block, state, chainparams.GetConsensus(), pindexPrev, GetAdjustedTime()))
+            return error("%s: Consensus::ContextualCheckBlockHeader: %s, %s", __func__, hash.ToString(), FormatStateMessage(state));
         
-        int nHeight = pindexPrev->nHeight+1;
         // Check count of sequence of same algo
+        int nHeight = pindexPrev->nHeight+1;
         if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart1)
         {
             int nAlgo = block.GetAlgo();
@@ -3300,14 +3237,6 @@ static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state
                 return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
             }
         }
-    }
-
-        assert(pindexPrev);
-        if (fCheckpointsEnabled && !CheckIndexAgainstCheckpoint(pindexPrev, state, chainparams, hash))
-            return error("%s: CheckIndexAgainstCheckpoint(): %s", __func__, state.GetRejectReason().c_str());
-
-        if (!ContextualCheckBlockHeader(block, state, chainparams.GetConsensus(), pindexPrev, GetAdjustedTime()))
-            return error("%s: Consensus::ContextualCheckBlockHeader: %s, %s", __func__, hash.ToString(), FormatStateMessage(state));
     }
     if (pindex == NULL)
         pindex = AddToBlockIndex(block);

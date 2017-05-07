@@ -326,6 +326,12 @@ std::string gbt_vb_name(const Consensus::DeploymentPos pos) {
     const struct BIP9DeploymentInfo& vbinfo = VersionBitsDeploymentInfo[pos];
     std::string s = vbinfo.name;
     if (!vbinfo.gbt_force) {
+        s.insert(s.begin(), '!');
+    }
+    return s;
+}
+
+UniValue getblocktemplate(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() > 1)
         throw runtime_error(
@@ -557,7 +563,7 @@ std::string gbt_vb_name(const Consensus::DeploymentPos pos) {
 
         // Create new block
         CScript scriptDummy = CScript() << OP_TRUE;
-        pblocktemplate = BlockAssembler(Params(), miningAlgo).CreateNewBlock(scriptDummy, fSupportsSegwit);
+        pblocktemplate = BlockAssembler(Params()).CreateNewBlock(scriptDummy, miningAlgo, fSupportsSegwit);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
 

@@ -26,7 +26,7 @@ void CBlockHeader::SetAuxpow (CAuxPow* apow)
 std::string CBlock::ToString() const
 {
     std::stringstream s;
-    s << strprintf("CBlock(hash=%s, ver=0x%08x, pow_algo=%d, pow_hash=%s, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%u)\n",
+    s << strprintf("CBlock(hash=%s, ver=%d, pow_algo=%d, pow_hash=%s, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%u)\n",
         GetHash().ToString(),
         nVersion.GetFullVersion(),
         GetAlgo(),
