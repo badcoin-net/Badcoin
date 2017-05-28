@@ -124,6 +124,7 @@ public:
         vSeeds.push_back(CDNSSeedData("seed6.myriadcoin.org", "seed6.myriadcoin.org"));
         vSeeds.push_back(CDNSSeedData("seed7.myriadcoin.org", "seed7.myriadcoin.org"));
         vSeeds.push_back(CDNSSeedData("seed8.myriadcoin.org", "seed8.myriadcoin.org"));
+        vSeeds.push_back(CDNSSeedData("myriadseed1.cryptap.us", "myriadseed1.cryptap.us"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,50);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,9);
