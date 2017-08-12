@@ -15,7 +15,7 @@ void CBlockHeader::SetAuxpow (CAuxPow* apow)
     if (apow)
     {
         auxpow.reset(apow);
-        nVersion.SetAuxpow(true);
+        SetAuxpowVersion(true);
     } else
     {
         auxpow.reset();
@@ -23,14 +23,14 @@ void CBlockHeader::SetAuxpow (CAuxPow* apow)
     }
 }
 
-std::string CBlock::ToString() const
+std::string CBlock::ToString(const Consensus::Params& consensusParams) const
 {
     std::stringstream s;
-    s << strprintf("CBlock(hash=%s, ver=%d, pow_algo=%d, pow_hash=%s, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%u)\n",
+    s << strprintf("CBlock(hash=%s, ver=%08x, pow_algo=%d, pow_hash=%s, hashPrevBlock=%s, hashMerkleRoot=%s, nTime=%u, nBits=%08x, nNonce=%u, vtx=%u)\n",
         GetHash().ToString(),
-        nVersion.GetFullVersion(),
+        nVersion,
         GetAlgo(),
-        GetPoWHash(GetAlgo()).ToString(),
+        GetPoWHash(GetAlgo(), consensusParams).ToString(),
         hashPrevBlock.ToString(),
         hashMerkleRoot.ToString(),
         nTime, nBits, nNonce,

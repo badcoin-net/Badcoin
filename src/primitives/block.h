@@ -7,8 +7,8 @@
 #define BITCOIN_PRIMITIVES_BLOCK_H
 
 #include "auxpow.h"
-#include "primitives/pureheader.h"
 #include "primitives/transaction.h"
+#include "primitives/pureheader.h"
 #include "serialize.h"
 #include "uint256.h"
 
@@ -26,13 +26,6 @@ class CBlockHeader : public CPureBlockHeader
 public:
     // auxpow (if this is a merge-minded block)
     boost::shared_ptr<CAuxPow> auxpow;
-    // header
-    int32_t nVersion;
-    uint256 hashPrevBlock;
-    uint256 hashMerkleRoot;
-    uint32_t nTime;
-    uint32_t nBits;
-    uint32_t nNonce;
 
     CBlockHeader()
     {
@@ -43,49 +36,30 @@ public:
 
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action) {
-        READWRITE(this->nVersion);
-        if (this->nVersion.IsAuxpow()) {
+        READWRITE(*(CPureBlockHeader*)this);
+
+        if (this->IsAuxpow())
+        {
             if (ser_action.ForRead())
-                auxpow.reset(new CAuxPow());
+                auxpow.reset (new CAuxPow());
             assert(auxpow);
             READWRITE(*auxpow);
         } else if (ser_action.ForRead())
             auxpow.reset();
-        READWRITE(hashPrevBlock);
-        READWRITE(hashMerkleRoot);
-        READWRITE(nTime);
-        READWRITE(nBits);
-        READWRITE(nNonce);
     }
 
     void SetNull()
     {
         CPureBlockHeader::SetNull();
         auxpow.reset();
-        nVersion = 0;
-        hashPrevBlock.SetNull();
-        hashMerkleRoot.SetNull();
-        nTime = 0;
-        nBits = 0;
-        nNonce = 0;
     }
 
-    bool IsNull() const
-    {
-        return (nBits == 0);
-    }
-
-    int64_t GetBlockTime() const
-    {
-        return (int64_t)nTime;
-    }
-    
     /**
      * Set the block's auxpow (or unset it).  This takes care of updating
      * the version accordingly.
      * @param apow Pointer to the auxpow to use or NULL.
      */
-    void SetAuxpow(CAuxPow* apow);
+    void SetAuxpow (CAuxPow* apow);
 };
 
 
@@ -137,7 +111,7 @@ public:
         return block;
     }
 
-    std::string ToString() const;
+    std::string ToString(const Consensus::Params& consensusParams) const;
 };
 
 /** Describes a place in the block chain to another node such that if the
