@@ -7,6 +7,7 @@
 #define BITCOIN_CHAIN_H
 
 #include "arith_uint256.h"
+#include "consensus/params.h"
 #include "primitives/block.h"
 #include "pow.h"
 #include "tinyformat.h"
@@ -165,9 +166,6 @@ public:
     //! pointer to the index of some further predecessor of this block
     CBlockIndex* pskip;
 
-    //! pointer to the AuxPoW header, if this block has one
-    boost::shared_ptr<CAuxPow> pauxpow;
-
     //! height of the entry in the chain. The genesis block has height 0
     int nHeight;
 
@@ -196,7 +194,7 @@ public:
     unsigned int nStatus;
 
     //! block header
-    CBlockVersion nVersion;
+    int nVersion;
     uint256 hashMerkleRoot;
     unsigned int nTime;
     unsigned int nBits;
@@ -213,7 +211,6 @@ public:
         phashBlock = NULL;
         pprev = NULL;
         pskip = NULL;
-        pauxpow.reset();
         nHeight = 0;
         nFile = 0;
         nDataPos = 0;
@@ -225,7 +222,7 @@ public:
         nSequenceId = 0;
         nTimeMax = 0;
 
-        nVersion.SetNull();
+        nVersion       = 0;
         hashMerkleRoot = uint256();
         nTime          = 0;
         nBits          = 0;
@@ -266,23 +263,23 @@ public:
         return ret;
     }
 
-    CBlockHeader GetBlockHeader() const;
+    CBlockHeader GetBlockHeader(const Consensus::Params& consensusParams) const;
 
     uint256 GetBlockHash() const
     {
         return *phashBlock;
     }
-    
-    uint256 GetBlockPoWHash() const
+
+    uint256 GetBlockPoWHash(const Consensus::Params& consensusParams) const
     {
-        CBlockHeader block = GetBlockHeader();
+        CBlockHeader block = GetBlockHeader(consensusParams);
         int algo = block.GetAlgo();
-        return block.GetPoWHash(algo);
+        return block.GetPoWHash(algo, consensusParams);
     }
 
     int GetAlgo() const
     {
-        return ::GetAlgo(nVersion.GetFullVersion());
+        return ::GetAlgo(nVersion);
     }
     
     int64_t GetBlockTime() const
@@ -348,11 +345,22 @@ public:
     //! Efficiently find an ancestor of this block.
     CBlockIndex* GetAncestor(int height);
     const CBlockIndex* GetAncestor(int height) const;
+
+    /* Analyse the block version.  */
+    inline int GetBaseVersion() const
+    {
+        return CPureBlockHeader::GetBaseVersion(nVersion);
+    }
+
 };
 
 arith_uint256 GetBlockProof(const CBlockIndex& block);
 /** Return the time it would take to redo the work difference between from and to, assuming the current hashrate corresponds to the difficulty at tip, in seconds. */
 int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& from, const CBlockIndex& tip, const Consensus::Params&);
+/** Return the index to the last block of algo */
+const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo);
+/** Return name of algorithm depending on algo-id, time and consensus parameters */
+std::string GetAlgoName(int Algo, uint32_t time, const Consensus::Params& consensusParams);
 
 /** Used to marshal pointers into hashes for db storage. */
 class CDiskBlockIndex : public CBlockIndex
@@ -393,13 +401,6 @@ public:
         READWRITE(nTime);
         READWRITE(nBits);
         READWRITE(nNonce);
-        if (this->nVersion.IsAuxpow()) {
-            if (ser_action.ForRead())
-                pauxpow.reset(new CAuxPow());
-            assert(pauxpow);
-            READWRITE(*pauxpow);
-        } else if (ser_action.ForRead())
-            pauxpow.reset();
     }
 
     uint256 GetBlockHash() const
