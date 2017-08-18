@@ -276,7 +276,7 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
     CBigNum bnBlockWork = CBigNum(ArithToUint256(nBlockWork));
     int nAlgo = block.GetAlgo();
     
-    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
+    for (int algo = 0; algo < NUM_ALGOS; algo++)
     {
         if (algo != nAlgo)
         {

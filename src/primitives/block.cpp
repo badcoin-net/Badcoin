@@ -19,7 +19,7 @@ void CBlockHeader::SetAuxpow (CAuxPow* apow)
     } else
     {
         auxpow.reset();
-        nVersion.SetAuxpow(false);
+        SetAuxpowVersion(false);
     }
 }
 
