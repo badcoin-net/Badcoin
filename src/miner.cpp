@@ -152,7 +152,15 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     CBlockIndex* pindexPrev = chainActive.Tip();
     nHeight = pindexPrev->nHeight + 1;
 
-    pblock->nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus(), int algo);
+    const int32_t nChainId = chainparams.GetConsensus ().nAuxpowChainId;
+    // FIXME: Active version bits after the always-auxpow fork!
+    //const int32_t nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus());
+
+    //Unitus - continue to use version 2 blocks for now, softfork later to version 4 and upwards
+    const int32_t nVersion = BLOCK_VERSION_DEFAULT;
+    pblock->SetBaseVersion(nVersion, nChainId);
+    // FIXME:
+
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
     if (chainparams.MineBlocksOnDemand())

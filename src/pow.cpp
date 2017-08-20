@@ -13,7 +13,7 @@
 #include "util.h"
 #include "bignum.h"
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, int algo)
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, const Consensus::Params& params)
 {
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);
 
@@ -196,9 +196,6 @@ unsigned int CalculateNextWorkRequiredV1(const CBlockIndex* pindexPrev, const CB
         LogPrintf("  nActualTimespan = %d after bounds   %d   %d\n", nActualTimespan, nMinActualTimespan, nMaxActualTimespan);
     }
     
-    if (params.fPowNoRetargeting)
-        return pindexLast->nBits;
-    // Limit adjustment step
     // Retarget
     arith_uint256 bnNew;
     arith_uint256 bnOld;

@@ -9,6 +9,7 @@
 #include "checkpoints.h"
 #include "coins.h"
 #include "consensus/validation.h"
+#include "core_io.h"
 #include "validation.h"
 #include "policy/policy.h"
 #include "primitives/transaction.h"
@@ -43,22 +44,32 @@ static CUpdatedBlock latestblock;
 extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry);
 void ScriptPubKeyToJSON(const CScript& scriptPubKey, UniValue& out, bool fIncludeHex);
 
-double GetDifficulty(const CBlockIndex* blockindex)
+double GetDifficulty(const CBlockIndex* blockindex, int algo)
 {
+    unsigned int nBits;
+    unsigned int powLimit = UintToArith256(Params().GetConsensus().powLimit).GetCompact();
     // Floating point number that is a multiple of the minimum difficulty,
     // minimum difficulty = 1.0.
     if (blockindex == NULL)
     {
         if (chainActive.Tip() == NULL)
-            return 1.0;
+            nBits = powLimit;
         else
-            blockindex = chainActive.Tip();
+        {
+            blockindex = GetLastBlockIndexForAlgo(chainActive.Tip(), algo);
+            if (blockindex == NULL)
+                nBits = powLimit;
+            else
+                nBits = blockindex->nBits;
+        }
     }
+    else
+        nBits = blockindex->nBits;
 
-    int nShift = (blockindex->nBits >> 24) & 0xff;
+    int nShift = (nBits >> 24) & 0xff;
 
     double dDiff =
-        (double)0x0000ffff / (double)(blockindex->nBits & 0x00ffffff);
+        (double)0x0000ffff / (double)(nBits & 0x00ffffff);
 
     while (nShift < 29)
     {
@@ -72,6 +83,46 @@ double GetDifficulty(const CBlockIndex* blockindex)
     }
 
     return dDiff;
+}
+
+static UniValue AuxpowToJSON(const CAuxPow& auxpow)
+{
+    UniValue tx(UniValue::VOBJ);
+    tx.push_back(Pair("hex", EncodeHexTx(auxpow)));
+    TxToJSON(auxpow, auxpow.parentBlock.GetHash(), tx);
+
+    UniValue result(UniValue::VOBJ);
+
+    {
+        UniValue tx(UniValue::VOBJ);
+        tx.push_back(Pair("hex", EncodeHexTx(auxpow)));
+        TxToJSON(auxpow, auxpow.parentBlock.GetHash(), tx);
+        result.push_back(Pair("tx", tx));
+    }
+
+    result.push_back(Pair("index", auxpow.nIndex));
+    result.push_back(Pair("chainindex", auxpow.nChainIndex));
+
+    {
+        UniValue branch(UniValue::VARR);
+        BOOST_FOREACH(const uint256& node, auxpow.vMerkleBranch)
+            branch.push_back(node.GetHex());
+        result.push_back(Pair("merklebranch", branch));
+    }
+
+    {
+        UniValue branch(UniValue::VARR);
+        BOOST_FOREACH(const uint256& node, auxpow.vChainMerkleBranch)
+            branch.push_back(node.GetHex());
+        result.push_back(Pair("chainmerklebranch", branch));
+    }
+
+    CDataStream ssParent(SER_NETWORK, PROTOCOL_VERSION);
+    ssParent << auxpow.parentBlock;
+    const std::string strHex = HexStr(ssParent.begin(), ssParent.end());
+    result.push_back(Pair("parentblock", strHex));
+
+    return result;
 }
 
 UniValue blockheaderToJSON(const CBlockIndex* blockindex)
@@ -91,7 +142,10 @@ UniValue blockheaderToJSON(const CBlockIndex* blockindex)
     result.push_back(Pair("mediantime", (int64_t)blockindex->GetMedianTimePast()));
     result.push_back(Pair("nonce", (uint64_t)blockindex->nNonce));
     result.push_back(Pair("bits", strprintf("%08x", blockindex->nBits)));
-    result.push_back(Pair("difficulty", GetDifficulty(blockindex)));
+    int algo = GetAlgo(blockindex->nVersion);
+    result.push_back(Pair("pow_algo_id", algo));
+    result.push_back(Pair("pow_algo", GetAlgoName(algo, blockindex->nTime, Params().GetConsensus())));
+    result.push_back(Pair("difficulty", GetDifficulty(blockindex, algo)));
     result.push_back(Pair("chainwork", blockindex->nChainWork.GetHex()));
 
     if (blockindex->pprev)
@@ -135,8 +189,22 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
     result.push_back(Pair("mediantime", (int64_t)blockindex->GetMedianTimePast()));
     result.push_back(Pair("nonce", (uint64_t)block.nNonce));
     result.push_back(Pair("bits", strprintf("%08x", block.nBits)));
-    result.push_back(Pair("difficulty", GetDifficulty(blockindex)));
+    int algo = GetAlgo(block.nVersion);
+    if (block.auxpow)
+    {
+        result.push_back(Pair("pow_hash", block.auxpow->getParentBlockPoWHash(algo, Params().GetConsensus()).GetHex()));
+    }
+    else
+    {
+        result.push_back(Pair("pow_hash", block.GetPoWHash(algo,Params().GetConsensus()).GetHex()));
+    }
+    result.push_back(Pair("pow_algo_id", algo));
+    result.push_back(Pair("pow_algo", GetAlgoName(algo, blockindex->nTime, Params().GetConsensus())));
+    result.push_back(Pair("difficulty", GetDifficulty(blockindex, algo)));
     result.push_back(Pair("chainwork", blockindex->nChainWork.GetHex()));
+
+    if (block.auxpow)
+        result.push_back(Pair("auxpow", AuxpowToJSON(*block.auxpow)));
 
     if (blockindex->pprev)
         result.push_back(Pair("previousblockhash", blockindex->pprev->GetBlockHash().GetHex()));
@@ -326,7 +394,7 @@ UniValue getdifficulty(const JSONRPCRequest& request)
         );
 
     LOCK(cs_main);
-    return GetDifficulty();
+    return GetDifficulty(NULL, miningAlgo);
 }
 
 std::string EntryDescriptionString()
@@ -650,6 +718,8 @@ UniValue getblockheader(const JSONRPCRequest& request)
             "  \"mediantime\" : ttt,    (numeric) The median block time in seconds since epoch (Jan 1 1970 GMT)\n"
             "  \"nonce\" : n,           (numeric) The nonce\n"
             "  \"bits\" : \"1d00ffff\", (string) The bits\n"
+            "  \"pow_algo_id\" : n,     (numeric) the algorithm id\n"
+            "  \"pow_hash\" : \"name\", (string) the algorithm name\n"
             "  \"difficulty\" : x.xxx,  (numeric) The difficulty\n"
             "  \"chainwork\" : \"0000...1f3\"     (string) Expected number of hashes required to produce the current chain (in hex)\n"
             "  \"previousblockhash\" : \"hash\",  (string) The hash of the previous block\n"
@@ -679,7 +749,7 @@ UniValue getblockheader(const JSONRPCRequest& request)
     if (!fVerbose)
     {
         CDataStream ssBlock(SER_NETWORK, PROTOCOL_VERSION);
-        ssBlock << pblockindex->GetBlockHeader();
+        ssBlock << pblockindex->GetBlockHeader(Params().GetConsensus());
         std::string strHex = HexStr(ssBlock.begin(), ssBlock.end());
         return strHex;
     }
@@ -706,6 +776,7 @@ UniValue getblock(const JSONRPCRequest& request)
             "  \"weight\" : n           (numeric) The block weight as defined in BIP 141\n"
             "  \"height\" : n,          (numeric) The block height or index\n"
             "  \"version\" : n,         (numeric) The block version\n"
+            "  \"pow_hash\" : \"hash\"  (string) the proof-of-work hash\n"
             "  \"versionHex\" : \"00000000\", (string) The block version formatted in hexadecimal\n"
             "  \"merkleroot\" : \"xxxx\", (string) The merkle root\n"
             "  \"tx\" : [               (array of string) The transaction ids\n"
@@ -716,6 +787,9 @@ UniValue getblock(const JSONRPCRequest& request)
             "  \"mediantime\" : ttt,    (numeric) The median block time in seconds since epoch (Jan 1 1970 GMT)\n"
             "  \"nonce\" : n,           (numeric) The nonce\n"
             "  \"bits\" : \"1d00ffff\", (string) The bits\n"
+            "  \"pow_hash\" : \"hash\", (string) the proof-of-work hash\n"
+            "  \"pow_algo_id\" : n,     (numeric) the algorithm id\n"
+            "  \"pow_hash\" : \"name\", (string) the algorithm name\n"
             "  \"difficulty\" : x.xxx,  (numeric) The difficulty\n"
             "  \"chainwork\" : \"xxxx\",  (string) Expected number of hashes required to produce the chain up to this block (in hex)\n"
             "  \"previousblockhash\" : \"hash\",  (string) The hash of the previous block\n"
@@ -923,8 +997,8 @@ UniValue gettxout(const JSONRPCRequest& request)
             "     \"hex\" : \"hex\",        (string) \n"
             "     \"reqSigs\" : n,          (numeric) Number of required signatures\n"
             "     \"type\" : \"pubkeyhash\", (string) The type, eg pubkeyhash\n"
-            "     \"addresses\" : [          (array of string) array of bitcoin addresses\n"
-            "        \"address\"     (string) bitcoin address\n"
+            "     \"addresses\" : [          (array of string) array of myriadcoin addresses\n"
+            "        \"address\"     (string) myriadcoin address\n"
             "        ,...\n"
             "     ]\n"
             "  },\n"
@@ -1012,10 +1086,10 @@ UniValue verifychain(const JSONRPCRequest& request)
 }
 
 /** Implementation of IsSuperMajority with better feedback */
-static UniValue SoftForkMajorityDesc(int version, CBlockIndex* pindex, const Consensus::Params& consensusParams)
+static UniValue SoftForkMajorityDesc(int minVersion, CBlockIndex* pindex, int nRequired, const Consensus::Params& consensusParams)
 {
     UniValue rv(UniValue::VOBJ);
-    bool activated = false;
+/*    bool activated = false;
     switch(version)
     {
         case 2:
@@ -1027,8 +1101,22 @@ static UniValue SoftForkMajorityDesc(int version, CBlockIndex* pindex, const Con
         case 4:
             activated = pindex->nHeight >= consensusParams.BIP65Height;
             break;
+    }*/
+
+    int nFound = 0;
+    CBlockIndex* pstart = pindex;
+    for (int i = 0; i < consensusParams.nMajorityWindow && pstart != NULL; i++)
+    {
+        if (pstart->GetBaseVersion() >= minVersion)
+            ++nFound;
+        pstart = pstart->pprev;
     }
-    rv.push_back(Pair("status", activated));
+
+//    rv.push_back(Pair("status", activated));
+    rv.push_back(Pair("status", nFound >= nRequired));
+    rv.push_back(Pair("found", nFound));
+    rv.push_back(Pair("required", nRequired));
+    rv.push_back(Pair("window", consensusParams.nMajorityWindow));
     return rv;
 }
 
@@ -1037,7 +1125,8 @@ static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndex* 
     UniValue rv(UniValue::VOBJ);
     rv.push_back(Pair("id", name));
     rv.push_back(Pair("version", version));
-    rv.push_back(Pair("reject", SoftForkMajorityDesc(version, pindex, consensusParams)));
+    rv.push_back(Pair("enforce", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityEnforceBlockUpgrade, consensusParams)));
+    rv.push_back(Pair("reject", SoftForkMajorityDesc(version, pindex, consensusParams.nMajorityRejectBlockOutdated, consensusParams)));
     return rv;
 }
 
@@ -1084,6 +1173,12 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
             "  \"headers\": xxxxxx,        (numeric) the current number of headers we have validated\n"
             "  \"bestblockhash\": \"...\", (string) the hash of the currently best block\n"
             "  \"difficulty\": xxxxxx,     (numeric) the current difficulty\n"
+            "  \"difficulty_sha256d\": xxxxxx,     (numeric) the current sha256d difficulty\n"
+            "  \"difficulty_scrypt\": xxxxxx,        (numeric) the current scrypt difficulty\n"
+            "  \"difficulty_groestl\": xxxxxx,      (numeric) the current groestl difficulty\n"
+            "  \"difficulty_skein\": xxxxxx,     (numeric) the current skein difficulty\n"
+            "  \"difficulty_qubit\": xxxxxx,          (numeric) the current qubit difficulty\n"
+            "  \"difficulty_yescrypt\": xxxxxx,          (numeric) the current yescrypt difficulty\n"
             "  \"mediantime\": xxxxxx,     (numeric) median time for the current best block\n"
             "  \"verificationprogress\": xxxx, (numeric) estimate of verification progress [0..1]\n"
             "  \"chainwork\": \"xxxx\"     (string) total amount of work in active chain, in hexadecimal\n"
@@ -1120,7 +1215,13 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.push_back(Pair("blocks",                (int)chainActive.Height()));
     obj.push_back(Pair("headers",               pindexBestHeader ? pindexBestHeader->nHeight : -1));
     obj.push_back(Pair("bestblockhash",         chainActive.Tip()->GetBlockHash().GetHex()));
-    obj.push_back(Pair("difficulty",            (double)GetDifficulty()));
+    obj.push_back(Pair("difficulty",            (double)GetDifficulty(NULL, miningAlgo)));
+    obj.push_back(Pair("difficulty_sha256d",    (double)GetDifficulty(NULL, ALGO_SHA256D)));
+    obj.push_back(Pair("difficulty_scrypt",     (double)GetDifficulty(NULL, ALGO_SCRYPT)));
+    obj.push_back(Pair("difficulty_groestl",    (double)GetDifficulty(NULL, ALGO_GROESTL)));
+    obj.push_back(Pair("difficulty_skein",      (double)GetDifficulty(NULL, ALGO_SKEIN)));
+    obj.push_back(Pair("difficulty_qubit",      (double)GetDifficulty(NULL, ALGO_QUBIT)));
+    obj.push_back(Pair("difficulty_yescrypt",   (double)GetDifficulty(NULL, ALGO_YESCRYPT)));
     obj.push_back(Pair("mediantime",            (int64_t)chainActive.Tip()->GetMedianTimePast()));
     obj.push_back(Pair("verificationprogress",  GuessVerificationProgress(Params().TxData(), chainActive.Tip())));
     obj.push_back(Pair("chainwork",             chainActive.Tip()->nChainWork.GetHex()));
@@ -1132,7 +1233,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     UniValue bip9_softforks(UniValue::VOBJ);
     softforks.push_back(SoftForkDesc("bip34", 2, tip, consensusParams));
     softforks.push_back(SoftForkDesc("bip66", 3, tip, consensusParams));
-    softforks.push_back(SoftForkDesc("bip65", 4, tip, consensusParams));
+    softforks.push_back(SoftForkDesc("bip34, bip65, bip66", 4, tip, consensusParams));
     BIP9SoftForkDescPushBack(bip9_softforks, "csv", consensusParams, Consensus::DEPLOYMENT_CSV);
     BIP9SoftForkDescPushBack(bip9_softforks, "segwit", consensusParams, Consensus::DEPLOYMENT_SEGWIT);
     obj.push_back(Pair("softforks",             softforks));
@@ -1200,7 +1301,7 @@ UniValue getchaintips(const JSONRPCRequest& request)
     LOCK(cs_main);
 
     /*
-     * Idea:  the set of chain tips is chainActive.tip, plus orphan blocks which do not have another orphan building off of them. 
+     * Idea:  the set of chain tips is chainActive.tip, plus orphan blocks which do not have another orphan building off of them.
      * Algorithm:
      *  - Make one pass through mapBlockIndex, picking out the orphan blocks, and also storing a set of the orphan block's pprev pointers.
      *  - Iterate through the orphan blocks. If the block isn't pointed to by another orphan, it is a chain tip.

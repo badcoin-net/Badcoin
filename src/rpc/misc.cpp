@@ -63,6 +63,7 @@ UniValue getinfo(const JSONRPCRequest& request)
             "  \"difficulty_groestl\": xxxxxx,   (numeric) the current difficulty for myr-groestl\n"
             "  \"difficulty_skein\": xxxxxx,     (numeric) the current difficulty for skein\n"
             "  \"difficulty_qubit\": xxxxxx,     (numeric) the current difficulty for qubit\n"
+            "  \"difficulty_yescrypt\": xxxxxx,  (numeric) the current difficulty for yescrypt\n"
             "  \"testnet\": true|false,      (boolean) if the server is using testnet or not\n"
             "  \"keypoololdest\": xxxxxx,    (numeric) the timestamp (seconds since Unix epoch) of the oldest pre-generated key in the key pool\n"
             "  \"keypoolsize\": xxxx,        (numeric) how many new keys are pre-generated\n"
@@ -168,9 +169,9 @@ UniValue validateaddress(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() != 1)
         throw runtime_error(
             "validateaddress \"address\"\n"
-            "\nReturn information about the given bitcoin address.\n"
+            "\nReturn information about the given myriadcoin address.\n"
             "\nArguments:\n"
-            "1. \"address\"     (string, required) The bitcoin address to validate\n"
+            "1. \"address\"     (string, required) The myriadcoin address to validate\n"
             "\nResult:\n"
             "{\n"
             "  \"isvalid\" : true|false,       (boolean) If the address is valid or not. If not, this is the only property returned.\n"
@@ -353,7 +354,7 @@ UniValue verifymessage(const JSONRPCRequest& request)
             "verifymessage \"address\" \"signature\" \"message\"\n"
             "\nVerify a signed message\n"
             "\nArguments:\n"
-            "1. \"address\"         (string, required) The bitcoin address to use for the signature.\n"
+            "1. \"address\"         (string, required) The myriadcoin address to use for the signature.\n"
             "2. \"signature\"       (string, required) The signature provided by the signer in base 64 encoding (see signmessage).\n"
             "3. \"message\"         (string, required) The message that was signed.\n"
             "\nResult:\n"
