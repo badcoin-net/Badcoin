@@ -179,6 +179,7 @@ libbitcoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
   addrdb.cpp \
+  auxpow.cpp \
   bloom.cpp \
   blockencodings.cpp \
   chain.cpp \
@@ -287,13 +288,12 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sph_simd.h \
   crypto/sph_skein.h \
   crypto/sph_types.h \
-  crypto/yescrypt.h \
-  crypto/sysendian.h \
-  crypto/yescryptcommon.c \
-  crypto/yescrypt-best.c \
-  crypto/yescrypt-platform.c \
+  crypto/sha256_Y.c \
   crypto/sha256_Y.h \
-  crypto/sha256_Y.c 
+  crypto/sysendian.h \
+  crypto/yescrypt.h \
+  crypto/yescrypt-best.c \
+  crypto/yescryptcommon.c
   
 
 # consensus: shared between all executables that validate any consensus rules.
@@ -336,7 +336,6 @@ libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_common_a_SOURCES = \
   amount.cpp \
-  auxpow.cpp \
   base58.cpp \
   chainparams.cpp \
   coins.cpp \

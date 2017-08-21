@@ -1211,9 +1211,9 @@ static bool ReadBlockOrHeader(T& block, const CDiskBlockPos& pos, const Consensu
 }
 
 template<typename T>
-static bool ReadBlockOrHeader(T& block, const CBlockIndex* pindex)
+static bool ReadBlockOrHeader(T& block, const CBlockIndex* pindex, const Consensus::Params& consensusParams)
 {
-    if (!ReadBlockOrHeader(block, pindex->GetBlockPos()))
+    if (!ReadBlockOrHeader(block, pindex->GetBlockPos(), consensusParams))
         return false;
     if (block.GetHash() != pindex->GetBlockHash())
         return error("ReadBlockOrHeader(CBlock&, CBlockIndex*): GetHash() doesn't match index for %s at %s",
@@ -1242,13 +1242,15 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
     // Force block reward to zero when right shift is undefined.
     // if (halvings >= 64)
         // return 0;
+
+    int64_t nSubsidy = 1000 * COIN;
+    // Subsidy is cut in half every 967680 blocks.
+    nSubsidy >>= halvings;
+    
     // Tail Emission
     if(nSubsidy < 1 * COIN)
         nSubsidy = 1 * COIN;
 
-    CAmount nSubsidy = 1000 * COIN;
-    // Subsidy is cut in half every 967680 blocks.
-    nSubsidy >>= halvings;
     return nSubsidy;
 }
 
@@ -1799,9 +1801,6 @@ public:
                ((ComputeBlockVersion(pindex->pprev, params) >> bit) & 1) == 0;
     }
 };
-
-// Protected by cs_main
-static ThresholdConditionCache warningcache[VERSIONBITS_NUM_BITS];
 
 // Protected by cs_main
 static ThresholdConditionCache warningcache[VERSIONBITS_NUM_BITS];
