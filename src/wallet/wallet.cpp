@@ -3932,6 +3932,7 @@ CWalletKey::CWalletKey(int64_t nExpires)
     nTimeExpires = nExpires;
 }
 
+/*
 void CMerkleTx::SetMerkleBranch(const CBlockIndex* pindex, int posInBlock)
 {
     // Update the tx's hashBlock
@@ -3972,3 +3973,4 @@ bool CMerkleTx::AcceptToMemoryPool(const CAmount& nAbsurdFee, CValidationState& 
 {
     return ::AcceptToMemoryPool(mempool, state, tx, true, NULL, NULL, false, nAbsurdFee);
 }
+*/

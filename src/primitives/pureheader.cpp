@@ -5,13 +5,12 @@
 
 #include "primitives/pureheader.h"
 
-#include "chainparams.h"
+#include "hash.h"
 #include "crypto/hashgroestl.h"
 #include "crypto/hashqubit.h"
 #include "crypto/hashskein.h"
 #include "crypto/scrypt.h"
 #include "crypto/yescrypt.h"
-#include "hash.h"
 #include "utilstrencodings.h"
 
 uint256 CPureBlockHeader::GetHash() const
