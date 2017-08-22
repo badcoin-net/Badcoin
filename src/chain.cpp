@@ -200,6 +200,7 @@ arith_uint256 GetPrevWorkForAlgoWithDecay(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
+    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 32)
@@ -226,6 +227,7 @@ arith_uint256 GetPrevWorkForAlgoWithDecay2(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
+    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 32)
@@ -250,6 +252,7 @@ arith_uint256 GetPrevWorkForAlgoWithDecay3(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
+    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 100)
@@ -298,30 +301,30 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
 
 arith_uint256 GetBlockProof(const CBlockIndex& block)
 {
-    const CChainParams& chainparams = Params();
+    Consensus::Params params = Params().GetConsensus();
     
     arith_uint256 bnTarget;
     int nHeight = block.nHeight;
     int nAlgo = block.GetAlgo();
     
-    if (nHeight >= chainparams.GetConsensus().nGeoAvgWork_Start)
+    if (nHeight >= params.nGeoAvgWork_Start)
     {
         bnTarget = GetGeometricMeanPrevWork(block);
     }
-    else if (nHeight >= chainparams.GetConsensus().nBlockAlgoNormalisedWorkStart)
+    else if (nHeight >= params.nBlockAlgoNormalisedWorkStart)
     {
         arith_uint256 nBlockWork = GetBlockProofBase(block);
         for (int algo = 0; algo < NUM_ALGOS; algo++)
         {
             if (algo != nAlgo)
             {
-                if (nHeight >= chainparams.GetConsensus().nBlockAlgoNormalisedWorkDecayStart2)
+                if (nHeight >= params.nBlockAlgoNormalisedWorkDecayStart2)
                 {
                     nBlockWork += GetPrevWorkForAlgoWithDecay2(block, algo);
                 }
                 else
                 {
-                    if (nHeight >= chainparams.GetConsensus().nBlockAlgoNormalisedWorkDecayStart1)
+                    if (nHeight >= params.nBlockAlgoNormalisedWorkDecayStart1)
                     {
                         nBlockWork += GetPrevWorkForAlgoWithDecay(block, algo);
                     }
@@ -334,7 +337,7 @@ arith_uint256 GetBlockProof(const CBlockIndex& block)
         }
         bnTarget = nBlockWork / NUM_ALGOS;
     }
-    else if (nHeight >= chainparams.GetConsensus().nBlockAlgoWorkWeightStart)
+    else if (nHeight >= params.nBlockAlgoWorkWeightStart)
     {
         bnTarget = GetBlockProofBase(block) * GetAlgoWorkFactor(nAlgo);
     }
@@ -372,4 +375,24 @@ const CBlockIndex* GetLastBlockIndexForAlgo(const CBlockIndex* pindex, int algo)
             return pindex;
         pindex = pindex->pprev;
     }
+}
+
+std::string GetAlgoName(int Algo, uint32_t time, const Consensus::Params& consensusParams)
+{
+    switch (Algo)
+    {
+        case ALGO_SHA256D:
+            return std::string("sha256d");
+        case ALGO_SCRYPT:
+            return std::string("scrypt");
+        case ALGO_GROESTL:
+            return std::string("groestl");
+        case ALGO_SKEIN:
+            return std::string("skein");
+        case ALGO_QUBIT:
+            return std::string("qubit");
+        case ALGO_YESCRYPT:
+            return std::string("yescrypt");
+    }
+    return std::string("unknown");
 }

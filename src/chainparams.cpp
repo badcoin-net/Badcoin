@@ -2,14 +2,15 @@
 // Copyright (c) 2009-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#include "arith_uint256.h"
-#include "tinyformat.h"
+
 #include "chainparams.h"
 #include "consensus/merkle.h"
-
+#include "primitives/pureheader.h"
 #include "tinyformat.h"
 #include "util.h"
 #include "utilstrencodings.h"
+
+#include "arith_uint256.h"
 
 #include <assert.h>
 
