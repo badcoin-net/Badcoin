@@ -242,6 +242,7 @@ libbitcoin_wallet_a_SOURCES = \
 # crypto primitives library
 crypto_libbitcoin_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES)
 crypto_libbitcoin_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+crypto_libbitcoin_crypto_a_CFLAGS = $(AM_CFLAGS) $(PIC_FLAGS)
 crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes.h \
@@ -312,6 +313,8 @@ libbitcoin_consensus_a_SOURCES = \
   prevector.h \
   primitives/block.cpp \
   primitives/block.h \
+  primitives/pureheader.cpp \
+  primitives/pureheader.h \
   primitives/transaction.cpp \
   primitives/transaction.h \
   pubkey.cpp \

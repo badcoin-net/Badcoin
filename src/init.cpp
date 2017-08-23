@@ -776,24 +776,6 @@ void InitParameterInteraction()
         if (SoftSetBoolArg("-whitelistrelay", true))
             LogPrintf("%s: parameter interaction: -whitelistforcerelay=1 -> setting -whitelistrelay=1\n", __func__);
     }
-
-    // Algo
-    std::string strAlgo = GetArg("-algo", "sha256d");
-    transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
-    if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
-        miningAlgo = ALGO_SHA256D;
-    else if (strAlgo == "scrypt")
-        miningAlgo = ALGO_SCRYPT;
-    else if (strAlgo == "groestl" || strAlgo == "groestlsha2")
-        miningAlgo = ALGO_GROESTL;
-    else if (strAlgo == "skein" || strAlgo == "skeinsha2")
-        miningAlgo = ALGO_SKEIN;
-    else if (strAlgo == "q2c" || strAlgo == "qubit")
-        miningAlgo = ALGO_QUBIT;
-    else if (strAlgo == "yescrypt")
-        miningAlgo = ALGO_YESCRYPT;
-    else
-        miningAlgo = ALGO_SHA256D;
     
 }
 
@@ -1127,7 +1109,27 @@ bool AppInitParameterInteraction()
             }
         }
     }
+
+    // Algo
+    std::string strAlgo = GetArg("-algo", "sha256d");
+    transform(strAlgo.begin(),strAlgo.end(),strAlgo.begin(),::tolower);
+    if (strAlgo == "sha" || strAlgo == "sha256" || strAlgo == "sha256d")
+        miningAlgo = ALGO_SHA256D;
+    else if (strAlgo == "scrypt")
+        miningAlgo = ALGO_SCRYPT;
+    else if (strAlgo == "groestl" || strAlgo == "groestlsha2")
+        miningAlgo = ALGO_GROESTL;
+    else if (strAlgo == "skein" || strAlgo == "skeinsha2")
+        miningAlgo = ALGO_SKEIN;
+    else if (strAlgo == "q2c" || strAlgo == "qubit")
+        miningAlgo = ALGO_QUBIT;
+    else if (strAlgo == "yescrypt")
+        miningAlgo = ALGO_YESCRYPT;
+    else
+        miningAlgo = ALGO_SHA256D;
+
     return true;
+
 }
 
 static bool LockDataDirectory(bool probeOnly)
