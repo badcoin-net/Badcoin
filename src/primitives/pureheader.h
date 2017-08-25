@@ -18,9 +18,10 @@ enum {
     ALGO_GROESTL  = 2,
     ALGO_SKEIN    = 3,
     ALGO_QUBIT    = 4,
-    ALGO_YESCRYPT = 5,
-    NUM_ALGOS
+    ALGO_YESCRYPT = 5
 };
+
+const int NUM_ALGOS = 5;
 
 enum
 {
