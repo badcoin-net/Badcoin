@@ -216,9 +216,9 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
     //
     //    Cannot handle this later, because bitcoin:// will cause Qt to see the part after // as host,
     //    which will lower-case it (and thus invalidate the address).
-    if(uri.startsWith("myriad://", Qt::CaseInsensitive))
+    if(uri.startsWith("myriadcoin://", Qt::CaseInsensitive))
     {
-        uri.replace(0, 10, "myriad:");
+        uri.replace(0, 10, "myriadcoin:");
     }
     QUrl uriInstance(uri);
     return parseBitcoinURI(uriInstance, out);
