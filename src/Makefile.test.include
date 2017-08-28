@@ -193,7 +193,7 @@ CLEANFILES += $(CLEAN_BITCOIN_TEST)
 # This file is problematic for out-of-tree builds if it exists.
 DISTCLEANFILES += test/buildenv.pyc
 
-bitcoin_test: $(TEST_BINARY)
+myriadcoin_test: $(TEST_BINARY)
 
 myriadcoin_test_check: $(TEST_BINARY) FORCE
 	$(MAKE) check-TESTS TESTS=$^
