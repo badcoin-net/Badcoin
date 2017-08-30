@@ -231,7 +231,9 @@ BOOST_AUTO_TEST_CASE (check_auxpow)
   builder2.parentBlock.SetChainId (100);
   BOOST_CHECK (builder2.get ().check (hashAux, ourChainId, params));
   builder2.parentBlock.SetChainId (ourChainId);
+  /* Removed for Myriadcoin
   BOOST_CHECK (!builder2.get ().check (hashAux, ourChainId, params));
+  */
 
   /* Disallow too long merkle branches.  */
   builder2 = builder;
@@ -369,19 +371,19 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
 
   block.nVersion = 1;
   mineBlock (block, true);
-  BOOST_CHECK (CheckProofOfWork (block, params));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),params), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 
   block.nVersion = 2;
   mineBlock (block, true);
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 
   block.SetBaseVersion (2, params.nAuxpowChainId);
   mineBlock (block, true);
-  BOOST_CHECK (CheckProofOfWork (block, params));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 
   block.SetChainId (params.nAuxpowChainId + 1);
   mineBlock (block, true);
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 
   /* Check the case when the block does not have auxpow (this is true
      right now).  */
@@ -389,13 +391,13 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   block.SetChainId (params.nAuxpowChainId);
   block.SetAuxpowVersion (true);
   mineBlock (block, true);
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 
   block.SetAuxpowVersion (false);
   mineBlock (block, true);
-  BOOST_CHECK (CheckProofOfWork (block, params));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
   mineBlock (block, false);
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 
   /* ****************************************** */
   /* Check the case that the block has auxpow.  */
@@ -415,10 +417,10 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   builder.setCoinbase (CScript () << data);
   mineBlock (builder.parentBlock, false, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
   mineBlock (builder.parentBlock, true, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (CheckProofOfWork (block, params));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 
   /* Mismatch between auxpow being present and block.nVersion.  Note that
      block.SetAuxpow sets also the version and that we want to ensure
@@ -434,7 +436,7 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   BOOST_CHECK (hashAux != block.GetHash ());
   block.SetAuxpowVersion (false);
   BOOST_CHECK (hashAux == block.GetHash ());
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 
   /* Modifying the block invalidates the PoW.  */
   block.SetAuxpowVersion (true);
@@ -443,9 +445,9 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   builder.setCoinbase (CScript () << data);
   mineBlock (builder.parentBlock, true, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (CheckProofOfWork (block, params));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
   tamperWith (block.hashMerkleRoot);
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
 }
 
 /* ************************************************************************** */

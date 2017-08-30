@@ -229,17 +229,17 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
         std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(*pblock);
         /* TODO Myriadcoin: Test Removed
         BOOST_CHECK(ProcessNewBlock(chainparams, shared_pblock, true, NULL));
-        pblock->hashPrevBlock = pblock->GetHash();
         */
+        pblock->hashPrevBlock = pblock->GetHash();
     }
 
     // Just to make sure we can still make simple blocks
     BOOST_CHECK(pblocktemplate = BlockAssembler(chainparams).CreateNewBlock(scriptPubKey, ALGO_SHA256D));
 
-    const CAmount BLOCKSUBSIDY = 50*COIN;
+    const CAmount BLOCKSUBSIDY = 1000*COIN;
     const CAmount LOWFEE = CENT;
-    const CAmount HIGHFEE = COIN;
-    const CAmount HIGHERFEE = 4*COIN;
+    const CAmount HIGHFEE = 0.01 * COIN;
+    const CAmount HIGHERFEE = 0.1 * COIN;
 
     // block sigops > limit: 1000 CHECKMULTISIG + 1
     tx.vin.resize(1);
