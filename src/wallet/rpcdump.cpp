@@ -243,7 +243,7 @@ UniValue importaddress(const JSONRPCRequest& request)
         std::vector<unsigned char> data(ParseHex(request.params[0].get_str()));
         ImportScript(CScript(data.begin(), data.end()), strLabel, fP2SH);
     } else {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Myriad address or script");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Myriadcoin address or script");
     }
 
     if (fRescan)
@@ -340,11 +340,11 @@ UniValue removeprunedfunds(const JSONRPCRequest& request)
     vector<uint256> vHashOut;
 
     if(pwalletMain->ZapSelectTx(vHash, vHashOut) != DB_LOAD_OK) {
-        throw JSONRPCError(RPC_INTERNAL_ERROR, "Could not properly delete the transaction.");
+        throw JSONRPCError(RPC_WALLET_ERROR, "Could not properly delete the transaction.");
     }
 
     if(vHashOut.empty()) {
-        throw JSONRPCError(RPC_INTERNAL_ERROR, "Transaction does not exist in wallet.");
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Transaction does not exist in wallet.");
     }
 
     return NullUniValue;
@@ -500,7 +500,6 @@ UniValue importwallet(const JSONRPCRequest& request)
     pwalletMain->UpdateTimeFirstKey(nTimeBegin);
 
     CBlockIndex *pindex = chainActive.FindEarliestAtLeast(nTimeBegin - 7200);
-
 
     LogPrintf("Rescanning last %i blocks\n", pindex ? chainActive.Height() - pindex->nHeight + 1 : 0);
     pwalletMain->ScanForWalletTransactions(pindex);
