@@ -192,9 +192,9 @@ public:
         consensus.nAuxpowChainId = 0x005A; 
         consensus.fStrictChainId = false;
         
-        consensus.nBlockTimeWarpPreventStart1 = 740500; // block where time warp 1 prevention starts
-        consensus.nBlockTimeWarpPreventStart2 = 766000; // block where time warp 2 prevention starts
-        consensus.nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 prevention starts
+        consensus.nBlockTimeWarpPreventStart1 = 1000; // block where time warp 1 prevention starts
+        consensus.nBlockTimeWarpPreventStart2 = 1005; // block where time warp 2 prevention starts
+        consensus.nBlockTimeWarpPreventStart3 = 1010; // block where time warp 3 prevention starts
         consensus.Phase2Timespan_Start = 150; // block where 60 second target time kicks in
         consensus.nBlockDiffAdjustV2 = 150; // block where difficulty adjust V2 starts
         
