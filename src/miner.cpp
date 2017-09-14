@@ -153,13 +153,13 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     nHeight = pindexPrev->nHeight + 1;
 
     const int32_t nChainId = chainparams.GetConsensus ().nAuxpowChainId;
-    // FIXME: Active version bits after the always-auxpow fork!
-    //const int32_t nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus());
+    const int32_t nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus());
 
-    //Unitus - continue to use version 2 blocks for now, softfork later to version 4 and upwards
-    const int32_t nVersion = BLOCK_VERSION_DEFAULT;
     pblock->SetBaseVersion(nVersion, nChainId);
-    // FIXME:
+    
+    /* FIXME: TODO: Myriadcoin - remove increasing the base IsSuperMajorirty version once 0.11 clients are forked off 
+    during the next hardfork: */
+    pblock->nVersion += 4;
 
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
