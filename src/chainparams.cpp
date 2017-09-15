@@ -131,7 +131,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1541030400; // November 1st, 2018
 
         // Deployment of Legacy Blocks. Once activated, v0.11 nodes may fork.
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 3;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1504224000; // September 1st, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1535760000; // September 1st, 2018
 
