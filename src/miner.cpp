@@ -157,10 +157,6 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
 
     pblock->SetBaseVersion(nVersion, nChainId);
     
-    /* FIXME: TODO: Myriadcoin - remove increasing the base IsSuperMajorirty version once 0.11 clients are forked off 
-    during the next hardfork: */
-    pblock->nVersion += 4;
-
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
     if (chainparams.MineBlocksOnDemand())
