@@ -32,10 +32,9 @@ bool BitcoinUnits::valid(int unit)
     case MBTC:
     case kBTC:
     case BTC:
-        return true;
     case mBTC:
     case uBTC:
-        
+        return true;
     default:
         return false;
     }
