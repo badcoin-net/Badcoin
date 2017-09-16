@@ -1775,6 +1775,11 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         }
     }
 
+    /* TODO Myriadcoin: add legbit back for 0.11 post consensus, remove this when 0.11 clients are forked off network */
+    if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LEGBIT, versionbitscache) == THRESHOLD_ACTIVE) {
+        nVersion += 4;
+    }
+
     return nVersion;
 }
 
