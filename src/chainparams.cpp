@@ -213,7 +213,7 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 150;
-        consensus.nFork1MinBlock = 300;
+        consensus.nFork1MinBlock = 601;
 
         pchMessageStart[0] = 0x01;
         pchMessageStart[1] = 0xf5;
