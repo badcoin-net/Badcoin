@@ -334,17 +334,20 @@ BOOST_AUTO_TEST_CASE (check_auxpow)
 static void
 mineBlock (CBlockHeader& block, bool ok, int nBits = -1)
 {
+  SelectParams (CBaseChainParams::REGTEST);
+  const Consensus::Params& params = Params().GetConsensus();
+
   if (nBits == -1)
     nBits = block.nBits;
 
   arith_uint256 target;
   target.SetCompact (nBits);
-  int algo = block.GetAlgo();
+  const int algo = block.GetAlgo();
 
   block.nNonce = 0;
   while (true)
     {
-      const bool nowOk = (UintToArith256 (block.GetPoWHash(algo,Params().GetConsensus())) <= target);
+      const bool nowOk = (UintToArith256 (block.GetPoWHash(algo,params)) <= target);
       if ((ok && nowOk) || (!ok && !nowOk))
         break;
 
@@ -352,9 +355,9 @@ mineBlock (CBlockHeader& block, bool ok, int nBits = -1)
     }
 
   if (ok)
-    BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(algo,Params().GetConsensus()), algo, nBits, Params().GetConsensus()));
+    BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(algo,params), algo, nBits, params));
   else
-    BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,Params().GetConsensus()), algo, nBits, Params().GetConsensus()));
+    BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,params), algo, nBits, params));
 }
 
 BOOST_AUTO_TEST_CASE (auxpow_pow)
@@ -366,24 +369,25 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   const arith_uint256 target = (~arith_uint256(0) >> 1);
   CBlockHeader block;
   block.nBits = target.GetCompact ();
+  const int algo = block.GetAlgo();
 
   /* Verify the block version checks.  */
 
   block.nVersion = 1;
   mineBlock (block, true);
-  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),params), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 
   block.nVersion = 2;
   mineBlock (block, true);
-  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 
   block.SetBaseVersion (2, params.nAuxpowChainId);
   mineBlock (block, true);
-  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 
   block.SetChainId (params.nAuxpowChainId + 1);
   mineBlock (block, true);
-  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 
   /* Check the case when the block does not have auxpow (this is true
      right now).  */
@@ -391,13 +395,13 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   block.SetChainId (params.nAuxpowChainId);
   block.SetAuxpowVersion (true);
   mineBlock (block, true);
-  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 
   block.SetAuxpowVersion (false);
   mineBlock (block, true);
-  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
   mineBlock (block, false);
-  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 
   /* ****************************************** */
   /* Check the case that the block has auxpow.  */
@@ -417,10 +421,10 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   builder.setCoinbase (CScript () << data);
   mineBlock (builder.parentBlock, false, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
   mineBlock (builder.parentBlock, true, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 
   /* Mismatch between auxpow being present and block.nVersion.  Note that
      block.SetAuxpow sets also the version and that we want to ensure
@@ -436,7 +440,7 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   BOOST_CHECK (hashAux != block.GetHash ());
   block.SetAuxpowVersion (false);
   BOOST_CHECK (hashAux == block.GetHash ());
-  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 
   /* Modifying the block invalidates the PoW.  */
   block.SetAuxpowVersion (true);
@@ -445,9 +449,9 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   builder.setCoinbase (CScript () << data);
   mineBlock (builder.parentBlock, true, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
   tamperWith (block.hashMerkleRoot);
-  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(block.GetAlgo(),Params().GetConsensus()), block.GetAlgo(), block.nBits, Params().GetConsensus()));
+  BOOST_CHECK (!CheckProofOfWork (block.GetPoWHash(algo,params), algo, block.nBits, params));
 }
 
 /* ************************************************************************** */
