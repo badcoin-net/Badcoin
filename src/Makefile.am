@@ -295,7 +295,6 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/yescrypt.h \
   crypto/yescrypt-best.c \
   crypto/yescryptcommon.c
-  
 
 # consensus: shared between all executables that validate any consensus rules.
 libbitcoin_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
@@ -481,6 +480,10 @@ CTAES_DIST += crypto/ctaes/ctaes.h
 CTAES_DIST += crypto/ctaes/README.md
 CTAES_DIST += crypto/ctaes/test.c
 
+YESCRYPT_DIST = crypto/yescrypt-platform.c
+YESCRYPT_DIST += crypto/yescrypt-opt.c
+YESCRYPT_DIST += crypto/yescrypt-simd.c
+
 CLEANFILES = $(EXTRA_LIBRARIES)
 
 CLEANFILES += *.gcda *.gcno
@@ -498,8 +501,7 @@ CLEANFILES += zmq/*.gcda zmq/*.gcno
 
 DISTCLEANFILES = obj/build.h
 
-EXTRA_DIST = $(CTAES_DIST)
-
+EXTRA_DIST = $(CTAES_DIST) $(YESCRYPT_DIST)
 
 config/bitcoin-config.h: config/stamp-h1
 	@$(MAKE) -C $(top_builddir) $(subdir)/$(@)
