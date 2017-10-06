@@ -18,8 +18,8 @@ For more information, as well as an immediately usable, binary version of
 the Myriadcoin Core software, see http://www.myriadcoin.org, or read the
 [original Bitcoin whitepaper](https://bitcoincore.org/bitcoin.pdf).
 
-Myriadcoin is different in that it pioneered the use of multiple independent POW 
-algorithms on the on the same chain.
+Myriadcoin is distinct from Bitcoin in that it pioneered the use of multiple independent 
+POW algorithms on the on the same chain.
 
 License
 -------
