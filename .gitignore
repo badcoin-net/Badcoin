@@ -6,7 +6,7 @@ src/myriadcoind
 src/myriadcoin-cli
 src/myriadcoin-tx
 src/test/test_myriadcoin
-src/qt/test/test_myriadcoin-qt
+src/test/test_myriadcoin_fuzzy
 src/qt/test/test_myriad-qt
 
 # autoreconf
@@ -56,7 +56,6 @@ src/qt/test/moc*.cpp
 *.o
 *.o-*
 *.patch
-.myriadcoin
 *.a
 *.pb.cc
 *.pb.h
@@ -86,15 +85,13 @@ src/test/buildenv.py
 # Resources cpp
 qrc_*.cpp
 
-# Qt creator
-*.pro.user
-
 # Mac specific
 .DS_Store
 build
 
 #lcov
 *.gcno
+*.gcda
 /*.info
 test_bitcoin.coverage/
 total.coverage/
@@ -104,10 +101,8 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
-qa/pull-tester/run-bitcoind-for-test.sh
-qa/pull-tester/tests-config.sh
-qa/pull-tester/cache/*
-qa/pull-tester/test.*/*
+qa/pull-tester/tests_config.py
+qa/cache/*
 
 !src/leveldb*/Makefile
 
@@ -120,3 +115,4 @@ qa/pull-tester/test.*/*
 /doc/doxygen/
 
 libbitcoinconsensus.pc
+contrib/devtools/split-debug.sh
