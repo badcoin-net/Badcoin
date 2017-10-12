@@ -239,7 +239,6 @@ public:
         consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
         consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
         consensus.fPowAllowMinDifficultyBlocks = true;
-        consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 16);
         
         consensus.nStartAuxPow = 150;
         consensus.nAuxpowChainId = 0x005A; 
@@ -359,8 +358,39 @@ public:
         consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        consensus.nPowTargetSpacing = 10 * 60;
+        consensus.nPowTargetSpacingV1 = 30; // target time for block spacing across all algorithms
+        consensus.nPowTargetSpacingV2 = 60; // new target time for block spacing across all algorithms
+        consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
+        consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
         consensus.fPowAllowMinDifficultyBlocks = true;
+
+        consensus.nStartAuxPow = 150;
+        consensus.nAuxpowChainId = 0x005A;
+        consensus.fStrictChainId = false;
+
+        consensus.nBlockTimeWarpPreventStart1 = 1000; // block where time warp 1 prevention starts
+        consensus.nBlockTimeWarpPreventStart2 = 1005; // block where time warp 2 prevention starts
+        consensus.nBlockTimeWarpPreventStart3 = 1010; // block where time warp 3 prevention starts
+        consensus.Phase2Timespan_Start = 150; // block where 60 second target time kicks in
+        consensus.nBlockDiffAdjustV2 = 150; // block where difficulty adjust V2 starts
+
+        consensus.nMaxAdjustDown = 4; // 4% adjustment down
+        consensus.nMaxAdjustUpV1 = 2; // 2% adjustment up
+        consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up
+
+        consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
+
+        consensus.nBlockAlgoWorkWeightStart = 0; // block where algo work weighting starts
+        consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts
+        consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
+        consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
+        consensus.nGeoAvgWork_Start = 150;
+        consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
+
         consensus.fPowNoRetargeting = true;
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
         consensus.nMinerConfirmationWindow = 144; // Faster than normal for regtest (144 instead of 2016)
@@ -380,9 +410,6 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x00");
 
-        consensus.nAuxpowChainId = 0x0001;
-        consensus.fStrictChainId = false;
-
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0xbf;
         pchMessageStart[2] = 0xb5;
@@ -393,7 +420,7 @@ public:
         genesis = CreateGenesisBlock(1296688602, 4, 0x207fffff, 2, 1000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x63b92987ddc93808aa33dddc80b3e52948bdfffaf2420bf4cd9c5137b54ea37c"));
-        //assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+        assert(genesis.hashMerkleRoot == uint256S("0x3f75db3c18e92f46c21530dc1222e1fddf4ccebbf88e289a6c9dc787fd6469da"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
