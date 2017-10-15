@@ -35,7 +35,11 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     // find previous block with same algo
     const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
-    
+
+    // Genesis block check again
+    if (pindexPrev == NULL)
+        return nProofOfWorkLimit;
+
     const CBlockIndex* pindexFirst = NULL;
 
     if( (pindexLast->nHeight >= params.nBlockTimeWarpPreventStart1) && (pindexLast->nHeight < params.nBlockTimeWarpPreventStart2) )
