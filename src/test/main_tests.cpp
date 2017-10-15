@@ -15,7 +15,7 @@ BOOST_FIXTURE_TEST_SUITE(main_tests, TestingSetup)
 
 static void TestBlockSubsidyHalvings(const Consensus::Params& consensusParams)
 {
-    int maxHalvings = 64;    // TODO FIXME Myriadcoin, passes with 61
+    int maxHalvings = 64;
     CAmount nInitialSubsidy = 1000 * COIN;
     CAmount nFinalSubsidy = 1 * COIN;
 
