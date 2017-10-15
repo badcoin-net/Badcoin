@@ -15,30 +15,26 @@
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, const Consensus::Params& params)
 {
-    const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);
+    unsigned int nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
 
     // Genesis block
     if (pindexLast == NULL)
+        return nProofOfWorkLimit;
+
+    if (params.fPowAllowMinDifficultyBlocks)
     {
-        if(fDebug)
-        {
-            LogPrintf("pindexLast is null. returning nProofOfWorkLimit\n");
-        }
-        return nProofOfWorkLimit.GetCompact();
+        // Special difficulty rule for testnet:
+        // If the new block's timestamp is more than 2* 10 minutes
+        // then allow mining of a min-difficulty block.
+        // TODO Myriadcoin: enable this at the next hard fork for testnet
+        /*
+        if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
+            return nProofOfWorkLimit;
+        */
     }
 
     // find previous block with same algo
     const CBlockIndex* pindexPrev = GetLastBlockIndexForAlgo(pindexLast, algo);
-    
-    // Genesis block
-    if (pindexPrev == NULL)
-    {
-        if(fDebug)
-        {
-            LogPrintf("pindexPrev is null. returning nProofOfWorkLimit\n");
-        }
-        return nProofOfWorkLimit.GetCompact();
-    }
     
     const CBlockIndex* pindexFirst = NULL;
 
@@ -53,15 +49,15 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
         }
         if (pindexFirst == NULL)
-            return nProofOfWorkLimit.GetCompact(); // not nAveragingInterval blocks of this algo available
+            return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
 
         // check block before first block for time warp
         const CBlockIndex* pindexFirstPrev = pindexFirst->pprev;
         if (pindexFirstPrev == NULL)
-            return nProofOfWorkLimit.GetCompact();
+            return nProofOfWorkLimit;
         pindexFirstPrev = GetLastBlockIndexForAlgo(pindexFirstPrev, algo);
         if (pindexFirstPrev == NULL)
-            return nProofOfWorkLimit.GetCompact();
+            return nProofOfWorkLimit;
         // take previous block if block times are out of order
         if (pindexFirstPrev->GetBlockTime() > pindexFirst->GetBlockTime())
         {
@@ -81,7 +77,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             pindexFirst = GetLastBlockIndexForAlgo(pindexFirst, algo);
         }
         if (pindexFirst == NULL)
-            return nProofOfWorkLimit.GetCompact(); // not nAveragingInterval blocks of this algo available
+            return nProofOfWorkLimit; // not nAveragingInterval blocks of this algo available
 
         const CBlockIndex* pindexFirstPrev;
         for ( ;; )
@@ -89,10 +85,10 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
             // check blocks before first block for time warp
             pindexFirstPrev = pindexFirst->pprev;
             if (pindexFirstPrev == NULL)
-                return nProofOfWorkLimit.GetCompact();
+                return nProofOfWorkLimit;
             pindexFirstPrev = GetLastBlockIndexForAlgo(pindexFirstPrev, algo);
             if (pindexFirstPrev == NULL)
-                return nProofOfWorkLimit.GetCompact();
+                return nProofOfWorkLimit;
             // take previous block if block times are out of order
             if (pindexFirstPrev->GetBlockTime() > pindexFirst->GetBlockTime())
             {
@@ -118,7 +114,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
                 {
                     LogPrintf("pindexFirst is null. returning nProofOfWorkLimit\n");
                 }
-                return nProofOfWorkLimit.GetCompact();
+                return nProofOfWorkLimit;
             }
         }
     }
@@ -168,6 +164,9 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 unsigned int CalculateNextWorkRequiredV1(const CBlockIndex* pindexPrev, const CBlockIndex* pindexFirst, const Consensus::Params& params, int algo, int64_t nActualTimespan, int nHeight)
 {
+    if (params.fPowNoRetargeting)
+        return pindexPrev->nBits;
+
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);    
     
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV1 * NUM_ALGOS; // 30 * 5 = 150s per algo
@@ -221,6 +220,9 @@ unsigned int CalculateNextWorkRequiredV1(const CBlockIndex* pindexPrev, const CB
 
 unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CBlockIndex* pindexFirst, const Consensus::Params& params, int algo, int64_t nActualTimespan)
 {
+    if (params.fPowNoRetargeting)
+        return pindexPrev->nBits;
+
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);    
     
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV2 * NUM_ALGOS; // 60 * 5 = 300s per algo
