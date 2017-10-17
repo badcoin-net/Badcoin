@@ -281,7 +281,7 @@ public:
     {
         return ::GetAlgo(nVersion);
     }
-    
+
     int64_t GetBlockTime() const
     {
         return (int64_t)nTime;

@@ -199,7 +199,8 @@ void PaymentServerTests::paymentServerTests()
     Q_FOREACH (const PAIRTYPE(CScript, CAmount)& sendingTo, sendingTos) {
         CTxDestination dest;
         if (ExtractDestination(sendingTo.first, dest))
-            QCOMPARE(PaymentServer::verifyAmount(sendingTo.second), false);
+            // Myriadcoin: 21000001 XMY is within range, TODO alter paymentrequest5_cert2_BASE64
+            QCOMPARE(PaymentServer::verifyAmount(sendingTo.second), true);
     }
 
     delete server;
