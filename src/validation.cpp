@@ -3254,7 +3254,10 @@ static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state
             }
             if (nAlgoCount > nMaxSeqCount)
             {
-                return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+                if (chainparams.MineBlocksOnDemand())
+                    LogPrintf("WARNING: REGTEST MODE ONLY: Max Algo count reached, but allowed with chainparams.MineBlocksOnDemand()\n");
+                    else
+                        return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
             }
         }
     }
