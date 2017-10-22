@@ -389,7 +389,7 @@ public:
         consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
-        consensus.nGeoAvgWork_Start = 150;
+        consensus.nGeoAvgWork_Start = 0;
         consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
         consensus.fPowNoRetargeting = true;
