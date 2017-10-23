@@ -55,6 +55,45 @@ static CBlock BuildBlockTestCase() {
 // == 2 (mempool + our copy from the GetSharedTx call)
 #define SHARED_TX_OFFSET 2
 
+BOOST_AUTO_TEST_CASE(SimpleCheckAlgo)
+{
+    // Myriadcoin, let's check our algos here:
+    CBlock block;
+    CMutableTransaction tx;
+    tx.vin.resize(1);
+    tx.vin[0].scriptSig.resize(10);
+    tx.vout.resize(1);
+    tx.vout[0].nValue = 42;
+
+    block.vtx.resize(3);
+    block.vtx[0] = MakeTransactionRef(tx);
+    block.nVersion = 42;
+    block.hashPrevBlock = uint256S("0x00000ffde4c020b5938441a0ea3d314bf619eff0b38f32f78f7583cffa1ea485");
+    block.nBits = 0x207fffff;
+
+    tx.vin[0].prevout.hash = uint256S("0x00000ffde4c020b5938441a0ea3d314bf619eff0b38f32f78f7583cffa1ea485");
+    tx.vin[0].prevout.n = 0;
+    block.vtx[1] = MakeTransactionRef(tx);
+
+    tx.vin.resize(10);
+    for (size_t i = 0; i < tx.vin.size(); i++) {
+        tx.vin[i].prevout.hash = uint256S("0x00000ffde4c020b5938441a0ea3d314bf619eff0b38f32f78f7583cffa1ea485");
+        tx.vin[i].prevout.n = 0;
+    }
+    block.vtx[2] = MakeTransactionRef(tx);
+
+    bool mutated;
+    block.hashMerkleRoot = BlockMerkleRoot(block, &mutated);
+
+    //CBlock block(BuildBlockTestCase());
+    BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_SHA256D,Params().GetConsensus()).ToString() , "98f6452950f1b08201b5f2ba9ff7a5d7a7abb4534322a0eda9f4453290042bbd");
+    BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_SCRYPT,Params().GetConsensus()).ToString() , "38f16e4c161e8f6e3985c3ae099b9341362e271cdc6a575aa260afa3b365b88e");
+    BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_GROESTL,Params().GetConsensus()).ToString() , "cb9889a9bc2dbef41487987ec930b9655ca43fc91fc450837c03ea2fd4e9afd3");
+    BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_SKEIN,Params().GetConsensus()).ToString() , "8d105c1d8f2dca9317421574d49b3995f9e6770574766ed335a98fa8921e6233");
+    BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_QUBIT,Params().GetConsensus()).ToString() , "545e0014587886f42a6e0963c01fff3b0e419e5cb7aad2d7823ea56bdebaa633");
+    BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_YESCRYPT,Params().GetConsensus()).ToString() , "1895648554eaae0206e9ec67f5632cfb22e37963f4e0914da031d62858d8fa9a");
+}
+
 BOOST_AUTO_TEST_CASE(SimpleRoundTripTest)
 {
     CTxMemPool pool(CFeeRate(0));
