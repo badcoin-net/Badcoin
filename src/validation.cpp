@@ -1155,6 +1155,8 @@ bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params
     if (!block.auxpow->check(block.GetHash(), block.GetChainId(), params))
         return error("%s : AUX POW is not valid", __func__);
     int algo = block.GetAlgo();
+    if (!(algo == ALGO_SHA256D || algo == ALGO_SCRYPT) )
+        return error("%s : AUX POW is not allowed on this algo", __func__);
     if (!CheckProofOfWork(block.auxpow->getParentBlockPoWHash(algo, params), algo, block.nBits, params))
         return error("%s : AUX proof of work failed", __func__);
 
