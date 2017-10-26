@@ -158,4 +158,3 @@ Myriadcoin Credits
 - jwinterm
 - wlc
 - ahmedbohdi
-
