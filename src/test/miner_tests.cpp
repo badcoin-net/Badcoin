@@ -32,34 +32,34 @@ struct {
     unsigned char extranonce;
     unsigned int nonce;
 } blockinfo[] = {
-    {4, 0xa4a3e223}, {2, 0x15c32f9e}, {1, 0x0375b547}, {1, 0x7004a8a5},
-    {2, 0xce440296}, {2, 0x52cfe198}, {1, 0x77a72cd0}, {2, 0xbb5d6f84},
-    {2, 0x83f30c2c}, {1, 0x48a73d5b}, {1, 0xef7dcd01}, {2, 0x6809c6c4},
-    {2, 0x0883ab3c}, {1, 0x087bbbe2}, {2, 0x2104a814}, {2, 0xdffb6daa},
-    {1, 0xee8a0a08}, {2, 0xba4237c1}, {1, 0xa70349dc}, {1, 0x344722bb},
-    {3, 0xd6294733}, {2, 0xec9f5c94}, {2, 0xca2fbc28}, {1, 0x6ba4f406},
-    {2, 0x015d4532}, {1, 0x6e119b7c}, {2, 0x43e8f314}, {2, 0x27962f38},
-    {2, 0xb571b51b}, {2, 0xb36bee23}, {2, 0xd17924a8}, {2, 0x6bc212d9},
-    {1, 0x630d4948}, {2, 0x9a4c4ebb}, {2, 0x554be537}, {1, 0xd63ddfc7},
-    {2, 0xa10acc11}, {1, 0x759a8363}, {2, 0xfb73090d}, {1, 0xe82c6a34},
-    {1, 0xe33e92d7}, {3, 0x658ef5cb}, {2, 0xba32ff22}, {5, 0x0227a10c},
-    {1, 0xa9a70155}, {5, 0xd096d809}, {1, 0x37176174}, {1, 0x830b8d0f},
-    {1, 0xc6e3910e}, {2, 0x823f3ca8}, {1, 0x99850849}, {1, 0x7521fb81},
-    {1, 0xaacaabab}, {1, 0xd645a2eb}, {5, 0x7aea1781}, {5, 0x9d6e4b78},
-    {1, 0x4ce90fd8}, {1, 0xabdc832d}, {6, 0x4a34f32a}, {2, 0xf2524c1c},
-    {2, 0x1bbeb08a}, {1, 0xad47f480}, {1, 0x9f026aeb}, {1, 0x15a95049},
-    {2, 0xd1cb95b2}, {2, 0xf84bbda5}, {1, 0x0fa62cd1}, {1, 0xe05f9169},
-    {1, 0x78d194a9}, {5, 0x3e38147b}, {5, 0x737ba0d4}, {1, 0x63378e10},
-    {1, 0x6d5f91cf}, {2, 0x88612eb8}, {2, 0xe9639484}, {1, 0xb7fabc9d},
-    {2, 0x19b01592}, {1, 0x5a90dd31}, {2, 0x5bd7e028}, {2, 0x94d00323},
-    {1, 0xa9b9c01a}, {1, 0x3a40de61}, {1, 0x56e7eec7}, {5, 0x859f7ef6},
-    {1, 0xfd8e5630}, {1, 0x2b0c9f7f}, {1, 0xba700e26}, {1, 0x7170a408},
-    {1, 0x70de86a8}, {1, 0x74d64cd5}, {1, 0x49e738a1}, {2, 0x6910b602},
-    {0, 0x643c565f}, {1, 0x54264b3f}, {2, 0x97ea6396}, {2, 0x55174459},
-    {2, 0x03e8779a}, {1, 0x98f34d8f}, {1, 0xc07b2b07}, {1, 0xdfe29668},
-    {1, 0x3141c7c1}, {1, 0xb3b595f4}, {1, 0x735abf08}, {5, 0x623bfbce},
-    {2, 0xd351e722}, {1, 0xf4ca48c9}, {1, 0x5b19c670}, {1, 0xa164bf0e},
-    {2, 0xbbbeb305}, {2, 0xfe1c810a},
+    {0, 0x000e2c18}, {0, 0x001bb1dc}, {0, 0x000ee4c3}, {0, 0x001a52f4},
+    {0, 0x00143675}, {0, 0x0001e51f}, {0, 0x00005a67}, {0, 0x000190e4},
+    {0, 0x0020bf5e}, {0, 0x00126808}, {0, 0x0001f866}, {0, 0x0007fc02},
+    {0, 0x000c1f4e}, {0, 0x001b7095}, {0, 0x001e95aa}, {0, 0x00118d21},
+    {0, 0x00040c8d}, {0, 0x0000c5f4}, {0, 0x0001cfcb}, {0, 0x00001080},
+    {0, 0x00026bcb}, {0, 0x000d8727}, {0, 0x001a13c7}, {0, 0x000a3af4},
+    {0, 0x00043bf5}, {0, 0x0020453e}, {0, 0x0008d3c6}, {0, 0x0000f4f1},
+    {0, 0x00000a1a}, {0, 0x00065811}, {0, 0x0045aedf}, {0, 0x00106b93},
+    {0, 0x000f520d}, {0, 0x00267a49}, {0, 0x000d3075}, {0, 0x0011f8ec},
+    {0, 0x002c19d0}, {0, 0x001e04d5}, {0, 0x001462a8}, {0, 0x0012fadf},
+    {0, 0x000da892}, {0, 0x003d478c}, {0, 0x000eba7c}, {0, 0x001fec4a},
+    {0, 0x0035bede}, {0, 0x00142fe7}, {0, 0x0006f28d}, {0, 0x0008c38e},
+    {0, 0x00054678}, {0, 0x000b826d}, {0, 0x0001840c}, {0, 0x0016db83},
+    {0, 0x0013ffba}, {0, 0x00018e9c}, {0, 0x000f4bf3}, {0, 0x00059d26},
+    {0, 0x0001c0c0}, {0, 0x000828fa}, {0, 0x00059e54}, {0, 0x00131b41},
+    {0, 0x002304dc}, {0, 0x00012d2d}, {0, 0x000ef071}, {0, 0x001e788f},
+    {0, 0x002a1ca9}, {0, 0x000756e5}, {0, 0x000ea527}, {0, 0x0009678a},
+    {0, 0x0013a307}, {0, 0x0036019a}, {0, 0x00149df2}, {0, 0x00031f99},
+    {0, 0x000184f4}, {0, 0x000c30cf}, {0, 0x000db807}, {0, 0x0010d4e8},
+    {0, 0x000b6cbb}, {0, 0x0006cbba}, {0, 0x001374ee}, {0, 0x003dd80f},
+    {0, 0x00031e93}, {0, 0x0013f2c2}, {0, 0x001868c3}, {0, 0x002048dd},
+    {0, 0x00057391}, {0, 0x00002c39}, {0, 0x000462aa}, {0, 0x0008ff59},
+    {0, 0x000dd2cb}, {0, 0x001364ad}, {0, 0x00026f3a}, {0, 0x00108ff3},
+    {0, 0x001b0d40}, {0, 0x0001fe36}, {0, 0x00172902}, {0, 0x001bec95},
+    {0, 0x001d2a18}, {0, 0x00006332}, {0, 0x0002407a}, {0, 0x00141527},
+    {0, 0x0004481e}, {0, 0x002a472e}, {0, 0x00185cad}, {0, 0x000de5b7},
+    {0, 0x000ae463}, {0, 0x001661b7}, {0, 0x000817d5}, {0, 0x000ab2f2},
+    {0, 0x00030213}, {0, 0x001aebf9},
 };
 
 CBlockIndex CreateBlockIndex(int nHeight)
@@ -211,12 +211,14 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     {
         CBlock *pblock = &pblocktemplate->block; // pointer for convenience
         pblock->nVersion = 2;
-        pblock->nTime = chainActive.Tip()->GetMedianTimePast()+1;
+        pblock->nTime = chainActive.Tip()->GetMedianTimePast()+(i+1)*600;  // Myriadcoin: altered to account for difficulty adjustments
         CMutableTransaction txCoinbase(*pblock->vtx[0]);
         txCoinbase.nVersion = 1;
-        txCoinbase.vin[0].scriptSig = CScript();
-        txCoinbase.vin[0].scriptSig.push_back(blockinfo[i].extranonce);
-        txCoinbase.vin[0].scriptSig.push_back(chainActive.Height());
+        // Myriadcoin: BIP34 is already active:
+        //txCoinbase.vin[0].scriptSig = CScript();
+        //txCoinbase.vin[0].scriptSig.push_back(blockinfo[i].extranonce);
+        //txCoinbase.vin[0].scriptSig.push_back(chainActive.Height());
+        txCoinbase.vin[0].scriptSig = (CScript() << chainActive.Height()+1 << CScriptNum(blockinfo[i].extranonce)) + COINBASE_FLAGS;
         txCoinbase.vout.resize(1); // Ignore the (optional) segwit commitment added by CreateNewBlock (as the hardcoded nonces don't account for this)
         txCoinbase.vout[0].scriptPubKey = CScript();
         pblock->vtx[0] = MakeTransactionRef(std::move(txCoinbase));
@@ -227,9 +229,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
         pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
         pblock->nNonce = blockinfo[i].nonce;
         std::shared_ptr<const CBlock> shared_pblock = std::make_shared<const CBlock>(*pblock);
-        /* TODO Myriadcoin: Test Removed
         BOOST_CHECK(ProcessNewBlock(chainparams, shared_pblock, true, NULL));
-        */
         pblock->hashPrevBlock = pblock->GetHash();
     }
 
@@ -238,8 +238,8 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
 
     const CAmount BLOCKSUBSIDY = 1000*COIN;
     const CAmount LOWFEE = CENT;
-    const CAmount HIGHFEE = 0.01 * COIN;
-    const CAmount HIGHERFEE = 0.1 * COIN;
+    const CAmount HIGHFEE = COIN;
+    const CAmount HIGHERFEE = 4*COIN;
 
     // block sigops > limit: 1000 CHECKMULTISIG + 1
     tx.vin.resize(1);

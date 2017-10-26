@@ -72,6 +72,47 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
+
+        /*** Myriadcoin Additional Chainparams ***/
+
+        consensus.nPowTargetSpacingV1 = 30; // target time for block spacing across all algorithms
+        consensus.nPowTargetSpacingV2 = 60; // new target time for block spacing across all algorithms
+        consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
+
+        consensus.nStartAuxPow = 1402000; // Allow AuxPow blocks from this height
+        consensus.nAuxpowChainId = 0x005A; 
+        consensus.fStrictChainId = false;
+
+        consensus.nBlockTimeWarpPreventStart1 = 740500; // block where time warp 1 prevention starts
+        consensus.nBlockTimeWarpPreventStart2 = 766000; // block where time warp 2 prevention starts
+        consensus.nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 prevention starts
+        consensus.Phase2Timespan_Start = 1401000; // block where 60 second target time kicks in
+        consensus.nBlockDiffAdjustV2 = 766000; // block where difficulty adjust V2 starts
+
+        consensus.nMaxAdjustDown = 4; // 4% adjustment down
+        consensus.nMaxAdjustUpV1 = 2; // 2% adjustment up
+        consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up     
+
+        consensus.nBlockSequentialAlgoRuleStart1 = 740000; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
+        consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
+        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
+
+        consensus.nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
+        consensus.nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
+        consensus.nBlockAlgoNormalisedWorkDecayStart1 = 866000; // block where weight decay starts
+        consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
+        consensus.nGeoAvgWork_Start = 1400000;
+        consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
+
+        // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1507420800; // October 8th, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1538956800; // October 8th, 2018
+
+        /*** Upstream Chainparams ***/
+
         consensus.nSubsidyHalvingInterval = 80640 * 12;
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0xcb41589c918fba1beccca8bc6b34b2b928b4f9888595d7664afd6ec60a576291");
@@ -79,40 +120,8 @@ public:
         consensus.BIP66Height = 1764000; // 2ca9968704301897b956f7e326375413be505509489c06aee2b16fe73805481e
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        consensus.nPowTargetSpacingV1 = 30; // target time for block spacing across all algorithms
-        consensus.nPowTargetSpacingV2 = 60; // new target time for block spacing across all algorithms
         consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
-        consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
         consensus.fPowAllowMinDifficultyBlocks = false;
-        
-        // Allow AuxPow blocks from this height
-        consensus.nStartAuxPow = 1402000;
-        consensus.nAuxpowChainId = 0x005A; 
-        consensus.fStrictChainId = false;
-        
-        consensus.nBlockTimeWarpPreventStart1 = 740500; // block where time warp 1 prevention starts
-        consensus.nBlockTimeWarpPreventStart2 = 766000; // block where time warp 2 prevention starts
-        consensus.nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 prevention starts
-        consensus.Phase2Timespan_Start = 1401000; // block where 60 second target time kicks in
-        consensus.nBlockDiffAdjustV2 = 766000; // block where difficulty adjust V2 starts
-        
-        consensus.nMaxAdjustDown = 4; // 4% adjustment down
-        consensus.nMaxAdjustUpV1 = 2; // 2% adjustment up
-        consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up     
-        
-        consensus.nBlockSequentialAlgoRuleStart1 = 740000; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
-        consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
-        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
-        
-        consensus.nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
-        consensus.nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
-        consensus.nBlockAlgoNormalisedWorkDecayStart1 = 866000; // block where weight decay starts
-        consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
-        consensus.nGeoAvgWork_Start = 1400000;
-        consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
-        
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% of 2016
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
@@ -129,11 +138,6 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1513296000; // December 15th, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1544832000; // December 15th, 2018
-
-        // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1507420800; // October 8th, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1538956800; // October 8th, 2018
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00");
@@ -228,39 +232,33 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nSubsidyHalvingInterval = 80640 * 12;
-        consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256S("0x0000d23adc28e33bc05f4bee57c873ae0aab584a6a436e75ac0ed40396f6d86b");
-        consensus.BIP65Height = 641; // ff983c72147a81ac5b8ebfc68b62b39358cac4b8eb5518242e87f499b71c6a51
-        consensus.BIP66Height = 641; // ff983c72147a81ac5b8ebfc68b62b39358cac4b8eb5518242e87f499b71c6a51
-        consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 16);
-        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+
+        /*** Myriadcoin Additional Chainparams ***/
+
         consensus.nPowTargetSpacingV1 = 30; // target time for block spacing across all algorithms
         consensus.nPowTargetSpacingV2 = 60; // new target time for block spacing across all algorithms
-        consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
         consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
-        consensus.fPowAllowMinDifficultyBlocks = true;
-        
+
         consensus.nStartAuxPow = 150;
         consensus.nAuxpowChainId = 0x005A; 
         consensus.fStrictChainId = false;
-        
+
         consensus.nBlockTimeWarpPreventStart1 = 1000; // block where time warp 1 prevention starts
         consensus.nBlockTimeWarpPreventStart2 = 1005; // block where time warp 2 prevention starts
         consensus.nBlockTimeWarpPreventStart3 = 1010; // block where time warp 3 prevention starts
         consensus.Phase2Timespan_Start = 150; // block where 60 second target time kicks in
         consensus.nBlockDiffAdjustV2 = 150; // block where difficulty adjust V2 starts
-        
+
         consensus.nMaxAdjustDown = 4; // 4% adjustment down
         consensus.nMaxAdjustUpV1 = 2; // 2% adjustment up
         consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up     
-        
+
         consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
         consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
-        
+
         consensus.nBlockAlgoWorkWeightStart = 0; // block where algo work weighting starts
         consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
@@ -268,6 +266,22 @@ public:
         consensus.nGeoAvgWork_Start = 150;
         consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
+        // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1504224000; // September 1st, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1535760000; // September 1st, 2018
+
+        /*** Upstream Chainparams ***/
+
+        consensus.nSubsidyHalvingInterval = 80640 * 12;
+        consensus.BIP34Height = 1;
+        consensus.BIP34Hash = uint256S("0x0000d23adc28e33bc05f4bee57c873ae0aab584a6a436e75ac0ed40396f6d86b");
+        consensus.BIP65Height = 641; // ff983c72147a81ac5b8ebfc68b62b39358cac4b8eb5518242e87f499b71c6a51
+        consensus.BIP66Height = 641; // ff983c72147a81ac5b8ebfc68b62b39358cac4b8eb5518242e87f499b71c6a51
+        consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 16);
+        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+        consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
+        consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
@@ -284,11 +298,6 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 1;
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1506816000; // October 1st, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1538352000; // October 1st, 2018
-
-        // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1504224000; // September 1st, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1535760000; // September 1st, 2018
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x00");
@@ -338,7 +347,7 @@ public:
             // Data as of block 00000071942cef6d87635a92f106d5b1935b1314538af80922c766487afd8b22 (height 800)
             1504107501,
             817,
-            1
+            0.02
         };
 
     }
@@ -352,18 +361,12 @@ class CRegTestParams : public CChainParams {
 public:
     CRegTestParams() {
         strNetworkID = "regtest";
-        consensus.nSubsidyHalvingInterval = 150;
-        consensus.BIP34Height = 100000000; // BIP34 has not activated on regtest (far in the future so block v1 are not rejected in tests)
-        consensus.BIP34Hash = uint256();
-        consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
-        consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
-        consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+
+        /*** Myriadcoin Additional Chainparams ***/
+
         consensus.nPowTargetSpacingV1 = 30; // target time for block spacing across all algorithms
         consensus.nPowTargetSpacingV2 = 60; // new target time for block spacing across all algorithms
-        consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
         consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
-        consensus.fPowAllowMinDifficultyBlocks = true;
 
         consensus.nStartAuxPow = 150;
         consensus.nAuxpowChainId = 0x005A;
@@ -389,9 +392,24 @@ public:
         consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
-        consensus.nGeoAvgWork_Start = 150;
+        consensus.nGeoAvgWork_Start = 0;
         consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 0;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 999999999999ULL;
+
+        /*** Upstream Chainparams ***/
+
+        consensus.nSubsidyHalvingInterval = 150;
+        consensus.BIP34Height = 100000000; // BIP34 has not activated on regtest (far in the future so block v1 are not rejected in tests)
+        consensus.BIP34Hash = uint256();
+        consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
+        consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
+        consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+        consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
+        consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
+        consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
         consensus.nMinerConfirmationWindow = 144; // Faster than normal for regtest (144 instead of 2016)
