@@ -200,7 +200,6 @@ arith_uint256 GetPrevWorkForAlgoWithDecay(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
-    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 32)
@@ -227,7 +226,6 @@ arith_uint256 GetPrevWorkForAlgoWithDecay2(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
-    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 32)
@@ -252,7 +250,6 @@ arith_uint256 GetPrevWorkForAlgoWithDecay3(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
-    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 100)
@@ -279,7 +276,7 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
     CBigNum bnBlockWork = CBigNum(ArithToUint256(nBlockWork));
     int nAlgo = block.GetAlgo();
     
-    for (int algo = 0; algo < NUM_ALGOS; algo++)
+    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
     {
         if (algo != nAlgo)
         {
