@@ -2,14 +2,14 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "main.h"
+#include "chain.h"
+#include "chainparams.h"
 #include "pow.h"
+#include "random.h"
 #include "util.h"
 #include "test/test_bitcoin.h"
 
 #include <boost/test/unit_test.hpp>
-
-using namespace std;
 
 BOOST_FIXTURE_TEST_SUITE(pow_tests, BasicTestingSetup)
 
@@ -18,13 +18,19 @@ BOOST_AUTO_TEST_CASE(get_next_work)
 {
     SelectParams(CBaseChainParams::MAIN);
     const Consensus::Params& params = Params().GetConsensus();
+    const int algo = ALGO_SHA256D;
 
-    int64_t nLastRetargetTime = 1261130161; // Block #30240
+    int nActualTimespan = 600;
+    CBlockIndex pindexFirst;
+    pindexFirst.nHeight = 2000000;
+    pindexFirst.nTime = 1420070400;  // Block #(not real)
+    pindexFirst.nBits = 0x1d00ffff;
     CBlockIndex pindexLast;
-    pindexLast.nHeight = 32255;
-    pindexLast.nTime = 1262152739;  // Block #32255
+    pindexLast.nHeight = 2000010;
+    pindexLast.nTime = 1420071000;  // Block #(not real)
     pindexLast.nBits = 0x1d00ffff;
-    //BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, params), 0x1d00d86a);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d00f5c1);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan), 0x1d00f5c1);
 }
 
 /* Test the constraint on the upper bound for next work */
@@ -32,13 +38,19 @@ BOOST_AUTO_TEST_CASE(get_next_work_pow_limit)
 {
     SelectParams(CBaseChainParams::MAIN);
     const Consensus::Params& params = Params().GetConsensus();
+    const int algo = ALGO_SHA256D;
 
-    int64_t nLastRetargetTime = 1231006505; // Block #0
+    int nActualTimespan = 6000;
+    CBlockIndex pindexFirst;
+    pindexFirst.nHeight = 2000000;
+    pindexFirst.nTime = 1420070400;  // Block #(not real)
+    pindexFirst.nBits = 0x1d00ffff;
     CBlockIndex pindexLast;
-    pindexLast.nHeight = 2015;
-    pindexLast.nTime = 1233061996;  // Block #2015
+    pindexLast.nHeight = 2000010;
+    pindexLast.nTime = 1420076400;  // Block #(not real)
     pindexLast.nBits = 0x1d00ffff;
-    //BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, params), 0x1d00ffff);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d010a3c);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan), 0x1d010a3c);
 }
 
 /* Test the constraint on the lower bound for actual time taken */
@@ -46,13 +58,19 @@ BOOST_AUTO_TEST_CASE(get_next_work_lower_limit_actual)
 {
     SelectParams(CBaseChainParams::MAIN);
     const Consensus::Params& params = Params().GetConsensus();
+    const int algo = ALGO_SHA256D;
 
-    int64_t nLastRetargetTime = 1279008237; // Block #66528
+    int nActualTimespan = 10;
+    CBlockIndex pindexFirst;
+    pindexFirst.nHeight = 2000000;
+    pindexFirst.nTime = 1420070400;  // Block #(not real)
+    pindexFirst.nBits = 0x1d00ffff;
     CBlockIndex pindexLast;
-    pindexLast.nHeight = 68543;
-    pindexLast.nTime = 1279297671;  // Block #68543
-    pindexLast.nBits = 0x1c05a3f4;
-    //BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, params), 0x1c0168fd);
+    pindexLast.nHeight = 2000010;
+    pindexLast.nTime = 1420070410;  // Block #(not real)
+    pindexLast.nBits = 0x1d00ffff;
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d00f5c1);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan), 0x1d00f5c1);
 }
 
 /* Test the constraint on the upper bound for actual time taken */
@@ -60,13 +78,19 @@ BOOST_AUTO_TEST_CASE(get_next_work_upper_limit_actual)
 {
     SelectParams(CBaseChainParams::MAIN);
     const Consensus::Params& params = Params().GetConsensus();
+    const int algo = ALGO_SHA256D;
 
-    int64_t nLastRetargetTime = 1263163443; // NOTE: Not an actual block time
+    int nActualTimespan = 1123200;
+    CBlockIndex pindexFirst;
+    pindexFirst.nHeight = 2000000;
+    pindexFirst.nTime = 1420070400;  // Block #(not real)
+    pindexFirst.nBits = 0x1d00ffff;
     CBlockIndex pindexLast;
-    pindexLast.nHeight = 46367;
-    pindexLast.nTime = 1269211443;  // Block #46367
-    pindexLast.nBits = 0x1c387f6f;
-    //BOOST_CHECK_EQUAL(CalculateNextWorkRequired(&pindexLast, nLastRetargetTime, params), 0x1d00e1fd);
+    pindexLast.nHeight = 2000010;
+    pindexLast.nTime = 1421193600;  // Block #(not real)
+    pindexLast.nBits = 0x1d00ffff;
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d010a3c);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan), 0x1d010a3c);
 }
 
 BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)
@@ -78,7 +102,7 @@ BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)
     for (int i = 0; i < 10000; i++) {
         blocks[i].pprev = i ? &blocks[i - 1] : NULL;
         blocks[i].nHeight = i;
-        blocks[i].nTime = 1269211443 + i * params.nPowTargetSpacingV2;
+        blocks[i].nTime = 1269211443 + i * params.nPowTargetSpacing;
         blocks[i].nBits = 0x207fffff; /* target 0x7fffff000... */
         blocks[i].nChainWork = i ? blocks[i - 1].nChainWork + GetBlockProof(blocks[i - 1]) : arith_uint256(0);
     }
