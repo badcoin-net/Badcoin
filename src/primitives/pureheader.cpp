@@ -9,8 +9,8 @@
 #include "crypto/hashgroestl.h"
 #include "crypto/hashqubit.h"
 #include "crypto/hashskein.h"
-#include "crypto/scrypt.h"
-#include "crypto/yescrypt.h"
+#include "crypto/scrypt/scrypt.h"
+#include "crypto/yescrypt/yescrypt.h"
 #include "utilstrencodings.h"
 
 uint256 CPureBlockHeader::GetHash() const

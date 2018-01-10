@@ -151,9 +151,10 @@ As well as everyone that helped translating on [Transifex](https://www.transifex
 
 Myriadcoin Credits
 =======
-(not exhaustive)
+(not exhaustive or hierarchical)
 - 8bitcoder
 - nzsquirrell
 - cryptapus
 - jwinterm
-
+- wlc
+- ahmedbohdi

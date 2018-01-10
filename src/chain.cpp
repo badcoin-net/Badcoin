@@ -200,7 +200,6 @@ arith_uint256 GetPrevWorkForAlgoWithDecay(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
-    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 32)
@@ -227,7 +226,6 @@ arith_uint256 GetPrevWorkForAlgoWithDecay2(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
-    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 32)
@@ -252,7 +250,6 @@ arith_uint256 GetPrevWorkForAlgoWithDecay3(const CBlockIndex& block, int algo)
     int nDistance = 0;
     arith_uint256 nWork;
     const CBlockIndex* pindex = &block;
-    pindex = pindex->pprev;
     while (pindex != NULL)
     {
         if (nDistance > 100)
@@ -279,7 +276,7 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
     CBigNum bnBlockWork = CBigNum(ArithToUint256(nBlockWork));
     int nAlgo = block.GetAlgo();
     
-    for (int algo = 0; algo < NUM_ALGOS; algo++)
+    for (int algo = 0; algo < NUM_ALGOS_IMPL; algo++)
     {
         if (algo != nAlgo)
         {
@@ -358,7 +355,13 @@ int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& fr
         r = from.nChainWork - to.nChainWork;
         sign = -1;
     }
+    /* TODO: Myriadcoin, Being specific in this case for consensus matching with 0.11. However
+        this should be safe to set to the current params.nPowTargetSpacing. We can safely reset
+        if hard forked from 0.11. In consensus, params.nPowTargetSpacing is set
+        to params.nPowTargetSpacingV2.
     r = r * arith_uint256(params.nPowTargetSpacing) / GetBlockProof(tip);
+    */
+    r = r * arith_uint256(params.nPowTargetSpacingV2) / GetBlockProof(tip);
     if (r.bits() > 63) {
         return sign * std::numeric_limits<int64_t>::max();
     }

@@ -231,9 +231,8 @@ BOOST_AUTO_TEST_CASE (check_auxpow)
   builder2.parentBlock.SetChainId (100);
   BOOST_CHECK (builder2.get ().check (hashAux, ourChainId, params));
   builder2.parentBlock.SetChainId (ourChainId);
-  /* Removed for Myriadcoin
-  BOOST_CHECK (!builder2.get ().check (hashAux, ourChainId, params));
-  */
+  // Removed for Myriadcoin:
+  //BOOST_CHECK (!builder2.get ().check (hashAux, ourChainId, params));
 
   /* Disallow too long merkle branches.  */
   builder2 = builder;

@@ -12,7 +12,7 @@
 #include "consensus/consensus.h"
 #include "consensus/merkle.h"
 #include "consensus/validation.h"
-#include "crypto/scrypt.h"
+#include "crypto/scrypt/scrypt.h"
 #include "hash.h"
 #include "validation.h"
 #include "net.h"
@@ -160,7 +160,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
     if (chainparams.MineBlocksOnDemand())
-        pblock->SetBaseVersion(GetArg("-blockversion", pblock->GetBaseVersion()), nChainId);
+        pblock->nVersion = GetArg("-blockversion", pblock->nVersion);
 
     // multi-algo: encode algo into nVersion
     pblock->SetAlgo(algo);
