@@ -253,48 +253,48 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/hmac_sha512.h \
   crypto/ripemd160.cpp \
   crypto/ripemd160.h \
-  crypto/scrypt.cpp \
-  crypto/scrypt-sse2.cpp \
-  crypto/scrypt.h \
   crypto/sha1.cpp \
   crypto/sha1.h \
   crypto/sha256.cpp \
   crypto/sha256.h \
   crypto/sha512.cpp \
   crypto/sha512.h \
-  crypto/aes_helper.c \
-  crypto/blake.c \
-  crypto/bmw.c \
-  crypto/cubehash.c \
-  crypto/echo.c \
-  crypto/groestl.c \
-  crypto/jh.c \
-  crypto/keccak.c \
-  crypto/luffa.c \
-  crypto/shavite.c \
-  crypto/simd.c \
-  crypto/skein.c \
   crypto/hashgroestl.h \
   crypto/hashqubit.h \
   crypto/hashskein.h \
-  crypto/sph_blake.h \
-  crypto/sph_bmw.h \
-  crypto/sph_cubehash.h \
-  crypto/sph_echo.h \
-  crypto/sph_groestl.h \
-  crypto/sph_jh.h \
-  crypto/sph_keccak.h \
-  crypto/sph_luffa.h \
-  crypto/sph_shavite.h \
-  crypto/sph_simd.h \
-  crypto/sph_skein.h \
-  crypto/sph_types.h \
-  crypto/sha256_Y.c \
-  crypto/sha256_Y.h \
-  crypto/sysendian.h \
-  crypto/yescrypt.h \
-  crypto/yescrypt-best.c \
-  crypto/yescryptcommon.c
+  crypto/scrypt/scrypt.cpp \
+  crypto/scrypt/scrypt-sse2.cpp \
+  crypto/scrypt/scrypt.h \
+  crypto/sha3/aes_helper.c \
+  crypto/sha3/blake.c \
+  crypto/sha3/bmw.c \
+  crypto/sha3/cubehash.c \
+  crypto/sha3/echo.c \
+  crypto/sha3/groestl.c \
+  crypto/sha3/jh.c \
+  crypto/sha3/keccak.c \
+  crypto/sha3/luffa.c \
+  crypto/sha3/shavite.c \
+  crypto/sha3/simd.c \
+  crypto/sha3/skein.c \
+  crypto/sha3/sph_blake.h \
+  crypto/sha3/sph_bmw.h \
+  crypto/sha3/sph_cubehash.h \
+  crypto/sha3/sph_echo.h \
+  crypto/sha3/sph_groestl.h \
+  crypto/sha3/sph_jh.h \
+  crypto/sha3/sph_keccak.h \
+  crypto/sha3/sph_luffa.h \
+  crypto/sha3/sph_shavite.h \
+  crypto/sha3/sph_simd.h \
+  crypto/sha3/sph_skein.h \
+  crypto/sha3/sph_types.h \
+  crypto/yescrypt/sha256_Y.c \
+  crypto/yescrypt/sha256_Y.h \
+  crypto/yescrypt/sysendian.h \
+  crypto/yescrypt/yescrypt.h \
+  crypto/yescrypt/yescrypt-best.c \
+  crypto/yescrypt/yescryptcommon.c
 
 # consensus: shared between all executables that validate any consensus rules.
 libbitcoin_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
@@ -480,9 +480,9 @@ CTAES_DIST += crypto/ctaes/ctaes.h
 CTAES_DIST += crypto/ctaes/README.md
 CTAES_DIST += crypto/ctaes/test.c
 
-YESCRYPT_DIST = crypto/yescrypt-platform.c
-YESCRYPT_DIST += crypto/yescrypt-opt.c
-YESCRYPT_DIST += crypto/yescrypt-simd.c
+YESCRYPT_DIST = crypto/yescrypt/yescrypt-platform.c
+YESCRYPT_DIST += crypto/yescrypt/yescrypt-opt.c
+YESCRYPT_DIST += crypto/yescrypt/yescrypt-simd.c
 
 CLEANFILES = $(EXTRA_LIBRARIES)
 

@@ -1,6 +1,6 @@
 #include <boost/test/unit_test.hpp>
 
-#include "crypto/scrypt.h"
+#include "crypto/scrypt/scrypt.h"
 #include "uint256.h"
 #include "util.h"
 #include "utilstrencodings.h"
