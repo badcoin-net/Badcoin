@@ -408,6 +408,11 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 999999999999ULL;
 
+        // Deployment of MIP2 (Reserve algorithm ids)
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 0; 
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 999999999999ULL;
+
         /*** Upstream Chainparams ***/
 
         consensus.nSubsidyHalvingInterval = 150;
