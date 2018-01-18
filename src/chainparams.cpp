@@ -111,6 +111,11 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1507420800; // October 8th, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1538956800; // October 8th, 2018
 
+        // Deployment of MIP2 (Reserve algorithm ids)
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1517443200; // Feb 1st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1548979200; // Feb 1st, 2019
+
         /*** Upstream Chainparams ***/
 
         consensus.nSubsidyHalvingInterval = 80640 * 12;
@@ -270,6 +275,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1504224000; // September 1st, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1535760000; // September 1st, 2018
+
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1517443200; // Feb 1st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1548979200; // Feb 1st, 2019
 
         /*** Upstream Chainparams ***/
 
