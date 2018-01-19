@@ -22,6 +22,10 @@ const struct BIP9DeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION
     {
         /*.name =*/ "legbit",
         /*.gbt_force =*/ true,
+    },
+    {
+        /*.name =*/ "reservealgo",
+        /*.gbt_force =*/ true,
     }
 };
 
