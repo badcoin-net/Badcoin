@@ -27,7 +27,7 @@
  * online backup system.
  */
 
-#include "crypto/scrypt.h"
+#include "crypto/scrypt/scrypt.h"
 //#include "util.h"
 #include <stdlib.h>
 #include <stdint.h>

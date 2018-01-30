@@ -3094,6 +3094,13 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
             return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid YESCRYPT block");
     }
 
+    bool bMIP2 = (VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_RESERVEALGO, versionbitscache) == THRESHOLD_ACTIVE);
+    if (bMIP2)
+    {
+        if (algo >= 6)
+            return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid algo id");
+    }
+
     // Reject outdated version blocks when 95% (75% on testnet) of the network has upgraded:
     // check for version 2, 3 and 4 upgrades
     if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
