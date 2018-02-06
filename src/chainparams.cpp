@@ -123,6 +123,7 @@ public:
         consensus.BIP34Hash = uint256S("0xcb41589c918fba1beccca8bc6b34b2b928b4f9888595d7664afd6ec60a576291");
         consensus.BIP65Height = 1764000; // 2ca9968704301897b956f7e326375413be505509489c06aee2b16fe73805481e
         consensus.BIP66Height = 1764000; // 2ca9968704301897b956f7e326375413be505509489c06aee2b16fe73805481e
+        consensus.MIP2Height = 2328480;
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
@@ -287,6 +288,7 @@ public:
         consensus.BIP34Hash = uint256S("0x0000d23adc28e33bc05f4bee57c873ae0aab584a6a436e75ac0ed40396f6d86b");
         consensus.BIP65Height = 641; // ff983c72147a81ac5b8ebfc68b62b39358cac4b8eb5518242e87f499b71c6a51
         consensus.BIP66Height = 641; // ff983c72147a81ac5b8ebfc68b62b39358cac4b8eb5518242e87f499b71c6a51
+        consensus.MIP2Height = 1;
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 16);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
