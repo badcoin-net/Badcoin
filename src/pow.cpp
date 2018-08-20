@@ -11,6 +11,7 @@
 #include "primitives/block.h"
 #include "uint256.h"
 #include "util.h"
+#include "validation.h" // TODO Myriadcoin, needed for LONGBLOCKS versionbitscache
 #include "bignum.h"
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, const Consensus::Params& params)
@@ -158,7 +159,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     if (pindexLast->nHeight >= params.Phase2Timespan_Start)
     {
-        return CalculateNextWorkRequiredV2(pindexPrev, pindexFirst, params, algo, nActualTimespan);
+        return CalculateNextWorkRequiredV2(pindexPrev, pindexFirst, params, algo, nActualTimespan, pindexLast->nHeight);
     }
     else
     {
@@ -222,7 +223,7 @@ unsigned int CalculateNextWorkRequiredV1(const CBlockIndex* pindexPrev, const CB
 }
 
 
-unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CBlockIndex* pindexFirst, const Consensus::Params& params, int algo, int64_t nActualTimespan)
+unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CBlockIndex* pindexFirst, const Consensus::Params& params, int algo, int64_t nActualTimespan, int nHeight)
 {
     if (params.fPowNoRetargeting)
         return pindexPrev->nBits;
@@ -230,6 +231,13 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);    
     
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV2 * NUM_ALGOS; // 60 * 5 = 300s per algo
+    std::string sBlockTime = "V2";
+    if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
+        if (nHeight >= params.nLongblocks_Start) {
+            nTargetSpacingPerAlgo = params.nPowTargetSpacingV3 * NUM_ALGOS; // 10 * 60 * 5 = 3000s per algo
+            sBlockTime = "V2_longblocks";
+        }
+    }
     int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 * 300 = 3000s, 50 minutes
     int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV2) / 100;
     int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + params.nMaxAdjustDown) / 100;
@@ -256,10 +264,10 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
     /// debug print
     if(fDebug)
     {
-        LogPrintf("CalculateNextWorkRequiredV2(Algo=%d): RETARGET\n", algo);
-        LogPrintf("CalculateNextWorkRequiredV2(Algo=%d): nTargetTimespan = %d    nActualTimespan = %d\n", algo, nAveragingTargetTimespan, nActualTimespan);
-        LogPrintf("CalculateNextWorkRequiredV2(Algo=%d): Before: %08x  %s\n", algo, pindexPrev->nBits, bnOld.ToString());
-        LogPrintf("CalculateNextWorkRequiredV2(Algo=%d): After:  %08x  %s\n", algo, bnNew.GetCompact(), bnNew.ToString());
+        LogPrintf("CalculateNextWorkRequired%s(Algo=%d): RETARGET\n", sBlockTime, algo);
+        LogPrintf("CalculateNextWorkRequired%s(Algo=%d): nTargetTimespan = %d    nActualTimespan = %d\n", sBlockTime, algo, nAveragingTargetTimespan, nActualTimespan);
+        LogPrintf("CalculateNextWorkRequired%s(Algo=%d): Before: %08x  %s\n", sBlockTime, algo, pindexPrev->nBits, bnOld.ToString());
+        LogPrintf("CalculateNextWorkRequired%s(Algo=%d): After:  %08x  %s\n", sBlockTime, algo, bnNew.GetCompact(), bnNew.ToString());
     }
 
     return bnNew.GetCompact();

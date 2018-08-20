@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(get_next_work)
     pindexLast.nTime = 1420071000;  // Block #(not real)
     pindexLast.nBits = 0x1d00ffff;
     BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d00f5c1);
-    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan), 0x1d00f5c1);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d00f5c1);
 }
 
 /* Test the constraint on the upper bound for next work */
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_pow_limit)
     pindexLast.nTime = 1420076400;  // Block #(not real)
     pindexLast.nBits = 0x1d00ffff;
     BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d010a3c);
-    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan), 0x1d010a3c);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d010a3c);
 }
 
 /* Test the constraint on the lower bound for actual time taken */
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_lower_limit_actual)
     pindexLast.nTime = 1420070410;  // Block #(not real)
     pindexLast.nBits = 0x1d00ffff;
     BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d00f5c1);
-    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan), 0x1d00f5c1);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d00f5c1);
 }
 
 /* Test the constraint on the upper bound for actual time taken */
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_upper_limit_actual)
     pindexLast.nTime = 1421193600;  // Block #(not real)
     pindexLast.nBits = 0x1d00ffff;
     BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d010a3c);
-    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan), 0x1d010a3c);
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d010a3c);
 }
 
 BOOST_AUTO_TEST_CASE(GetBlockProofEquivalentTime_test)
