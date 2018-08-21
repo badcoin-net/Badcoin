@@ -107,9 +107,15 @@ public:
         consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
         // MIP3 parameters
-        consensus.nPowTargetSpacingV3 = 10 * 60; // new target time for block spacing across all algorithms
-        consensus.nLongblocks_Start = 2903040; // Start of longblocks, original 3rd block halving
-        consensus.nSubsidyHalvingIntervalV2 = 8064 * 12; // Final Subsidy halving after adjust block time
+        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
+        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
+        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
+        consensus.nLongblocks_StartV1a = 2903040; // Start of longblocks, original 3rd block halving
+        consensus.nLongblocks_StartV1b = 3386880; // Start of longblocks, original 4th block halving
+        consensus.nLongblocks_StartV1c = 3628800; // Start of longblocks, original 5th block halving
+        consensus.nSubsidyHalvingIntervalV2a = 483840; // Longblocks Subsidy halving after adjust block time (2min)
+        consensus.nSubsidyHalvingIntervalV2b = 241920; // Longblocks Subsidy halving after adjust block time (4min)
+        consensus.nSubsidyHalvingIntervalV2c = 120960; // Longblocks Subsidy halving after adjust block time (8min)
 
         // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
@@ -283,9 +289,15 @@ public:
         consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
         // MIP3 parameters
-        consensus.nPowTargetSpacingV3 = 10 * 60; // new target time for block spacing across all algorithms
-        consensus.nLongblocks_Start = 2903040; // Start of longblocks, original 3rd block halving
-        consensus.nSubsidyHalvingIntervalV2 = 8064 * 12; // Final Subsidy halving after adjust block time
+        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
+        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
+        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
+        consensus.nLongblocks_StartV1a = 2903040; // Start of longblocks, original 3rd block halving
+        consensus.nLongblocks_StartV1b = 3386880; // Start of longblocks, original 4th block halving
+        consensus.nLongblocks_StartV1c = 3628800; // Start of longblocks, original 5th block halving
+        consensus.nSubsidyHalvingIntervalV2a = 483840; // Longblocks Subsidy halving after adjust block time (2min)
+        consensus.nSubsidyHalvingIntervalV2b = 241920; // Longblocks Subsidy halving after adjust block time (4min)
+        consensus.nSubsidyHalvingIntervalV2c = 120960; // Longblocks Subsidy halving after adjust block time (8min)
 
         // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
@@ -427,9 +439,15 @@ public:
         consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
         // MIP3 parameters
-        consensus.nPowTargetSpacingV3 = 10 * 60; // new target time for block spacing across all algorithms
-        consensus.nLongblocks_Start = 450; // Start of longblocks, original 3rd block halving
-        consensus.nSubsidyHalvingIntervalV2 = 15; // Final Subsidy halving after adjust block time
+        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
+        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
+        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
+        consensus.nLongblocks_StartV1a = 450; // Start of longblocks, original 3rd block halving
+        consensus.nLongblocks_StartV1b = 525; // Start of longblocks, original 4th block halving
+        consensus.nLongblocks_StartV1c = 562; // Start of longblocks, original 5th block halving
+        consensus.nSubsidyHalvingIntervalV2a = 75; // Longblocks Subsidy halving after adjust block time (2min)
+        consensus.nSubsidyHalvingIntervalV2b = 37; // Longblocks Subsidy halving after adjust block time (4min)
+        consensus.nSubsidyHalvingIntervalV2c = 18; // Longblocks Subsidy halving after adjust block time (8min)
 
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 0;

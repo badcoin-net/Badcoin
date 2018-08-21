@@ -233,12 +233,18 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV2 * NUM_ALGOS; // 60 * 5 = 300s per algo
     std::string sBlockTime = "V2";
     if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
-        if (nHeight >= params.nLongblocks_Start) {
-            nTargetSpacingPerAlgo = params.nPowTargetSpacingV3 * NUM_ALGOS; // 10 * 60 * 5 = 3000s per algo
-            sBlockTime = "V2_longblocks";
+        if (nHeight >= params.nLongblocks_StartV1c) {
+            nTargetSpacingPerAlgo = params.nPowTargetSpacingV3c * NUM_ALGOS; // 8 * 60 * 5 = 2400s per algo
+            sBlockTime = "V2_longblocks_8min";
+        } else if (nHeight >= params.nLongblocks_StartV1b) {
+            nTargetSpacingPerAlgo = params.nPowTargetSpacingV3b * NUM_ALGOS; // 4 * 60 * 5 = 1200s per algo
+            sBlockTime = "V2_longblocks_4min";
+        } else if (nHeight >= params.nLongblocks_StartV1a) {
+            nTargetSpacingPerAlgo = params.nPowTargetSpacingV3a * NUM_ALGOS; // 2 * 60 * 5 = 600s per algo
+            sBlockTime = "V2_longblocks_2min";
         }
     }
-    int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 * 300 = 3000s, 50 minutes
+    int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 blocks per algo
     int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV2) / 100;
     int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + params.nMaxAdjustDown) / 100;
     

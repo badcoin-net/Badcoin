@@ -1242,12 +1242,18 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, c
 {
     int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
     if (VersionBitsState(pindex, consensusParams, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
-        if (nHeight >= consensusParams.nLongblocks_Start) {
-            halvings = consensusParams.nLongblocks_Start / consensusParams.nSubsidyHalvingInterval;
-            halvings += (nHeight - consensusParams.nLongblocks_Start) / consensusParams.nSubsidyHalvingIntervalV2;
+        if (nHeight >= consensusParams.nLongblocks_StartV1a) {
+            halvings = consensusParams.nLongblocks_StartV1a / consensusParams.nSubsidyHalvingInterval;
+        }
+        if (nHeight >= consensusParams.nLongblocks_StartV1b) {
+            halvings += 1;
+        }
+        if (nHeight >= consensusParams.nLongblocks_StartV1c) {
+            halvings += 1;
+            halvings += ( nHeight - consensusParams.nLongblocks_StartV1c ) / consensusParams.nSubsidyHalvingIntervalV2c;
         }
         // Force block reward to 1 after 10 halvings (tail emission).
-        if (halvings >= 14) // tail emission happens later with longblocks.
+        if (halvings >= 13) // tail emission happens later with longblocks.
             return 1 * COIN;
     } else {
         // Force block reward to 1 after 10 halvings (tail emission).
@@ -1260,8 +1266,12 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, c
     nSubsidy >>= halvings;
     if (VersionBitsState(pindex, consensusParams, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
         // longblocks require larger reward scaled for time.
-        if (nHeight >= consensusParams.nLongblocks_Start) {
-            nSubsidy *= 10; // 1min -> 10min (seconds)
+        if (nHeight >= consensusParams.nLongblocks_StartV1c) {
+            nSubsidy *= 8; // 1min -> 8min
+        } else if (nHeight >= consensusParams.nLongblocks_StartV1b) {
+            nSubsidy *= 4; // 1min -> 4min
+        } else if (nHeight >= consensusParams.nLongblocks_StartV1a) {
+            nSubsidy *= 2; // 1min -> 2min
         }
     }
     return nSubsidy;
