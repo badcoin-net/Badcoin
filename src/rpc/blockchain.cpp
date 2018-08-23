@@ -52,21 +52,21 @@ extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& 
 /* Calculate the difficulty for a given block index,
  * or the block index of the given chain.
  */
-double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
+double GetDifficulty(const CBlockIndex* blockindex, int algo)
 {
     if (blockindex == nullptr)
     {
-        if (chain.Tip() == nullptr)
+        if (chainActive.Tip() == nullptr)
             return 1.0;
         else
-            blockindex = chain.Tip();
+            blockindex = GetLastBlockIndexForAlgo(chainActive.Tip(), algo);
     }
-    else
-        nBits = blockindex->nBits;
+    //else
+    //    nBits = blockindex->nBits;
 
     int nShift = (blockindex->nBits >> 24) & 0xff;
     double dDiff =
-        (double)0x0000ffff / (double)(nBits & 0x00ffffff);
+        (double)0x0000ffff / (double)(blockindex->nBits & 0x00ffffff);
 
     while (nShift < 29)
     {
@@ -82,18 +82,16 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
     return dDiff;
 }
 
-static UniValue AuxpowToJSON(const CAuxPow& auxpow)
+namespace
 {
-    UniValue tx(UniValue::VOBJ);
-    tx.push_back(Pair("hex", EncodeHexTx(auxpow)));
-    TxToJSON(auxpow, auxpow.parentBlock.GetHash(), tx);
-
+UniValue AuxpowToJSON(const CAuxPow& auxpow)
+{
     UniValue result(UniValue::VOBJ);
 
     {
         UniValue tx(UniValue::VOBJ);
-        tx.push_back(Pair("hex", EncodeHexTx(auxpow)));
-        TxToJSON(auxpow, auxpow.parentBlock.GetHash(), tx);
+        tx.push_back(Pair("hex", EncodeHexTx(*auxpow.tx)));
+        TxToJSON(*auxpow.tx, auxpow.parentBlock.GetHash(), tx);
         result.push_back(Pair("tx", tx));
     }
 
@@ -102,14 +100,14 @@ static UniValue AuxpowToJSON(const CAuxPow& auxpow)
 
     {
         UniValue branch(UniValue::VARR);
-        BOOST_FOREACH(const uint256& node, auxpow.vMerkleBranch)
+        for (const auto& node : auxpow.vMerkleBranch)
             branch.push_back(node.GetHex());
         result.push_back(Pair("merklebranch", branch));
     }
 
     {
         UniValue branch(UniValue::VARR);
-        BOOST_FOREACH(const uint256& node, auxpow.vChainMerkleBranch)
+        for (const auto& node : auxpow.vChainMerkleBranch)
             branch.push_back(node.GetHex());
         result.push_back(Pair("chainmerklebranch", branch));
     }
@@ -121,11 +119,7 @@ static UniValue AuxpowToJSON(const CAuxPow& auxpow)
 
     return result;
 }
-
-double GetDifficulty(const CBlockIndex* blockindex)
-{
-    return GetDifficulty(chainActive, blockindex);
-}
+} // anonymous namespace
 
 UniValue blockheaderToJSON(const CBlockIndex* blockindex)
 {
@@ -415,7 +409,7 @@ UniValue getdifficulty(const JSONRPCRequest& request)
         );
 
     LOCK(cs_main);
-    return GetDifficulty(NULL, miningAlgo);
+    return GetDifficulty(nullptr, miningAlgo);
 }
 
 std::string EntryDescriptionString()
@@ -1283,13 +1277,13 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.push_back(Pair("blocks",                (int)chainActive.Height()));
     obj.push_back(Pair("headers",               pindexBestHeader ? pindexBestHeader->nHeight : -1));
     obj.push_back(Pair("bestblockhash",         chainActive.Tip()->GetBlockHash().GetHex()));
-    obj.push_back(Pair("difficulty",            (double)GetDifficulty(NULL, miningAlgo)));
-    obj.push_back(Pair("difficulty_sha256d",    (double)GetDifficulty(NULL, ALGO_SHA256D)));
-    obj.push_back(Pair("difficulty_scrypt",     (double)GetDifficulty(NULL, ALGO_SCRYPT)));
-    obj.push_back(Pair("difficulty_groestl",    (double)GetDifficulty(NULL, ALGO_GROESTL)));
-    obj.push_back(Pair("difficulty_skein",      (double)GetDifficulty(NULL, ALGO_SKEIN)));
-    obj.push_back(Pair("difficulty_qubit",      (double)GetDifficulty(NULL, ALGO_QUBIT)));
-    obj.push_back(Pair("difficulty_yescrypt",   (double)GetDifficulty(NULL, ALGO_YESCRYPT)));
+    obj.push_back(Pair("difficulty",            (double)GetDifficulty(nullptr, miningAlgo)));
+    obj.push_back(Pair("difficulty_sha256d",    (double)GetDifficulty(nullptr, ALGO_SHA256D)));
+    obj.push_back(Pair("difficulty_scrypt",     (double)GetDifficulty(nullptr, ALGO_SCRYPT)));
+    obj.push_back(Pair("difficulty_groestl",    (double)GetDifficulty(nullptr, ALGO_GROESTL)));
+    obj.push_back(Pair("difficulty_skein",      (double)GetDifficulty(nullptr, ALGO_SKEIN)));
+    obj.push_back(Pair("difficulty_qubit",      (double)GetDifficulty(nullptr, ALGO_QUBIT)));
+    obj.push_back(Pair("difficulty_yescrypt",   (double)GetDifficulty(nullptr, ALGO_YESCRYPT)));
     obj.push_back(Pair("mediantime",            (int64_t)chainActive.Tip()->GetMedianTimePast()));
     obj.push_back(Pair("verificationprogress",  GuessVerificationProgress(Params().TxData(), chainActive.Tip())));
     obj.push_back(Pair("initialblockdownload",  IsInitialBlockDownload()));
