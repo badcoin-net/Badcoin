@@ -671,7 +671,7 @@ UniValue getreceivedbyaddress(const JSONRPCRequest& request)
             + HelpExampleCli("getreceivedbyaddress", "\"MJPyMHUJiQpwM5ZkzKXDo5UPYTNh5yJ9Vf\"") +
             "\nThe amount including unconfirmed transactions, zero confirmations\n"
             + HelpExampleCli("getreceivedbyaddress", "\"MJPyMHUJiQpwM5ZkzKXDo5UPYTNh5yJ9Vf\" 0") +
-            "\nThe amount with at least 6 confirmations\n"
+            "\nThe amount with at least 6 confirmation\n"
             + HelpExampleCli("getreceivedbyaddress", "\"MJPyMHUJiQpwM5ZkzKXDo5UPYTNh5yJ9Vf\" 6") +
             "\nAs a json rpc call\n"
             + HelpExampleRpc("getreceivedbyaddress", "\"MJPyMHUJiQpwM5ZkzKXDo5UPYTNh5yJ9Vf\", 6")
@@ -1109,21 +1109,12 @@ UniValue sendmany(const JSONRPCRequest& request)
     std::vector<CRecipient> vecSend;
 
     CAmount totalAmount = 0;
-<<<<<<< HEAD
-    vector<string> keys = sendTo.getKeys();
-    BOOST_FOREACH(const string& name_, keys)
-    {
-        CBitcoinAddress address(name_);
-        if (!address.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Myriad address: ")+name_);
-=======
     std::vector<std::string> keys = sendTo.getKeys();
     for (const std::string& name_ : keys) {
         CTxDestination dest = DecodeDestination(name_);
         if (!IsValidDestination(dest)) {
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Myriadcoin address: ") + name_);
         }
->>>>>>> upstream/0.16
 
         if (destinations.count(dest)) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, std::string("Invalid parameter, duplicated address: ") + name_);
@@ -1178,20 +1169,6 @@ UniValue addmultisigaddress(const JSONRPCRequest& request)
         return NullUniValue;
     }
 
-<<<<<<< HEAD
-    if (request.fHelp || request.params.size() < 2 || request.params.size() > 3)
-    {
-        string msg = "addmultisigaddress nrequired [\"key\",...] ( \"account\" )\n"
-            "\nAdd a nrequired-to-sign multisignature address to the wallet.\n"
-            "Each key is a Myriad address or hex-encoded public key.\n"
-            "If 'account' is specified (DEPRECATED), assign address to that account.\n"
-
-            "\nArguments:\n"
-            "1. nrequired        (numeric, required) The number of required signatures out of the n keys or addresses.\n"
-            "2. \"keys\"         (string, required) A json array of myriadcoin addresses or hex-encoded public keys\n"
-            "     [\n"
-            "       \"address\"  (string) myriad address or hex-encoded public key\n"
-=======
     if (request.fHelp || request.params.size() < 2 || request.params.size() > 4) {
         std::string msg = "addmultisigaddress nrequired [\"key\",...] ( \"account\" \"address_type\" )\n"
             "\nAdd a nrequired-to-sign multisignature address to the wallet. Requires a new wallet backup.\n"
@@ -1204,25 +1181,20 @@ UniValue addmultisigaddress(const JSONRPCRequest& request)
             "1. nrequired                      (numeric, required) The number of required signatures out of the n keys or addresses.\n"
             "2. \"keys\"                         (string, required) A json array of bitcoin addresses or hex-encoded public keys\n"
             "     [\n"
-            "       \"address\"                  (string) bitcoin address or hex-encoded public key\n"
->>>>>>> upstream/0.16
+            "       \"address\"                  (string) myriadcoin address or hex-encoded public key\n"
             "       ...,\n"
             "     ]\n"
             "3. \"account\"                      (string, optional) DEPRECATED. An account to assign the addresses to.\n"
             "4. \"address_type\"                 (string, optional) The address type to use. Options are \"legacy\", \"p2sh-segwit\", and \"bech32\". Default is set by -addresstype.\n"
 
             "\nResult:\n"
-<<<<<<< HEAD
-            "\"address\"         (string) A myriadcoin address associated with the keys.\n"
-=======
             "{\n"
             "  \"address\":\"multisigaddress\",    (string) The value of the new multisig address.\n"
             "  \"redeemScript\":\"script\"         (string) The string value of the hex-encoded redemption script.\n"
             "}\n"
-            "\nResult (DEPRECATED. To see this result in v0.16 instead, please start bitcoind with -deprecatedrpc=addmultisigaddress).\n"
+            "\nResult (DEPRECATED. To see this result in v0.16 instead, please start myriadcoind with -deprecatedrpc=addmultisigaddress).\n"
             "        clients should transition to the new output api before upgrading to v0.17.\n"
             "\"address\"                         (string) A bitcoin address associated with the keys.\n"
->>>>>>> upstream/0.16
 
             "\nExamples:\n"
             "\nAdd a multisig address from 2 addresses\n"
@@ -1375,7 +1347,7 @@ UniValue addwitnessaddress(const JSONRPCRequest& request)
 
     CTxDestination dest = DecodeDestination(request.params[0].get_str());
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Myriadcoin address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Bitcoin address");
     }
 
     bool p2sh = true;
@@ -2919,15 +2891,9 @@ UniValue listunspent(const JSONRPCRequest& request)
             "\nArguments:\n"
             "1. minconf          (numeric, optional, default=1) The minimum confirmations to filter\n"
             "2. maxconf          (numeric, optional, default=9999999) The maximum confirmations to filter\n"
-<<<<<<< HEAD
-            "3. \"addresses\"    (string) A json array of myriad addresses to filter\n"
-            "    [\n"
-            "      \"address\"   (string) myriad address\n"
-=======
-            "3. \"addresses\"      (string) A json array of bitcoin addresses to filter\n"
+            "3. \"addresses\"      (string) A json array of myriadcoin addresses to filter\n"
             "    [\n"
             "      \"address\"     (string) bitcoin address\n"
->>>>>>> upstream/0.16
             "      ,...\n"
             "    ]\n"
             "4. include_unsafe (bool, optional, default=true) Include outputs that are not safe to spend\n"
@@ -2987,14 +2953,6 @@ UniValue listunspent(const JSONRPCRequest& request)
         UniValue inputs = request.params[2].get_array();
         for (unsigned int idx = 0; idx < inputs.size(); idx++) {
             const UniValue& input = inputs[idx];
-<<<<<<< HEAD
-            CBitcoinAddress address(input.get_str());
-            if (!address.IsValid())
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Myriad address: ")+input.get_str());
-            if (setAddress.count(address))
-                throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ")+input.get_str());
-           setAddress.insert(address);
-=======
             CTxDestination dest = DecodeDestination(input.get_str());
             if (!IsValidDestination(dest)) {
                 throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Myriadcoin address: ") + input.get_str());
@@ -3002,7 +2960,6 @@ UniValue listunspent(const JSONRPCRequest& request)
             if (!destinations.insert(dest).second) {
                 throw JSONRPCError(RPC_INVALID_PARAMETER, std::string("Invalid parameter, duplicated address: ") + input.get_str());
             }
->>>>>>> upstream/0.16
         }
     }
 
@@ -3189,14 +3146,9 @@ UniValue fundrawtransaction(const JSONRPCRequest& request)
         if (options.exists("changeAddress")) {
             CTxDestination dest = DecodeDestination(options["changeAddress"].get_str());
 
-<<<<<<< HEAD
-            if (!address.IsValid())
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "changeAddress must be a valid bitcoin address");
-=======
             if (!IsValidDestination(dest)) {
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "changeAddress must be a valid bitcoin address");
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "changeAddress must be a valid myriadcoin address");
             }
->>>>>>> upstream/0.16
 
             coinControl.destChange = dest;
         }
@@ -3277,14 +3229,9 @@ UniValue fundrawtransaction(const JSONRPCRequest& request)
     CAmount nFeeOut;
     std::string strFailReason;
 
-<<<<<<< HEAD
-    if(!pwalletMain->FundTransaction(tx, nFeeOut, overrideEstimatedFeerate, feeRate, changePosition, strFailReason, includeWatching, lockUnspents, setSubtractFeeFromOutputs, reserveChangeKey, changeAddress))
-        throw JSONRPCError(RPC_WALLET_ERROR, strFailReason);
-=======
     if (!pwallet->FundTransaction(tx, nFeeOut, changePosition, strFailReason, lockUnspents, setSubtractFeeFromOutputs, coinControl)) {
         throw JSONRPCError(RPC_WALLET_ERROR, strFailReason);
     }
->>>>>>> upstream/0.16
 
     UniValue result(UniValue::VOBJ);
     result.push_back(Pair("hex", EncodeHexTx(tx)));
@@ -3352,66 +3299,6 @@ UniValue bumpfee(const JSONRPCRequest& request)
     uint256 hash;
     hash.SetHex(request.params[0].get_str());
 
-<<<<<<< HEAD
-    // retrieve the original tx from the wallet
-    LOCK2(cs_main, pwalletMain->cs_wallet);
-    EnsureWalletIsUnlocked();
-    if (!pwalletMain->mapWallet.count(hash)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid or non-wallet transaction id");
-    }
-    CWalletTx& wtx = pwalletMain->mapWallet[hash];
-
-    if (pwalletMain->HasWalletSpend(hash)) {
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Transaction has descendants in the wallet");
-    }
-
-    {
-        LOCK(mempool.cs);
-        auto it = mempool.mapTx.find(hash);
-        if (it != mempool.mapTx.end() && it->GetCountWithDescendants() > 1) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Transaction has descendants in the mempool");
-        }
-    }
-
-    if (wtx.GetDepthInMainChain() != 0) {
-        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction has been mined, or is conflicted with a mined transaction");
-    }
-
-    if (!SignalsOptInRBF(wtx)) {
-        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction is not BIP 125 replaceable");
-    }
-
-    if (wtx.mapValue.count("replaced_by_txid")) {
-        throw JSONRPCError(RPC_WALLET_ERROR, strprintf("Cannot bump transaction %s which was already bumped by transaction %s", hash.ToString(), wtx.mapValue.at("replaced_by_txid")));
-    }
-
-    // check that original tx consists entirely of our inputs
-    // if not, we can't bump the fee, because the wallet has no way of knowing the value of the other inputs (thus the fee)
-    if (!pwalletMain->IsAllFromMe(wtx, ISMINE_SPENDABLE)) {
-        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction contains inputs that don't belong to this wallet");
-    }
-
-    // figure out which output was change
-    // if there was no change output or multiple change outputs, fail
-    int nOutput = -1;
-    for (size_t i = 0; i < wtx.tx->vout.size(); ++i) {
-        if (pwalletMain->IsChange(wtx.tx->vout[i])) {
-            if (nOutput != -1) {
-                throw JSONRPCError(RPC_WALLET_ERROR, "Transaction has multiple change outputs");
-            }
-            nOutput = i;
-        }
-    }
-    if (nOutput == -1) {
-        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction does not have a change output");
-    }
-
-    // Calculate the expected size of the new transaction.
-    int64_t txSize = GetVirtualTransactionSize(*(wtx.tx));
-    const int64_t maxNewTxSize = CalculateMaximumSignedTxSize(*wtx.tx);
-
-=======
->>>>>>> upstream/0.16
     // optional parameters
     CAmount totalFee = 0;
     CCoinControl coin_control;
@@ -3511,48 +3398,6 @@ UniValue generate(const JSONRPCRequest& request)
         return NullUniValue;
     }
 
-<<<<<<< HEAD
-    // Check that in all cases the new fee doesn't violate maxTxFee
-     if (nNewFee > maxTxFee) {
-         throw JSONRPCError(RPC_WALLET_ERROR,
-                            strprintf("Specified or calculated fee %s is too high (cannot be higher than maxTxFee %s)",
-                                      FormatMoney(nNewFee), FormatMoney(maxTxFee)));
-     }
-
-    // check that fee rate is higher than mempool's minimum fee
-    // (no point in bumping fee if we know that the new tx won't be accepted to the mempool)
-    // This may occur if the user set TotalFee or paytxfee too low, if fallbackfee is too low, or, perhaps,
-    // in a rare situation where the mempool minimum fee increased significantly since the fee estimation just a
-    // moment earlier. In this case, we report an error to the user, who may use totalFee to make an adjustment.
-    CFeeRate minMempoolFeeRate = mempool.GetMinFee(GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000);
-    if (nNewFeeRate.GetFeePerK() < minMempoolFeeRate.GetFeePerK()) {
-        throw JSONRPCError(RPC_WALLET_ERROR, strprintf("New fee rate (%s) is less than the minimum fee rate (%s) to get into the mempool. totalFee value should to be at least %s or settxfee value should be at least %s to add transaction.", FormatMoney(nNewFeeRate.GetFeePerK()), FormatMoney(minMempoolFeeRate.GetFeePerK()), FormatMoney(minMempoolFeeRate.GetFee(maxNewTxSize)), FormatMoney(minMempoolFeeRate.GetFeePerK())));
-    }
-
-    // Now modify the output to increase the fee.
-    // If the output is not large enough to pay the fee, fail.
-    CAmount nDelta = nNewFee - nOldFee;
-    assert(nDelta > 0);
-    CMutableTransaction tx(*(wtx.tx));
-    CTxOut* poutput = &(tx.vout[nOutput]);
-    if (poutput->nValue < nDelta) {
-        throw JSONRPCError(RPC_WALLET_ERROR, "Change output is too small to bump the fee");
-    }
-
-    // If the output would become dust, discard it (converting the dust to fee)
-    poutput->nValue -= nDelta;
-    if (poutput->nValue <= poutput->GetDustThreshold(::dustRelayFee)) {
-        LogPrint("rpc", "Bumping fee and discarding dust output\n");
-        nNewFee += poutput->nValue;
-        tx.vout.erase(tx.vout.begin() + nOutput);
-    }
-
-    // Mark new tx not replaceable, if requested.
-    if (!replaceable) {
-        for (auto& input : tx.vin) {
-            if (input.nSequence < 0xfffffffe) input.nSequence = 0xfffffffe;
-        }
-=======
     if (request.fHelp || request.params.size() < 1 || request.params.size() > 2) {
         throw std::runtime_error(
             "generate nblocks ( maxtries )\n"
@@ -3566,7 +3411,6 @@ UniValue generate(const JSONRPCRequest& request)
             "\nGenerate 11 blocks\n"
             + HelpExampleCli("generate", "11")
         );
->>>>>>> upstream/0.16
     }
 
     int num_generate = request.params[0].get_int();
