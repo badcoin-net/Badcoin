@@ -1778,7 +1778,6 @@ void CConnman::ThreadOpenConnections(const std::vector<std::string> connect)
         // Only connect out to one peer per network group (/16 for IPv4).
         // Do this here so we don't have to critsect vNodes inside mapAddresses critsect.
         int nOutbound = 0;
-        int nOutboundRelevant = 0;
         std::set<std::vector<unsigned char> > setConnected;
         {
             LOCK(cs_vNodes);
@@ -1857,13 +1856,6 @@ void CConnman::ThreadOpenConnections(const std::vector<std::string> connect)
                 continue;
 
             addrConnect = addr;
-
-            // regardless of the services assumed to be available, only require the minimum if half or more outbound have relevant services
-            if (nOutboundRelevant >= (nMaxOutbound >> 1)) {
-                addrConnect.nServices = REQUIRED_SERVICES;
-            } else {
-                addrConnect.nServices = nRequiredServices;
-            }
             break;
         }
 
