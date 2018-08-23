@@ -39,7 +39,7 @@ Below is an approximate table to show how this progresses.
 |    5 **(241920 blocks)** |  250.0  | **4 min**  |  3628800  |  ~May 2023  |
 |    6 **(120960 blocks)** |  250.0  | **8 min**  |  3749760  |  ~May 2025  |
 |    7 (120960 blocks)     |  125.0  |    8 min   |  3870720  |  ~May 2027  |
-|    8 (120960 blocks)     |  62.5   |    8 min   |  3870720  |  ~May 2027  |
+|    8 (120960 blocks)     |  62.5   |    8 min   |  3991680  |  ~May 2029  |
 |  ... (120960 blocks)     |  ...    |    8 min   |  ...      |  ...        |
 
 Halvings would then continue at 120960 block intervals.
