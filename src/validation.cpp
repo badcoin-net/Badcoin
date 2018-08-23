@@ -1082,6 +1082,7 @@ bool GetTransaction(const uint256& hash, CTransactionRef& txOut, const Consensus
 // CBlock and CBlockIndex
 //
 
+// TODO: myriadcoin - move to pow.cpp
 bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params)
 {
     /* Except for legacy blocks with full version 1, ensure that
@@ -1157,9 +1158,8 @@ static bool WriteBlockToDisk(const CBlock& block, CDiskBlockPos& pos, const CMes
     return true;
 }
 
-/* Generic implementation of block reading that can handle
-   both a block and its header.  */
-
+///* Generic implementation of block reading that can handle
+//   both a block and its header.  */
 template<typename T>
 static bool ReadBlockOrHeader(T& block, const CDiskBlockPos& pos, const Consensus::Params& consensusParams)
 {
@@ -1194,10 +1194,11 @@ static bool ReadBlockOrHeader(T& block, const CBlockIndex* pindex, const Consens
         blockPos = pindex->GetBlockPos();
     }
 
-    if (!ReadBlockFromDisk(block, blockPos, consensusParams))
+    //if (!ReadBlockFromDisk(block, blockPos, consensusParams))
+    if (!ReadBlockOrHeader(block, blockPos, consensusParams))
         return false;
     if (block.GetHash() != pindex->GetBlockHash())
-        return error("ReadBlockOrHeader(CBlock&, CBlockIndex*): GetHash() doesn't match index for %s at %s",
+        return error("ReadBlockFromDisk(CBlock&, CBlockIndex*): GetHash() doesn't match index for %s at %s",
                 pindex->ToString(), pindex->GetBlockPos().ToString());
     return true;
 }
@@ -2260,8 +2261,8 @@ void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainPar
         {
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus());
             /* Myriadcoin: we only use the lowest 8 bits for BIP9, so we mask the chainid and algo (0x00FFFF00)*/
-            //if (pindex->GetBaseVersion() > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
-            if (pindex->GetBaseVersion() > VERSIONBITS_LAST_OLD_BLOCK_VERSION && ((pindex->nVersion & ~nExpectedVersion) & 0xFF0000FF) != 0)
+            //if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
+            if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && ((pindex->nVersion & ~nExpectedVersion) & 0xFF0000FF) != 0)
                 ++nUpgraded;
             pindex = pindex->pprev;
         }
@@ -2274,9 +2275,9 @@ void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainPar
             DoWarning(strWarning);
         }
     }
-    LogPrintf("%s: new best=%s height=%d version=0x%08x algo=%d(%s) log2_work=%.8g tx=%lu date='%s' progress=%f cache=%.1fMiB(%utxo)", __func__,
+    LogPrintf("%s: new best=%s height=%d version=0x%08x algo=%d (%s) log2_work=%.8g tx=%lu date='%s' progress=%f cache=%.1fMiB(%utxo)", __func__,
       pindexNew->GetBlockHash().ToString(), pindexNew->nHeight, pindexNew->nVersion,
-      pindexNew->GetAlgo(), GetAlgoName(pindexNew->GetAlgo(), pindexNew->nVersion, chainParams.GetConsensus()),
+      chainActive.Tip()->GetAlgo(), GetAlgoName(chainActive.Tip()->GetAlgo(), chainActive.Tip()->nVersion, chainParams.GetConsensus()),
       log(pindexNew->nChainWork.getdouble())/log(2.0), (unsigned long)pindexNew->nChainTx,
       DateTimeStrFormat("%Y-%m-%d %H:%M:%S", pindexNew->GetBlockTime()),
       GuessVerificationProgress(chainParams.TxData(), pindexNew), pcoinsTip->DynamicMemoryUsage() * (1.0 / (1<<20)), pcoinsTip->GetCacheSize());
@@ -3206,10 +3207,14 @@ std::vector<unsigned char> GenerateCoinbaseCommitment(CBlock& block, const CBloc
 static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, const CChainParams& params, const CBlockIndex* pindexPrev, int64_t nAdjustedTime)
 {
     assert(pindexPrev != nullptr);
+    const Consensus::Params& consensusParams = params.GetConsensus();
     const int nHeight = pindexPrev->nHeight + 1;
+    // Disallow AuxPow blocks before it is activated.
+    if (nHeight < consensusParams.nStartAuxPow && block.IsAuxpow())
+        return state.DoS(100, false, REJECT_INVALID, "early-auxpow-block","auxpow blocks are not allowed at this height");
 
     // Check proof of work
-    const Consensus::Params& consensusParams = params.GetConsensus();
+    int algo = block.GetAlgo();
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, algo, consensusParams))
         return state.DoS(100, false, REJECT_INVALID, "bad-diffbits", false, "incorrect proof of work");
 
@@ -3410,10 +3415,7 @@ bool CChainState::AcceptBlockHeader(const CBlockHeader& block, CValidationState&
                 piPrev = piPrev->pprev;
             }
 
-            if(fDebug)
-            {
-                LogPrintf("SequentialAlgoRule DEBUG: nHeight: %d, nAlgoCount: %d, nMaxSeqCount: %d\n", nHeight, nAlgoCount, nMaxSeqCount);
-            }
+            LogPrint(BCLog::ALL,"SequentialAlgoRule DEBUG: nHeight: %d, nAlgoCount: %d, nMaxSeqCount: %d\n", nHeight, nAlgoCount, nMaxSeqCount);
             if (nAlgoCount > nMaxSeqCount)
             {
                 if (chainparams.MineBlocksOnDemand())

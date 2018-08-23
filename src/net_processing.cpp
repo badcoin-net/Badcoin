@@ -3558,7 +3558,6 @@ bool PeerLogicValidation::SendMessages(CNode* pto, std::atomic<bool>& interruptM
         // We compensate for other peers to prevent killing off peers due to our own downstream link
         // being saturated. We only count validated in-flight blocks so peers can't advertise non-existing block hashes
         // to unreasonably increase our timeout.
-        /* TODO: FIXME Myriadcoin
         if (state.vBlocksInFlight.size() > 0) {
             QueuedBlock &queuedBlock = state.vBlocksInFlight.front();
             int nOtherPeersWithValidatedDownloads = nPeersWithValidatedDownloads - (state.nBlocksInFlightValidHeaders > 0);
@@ -3568,7 +3567,6 @@ bool PeerLogicValidation::SendMessages(CNode* pto, std::atomic<bool>& interruptM
                 return true;
             }
         }
-        */
         // Check for headers sync timeouts
         if (state.fSyncStarted && state.nHeadersSyncTimeout < std::numeric_limits<int64_t>::max()) {
             // Detect whether this is a stalling initial-headers-sync peer
