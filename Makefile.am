@@ -269,7 +269,10 @@ EXTRA_DIST += \
     test/util/data/txcreatescript4.json \
     test/util/data/txcreatesignv1.hex \
     test/util/data/txcreatesignv1.json \
-    test/util/data/txcreatesignv2.hex
+    test/util/data/txcreatesignv2.hex \
+    crypto/yescrypt/yescrypt-platform.c \
+    crypto/yescrypt/yescrypt-opt.c \
+    crypto/yescrypt/yescrypt-simd.c
 
 CLEANFILES = $(OSX_DMG) $(BITCOIN_WIN_INSTALLER)
 

@@ -48,7 +48,7 @@ void TestDifficulty(uint32_t nbits, double expected_difficulty)
      */
     CChain chain;
 
-    double difficulty = GetDifficulty(chain, block_index);
+    double difficulty = GetDifficulty(block_index, ALGO_SHA256D);
     delete block_index;
 
     RejectDifficultyMismatch(difficulty, expected_difficulty);
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_very_high_target)
 BOOST_AUTO_TEST_CASE(get_difficulty_for_null_tip)
 {
     CChain chain;
-    double difficulty = GetDifficulty(chain, nullptr);
+    double difficulty = GetDifficulty(nullptr, ALGO_SHA256D);
     RejectDifficultyMismatch(difficulty, 1.0);
 }
 
@@ -96,7 +96,7 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_null_block_index)
 {
     CChain chain = CreateChainWithNbits(0x1df88f6f);
 
-    double difficulty = GetDifficulty(chain, nullptr);
+    double difficulty = GetDifficulty(nullptr, ALGO_SHA256D);
     delete chain.Tip();
 
     double expected_difficulty = 0.004023;
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_block_index_overrides_tip)
      */
     CBlockIndex* override_block_index = CreateBlockIndexWithNbits(0x12345678);
 
-    double difficulty = GetDifficulty(chain, override_block_index);
+    double difficulty = GetDifficulty(override_block_index, ALGO_SHA256D);
     delete chain.Tip();
     delete override_block_index;
 
