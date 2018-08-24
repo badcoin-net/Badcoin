@@ -671,7 +671,7 @@ UniValue getreceivedbyaddress(const JSONRPCRequest& request)
             + HelpExampleCli("getreceivedbyaddress", "\"MJPyMHUJiQpwM5ZkzKXDo5UPYTNh5yJ9Vf\"") +
             "\nThe amount including unconfirmed transactions, zero confirmations\n"
             + HelpExampleCli("getreceivedbyaddress", "\"MJPyMHUJiQpwM5ZkzKXDo5UPYTNh5yJ9Vf\" 0") +
-            "\nThe amount with at least 6 confirmation\n"
+            "\nThe amount with at least 6 confirmations\n"
             + HelpExampleCli("getreceivedbyaddress", "\"MJPyMHUJiQpwM5ZkzKXDo5UPYTNh5yJ9Vf\" 6") +
             "\nAs a json rpc call\n"
             + HelpExampleRpc("getreceivedbyaddress", "\"MJPyMHUJiQpwM5ZkzKXDo5UPYTNh5yJ9Vf\", 6")
