@@ -7,7 +7,6 @@ src/myriadcoin-cli
 src/myriadcoin-tx
 src/test/test_myriadcoin
 src/test/test_myriadcoin_fuzzy
-src/test/wallet.backup
 src/qt/test/test_myriad-qt
 
 # autoreconf
@@ -112,12 +111,6 @@ test/config.ini
 test/cache/*
 
 !src/leveldb*/Makefile
-
-!depends/Makefile
-!depends/patches/boost/*.patch
-!depends/patches/native_cdrkit/*.patch
-!depends/patches/qt/*.patch
-!depends/patches/qt46/*.patch
 
 /doc/doxygen/
 
