@@ -230,7 +230,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
         CBlock *pblock = &pblocktemplate->block; // pointer for convenience
         {
             LOCK(cs_main);
-            pblock->nVersion = 1;
+            pblock->nVersion = 2; // Myriadcoin: started at version 2
             pblock->nTime = chainActive.Tip()->GetMedianTimePast()+(i+1)*600;  // Myriadcoin: altered to account for difficulty adjustments
             CMutableTransaction txCoinbase(*pblock->vtx[0]);
             txCoinbase.nVersion = 1;
