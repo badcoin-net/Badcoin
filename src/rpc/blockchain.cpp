@@ -52,17 +52,15 @@ extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& 
 /* Calculate the difficulty for a given block index,
  * or the block index of the given chain.
  */
-double GetDifficulty(const CBlockIndex* blockindex, int algo)
+double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
 {
     if (blockindex == nullptr)
     {
-        if (chainActive.Tip() == nullptr)
+        if (chain.Tip() == nullptr)
             return 1.0;
         else
-            blockindex = GetLastBlockIndexForAlgo(chainActive.Tip(), algo);
+            blockindex = GetLastBlockIndexForAlgo(chain.Tip(), algo);
     }
-    //else
-    //    nBits = blockindex->nBits;
 
     int nShift = (blockindex->nBits >> 24) & 0xff;
     double dDiff =
@@ -80,6 +78,11 @@ double GetDifficulty(const CBlockIndex* blockindex, int algo)
     }
 
     return dDiff;
+}
+
+double GetDifficulty(const CBlockIndex* blockindex, int algo)
+{
+    return GetDifficulty(chainActive, blockindex, algo);
 }
 
 namespace
