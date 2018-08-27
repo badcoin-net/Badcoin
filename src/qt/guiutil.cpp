@@ -615,10 +615,10 @@ fs::path static StartupShortcutPath()
 {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "Myriad.lnk";
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "Myriadcoin.lnk";
     if (chain == CBaseChainParams::TESTNET) // Remove this special case when CBaseChainParams::TESTNET = "testnet4"
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "Myriad (testnet).lnk";
-    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("Myriad (%s).lnk", chain);
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "Myriadcoin (testnet).lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / strprintf("Myriadcoin (%s).lnk", chain);
 }
 
 bool GetStartOnSystemStartup()
@@ -713,8 +713,8 @@ fs::path static GetAutostartFilePath()
 {
     std::string chain = ChainNameFromCommandLine();
     if (chain == CBaseChainParams::MAIN)
-        return GetAutostartDir() / "myriad.desktop";
-    return GetAutostartDir() / strprintf("bitcoin-%s.lnk", chain);
+        return GetAutostartDir() / "myriadcoin.desktop";
+    return GetAutostartDir() / strprintf("myriadcoin-%s.lnk", chain);
 }
 
 bool GetStartOnSystemStartup()

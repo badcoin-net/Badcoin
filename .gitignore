@@ -7,7 +7,7 @@ src/myriadcoin-cli
 src/myriadcoin-tx
 src/test/test_myriadcoin
 src/test/test_myriadcoin_fuzzy
-src/qt/test/test_myriad-qt
+src/qt/test/test_myriadcoin-qt
 
 # autoreconf
 Makefile.in
@@ -80,8 +80,8 @@ src/qt/bitcoin-qt.includes
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-myriad-qt
-Myriad-Qt.app
+myriadcoin-qt
+Myriadcoin-Qt.app
 background.tiff*
 
 # Unit-tests
