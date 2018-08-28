@@ -58,8 +58,12 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
     {
         if (chain.Tip() == nullptr)
             return 1.0;
-        else
-            blockindex = GetLastBlockIndexForAlgo(chain.Tip(), algo);
+        else {
+            if (chain.Height() == 0)
+                blockindex = chain.Tip();
+            else
+                blockindex = GetLastBlockIndexForAlgo(chain.Tip(), algo);
+        }
     }
 
     int nShift = (blockindex->nBits >> 24) & 0xff;
