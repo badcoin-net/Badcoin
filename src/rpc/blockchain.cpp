@@ -54,21 +54,28 @@ extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& 
  */
 double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int algo)
 {
+    unsigned int nBits;
+    unsigned int powLimit = UintToArith256(Params().GetConsensus().powLimit).GetCompact();
+
     if (blockindex == nullptr)
     {
         if (chain.Tip() == nullptr)
-            return 1.0;
-        else {
-            if (chain.Height() == 0)
-                blockindex = chain.Tip();
+            nBits = powLimit;
+        else
+        {
+            blockindex = GetLastBlockIndexForAlgo(chain.Tip(), algo);
+            if (blockindex == nullptr)
+                nBits = powLimit;
             else
-                blockindex = GetLastBlockIndexForAlgo(chain.Tip(), algo);
+                nBits = blockindex->nBits;
         }
     }
+    else
+        nBits = blockindex->nBits;
 
-    int nShift = (blockindex->nBits >> 24) & 0xff;
+    int nShift = (nBits >> 24) & 0xff;
     double dDiff =
-        (double)0x0000ffff / (double)(blockindex->nBits & 0x00ffffff);
+        (double)0x0000ffff / (double)(nBits & 0x00ffffff);
 
     while (nShift < 29)
     {
