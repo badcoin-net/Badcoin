@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(get_difficulty_for_null_tip)
 {
     CChain chain;
     double difficulty = GetDifficulty(chain, nullptr, ALGO_SHA256D);
-    RejectDifficultyMismatch(difficulty, 1.0);
+    RejectDifficultyMismatch(difficulty, 0.000244);
 }
 
 /* Verify that if difficulty is based upon the block index
