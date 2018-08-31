@@ -17,7 +17,9 @@ class CCoinsViewCache;
 class CTxOut;
 
 /** Default for -blockmaxweight, which controls the range of block weights the mining code will create **/
-static const unsigned int DEFAULT_BLOCK_MAX_WEIGHT = MAX_BLOCK_WEIGHT - 4000;
+// Myriadcoin: we limit this value by default, miners are allowed to increase at their discretion.
+//static const unsigned int DEFAULT_BLOCK_MAX_WEIGHT = MAX_BLOCK_WEIGHT - 4000;
+static const unsigned int DEFAULT_BLOCK_MAX_WEIGHT = 800000 - 4000;
 /** Default for -blockmintxfee, which sets the minimum feerate for a transaction in blocks created by mining code **/
 static const unsigned int DEFAULT_BLOCK_MIN_TX_FEE = 1000;
 /** The maximum weight for transactions we're willing to relay/mine */
