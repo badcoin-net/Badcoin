@@ -103,7 +103,7 @@ struct Params {
     int64_t nFork1MinBlock;
     
     /** Auxpow parameters */
-    int16_t nAuxpowChainId;
+    int32_t nAuxpowChainId;
     bool fStrictChainId;
     int nStartAuxPow;
 };

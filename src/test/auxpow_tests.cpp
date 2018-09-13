@@ -410,7 +410,7 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
 
   CAuxpowBuilder builder(5, 42);
   CAuxPow auxpow;
-  const int32_t ourChainId = params.nAuxpowChainId;
+  const int32_t ourChainId = Params().GetConsensus().nAuxpowChainId;
   const unsigned height = 3;
   const int nonce = 7;
   const int index = CAuxPow::getExpectedIndex (nonce, ourChainId, height);
@@ -423,10 +423,10 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   builder.setCoinbase (CScript () << data);
   mineBlock (builder.parentBlock, false, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block, Params().GetConsensus()));
   mineBlock (builder.parentBlock, true, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (CheckProofOfWork (block, params));
+  BOOST_CHECK (CheckProofOfWork (block, Params().GetConsensus()));
 
   /* Mismatch between auxpow being present and block.nVersion.  Note that
      block.SetAuxpow sets also the version and that we want to ensure
@@ -442,7 +442,7 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   BOOST_CHECK (hashAux != block.GetHash ());
   block.SetAuxpowVersion (false);
   BOOST_CHECK (hashAux == block.GetHash ());
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block, Params().GetConsensus()));
 
   /* Modifying the block invalidates the PoW.  */
   block.SetAuxpowVersion (true);
@@ -451,9 +451,9 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
   builder.setCoinbase (CScript () << data);
   mineBlock (builder.parentBlock, true, block.nBits);
   block.SetAuxpow (new CAuxPow (builder.get ()));
-  BOOST_CHECK (CheckProofOfWork (block, params));
+  BOOST_CHECK (CheckProofOfWork (block, Params().GetConsensus()));
   tamperWith (block.hashMerkleRoot);
-  BOOST_CHECK (!CheckProofOfWork (block, params));
+  BOOST_CHECK (!CheckProofOfWork (block, Params().GetConsensus()));
 }
 
 /* ************************************************************************** */
