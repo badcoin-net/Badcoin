@@ -1,7 +1,7 @@
 Myriadcoin Core integration/staging tree
 =====================================
 
-[![Build Status](https://travis-ci.org/myriadteam/myriadcoin.svg?branch=master)](https://travis-ci.org/myriadteam/myriadcoin)
+[![Build Status](https://travis-ci.com/myriadteam/myriadcoin.svg?branch=master)](https://travis-ci.com/myriadteam/myriadcoin)
 
 http://www.myriadcoin.org
 
