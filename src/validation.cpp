@@ -1123,7 +1123,7 @@ bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params
                      params.nAuxpowChainId, block.nVersion);
 
     /* If there is no auxpow, just check the block hash.  */
-    if (!block.IsAuxpow())
+    if (!block.auxpow)
     {
         if (block.IsAuxpow())
             return error("%s : no auxpow on block with auxpow version",
@@ -2966,7 +2966,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
 
     // Check transactions
     for (const auto& tx : block.vtx)
-        if (!CheckTransaction(*tx, state, false))
+        if (!CheckTransaction(*tx, state, true))
             return state.Invalid(false, state.GetRejectCode(), state.GetRejectReason(),
                                  strprintf("Transaction check failed (tx hash %s) %s", tx->GetHash().ToString(), state.GetDebugMessage()));
 
@@ -3094,10 +3094,11 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
             return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid YESCRYPT block");
     }
 
-    bool bMIP2 = (VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_RESERVEALGO, versionbitscache) == THRESHOLD_ACTIVE);
+    // MIP2 (reservealgo) activated at MIP2Height
+    bool bMIP2 = (nHeight >= consensusParams.MIP2Height);
     if (bMIP2)
     {
-        if (algo >= 6)
+        if (algo >= NUM_ALGOS_IMPL)
             return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid algo id");
     }
 
