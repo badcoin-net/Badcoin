@@ -11,7 +11,7 @@
 #include "primitives/block.h"
 #include "uint256.h"
 #include "util.h"
-#include "validation.h" // TODO Myriadcoin, needed for LONGBLOCKS versionbitscache
+#include "validation.h" // TODO Myriadcoin LONGBLOCKS: needed for versionbitscache, remove after activation.
 #include "bignum.h"
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, const Consensus::Params& params)
@@ -232,6 +232,7 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
     
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV2 * NUM_ALGOS; // 60 * 5 = 300s per algo
     std::string sBlockTime = "V2";
+    // TODO Myriadcoin LONGBLOCKS: remove VersionBitsState check post activation.
     if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
         if (nHeight >= params.nLongblocks_StartV1c) {
             nTargetSpacingPerAlgo = params.nPowTargetSpacingV3c * NUM_ALGOS; // 8 * 60 * 5 = 2400s per algo

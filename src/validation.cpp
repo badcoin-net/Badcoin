@@ -1238,6 +1238,8 @@ bool ReadBlockHeaderFromDisk(CBlockHeader& block, const CBlockIndex* pindex, con
     return ReadBlockOrHeader(block, pindex, consensusParams);
 }
 
+// TODO Myriadcoin LONGBLOCKS: remove pindex arg and VersionBitsState check post activation
+//CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, const CBlockIndex* pindex)
 {
     int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
@@ -1802,7 +1804,8 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
     if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LEGBIT, versionbitscache) == THRESHOLD_ACTIVE) {
         nVersion += 4;
     }
-    /* TODO Myriadcoin: remove legbit if LONGBLOCKS activates, now 0.11 clients are forked off network, remove and above once complete */
+    /* TODO Myriadcoin LONGBLOCKS: remove legbit if LONGBLOCKS activates, now 0.11 clients are forked off network,
+       remove this and above legbit check once LONGBLOCKS is activated */
     if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
         nVersion -= 4;
     }
@@ -2042,7 +2045,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime3 - nTime2), 0.001 * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * 0.000001);
 
-    // TODO Myriadcoin, pindex needed for LONGBLOCKS versionbits check. Remove if activated
+    // TODO Myriadcoin LONGBLOCKS: pindex needed for versionbits check. Remove if activated.
     //CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus());
     CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus(), pindex);
     if (block.vtx[0]->GetValueOut() > blockReward)
