@@ -129,8 +129,8 @@ public:
 
         // Deployment of MIP3 (longblocks)
         consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].bit = 5;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 1533081600; // Aug 1st, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 1564617600; // Aug 1st, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 1525132800; // May 1st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 1556668800; // May 1st, 2019
 
         /*** Upstream Chainparams ***/
 
@@ -310,8 +310,8 @@ public:
 
         // Deployment of MIP3 (longblocks)
         consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].bit = 5;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 1533081600; // Aug 1st, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 1564617600; // Aug 1st, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 1525132800; // May 1st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 1556668800; // May 1st, 2019
 
         /*** Upstream Chainparams ***/
 
