@@ -47,8 +47,6 @@ static void TestBlockSubsidyHalvings(const Consensus::Params& consensusParams)
             //BOOST_CHECK_EQUAL(nSubsidy, nPreviousSubsidy / 2);
             if (nHalvings==3 || nHalvings==4 || nHalvings==5)
                 BOOST_CHECK_EQUAL(nSubsidy, nPreviousSubsidy);
-            else if (nHalvings==12) // Myriadcoin: 4 sat rounding error on the last halving before tail emission
-                BOOST_CHECK_EQUAL(nSubsidy, 195312496);
             else
                 BOOST_CHECK_EQUAL(nSubsidy, nPreviousSubsidy / 2);
         } else {
@@ -89,7 +87,7 @@ BOOST_AUTO_TEST_CASE(subsidy_limit_test)
         nSum += nSubsidy * 945;
         BOOST_CHECK(MoneyRange(nSum));
     }
-    BOOST_CHECK_EQUAL(nSum, 194452744499516160ULL);
+    BOOST_CHECK_EQUAL(nSum, 194452744500000000ULL);
 }
 
 bool ReturnFalse() { return false; }

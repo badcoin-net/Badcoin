@@ -1264,8 +1264,6 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, c
     }
 
     CAmount nSubsidy = 1000 * COIN;
-    // Subsidy is cut in half every 967680 blocks.
-    nSubsidy >>= halvings;
     if (VersionBitsState(pindex, consensusParams, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
         // longblocks require larger reward scaled for time.
         if (nHeight >= consensusParams.nLongblocks_StartV1c) {
@@ -1276,6 +1274,8 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, c
             nSubsidy *= 2; // 1min -> 2min
         }
     }
+    // Subsidy is cut in half every 967680 blocks.
+    nSubsidy >>= halvings;
     return nSubsidy;
 }
 
