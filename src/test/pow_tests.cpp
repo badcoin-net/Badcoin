@@ -31,6 +31,27 @@ BOOST_AUTO_TEST_CASE(get_next_work)
     pindexLast.nBits = 0x1d00ffff;
     BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV1(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d00f5c1);
     BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d00f5c1);
+    // Check MIP3-longblocks intervals
+    nActualTimespan = 3010;  // Target is 3000s
+    pindexFirst.nHeight = 2903020;  // nPowTargetSpacingV2
+    pindexLast.nHeight = 2903030;
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d0100d9);
+    nActualTimespan = 6050;  // Target is 6000s
+    pindexFirst.nHeight = 2903040;  // nPowTargetSpacingV3a
+    pindexLast.nHeight = 2903050;
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d010221);
+    nActualTimespan = 12020;  // Target is 12000s
+    pindexFirst.nHeight = 3386880;  // nPowTargetSpacingV3b
+    pindexLast.nHeight = 3386890;
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d01006c);
+    nActualTimespan = 24070;  // Target is 24000s
+    pindexFirst.nHeight = 3628800;  // nPowTargetSpacingV3c
+    pindexLast.nHeight = 3628810;
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d0100be);
+    nActualTimespan = 24100;  // Target is 24000s
+    pindexFirst.nHeight = 3749760;  // nPowTargetSpacingV3c
+    pindexLast.nHeight = 3749770;
+    BOOST_CHECK_EQUAL(CalculateNextWorkRequiredV2(&pindexLast, &pindexFirst, params, algo, nActualTimespan, pindexLast.nHeight+1), 0x1d010110);
 }
 
 /* Test the constraint on the upper bound for next work */
