@@ -1238,14 +1238,42 @@ bool ReadBlockHeaderFromDisk(CBlockHeader& block, const CBlockIndex* pindex, con
     return ReadBlockOrHeader(block, pindex, consensusParams);
 }
 
-CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
+// TODO Myriadcoin LONGBLOCKS: remove pindex arg and VersionBitsState check post activation
+//CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
+CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams, const CBlockIndex* pindex)
 {
     int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-    // Force block reward to 1 after 10 halvings (tail emission).
-    if (halvings >= 10)
-        return 1 * COIN;
+    if (VersionBitsState(pindex, consensusParams, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
+        if (nHeight >= consensusParams.nLongblocks_StartV1a) {
+            halvings = consensusParams.nLongblocks_StartV1a / consensusParams.nSubsidyHalvingInterval;
+        }
+        if (nHeight >= consensusParams.nLongblocks_StartV1b) {
+            halvings += 1;
+        }
+        if (nHeight >= consensusParams.nLongblocks_StartV1c) {
+            halvings += 1;
+            halvings += ( nHeight - consensusParams.nLongblocks_StartV1c ) / consensusParams.nSubsidyHalvingIntervalV2c;
+        }
+        // Force block reward to 1 after 10 halvings (tail emission).
+        if (halvings >= 13) // tail emission happens later with longblocks.
+            return 1 * COIN;
+    } else {
+        // Force block reward to 1 after 10 halvings (tail emission).
+        if (halvings >= 10)
+            return 1 * COIN;
+    }
 
     CAmount nSubsidy = 1000 * COIN;
+    if (VersionBitsState(pindex, consensusParams, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
+        // longblocks require larger reward scaled for time.
+        if (nHeight >= consensusParams.nLongblocks_StartV1c) {
+            nSubsidy *= 8; // 1min -> 8min
+        } else if (nHeight >= consensusParams.nLongblocks_StartV1b) {
+            nSubsidy *= 4; // 1min -> 4min
+        } else if (nHeight >= consensusParams.nLongblocks_StartV1a) {
+            nSubsidy *= 2; // 1min -> 2min
+        }
+    }
     // Subsidy is cut in half every 967680 blocks.
     nSubsidy >>= halvings;
     return nSubsidy;
@@ -1776,6 +1804,11 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
     if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LEGBIT, versionbitscache) == THRESHOLD_ACTIVE) {
         nVersion += 4;
     }
+    /* TODO Myriadcoin LONGBLOCKS: remove legbit if LONGBLOCKS activates, now 0.11 clients are forked off network,
+       remove this and above legbit check once LONGBLOCKS is activated */
+    if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
+        nVersion -= 4;
+    }
 
     return nVersion;
 }
@@ -2012,7 +2045,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime3 - nTime2), 0.001 * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * 0.000001);
 
-    CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus());
+    // TODO Myriadcoin LONGBLOCKS: pindex needed for versionbits check. Remove if activated.
+    //CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus());
+    CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus(), pindex);
     if (block.vtx[0]->GetValueOut() > blockReward)
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",

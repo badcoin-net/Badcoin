@@ -19,6 +19,7 @@ enum DeploymentPos
     DEPLOYMENT_SEGWIT, // Deployment of BIP141, BIP143, and BIP147.
     DEPLOYMENT_LEGBIT, // Deployment of Legacy Bits.
     DEPLOYMENT_RESERVEALGO, // Deployment of MIP2 (Reserve algos)
+    DEPLOYMENT_LONGBLOCKS, // Deployment of MIP3 (longblocks)
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in versionbits.cpp
     MAX_VERSION_BITS_DEPLOYMENTS
 };
@@ -89,6 +90,15 @@ struct Params {
     int64_t nBlockAlgoNormalisedWorkDecayStart2;
     int64_t nGeoAvgWork_Start;
     int64_t nFork1MinBlock;
+    int64_t nPowTargetSpacingV3a;
+    int64_t nPowTargetSpacingV3b;
+    int64_t nPowTargetSpacingV3c;
+    int64_t nLongblocks_StartV1a;
+    int64_t nLongblocks_StartV1b;
+    int64_t nLongblocks_StartV1c;
+    int nSubsidyHalvingIntervalV2a;
+    int nSubsidyHalvingIntervalV2b;
+    int nSubsidyHalvingIntervalV2c;
     
     /** Auxpow parameters */
     int16_t nAuxpowChainId;

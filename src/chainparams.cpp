@@ -106,6 +106,17 @@ public:
         consensus.nGeoAvgWork_Start = 1400000;
         consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
+        // MIP3 parameters
+        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
+        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
+        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
+        consensus.nLongblocks_StartV1a = 2903040; // Start of longblocks, original 3rd block halving
+        consensus.nLongblocks_StartV1b = 3386880; // Start of longblocks, original 4th block halving
+        consensus.nLongblocks_StartV1c = 3628800; // Start of longblocks, original 5th block halving
+        consensus.nSubsidyHalvingIntervalV2a = 483840; // Longblocks Subsidy halving after adjust block time (2min)
+        consensus.nSubsidyHalvingIntervalV2b = 241920; // Longblocks Subsidy halving after adjust block time (4min)
+        consensus.nSubsidyHalvingIntervalV2c = 120960; // Longblocks Subsidy halving after adjust block time (8min)
+
         // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1507420800; // October 8th, 2017
@@ -116,9 +127,14 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1516320000; // Jan 19th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1548979200; // Feb 1st, 2019
 
+        // Deployment of MIP3 (longblocks)
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].bit = 5;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 1525132800; // May 1st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 1556668800; // May 1st, 2019
+
         /*** Upstream Chainparams ***/
 
-        consensus.nSubsidyHalvingInterval = 80640 * 12;
+        consensus.nSubsidyHalvingInterval = 967680;
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0xcb41589c918fba1beccca8bc6b34b2b928b4f9888595d7664afd6ec60a576291");
         consensus.BIP65Height = 1764000; // 2ca9968704301897b956f7e326375413be505509489c06aee2b16fe73805481e
@@ -272,6 +288,17 @@ public:
         consensus.nGeoAvgWork_Start = 150;
         consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
+        // MIP3 parameters
+        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
+        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
+        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
+        consensus.nLongblocks_StartV1a = 2903040; // Start of longblocks, original 3rd block halving
+        consensus.nLongblocks_StartV1b = 3386880; // Start of longblocks, original 4th block halving
+        consensus.nLongblocks_StartV1c = 3628800; // Start of longblocks, original 5th block halving
+        consensus.nSubsidyHalvingIntervalV2a = 483840; // Longblocks Subsidy halving after adjust block time (2min)
+        consensus.nSubsidyHalvingIntervalV2b = 241920; // Longblocks Subsidy halving after adjust block time (4min)
+        consensus.nSubsidyHalvingIntervalV2c = 120960; // Longblocks Subsidy halving after adjust block time (8min)
+
         // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1504224000; // September 1st, 2017
@@ -281,9 +308,14 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1516320000; // Jan 19th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1548979200; // Feb 1st, 2019
 
+        // Deployment of MIP3 (longblocks)
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].bit = 5;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 1525132800; // May 1st, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 1556668800; // May 1st, 2019
+
         /*** Upstream Chainparams ***/
 
-        consensus.nSubsidyHalvingInterval = 80640 * 12;
+        consensus.nSubsidyHalvingInterval = 967680;
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x0000d23adc28e33bc05f4bee57c873ae0aab584a6a436e75ac0ed40396f6d86b");
         consensus.BIP65Height = 641; // ff983c72147a81ac5b8ebfc68b62b39358cac4b8eb5518242e87f499b71c6a51
@@ -406,6 +438,17 @@ public:
         consensus.nGeoAvgWork_Start = 0;
         consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
+        // MIP3 parameters
+        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
+        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
+        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
+        consensus.nLongblocks_StartV1a = 450; // Start of longblocks, original 3rd block halving
+        consensus.nLongblocks_StartV1b = 525; // Start of longblocks, original 4th block halving
+        consensus.nLongblocks_StartV1c = 562; // Start of longblocks, original 5th block halving
+        consensus.nSubsidyHalvingIntervalV2a = 75; // Longblocks Subsidy halving after adjust block time (2min)
+        consensus.nSubsidyHalvingIntervalV2b = 37; // Longblocks Subsidy halving after adjust block time (4min)
+        consensus.nSubsidyHalvingIntervalV2c = 18; // Longblocks Subsidy halving after adjust block time (8min)
+
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 999999999999ULL;
@@ -414,6 +457,11 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 0; 
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 999999999999ULL;
+
+        // Deployment of MIP3 (longblocks)
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].bit = 5;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 0;
+        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 999999999999ULL;
 
         /*** Upstream Chainparams ***/
 
