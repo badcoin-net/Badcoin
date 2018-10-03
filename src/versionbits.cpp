@@ -25,6 +25,10 @@ const struct VBDeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION_B
     {
         /*.name =*/ "reservealgo",
         /*.gbt_force =*/ true,
+    },
+    {
+        /*.name =*/ "longblocks",
+        /*.gbt_force =*/ true,
     }
 };
 
