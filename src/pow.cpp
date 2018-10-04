@@ -10,6 +10,7 @@
 #include <primitives/block.h>
 #include <uint256.h>
 #include <util.h>
+#include "validation.h" // TODO Myriadcoin LONGBLOCKS: needed for versionbitscache, remove after activation.
 #include "bignum.h"
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, const Consensus::Params& params)
@@ -142,7 +143,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
     if (pindexLast->nHeight >= params.Phase2Timespan_Start)
     {
-        return CalculateNextWorkRequiredV2(pindexPrev, pindexFirst, params, algo, nActualTimespan);
+        return CalculateNextWorkRequiredV2(pindexPrev, pindexFirst, params, algo, nActualTimespan, pindexLast->nHeight);
     }
     else
     {
@@ -200,7 +201,7 @@ unsigned int CalculateNextWorkRequiredV1(const CBlockIndex* pindexPrev, const CB
 }
 
 
-unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CBlockIndex* pindexFirst, const Consensus::Params& params, int algo, int64_t nActualTimespan)
+unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CBlockIndex* pindexFirst, const Consensus::Params& params, int algo, int64_t nActualTimespan, int nHeight)
 {
     if (params.fPowNoRetargeting)
         return pindexPrev->nBits;
@@ -208,7 +209,21 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);    
     
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV2 * NUM_ALGOS; // 60 * 5 = 300s per algo
-    int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 * 300 = 3000s, 50 minutes
+    std::string sBlockTime = "V2";
+    // TODO Myriadcoin LONGBLOCKS: remove VersionBitsState check post activation.
+    if (VersionBitsState(pindexPrev, params, Consensus::DEPLOYMENT_LONGBLOCKS, versionbitscache) == THRESHOLD_ACTIVE) {
+        if (nHeight >= params.nLongblocks_StartV1c) {
+            nTargetSpacingPerAlgo = params.nPowTargetSpacingV3c * NUM_ALGOS; // 8 * 60 * 5 = 2400s per algo
+            sBlockTime = "V2_longblocks_8min";
+        } else if (nHeight >= params.nLongblocks_StartV1b) {
+            nTargetSpacingPerAlgo = params.nPowTargetSpacingV3b * NUM_ALGOS; // 4 * 60 * 5 = 1200s per algo
+            sBlockTime = "V2_longblocks_4min";
+        } else if (nHeight >= params.nLongblocks_StartV1a) {
+            nTargetSpacingPerAlgo = params.nPowTargetSpacingV3a * NUM_ALGOS; // 2 * 60 * 5 = 600s per algo
+            sBlockTime = "V2_longblocks_2min";
+        }
+    }
+    int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 blocks per algo
     int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV2) / 100;
     int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + params.nMaxAdjustDown) / 100;
     
@@ -229,10 +244,10 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
         bnNew = nProofOfWorkLimit;
     
     /// debug print
-    LogPrint(BCLog::ALL,"CalculateNextWorkRequiredV2(Algo=%d): RETARGET\n", algo);
-    LogPrint(BCLog::ALL,"CalculateNextWorkRequiredV2(Algo=%d): nTargetTimespan = %d    nActualTimespan = %d\n", algo, nAveragingTargetTimespan, nActualTimespan);
-    LogPrint(BCLog::ALL,"CalculateNextWorkRequiredV2(Algo=%d): Before: %08x  %s\n", algo, pindexPrev->nBits, bnOld.ToString());
-    LogPrint(BCLog::ALL,"CalculateNextWorkRequiredV2(Algo=%d): After:  %08x  %s\n", algo, bnNew.GetCompact(), bnNew.ToString());
+    LogPrint(BCLog::ALL,"CalculateNextWorkRequired%s(Algo=%d): RETARGET\n", sBlockTime, algo);
+    LogPrint(BCLog::ALL,"CalculateNextWorkRequired%s(Algo=%d): nTargetTimespan = %d    nActualTimespan = %d\n", sBlockTime, algo, nAveragingTargetTimespan, nActualTimespan);
+    LogPrint(BCLog::ALL,"CalculateNextWorkRequired%s(Algo=%d): Before: %08x  %s\n", sBlockTime, algo, pindexPrev->nBits, bnOld.ToString());
+    LogPrint(BCLog::ALL,"CalculateNextWorkRequired%s(Algo=%d): After:  %08x  %s\n", sBlockTime, algo, bnNew.GetCompact(), bnNew.ToString());
 
     return bnNew.GetCompact();
 }
