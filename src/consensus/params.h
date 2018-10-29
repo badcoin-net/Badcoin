@@ -111,6 +111,8 @@ struct Params {
     int nSubsidyHalvingIntervalV2a;
     int nSubsidyHalvingIntervalV2b;
     int nSubsidyHalvingIntervalV2c;
+    int nLegbitStart;
+    int nLegbitStop;
     
     /** Auxpow parameters */
     int32_t nAuxpowChainId;
