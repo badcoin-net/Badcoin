@@ -1,12 +1,12 @@
-// Copyright (c) 2014-2016 The Bitcoin Core developers
+// Copyright (c) 2014-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "chainparams.h"
-#include "validation.h"
-#include "net.h"
+#include <chainparams.h>
+#include <validation.h>
+#include <net.h>
 
-#include "test/test_bitcoin.h"
+#include <test/test_bitcoin.h>
 
 #include <boost/signals2/signal.hpp>
 #include <boost/test/unit_test.hpp>
@@ -68,21 +68,26 @@ static void TestBlockSubsidyHalvings(int nSubsidyHalvingInterval)
 
 BOOST_AUTO_TEST_CASE(block_subsidy_test)
 {
-    TestBlockSubsidyHalvings(Params(CBaseChainParams::MAIN).GetConsensus()); // As in main
-    TestBlockSubsidyHalvings(Params(CBaseChainParams::TESTNET).GetConsensus()); // As in testnet
-    TestBlockSubsidyHalvings(Params(CBaseChainParams::REGTEST).GetConsensus()); // As in regtest
     // Myriadcoin: we don't test other intervals due to MIP3-longblocks
+    //const auto chainParams = CreateChainParams(CBaseChainParams::MAIN);
+    const auto chainParamsMain = CreateChainParams(CBaseChainParams::MAIN);
+    const auto chainParamsTestnet = CreateChainParams(CBaseChainParams::TESTNET);
+    const auto chainParamsRegtest = CreateChainParams(CBaseChainParams::REGTEST);
+    //TestBlockSubsidyHalvings(chainParams->GetConsensus()); // As in main
+    TestBlockSubsidyHalvings(chainParamsMain->GetConsensus()); // As in main
+    TestBlockSubsidyHalvings(chainParamsTestnet->GetConsensus()); // As in testnet
+    TestBlockSubsidyHalvings(chainParamsRegtest->GetConsensus()); // As in regtest
     //TestBlockSubsidyHalvings(150); // As in regtest
     //TestBlockSubsidyHalvings(1000); // Just another interval
 }
 
 BOOST_AUTO_TEST_CASE(subsidy_limit_test)
 {
-    const Consensus::Params& consensusParams = Params(CBaseChainParams::MAIN).GetConsensus();
+    const auto chainParams = CreateChainParams(CBaseChainParams::MAIN);
     CAmount nSum = 0;
     // Myriadcoin: step must be integer factor of our MIP3 120960 halving intervals, all interval steps are divisible by 945
     for (int nHeight = 0; nHeight < 14000000; nHeight += 945) {
-        CAmount nSubsidy = GetBlockSubsidy(nHeight, consensusParams);
+        CAmount nSubsidy = GetBlockSubsidy(nHeight, chainParams->GetConsensus());
         BOOST_CHECK(nSubsidy <= 1000 * COIN);
         nSum += nSubsidy * 945;
         BOOST_CHECK(MoneyRange(nSum));
