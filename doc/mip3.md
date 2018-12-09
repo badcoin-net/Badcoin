@@ -8,7 +8,7 @@ Motivation
 
 With the emergence of layer 2 solutions, the need for fast block confirmations 
 is lessened. Additionally, chainindex bloat is a significant issue to the 
-long-term health of Myriadcoin.
+long-term health of Badcoin.
 
 This proposal implements a gradual increase in block time from 1 to 8 minutes 
 using multiple intervals of block time adjustments.
@@ -24,7 +24,7 @@ Implementation
 
 In three phases this proposal plans an increase in block time while keeping 
 the reward amount essentially the same. In practice, this requires raising the 
-block reward at a scale proportional to the block time increase. Myriadcoin 
+block reward at a scale proportional to the block time increase. Badcoin 
 would not see another block halving until the 6th block halving. Then block 
 halvings continue at the original schedule of ~2yrs.
 
@@ -53,4 +53,4 @@ Deployment of this rule is through version bit 5.
 
 Reference implementation
 
-https://github.com/cryptapus/bitcoin/tree/myriadcoin.master.lngblcks/doc/mip3.md
+https://github.com/cryptapus/bitcoin/tree/badcoin.master.lngblcks/doc/mip3.md

@@ -154,9 +154,9 @@ UniValue validateaddress(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() != 1)
         throw std::runtime_error(
             "validateaddress \"address\"\n"
-            "\nReturn information about the given myriadcoin address.\n"
+            "\nReturn information about the given badcoin address.\n"
             "\nArguments:\n"
-            "1. \"address\"     (string, required) The myriadcoin address to validate\n"
+            "1. \"address\"     (string, required) The badcoin address to validate\n"
             "\nResult:\n"
             "{\n"
             "  \"isvalid\" : true|false,       (boolean) If the address is valid or not. If not, this is the only property returned.\n"
@@ -327,7 +327,7 @@ UniValue verifymessage(const JSONRPCRequest& request)
             "verifymessage \"address\" \"signature\" \"message\"\n"
             "\nVerify a signed message\n"
             "\nArguments:\n"
-            "1. \"address\"         (string, required) The myriadcoin address to use for the signature.\n"
+            "1. \"address\"         (string, required) The badcoin address to use for the signature.\n"
             "2. \"signature\"       (string, required) The signature provided by the signer in base 64 encoding (see signmessage).\n"
             "3. \"message\"         (string, required) The message that was signed.\n"
             "\nResult:\n"

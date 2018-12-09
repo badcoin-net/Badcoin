@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_CASE (check_auxpow)
   builder2.parentBlock.SetChainId (100);
   BOOST_CHECK (builder2.get ().check (hashAux, ourChainId, params));
   builder2.parentBlock.SetChainId (ourChainId);
-  // Removed for Myriadcoin:
+  // Removed for Badcoin:
   //BOOST_CHECK (!builder2.get ().check (hashAux, ourChainId, params));
 
   /* Disallow too long merkle branches.  */
@@ -377,7 +377,7 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
 
   block.nVersion = 2;
   mineBlock (block, true);
-  // Myriadcoin allows this:
+  // Badcoin allows this:
   //BOOST_CHECK (!CheckProofOfWork (block, params));
   BOOST_CHECK (CheckProofOfWork (block, params));
 
@@ -387,7 +387,7 @@ BOOST_AUTO_TEST_CASE (auxpow_pow)
 
   block.SetChainId (params.nAuxpowChainId + 1);
   mineBlock (block, true);
-  // Myriadcoin allows this:
+  // Badcoin allows this:
   //BOOST_CHECK (!CheckProofOfWork (block, params));
   BOOST_CHECK (CheckProofOfWork (block, params));
 

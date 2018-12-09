@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>Myriadcoin-Qt</string>
+  <string>Badcoin-Qt</string>
   
   <key>CFBundleName</key>
-  <string>Myriadcoin-Qt</string>
+  <string>Badcoin-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.myriadcoin.Myriadcoin-Qt</string>
+  <string>org.badcoin.Badcoin-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,10 +46,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.myriadcoin.MyriadcoinPayment</string>
+      <string>org.badcoin.BadcoinPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>myriadcoin</string>
+        <string>badcoin</string>
       </array>
     </dict>
   </array>
@@ -58,7 +58,7 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>org.myriadcoin.paymentrequest</string>
+      <string>org.badcoin.paymentrequest</string>
       <key>UTTypeDescription</key>
       <string>Bitcoin payment request</string>
       <key>UTTypeConformsTo</key>
@@ -68,10 +68,10 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
-        <string>application/x-myriadcoin-payment-request</string>
+        <string>application/x-badcoin-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>myriadcoinpaymentrequest</string>
+          <string>badcoinpaymentrequest</string>
         </array>
       </dict>
     </dict>
@@ -84,7 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>org.myriadcoin.paymentrequest</string>
+        <string>org.badcoin.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>

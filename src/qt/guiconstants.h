@@ -46,9 +46,9 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
-#define QAPP_ORG_NAME "Myriad"
-#define QAPP_ORG_DOMAIN "myriadcoin.org"
-#define QAPP_APP_NAME_DEFAULT "Myriadcoin-Qt"
-#define QAPP_APP_NAME_TESTNET "Myriadcoin-Qt-testnet"
+#define QAPP_ORG_NAME "Badcoin"
+#define QAPP_ORG_DOMAIN "badcryptopodcast.com"
+#define QAPP_APP_NAME_DEFAULT "Badcoin-Qt"
+#define QAPP_APP_NAME_TESTNET "Badcoin-Qt-testnet"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H

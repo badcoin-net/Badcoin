@@ -1,13 +1,13 @@
 *.tar.gz
 
 *.exe
-src/myriadcoin
-src/myriadcoind
-src/myriadcoin-cli
-src/myriadcoin-tx
-src/test/test_myriadcoin
-src/test/test_myriadcoin_fuzzy
-src/qt/test/test_myriadcoin-qt
+src/badcoin
+src/badcoind
+src/badcoin-cli
+src/badcoin-tx
+src/test/test_badcoin
+src/test/test_badcoin_fuzzy
+src/qt/test/test_badcoin-qt
 
 # autoreconf
 Makefile.in
@@ -80,13 +80,13 @@ src/qt/bitcoin-qt.includes
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-myriadcoin-qt
-Myriadcoin-Qt.app
+badcoin-qt
+Badcoin-Qt.app
 background.tiff*
 
 # Unit-tests
 Makefile.test
-myriadcoin-qt_test
+badcoin-qt_test
 
 # Resources cpp
 qrc_*.cpp

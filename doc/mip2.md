@@ -7,7 +7,7 @@ Status: Under development
 Motivation
 
 
-Myriadcoin uses bits in the nVersion field to indicate
+Badcoin uses bits in the nVersion field to indicate
 which PoW algorithm is used.
 
 Currently algo id 6 and 7 defaults to using SHA256d.
@@ -26,4 +26,4 @@ Deployment of this rule is through version bit 4.
 
 Reference implementation
 
-https://github.com/myriadteam/myriadcoin/tree/mip2
+https://github.com/ScriptProdigy/myriadcoin/tree/mip2

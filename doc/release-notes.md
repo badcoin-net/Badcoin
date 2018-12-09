@@ -69,7 +69,7 @@ And to those that reported security issues:
 
 As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).
 
-Myriadcoin Credits
+Badcoin Credits
 =======
 (not exhaustive or hierarchical)
 - 8bitcoder

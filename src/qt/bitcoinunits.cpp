@@ -66,11 +66,11 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case MBTC: return QString("Mega-Myriadcoins (1,000,000)");
-    case kBTC: return QString("Kilo-Myriadcoins (1,000)");
-    case BTC: return QString("Myriadcoins");
-    case mBTC: return QString("Milli-Myriadcoins (1 / 1" THIN_SP_UTF8 "000)");
-    case uBTC: return QString("Micro-Myriadcoins (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case MBTC: return QString("Mega-Badcoins (1,000,000)");
+    case kBTC: return QString("Kilo-Badcoins (1,000)");
+    case BTC: return QString("Badcoins");
+    case mBTC: return QString("Milli-Badcoins (1 / 1" THIN_SP_UTF8 "000)");
+    case uBTC: return QString("Micro-Badcoins (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     default: return QString("???");
     }
 }

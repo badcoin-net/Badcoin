@@ -199,7 +199,7 @@ struct COutputEntry
     int vout;
 };
 
-// Myriadcoin: in auxpow
+// Badcoin: in auxpow
 ///** A transaction with a merkle branch linking it to the block chain. */
 //class CMerkleTx
 //{

@@ -16,14 +16,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Myriad"
-            VALUE "FileDescription",    "myriadcoind (Myriadcoin node with a JSON-RPC server)"
+            VALUE "CompanyName",        "Badcoin"
+            VALUE "FileDescription",    "badcoind (Badcoin node with a JSON-RPC server)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "myriadcoind"
+            VALUE "InternalName",       "badcoind"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "myriadcoind.exe"
-            VALUE "ProductName",        "myriadcoind"
+            VALUE "OriginalFilename",   "badcoind.exe"
+            VALUE "ProductName",        "badcoind"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

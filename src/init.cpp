@@ -526,8 +526,8 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/myriadteam/myriadcoin>";
-    const std::string URL_WEBSITE = "<http://www.myriadcoin.org>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/ScriptProdigy/Badcoin>";
+    const std::string URL_WEBSITE = "<http://www.badcryptopodcast.com>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2009, COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +

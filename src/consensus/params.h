@@ -108,9 +108,6 @@ struct Params {
     int64_t nLongblocks_StartV1a;
     int64_t nLongblocks_StartV1b;
     int64_t nLongblocks_StartV1c;
-    int nSubsidyHalvingIntervalV2a;
-    int nSubsidyHalvingIntervalV2b;
-    int nSubsidyHalvingIntervalV2c;
     int nLegbitStart;
     int nLegbitStop;
     

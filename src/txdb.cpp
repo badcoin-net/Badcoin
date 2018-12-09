@@ -287,7 +287,7 @@ bool CBlockTreeDB::LoadBlockIndexGuts(const Consensus::Params& consensusParams, 
                 pindexNew->nStatus        = diskindex.nStatus;
                 pindexNew->nTx            = diskindex.nTx;
 
-                // TODO Myriadcoin: check performance to enable this
+                // TODO Badcoin: check performance to enable this
                 //if (!CheckProofOfWork(pindexNew->GetBlockHash(), pindexNew->GetAlgo(), pindexNew->nBits, consensusParams))
                 //    return error("%s: CheckProofOfWork failed: %s", __func__, pindexNew->ToString());
 

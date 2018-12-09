@@ -130,7 +130,7 @@ BOOST_AUTO_TEST_CASE(stale_tip_peer_management)
         BOOST_CHECK(node->fDisconnect == false);
     }
 
-    // Myriadcoin: we have a short PowTargetSpacing:
+    // Badcoin: we have a short PowTargetSpacing:
     //SetMockTime(GetTime() + 3*consensusParams.nPowTargetSpacing + 1);
     SetMockTime(GetTime() + 3*consensusParams.nPowTargetSpacing*10 + 1);
 

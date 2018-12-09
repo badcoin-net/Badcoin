@@ -49,7 +49,7 @@
 #include <boost/thread.hpp>
 
 #if defined(NDEBUG)
-# error "Myriadcoin cannot be compiled without assertions."
+# error "Badcoin cannot be compiled without assertions."
 #endif
 
 #define MICRO 0.000001
@@ -239,7 +239,7 @@ CTxMemPool mempool(&feeEstimator);
 /** Constant stuff for coinbase transactions we create: */
 CScript COINBASE_FLAGS;
 
-const std::string strMessageMagic = "Myriadcoin Signed Message:\n";
+const std::string strMessageMagic = "Badcoin Signed Message:\n";
 
 // Internal stuff
 namespace {
@@ -1082,7 +1082,7 @@ bool GetTransaction(const uint256& hash, CTransactionRef& txOut, const Consensus
 // CBlock and CBlockIndex
 //
 
-// Myriadcoin - check algo and auxpow
+// Badcoin - check algo and auxpow
 bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params)
 {
     /* Except for legacy blocks with full version 1, ensure that
@@ -1100,23 +1100,16 @@ bool CheckProofOfWork(const CBlockHeader& block, const Consensus::Params& params
     if (!block.auxpow)
     {
         if (block.IsAuxpow())
-            return error("%s : no auxpow on block with auxpow version",
-                         __func__);
+            return error("%s : no auxpow on block with auxpow version", __func__);
+
         int algo = block.GetAlgo();
         if (!CheckProofOfWork(block.GetPoWHash(algo, params), algo, block.nBits, params))
             return error("%s : non-AUX proof of work failed, hash=%s, algo=%d, nVersion=%d, PoWHash=%s",
-            __func__,
-            block.GetHash().ToString(),
-            algo,
-            block.nVersion,
-            block.GetPoWHash(algo, params).ToString()
-            );
-
+                        __func__, block.GetHash().ToString(), algo, block.nVersion, block.GetPoWHash(algo, params).ToString());
         return true;
     }
 
     /* We have auxpow.  Check it.  */
-
     if (!block.IsAuxpow())
         return error("%s : auxpow on block with non-auxpow version", __func__);
 
@@ -1221,30 +1214,12 @@ bool ReadBlockHeaderFromDisk(CBlockHeader& block, const CBlockIndex* pindex, con
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
     int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-    if (nHeight >= consensusParams.nLongblocks_StartV1a) {
-        halvings = consensusParams.nLongblocks_StartV1a / consensusParams.nSubsidyHalvingInterval;
-    }
-    if (nHeight >= consensusParams.nLongblocks_StartV1b) {
-        halvings += 1;
-    }
-    if (nHeight >= consensusParams.nLongblocks_StartV1c) {
-        halvings += 1;
-        halvings += ( nHeight - consensusParams.nLongblocks_StartV1c ) / consensusParams.nSubsidyHalvingIntervalV2c;
-    }
-    // Force block reward to 1 after 13 halvings (tail emission).
-    if (halvings >= 13) // tail emission happens later with longblocks.
-        return 1 * COIN;
+    // Force block reward to zero when right shift is undefined.
+    if (halvings >= 64)
+        return 0;
 
     CAmount nSubsidy = 1000 * COIN;
-    // longblocks require larger reward scaled for time.
-    if (nHeight >= consensusParams.nLongblocks_StartV1c) {
-        nSubsidy *= 8; // 1min -> 8min
-    } else if (nHeight >= consensusParams.nLongblocks_StartV1b) {
-        nSubsidy *= 4; // 1min -> 4min
-    } else if (nHeight >= consensusParams.nLongblocks_StartV1a) {
-        nSubsidy *= 2; // 1min -> 2min
-    }
-    // Subsidy is cut in half every 967680 blocks.
+    // Subsidy is cut in half every 210000 blocks.
     nSubsidy >>= halvings;
     return nSubsidy;
 }
@@ -1796,7 +1771,7 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         }
     }
 
-    /* Myriadcoin: As a suspected consequence of `legbit` signaling longer than multiple BIP9 activation
+    /* Badcoin: As a suspected consequence of `legbit` signaling longer than multiple BIP9 activation
      * windows, artificially increase nVersion for the length of blocks legbit was active. bit 2 should still be
      * usable as a BIP9 bit, however it is advisable that this behavior is verified on a testnet soft-fork for
      * future use. This tweak of nVersion has been necessary on v0.14-v0.16 in order to not trigger a
@@ -2284,7 +2259,7 @@ void static UpdateTip(const CBlockIndex *pindexNew, const CChainParams& chainPar
         for (int i = 0; i < 100 && pindex != nullptr; i++)
         {
             int32_t nExpectedVersion = ComputeBlockVersion(pindex->pprev, chainParams.GetConsensus());
-            /* Myriadcoin: we only use the lowest 8 bits for BIP9, so we mask the chainid and algo (0x00FFFF00)*/
+            /* Badcoin: we only use the lowest 8 bits for BIP9, so we mask the chainid and algo (0x00FFFF00)*/
             //if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && (pindex->nVersion & ~nExpectedVersion) != 0)
             if (pindex->nVersion > VERSIONBITS_LAST_OLD_BLOCK_VERSION && ((pindex->nVersion & ~nExpectedVersion) & 0xFF0000FF) != 0)
                 ++nUpgraded;

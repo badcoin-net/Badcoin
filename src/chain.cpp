@@ -356,7 +356,7 @@ int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& fr
         r = from.nChainWork - to.nChainWork;
         sign = -1;
     }
-    /* TODO: Myriadcoin, Being specific in this case for consensus matching with 0.11. However
+    /* TODO: Badcoin, Being specific in this case for consensus matching with 0.11. However
         this should be safe to set to the current params.nPowTargetSpacing. We can safely reset
         if hard forked from 0.11. In consensus, params.nPowTargetSpacing is set
         to params.nPowTargetSpacingV2.

@@ -1,10 +1,6 @@
-<!-- This issue tracker is only for technical issues related to Myriadcoin Core.
+<!-- This issue tracker is only for technical issues related to Badcoin Core.
 
-General myriadcoin questions and/or support requests are best directed to the Myriadcoin Reddit at https://www.reddit.com/r/myriadcoin.
-
-For reporting security issues, please email (preferably all of the following):
-    8bitcoder: info@myriadcoin.org
-    cryptapus: info@cryptapus.org, various other contact methods are available at https://cryptapus.org.
+General badcoin questions and/or support requests are best directed to the Badcoin Reddit at https://www.reddit.com/r/badcoin.
 
 If the node is "stuck" during sync or giving "block checksum mismatch" errors, please ensure your hardware is stable by running memtest and observe CPU temperature with a load-test tool such as linpack before creating an issue! -->
 
@@ -15,7 +11,7 @@ If the node is "stuck" during sync or giving "block checksum mismatch" errors, p
 
 <!--- How reliably can you reproduce the issue, what are the steps to do so? -->
 
-<!-- What version of Myriadcoin Core are you using, where did you get it (website, self-compiled, etc)? -->
+<!-- What version of Badcoin Core are you using, where did you get it (website, self-compiled, etc)? -->
 
 <!-- What type of machine are you observing the error on (OS/CPU and disk type)? -->
 

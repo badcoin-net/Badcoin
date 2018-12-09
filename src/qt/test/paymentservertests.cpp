@@ -199,7 +199,7 @@ void PaymentServerTests::paymentServerTests()
     for (const std::pair<CScript, CAmount>& sendingTo : sendingTos) {
         CTxDestination dest;
         if (ExtractDestination(sendingTo.first, dest))
-            // Myriadcoin: 21000001 XMY is within range, TODO alter paymentrequest5_cert2_BASE64
+            // Badcoin: 21000001 XMY is within range, TODO alter paymentrequest5_cert2_BASE64
             QCOMPARE(PaymentServer::verifyAmount(sendingTo.second), true);
     }
 

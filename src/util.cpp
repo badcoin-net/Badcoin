@@ -82,8 +82,8 @@
 // Application startup time (used for uptime calculation)
 const int64_t nStartupTime = GetTime();
 
-const char * const BITCOIN_CONF_FILENAME = "myriadcoin.conf";
-const char * const BITCOIN_PID_FILENAME = "myriadcoind.pid";
+const char * const BITCOIN_CONF_FILENAME = "badcoin.conf";
+const char * const BITCOIN_PID_FILENAME = "badcoind.pid";
 const char * const DEFAULT_DEBUGLOGFILE = "debug.log";
 
 ArgsManager gArgs;
@@ -559,7 +559,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(nullptr, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "myriadcoin";
+    const char* pszModule = "badcoin";
 #endif
     if (pex)
         return strprintf(
@@ -578,13 +578,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 
 fs::path GetDefaultDataDir()
 {
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Myriadcoin
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Myriadcoin
-    // Mac: ~/Library/Application Support/Myriadcoin
-    // Unix: ~/.myriadcoin
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Badcoin
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Badcoin
+    // Mac: ~/Library/Application Support/Badcoin
+    // Unix: ~/.badcoin
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Myriadcoin";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Badcoin";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -594,10 +594,10 @@ fs::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/Myriadcoin";
+    return pathRet / "Library/Application Support/Badcoin";
 #else
     // Unix
-    return pathRet / ".myriadcoin";
+    return pathRet / ".badcoin";
 #endif
 #endif
 }
@@ -659,7 +659,7 @@ void ArgsManager::ReadConfigFile(const std::string& confPath)
 {
     fs::ifstream streamConfig(GetConfigFile(confPath));
     if (!streamConfig.good())
-        return; // No myriadcoin.conf file is OK
+        return; // No badcoin.conf file is OK
 
     {
         LOCK(cs_args);
@@ -951,6 +951,11 @@ std::string CopyrightHolders(const std::string& strPrefix)
     // Check for untranslated substitution to make sure Bitcoin Core copyright is not removed by accident
     if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Bitcoin Core") == std::string::npos) {
         strCopyrightHolders += "\n" + strPrefix + "The Bitcoin Core developers";
+    }
+
+    // Check for untranslated substitution to make sure Myraid Core copyright is not removed by accident
+    if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Myraid Core") == std::string::npos) {
+        strCopyrightHolders += "\n" + strPrefix + "The Myraid Core developers";
     }
     return strCopyrightHolders;
 }

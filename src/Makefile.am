@@ -65,11 +65,11 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += myriadcoind
+  bin_PROGRAMS += badcoind
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += myriadcoin-cli myriadcoin-tx
+  bin_PROGRAMS += badcoin-cli badcoin-tx
 endif
 
 .PHONY: FORCE check-symbols check-security
@@ -419,17 +419,17 @@ libbitcoin_cli_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# myriadcoind binary #
-myriadcoind_SOURCES = bitcoind.cpp
-myriadcoind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-myriadcoind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-myriadcoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# badcoind binary #
+badcoind_SOURCES = bitcoind.cpp
+badcoind_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+badcoind_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+badcoind_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-myriadcoind_SOURCES += bitcoind-res.rc
+badcoind_SOURCES += bitcoind-res.rc
 endif
 
-myriadcoind_LDADD = \
+badcoind_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -443,38 +443,38 @@ myriadcoind_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-myriadcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+badcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 
-# myriadcoin-cli binary #
-myriadcoin_cli_SOURCES = bitcoin-cli.cpp
-myriadcoin_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-myriadcoin_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-myriadcoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# badcoin-cli binary #
+badcoin_cli_SOURCES = bitcoin-cli.cpp
+badcoin_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+badcoin_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+badcoin_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-myriadcoin_cli_SOURCES += bitcoin-cli-res.rc
+badcoin_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-myriadcoin_cli_LDADD = \
+badcoin_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-myriadcoin_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+badcoin_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
-# myriadcoin-tx binary #
-myriadcoin_tx_SOURCES = bitcoin-tx.cpp
-myriadcoin_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-myriadcoin_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-myriadcoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# badcoin-tx binary #
+badcoin_tx_SOURCES = bitcoin-tx.cpp
+badcoin_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+badcoin_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+badcoin_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-myriadcoin_tx_SOURCES += bitcoin-tx-res.rc
+badcoin_tx_SOURCES += bitcoin-tx-res.rc
 endif
 
-myriadcoin_tx_LDADD = \
+badcoin_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -482,7 +482,7 @@ myriadcoin_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-myriadcoin_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+badcoin_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
 # bitcoinconsensus library #

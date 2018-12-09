@@ -16,7 +16,7 @@ osx=true
 SIGNER=
 VERSION=
 commit=false
-url=https://github.com/myriadteam/myriadcoin
+url=https://github.com/ScriptProdigy/badcoin
 proc=2
 mem=2000
 lxc=true
@@ -244,7 +244,7 @@ then
 fi
 
 # Set up build
-pushd ./myriadcoin
+pushd ./badcoin
 git fetch
 git checkout ${COMMIT}
 popd
@@ -253,7 +253,7 @@ popd
 if [[ $build = true ]]
 then
 	# Make output folder
-	mkdir -p ./myriadcoin-binaries/${VERSION}
+	mkdir -p ./badcoin-binaries/${VERSION}
 	
 	# Build Dependencies
 	echo ""
@@ -263,7 +263,7 @@ then
 	mkdir -p inputs
 	wget -N -P inputs $osslPatchUrl
 	wget -N -P inputs $osslTarUrl
-	make -C ../myriadcoin/depends download SOURCES_PATH=`pwd`/cache/common
+	make -C ../badcoin/depends download SOURCES_PATH=`pwd`/cache/common
 
 	# Linux
 	if [[ $linux = true ]]
@@ -271,9 +271,9 @@ then
             echo ""
 	    echo "Compiling ${VERSION} Linux"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit myriadcoin=${COMMIT} --url myriadcoin=${url} ../myriadcoin/contrib/gitian-descriptors/gitian-linux.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../myriadcoin/contrib/gitian-descriptors/gitian-linux.yml
-	    mv build/out/myriadcoin-*.tar.gz build/out/src/myriadcoin-*.tar.gz ../myriadcoin-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit badcoin=${COMMIT} --url badcoin=${url} ../badcoin/contrib/gitian-descriptors/gitian-linux.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../badcoin/contrib/gitian-descriptors/gitian-linux.yml
+	    mv build/out/badcoin-*.tar.gz build/out/src/badcoin-*.tar.gz ../badcoin-binaries/${VERSION}
 	fi
 	# Windows
 	if [[ $windows = true ]]
@@ -281,10 +281,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit myriadcoin=${COMMIT} --url myriadcoin=${url} ../myriadcoin/contrib/gitian-descriptors/gitian-win.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../myriadcoin/contrib/gitian-descriptors/gitian-win.yml
-	    mv build/out/myriadcoin-*-win-unsigned.tar.gz inputs/myriadcoin-win-unsigned.tar.gz
-	    mv build/out/myriadcoin-*.zip build/out/myriadcoin-*.exe ../myriadcoin-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit badcoin=${COMMIT} --url badcoin=${url} ../badcoin/contrib/gitian-descriptors/gitian-win.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../badcoin/contrib/gitian-descriptors/gitian-win.yml
+	    mv build/out/badcoin-*-win-unsigned.tar.gz inputs/badcoin-win-unsigned.tar.gz
+	    mv build/out/badcoin-*.zip build/out/badcoin-*.exe ../badcoin-binaries/${VERSION}
 	fi
 	# Mac OSX
 	if [[ $osx = true ]]
@@ -292,10 +292,10 @@ then
 	    echo ""
 	    echo "Compiling ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -j ${proc} -m ${mem} --commit myriadcoin=${COMMIT} --url myriadcoin=${url} ../myriadcoin/contrib/gitian-descriptors/gitian-osx.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../myriadcoin/contrib/gitian-descriptors/gitian-osx.yml
-	    mv build/out/myriadcoin-*-osx-unsigned.tar.gz inputs/myriadcoin-osx-unsigned.tar.gz
-	    mv build/out/myriadcoin-*.tar.gz build/out/myriadcoin-*.dmg ../myriadcoin-binaries/${VERSION}
+	    ./bin/gbuild -j ${proc} -m ${mem} --commit badcoin=${COMMIT} --url badcoin=${url} ../badcoin/contrib/gitian-descriptors/gitian-osx.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../badcoin/contrib/gitian-descriptors/gitian-osx.yml
+	    mv build/out/badcoin-*-osx-unsigned.tar.gz inputs/badcoin-osx-unsigned.tar.gz
+	    mv build/out/badcoin-*.tar.gz build/out/badcoin-*.dmg ../badcoin-binaries/${VERSION}
 	fi
 	popd
 
@@ -322,27 +322,27 @@ then
 	echo ""
 	echo "Verifying v${VERSION} Linux"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../myriadcoin/contrib/gitian-descriptors/gitian-linux.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../badcoin/contrib/gitian-descriptors/gitian-linux.yml
 	# Windows
 	echo ""
 	echo "Verifying v${VERSION} Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../myriadcoin/contrib/gitian-descriptors/gitian-win.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../badcoin/contrib/gitian-descriptors/gitian-win.yml
 	# Mac OSX	
 	echo ""
 	echo "Verifying v${VERSION} Mac OSX"
 	echo ""	
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../myriadcoin/contrib/gitian-descriptors/gitian-osx.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../badcoin/contrib/gitian-descriptors/gitian-osx.yml
 	# Signed Windows
 	echo ""
 	echo "Verifying v${VERSION} Signed Windows"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../myriadcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../badcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
 	# Signed Mac OSX
 	echo ""
 	echo "Verifying v${VERSION} Signed Mac OSX"
 	echo ""
-	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../myriadcoin/contrib/gitian-descriptors/gitian-osx-signer.yml	
+	./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../badcoin/contrib/gitian-descriptors/gitian-osx-signer.yml	
 	popd
 fi
 
@@ -357,10 +357,10 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Windows"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../myriadcoin/contrib/gitian-descriptors/gitian-win-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../myriadcoin/contrib/gitian-descriptors/gitian-win-signer.yml
-	    mv build/out/myriadcoin-*win64-setup.exe ../myriadcoin-binaries/${VERSION}
-	    mv build/out/myriadcoin-*win32-setup.exe ../myriadcoin-binaries/${VERSION}
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../badcoin/contrib/gitian-descriptors/gitian-win-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../badcoin/contrib/gitian-descriptors/gitian-win-signer.yml
+	    mv build/out/badcoin-*win64-setup.exe ../badcoin-binaries/${VERSION}
+	    mv build/out/badcoin-*win32-setup.exe ../badcoin-binaries/${VERSION}
 	fi
 	# Sign Mac OSX
 	if [[ $osx = true ]]
@@ -368,9 +368,9 @@ then
 	    echo ""
 	    echo "Signing ${VERSION} Mac OSX"
 	    echo ""
-	    ./bin/gbuild -i --commit signature=${COMMIT} ../myriadcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../myriadcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
-	    mv build/out/myriadcoin-osx-signed.dmg ../myriadcoin-binaries/${VERSION}/myriadcoin-${VERSION}-osx.dmg
+	    ./bin/gbuild -i --commit signature=${COMMIT} ../badcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../badcoin/contrib/gitian-descriptors/gitian-osx-signer.yml
+	    mv build/out/badcoin-osx-signed.dmg ../badcoin-binaries/${VERSION}/badcoin-${VERSION}-osx.dmg
 	fi
 	popd
 

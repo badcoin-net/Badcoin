@@ -38,7 +38,7 @@ static const int MAX_STACK_SIZE = 1000;
 // otherwise as UNIX timestamp.
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 
-// Myriadcoin: for auxpow
+// Badcoin: for auxpow
 typedef std::vector<unsigned char> valtype;
 
 template <typename T>
