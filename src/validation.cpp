@@ -1771,17 +1771,6 @@ int32_t ComputeBlockVersion(const CBlockIndex* pindexPrev, const Consensus::Para
         }
     }
 
-    /* Badcoin: As a suspected consequence of `legbit` signaling longer than multiple BIP9 activation
-     * windows, artificially increase nVersion for the length of blocks legbit was active. bit 2 should still be
-     * usable as a BIP9 bit, however it is advisable that this behavior is verified on a testnet soft-fork for
-     * future use. This tweak of nVersion has been necessary on v0.14-v0.16 in order to not trigger a
-     * "Warning: unknown new rules activated (versionbit 2)" in UpdateTip().
-     */
-    if (pindexPrev!=NULL) {
-        if (pindexPrev->nHeight >= params.nLegbitStart && pindexPrev->nHeight < params.nLegbitStop)
-            nVersion += 4;
-    }
-
     return nVersion;
 }
 

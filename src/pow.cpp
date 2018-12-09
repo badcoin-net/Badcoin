@@ -157,7 +157,7 @@ unsigned int CalculateNextWorkRequiredV1(const CBlockIndex* pindexPrev, const CB
 
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);    
     
-    int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV1 * NUM_ALGOS; // 30 * 5 = 150s per algo
+    int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacing * NUM_ALGOS; // 30 * 5 = 150s per algo
     int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 * 150 = 1500s, 25 minutes
     int64_t nMinActualTimespanV1 = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV1) / 100;
     int64_t nMinActualTimespanV2 = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV2) / 100;
@@ -207,20 +207,9 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
 
     const arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);    
     
-    int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacingV2 * NUM_ALGOS; // 60 * 5 = 300s per algo
-    std::string sBlockTime = "V2";
-    if (nHeight >= params.nLongblocks_StartV1c) {
-        nTargetSpacingPerAlgo = params.nPowTargetSpacingV3c * NUM_ALGOS; // 8 * 60 * 5 = 2400s per algo
-        sBlockTime = "V2_longblocks_8min";
-    } else if (nHeight >= params.nLongblocks_StartV1b) {
-        nTargetSpacingPerAlgo = params.nPowTargetSpacingV3b * NUM_ALGOS; // 4 * 60 * 5 = 1200s per algo
-        sBlockTime = "V2_longblocks_4min";
-    } else if (nHeight >= params.nLongblocks_StartV1a) {
-        nTargetSpacingPerAlgo = params.nPowTargetSpacingV3a * NUM_ALGOS; // 2 * 60 * 5 = 600s per algo
-        sBlockTime = "V2_longblocks_2min";
-    }
+    int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacing * NUM_ALGOS; // 60 * 5 = 300s per algo
     int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 blocks per algo
-    int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV2) / 100;
+    int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - params.nMaxAdjustUp) / 100;
     int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + params.nMaxAdjustDown) / 100;
     
     if (nActualTimespan < nMinActualTimespan)
@@ -240,10 +229,10 @@ unsigned int CalculateNextWorkRequiredV2(const CBlockIndex* pindexPrev, const CB
         bnNew = nProofOfWorkLimit;
     
     /// debug print
-    LogPrint(BCLog::ALL,"CalculateNextWorkRequired%s(Algo=%d): RETARGET\n", sBlockTime, algo);
-    LogPrint(BCLog::ALL,"CalculateNextWorkRequired%s(Algo=%d): nTargetTimespan = %d    nActualTimespan = %d\n", sBlockTime, algo, nAveragingTargetTimespan, nActualTimespan);
-    LogPrint(BCLog::ALL,"CalculateNextWorkRequired%s(Algo=%d): Before: %08x  %s\n", sBlockTime, algo, pindexPrev->nBits, bnOld.ToString());
-    LogPrint(BCLog::ALL,"CalculateNextWorkRequired%s(Algo=%d): After:  %08x  %s\n", sBlockTime, algo, bnNew.GetCompact(), bnNew.ToString());
+    LogPrint(BCLog::ALL,"CalculateNextWorkRequired(Algo=%d): RETARGET\n", algo);
+    LogPrint(BCLog::ALL,"CalculateNextWorkRequired(Algo=%d): nTargetTimespan = %d    nActualTimespan = %d\n", algo, nAveragingTargetTimespan, nActualTimespan);
+    LogPrint(BCLog::ALL,"CalculateNextWorkRequired(Algo=%d): Before: %08x  %s\n", algo, pindexPrev->nBits, bnOld.ToString());
+    LogPrint(BCLog::ALL,"CalculateNextWorkRequired(Algo=%d): After:  %08x  %s\n", algo, bnNew.GetCompact(), bnNew.ToString());
 
     return bnNew.GetCompact();
 }

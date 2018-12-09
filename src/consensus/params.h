@@ -18,9 +18,7 @@ enum DeploymentPos
     DEPLOYMENT_TESTDUMMY,
     DEPLOYMENT_CSV, // Deployment of BIP68, BIP112, and BIP113.
     DEPLOYMENT_SEGWIT, // Deployment of BIP141, BIP143, and BIP147.
-    DEPLOYMENT_LEGBIT, // Deployment of Legacy Bits.
     DEPLOYMENT_RESERVEALGO, // Deployment of MIP2 (Reserve algos)
-    DEPLOYMENT_LONGBLOCKS, // Deployment of MIP3 (longblocks)
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in versionbits.cpp
     MAX_VERSION_BITS_DEPLOYMENTS
 };
@@ -74,12 +72,10 @@ struct Params {
     /** Proof of work parameters */
     uint256 powLimit;
     bool fPowAllowMinDifficultyBlocks;
-    int64_t nPowTargetSpacingV1;
-    int64_t nPowTargetSpacingV2;
     bool fPowNoRetargeting;
     int64_t nPowTargetSpacing;
     int64_t nPowTargetTimespan;
-    int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacingV1; }
+    int64_t DifficultyAdjustmentInterval() const { return nPowTargetTimespan / nPowTargetSpacing; }
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
     int64_t nAveragingInterval;
@@ -102,14 +98,6 @@ struct Params {
     int64_t nBlockAlgoNormalisedWorkDecayStart2;
     int64_t nGeoAvgWork_Start;
     int64_t nFork1MinBlock;
-    int64_t nPowTargetSpacingV3a;
-    int64_t nPowTargetSpacingV3b;
-    int64_t nPowTargetSpacingV3c;
-    int64_t nLongblocks_StartV1a;
-    int64_t nLongblocks_StartV1b;
-    int64_t nLongblocks_StartV1c;
-    int nLegbitStart;
-    int nLegbitStop;
     
     /** Auxpow parameters */
     int32_t nAuxpowChainId;

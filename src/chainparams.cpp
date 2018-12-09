@@ -80,9 +80,6 @@ public:
         strNetworkID = "main";
 
         /*** Badcoin Additional Chainparams ***/
-
-        consensus.nPowTargetSpacingV1 = 30; // target time for block spacing across all algorithms
-        consensus.nPowTargetSpacingV2 = 60; // new target time for block spacing across all algorithms
         consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
 
         consensus.nStartAuxPow = 1; // Allow AuxPow blocks from this height
@@ -110,36 +107,14 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 866000; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 1400000;
-        consensus.nFork1MinBlock = 1764000; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
+        consensus.nFork1MinBlock = 1; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
         consensus.MIP2Height = 2328480;
-
-        // Legbit parameters (used for v0.11 -> v0.14 compatability)
-        consensus.nLegbitStart = 2306304;
-        consensus.nLegbitStop = 2586528;
-
-        // MIP3 parameters
-        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
-        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
-        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
-        consensus.nLongblocks_StartV1a = 2903040; // Start of longblocks, original 3rd block halving
-        consensus.nLongblocks_StartV1b = 3386880; // Start of longblocks, original 4th block halving
-        consensus.nLongblocks_StartV1c = 3628800; // Start of longblocks, original 5th block halving
-
-        // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1507420800; // October 8th, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1538956800; // October 8th, 2018
 
         // Deployment of MIP2 (Reserve algorithm ids)
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1516320000; // Jan 19th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1548979200; // Feb 1st, 2019
-
-        // Deployment of MIP3 (longblocks)
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].bit = 5;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 1525132800; // May 1st, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 1556668800; // May 1st, 2019
 
         /*** Upstream Chainparams ***/
 
@@ -151,7 +126,7 @@ public:
         consensus.BIP66Height = 100; // 2ca9968704301897b956f7e326375413be505509489c06aee2b16fe73805481e
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 20);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
+        consensus.nPowTargetSpacing = 60;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% of 2016
@@ -199,8 +174,8 @@ public:
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,25);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,28);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,28);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,25);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,80);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x06, 0xC4, 0xAB, 0xC8};
         base58Prefixes[EXT_SECRET_KEY] = {0x06, 0xC4, 0xAB, 0xC9};
@@ -238,9 +213,6 @@ public:
         strNetworkID = "test";
 
         /*** Badcoin Additional Chainparams ***/
-
-        consensus.nPowTargetSpacingV1 = 30; // target time for block spacing across all algorithms
-        consensus.nPowTargetSpacingV2 = 60; // new target time for block spacing across all algorithms
         consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
 
         consensus.nStartAuxPow = 150;
@@ -268,36 +240,13 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 150;
-        consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
+        consensus.nFork1MinBlock = 1; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
         consensus.MIP2Height = 1;
-
-        // Legbit parameters (used for v0.11 -> v0.14 compatability)
-        consensus.nLegbitStart = 8064;
-        consensus.nLegbitStop = 26208;
-
-        // MIP3 parameters
-        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
-        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
-        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
-        consensus.nLongblocks_StartV1a = 2903040; // Start of longblocks, original 3rd block halving
-        consensus.nLongblocks_StartV1b = 3386880; // Start of longblocks, original 4th block halving
-        consensus.nLongblocks_StartV1c = 3628800; // Start of longblocks, original 5th block halving
-
-        // Notice for BIP9 bit 2: Please see 'legbit' notes in validation.cpp prior to future use.
-        // Deployment of Legacy Blocks. Once activated, keeps v0.11 nodes on the same chain. Should be the first softfork.
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 1504224000; // September 1st, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 1535760000; // September 1st, 2018
 
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1516320000; // Jan 19th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1548979200; // Feb 1st, 2019
-
-        // Deployment of MIP3 (longblocks)
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].bit = 5;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 1525132800; // May 1st, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 1556668800; // May 1st, 2019
 
         /*** Upstream Chainparams ***/
 
@@ -309,7 +258,7 @@ public:
         consensus.BIP66Height = 100; // 0x0000d23adc28e33bc05f4bee57c873ae0aab584a6a436e75ac0ed40396f6d86b
         consensus.powLimit = ArithToUint256(~arith_uint256(0) >> 16);
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
+        consensus.nPowTargetSpacing = 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
@@ -389,9 +338,6 @@ public:
         strNetworkID = "regtest";
 
         /*** Badcoin Additional Chainparams ***/
-
-        consensus.nPowTargetSpacingV1 = 30; // target time for block spacing across all algorithms
-        consensus.nPowTargetSpacingV2 = 60; // new target time for block spacing across all algorithms
         consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
 
         consensus.nStartAuxPow = 150;
@@ -419,35 +365,14 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 0;
-        consensus.nFork1MinBlock = 601; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
+        consensus.nFork1MinBlock = 1; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
 
         consensus.MIP2Height = 1;
-
-        // Legbit parameters (used for v0.11 -> v0.14 compatability)
-        consensus.nLegbitStart = 0;
-        consensus.nLegbitStop = 0;
-
-        // MIP3 parameters
-        consensus.nPowTargetSpacingV3a = 2 * 60; // new target time for block spacing across all algorithms (2min)
-        consensus.nPowTargetSpacingV3b = 4 * 60; // new target time for block spacing across all algorithms (4min)
-        consensus.nPowTargetSpacingV3c = 8 * 60; // new target time for block spacing across all algorithms (8min)
-        consensus.nLongblocks_StartV1a = 450; // Start of longblocks, original 3rd block halving
-        consensus.nLongblocks_StartV1b = 525; // Start of longblocks, original 4th block halving
-        consensus.nLongblocks_StartV1c = 562; // Start of longblocks, original 5th block halving
-
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nStartTime = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LEGBIT].nTimeout = 999999999999ULL;
 
         // Deployment of MIP2 (Reserve algorithm ids)
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 0; 
         consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 999999999999ULL;
-
-        // Deployment of MIP3 (longblocks)
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].bit = 5;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nStartTime = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_LONGBLOCKS].nTimeout = 999999999999ULL;
 
         /*** Upstream Chainparams ***/
 
@@ -459,7 +384,7 @@ public:
         consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        consensus.nPowTargetSpacing = consensus.nPowTargetSpacingV2; // Current value
+        consensus.nPowTargetSpacing = 60;
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
