@@ -85,8 +85,7 @@ struct Params {
     int64_t Phase2Timespan_Start;
     int64_t nBlockDiffAdjustV2;
     int64_t nMaxAdjustDown;
-    int64_t nMaxAdjustUpV1;
-    int64_t nMaxAdjustUpV2;
+    int64_t nMaxAdjustUp;
     int64_t nBlockSequentialAlgoRuleStart1;
     int64_t nBlockSequentialAlgoRuleStart2;
     int nBlockSequentialAlgoMaxCount1;

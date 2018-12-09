@@ -93,8 +93,7 @@ public:
         consensus.nBlockDiffAdjustV2 = 766000; // block where difficulty adjust V2 starts
 
         consensus.nMaxAdjustDown = 4; // 4% adjustment down
-        consensus.nMaxAdjustUpV1 = 2; // 2% adjustment up
-        consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up     
+        consensus.nMaxAdjustUp = 4; // 2% adjustment up
 
         consensus.nBlockSequentialAlgoRuleStart1 = 740000; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
@@ -226,8 +225,7 @@ public:
         consensus.nBlockDiffAdjustV2 = 150; // block where difficulty adjust V2 starts
 
         consensus.nMaxAdjustDown = 4; // 4% adjustment down
-        consensus.nMaxAdjustUpV1 = 2; // 2% adjustment up
-        consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up     
+        consensus.nMaxAdjustUp = 4; // 4% adjustment up
 
         consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts
@@ -351,8 +349,7 @@ public:
         consensus.nBlockDiffAdjustV2 = 150; // block where difficulty adjust V2 starts
 
         consensus.nMaxAdjustDown = 4; // 4% adjustment down
-        consensus.nMaxAdjustUpV1 = 2; // 2% adjustment up
-        consensus.nMaxAdjustUpV2 = 4; // 4% adjustment up
+        consensus.nMaxAdjustUp = 4; // 4% adjustment up
 
         consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts

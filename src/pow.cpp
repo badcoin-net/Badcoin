@@ -159,19 +159,8 @@ unsigned int CalculateNextWorkRequiredV1(const CBlockIndex* pindexPrev, const CB
     
     int64_t nTargetSpacingPerAlgo = params.nPowTargetSpacing * NUM_ALGOS; // 30 * 5 = 150s per algo
     int64_t nAveragingTargetTimespan = params.nAveragingInterval * nTargetSpacingPerAlgo; // 10 * 150 = 1500s, 25 minutes
-    int64_t nMinActualTimespanV1 = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV1) / 100;
-    int64_t nMinActualTimespanV2 = nAveragingTargetTimespan * (100 - params.nMaxAdjustUpV2) / 100;
+    int64_t nMinActualTimespan = nAveragingTargetTimespan * (100 - params.nMaxAdjustUp) / 100;
     int64_t nMaxActualTimespan = nAveragingTargetTimespan * (100 + params.nMaxAdjustDown) / 100;
-    
-    int64_t nMinActualTimespan;
-    if (nHeight >= params.nBlockDiffAdjustV2)
-    {
-        nMinActualTimespan = nMinActualTimespanV2;
-    }
-    else
-    {
-        nMinActualTimespan = nMinActualTimespanV1;
-    }
     
     if (nActualTimespan < nMinActualTimespan)
         nActualTimespan = nMinActualTimespan;
