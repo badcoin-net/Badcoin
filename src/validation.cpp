@@ -3358,38 +3358,38 @@ bool CChainState::AcceptBlockHeader(const CBlockHeader& block, CValidationState&
         if (!ContextualCheckBlockHeader(block, state, chainparams, pindexPrev, GetAdjustedTime()))
             return error("%s: Consensus::ContextualCheckBlockHeader: %s, %s", __func__, hash.ToString(), FormatStateMessage(state));
         
-        // Check count of sequence of same algo
-        int nHeight = pindexPrev->nHeight+1;
-        if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart1)
-        {
-            int nAlgo = block.GetAlgo();
-            int nAlgoCount = 1;
-            CBlockIndex* piPrev = pindexPrev;
+        // // Check count of sequence of same algo
+        // int nHeight = pindexPrev->nHeight+1;
+        // if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart1)
+        // {
+        //     int nAlgo = block.GetAlgo();
+        //     int nAlgoCount = 1;
+        //     CBlockIndex* piPrev = pindexPrev;
 
-            // Maximum sequence count allowed
-            int nMaxSeqCount;
-            if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
-                nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2;
-            else
-                nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1;
+        //     // Maximum sequence count allowed
+        //     int nMaxSeqCount;
+        //     if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
+        //         nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2;
+        //     else
+        //         nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1;
 
-            while (piPrev!=NULL && (nAlgoCount <= nMaxSeqCount))
-            {
-                if (piPrev->GetAlgo() != nAlgo)
-                    break;
-                nAlgoCount++;
-                piPrev = piPrev->pprev;
-            }
+        //     while (piPrev!=NULL && (nAlgoCount <= nMaxSeqCount))
+        //     {
+        //         if (piPrev->GetAlgo() != nAlgo)
+        //             break;
+        //         nAlgoCount++;
+        //         piPrev = piPrev->pprev;
+        //     }
 
-            LogPrint(BCLog::ALL,"SequentialAlgoRule DEBUG: nHeight: %d, nAlgoCount: %d, nMaxSeqCount: %d\n", nHeight, nAlgoCount, nMaxSeqCount);
-            if (nAlgoCount > nMaxSeqCount)
-            {
-                if (chainparams.MineBlocksOnDemand())
-                    LogPrintf("WARNING: REGTEST MODE ONLY: Max Algo count reached, but allowed with chainparams.MineBlocksOnDemand()\n");
-                else
-                    return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
-            }
-        }
+        //     LogPrint(BCLog::ALL,"SequentialAlgoRule DEBUG: nHeight: %d, nAlgoCount: %d, nMaxSeqCount: %d\n", nHeight, nAlgoCount, nMaxSeqCount);
+        //     if (nAlgoCount > nMaxSeqCount)
+        //     {
+        //         if (chainparams.MineBlocksOnDemand())
+        //             LogPrintf("WARNING: REGTEST MODE ONLY: Max Algo count reached, but allowed with chainparams.MineBlocksOnDemand()\n");
+        //         else
+        //             return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+        //     }
+        // }
 
         if (!pindexPrev->IsValid(BLOCK_VALID_SCRIPTS)) {
             for (const CBlockIndex* failedit : g_failed_blocks) {
@@ -3406,6 +3406,7 @@ bool CChainState::AcceptBlockHeader(const CBlockHeader& block, CValidationState&
             }
         }
     }
+
     if (pindex == nullptr)
         pindex = AddToBlockIndex(block);
 
@@ -3413,7 +3414,6 @@ bool CChainState::AcceptBlockHeader(const CBlockHeader& block, CValidationState&
         *ppindex = pindex;
 
     CheckBlockIndex(chainparams.GetConsensus());
-
     return true;
 }
 

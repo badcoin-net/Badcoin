@@ -86,26 +86,8 @@ public:
         consensus.nAuxpowChainId = 0x006A;
         consensus.fStrictChainId = false;
 
-        consensus.nBlockTimeWarpPreventStart1 = 740500; // block where time warp 1 prevention starts
-        consensus.nBlockTimeWarpPreventStart2 = 766000; // block where time warp 2 prevention starts
-        consensus.nBlockTimeWarpPreventStart3 = 1048320; // block where time warp 3 prevention starts
-        consensus.Phase2Timespan_Start = 1401000; // block where 60 second target time kicks in
-        consensus.nBlockDiffAdjustV2 = 766000; // block where difficulty adjust V2 starts
-
         consensus.nMaxAdjustDown = 4; // 4% adjustment down
         consensus.nMaxAdjustUp = 4; // 4% adjustment up
-
-        consensus.nBlockSequentialAlgoRuleStart1 = 740000; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
-        consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
-        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
-
-        consensus.nBlockAlgoWorkWeightStart = 142000; // block where algo work weighting starts
-        consensus.nBlockAlgoNormalisedWorkStart = 740000; // block where algo combined weight starts
-        consensus.nBlockAlgoNormalisedWorkDecayStart1 = 866000; // block where weight decay starts
-        consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
-        consensus.nGeoAvgWork_Start = 1400000;
 
         /*** Upstream Chainparams ***/
 
@@ -210,26 +192,8 @@ public:
         consensus.nAuxpowChainId = 0x006A; 
         consensus.fStrictChainId = false;
 
-        consensus.nBlockTimeWarpPreventStart1 = 1000; // block where time warp 1 prevention starts
-        consensus.nBlockTimeWarpPreventStart2 = 1005; // block where time warp 2 prevention starts
-        consensus.nBlockTimeWarpPreventStart3 = 1010; // block where time warp 3 prevention starts
-        consensus.Phase2Timespan_Start = 150; // block where 60 second target time kicks in
-        consensus.nBlockDiffAdjustV2 = 150; // block where difficulty adjust V2 starts
-
         consensus.nMaxAdjustDown = 4; // 4% adjustment down
         consensus.nMaxAdjustUp = 4; // 4% adjustment up
-
-        consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
-        consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
-        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
-
-        consensus.nBlockAlgoWorkWeightStart = 0; // block where algo work weighting starts
-        consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts
-        consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
-        consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
-        consensus.nGeoAvgWork_Start = 150;
 
         /*** Upstream Chainparams ***/
         consensus.nSubsidyHalvingInterval = 210000;
@@ -326,26 +290,8 @@ public:
         consensus.nAuxpowChainId = 0x006A;
         consensus.fStrictChainId = false;
 
-        consensus.nBlockTimeWarpPreventStart1 = 1000; // block where time warp 1 prevention starts
-        consensus.nBlockTimeWarpPreventStart2 = 1005; // block where time warp 2 prevention starts
-        consensus.nBlockTimeWarpPreventStart3 = 1010; // block where time warp 3 prevention starts
-        consensus.Phase2Timespan_Start = 150; // block where 60 second target time kicks in
-        consensus.nBlockDiffAdjustV2 = 150; // block where difficulty adjust V2 starts
-
         consensus.nMaxAdjustDown = 4; // 4% adjustment down
         consensus.nMaxAdjustUp = 4; // 4% adjustment up
-
-        consensus.nBlockSequentialAlgoRuleStart1 = 200; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoRuleStart2 = 250; // block where sequential algo rule starts
-        consensus.nBlockSequentialAlgoMaxCount1 = 6; // maximum sequential blocks of same algo
-        consensus.nBlockSequentialAlgoMaxCount2 = 3; // maximum sequential blocks of same algo
-        consensus.nBlockSequentialAlgoMaxCount3 = 6; // maximum sequential blocks of same algo
-
-        consensus.nBlockAlgoWorkWeightStart = 0; // block where algo work weighting starts
-        consensus.nBlockAlgoNormalisedWorkStart = 0; // block where algo combined weight starts
-        consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
-        consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
-        consensus.nGeoAvgWork_Start = 0;
 
         /*** Upstream Chainparams ***/
         consensus.nSubsidyHalvingInterval = 210000;

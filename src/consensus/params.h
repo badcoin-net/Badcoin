@@ -76,23 +76,8 @@ struct Params {
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
     int64_t nAveragingInterval;
-    int64_t nBlockTimeWarpPreventStart1;
-    int64_t nBlockTimeWarpPreventStart2;
-    int64_t nBlockTimeWarpPreventStart3;
-    int64_t Phase2Timespan_Start;
-    int64_t nBlockDiffAdjustV2;
     int64_t nMaxAdjustDown;
     int64_t nMaxAdjustUp;
-    int64_t nBlockSequentialAlgoRuleStart1;
-    int64_t nBlockSequentialAlgoRuleStart2;
-    int nBlockSequentialAlgoMaxCount1;
-    int nBlockSequentialAlgoMaxCount2;
-    int nBlockSequentialAlgoMaxCount3;
-    int64_t nBlockAlgoWorkWeightStart;
-    int64_t nBlockAlgoNormalisedWorkStart;
-    int64_t nBlockAlgoNormalisedWorkDecayStart1;
-    int64_t nBlockAlgoNormalisedWorkDecayStart2;
-    int64_t nGeoAvgWork_Start;
     
     /** Auxpow parameters */
     int32_t nAuxpowChainId;

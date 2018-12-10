@@ -268,9 +268,8 @@ arith_uint256 GetPrevWorkForAlgoWithDecay3(const CBlockIndex& block, int algo)
     return arith_uint256(0);
 }
 
-arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
+arith_uint256 GetBlockProof(const CBlockIndex& block)
 {
-    //arith_uint256 bnRes;
     arith_uint256 nBlockWork = GetBlockProofBase(block);
     CBigNum bnBlockWork = CBigNum(ArithToUint256(nBlockWork));
     int nAlgo = block.GetAlgo();
@@ -293,55 +292,6 @@ arith_uint256 GetGeometricMeanPrevWork(const CBlockIndex& block)
     
     //return bnRes;
     return UintToArith256(bnRes.getuint256());
-}
-
-arith_uint256 GetBlockProof(const CBlockIndex& block)
-{
-    Consensus::Params params = Params().GetConsensus();
-    
-    arith_uint256 bnTarget;
-    int nHeight = block.nHeight;
-    int nAlgo = block.GetAlgo();
-    
-    if (nHeight >= params.nGeoAvgWork_Start)
-    {
-        bnTarget = GetGeometricMeanPrevWork(block);
-    }
-    else if (nHeight >= params.nBlockAlgoNormalisedWorkStart)
-    {
-        arith_uint256 nBlockWork = GetBlockProofBase(block);
-        for (int algo = 0; algo < NUM_ALGOS; algo++)
-        {
-            if (algo != nAlgo)
-            {
-                if (nHeight >= params.nBlockAlgoNormalisedWorkDecayStart2)
-                {
-                    nBlockWork += GetPrevWorkForAlgoWithDecay2(block, algo);
-                }
-                else
-                {
-                    if (nHeight >= params.nBlockAlgoNormalisedWorkDecayStart1)
-                    {
-                        nBlockWork += GetPrevWorkForAlgoWithDecay(block, algo);
-                    }
-                    else
-                    {
-                        nBlockWork += GetPrevWorkForAlgo(block, algo);
-                    }
-                }
-            }
-        }
-        bnTarget = nBlockWork / NUM_ALGOS;
-    }
-    else if (nHeight >= params.nBlockAlgoWorkWeightStart)
-    {
-        bnTarget = GetBlockProofBase(block) * GetAlgoWorkFactor(nAlgo);
-    }
-    else
-    {
-        bnTarget = GetBlockProofBase(block);
-    }
-    return bnTarget;
 }
 
 int64_t GetBlockProofEquivalentTime(const CBlockIndex& to, const CBlockIndex& from, const CBlockIndex& tip, const Consensus::Params& params)
