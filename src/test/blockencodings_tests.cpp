@@ -90,7 +90,6 @@ BOOST_AUTO_TEST_CASE(SimpleCheckAlgo)
     BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_SCRYPT,Params().GetConsensus()).ToString() , "2ac0f3c10dc801835c0adf049579d6fa673c258155ae43fa4c2e084dd4f951db");
     BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_GROESTL,Params().GetConsensus()).ToString() , "30ae928a0725ca2c8b5a89866a2c1c24fc312fc51b444ecc9a7e6ca58e0f14e5");
     BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_SKEIN,Params().GetConsensus()).ToString() , "c938e0667fbca99c5d57374c9c517e5257801257123b521c72c836632a585859");
-    BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_QUBIT,Params().GetConsensus()).ToString() , "8f8e107327fca43c9c191ba0c8a326106cc65fe98596362b12455bf510632cc2");
     BOOST_CHECK_EQUAL(block.GetPoWHash(ALGO_YESCRYPT,Params().GetConsensus()).ToString() , "1d31a0941db6e1d2ab7503a7026dadd0dc01d49d12e561ca574c7fd945d23a7b");
 }
 

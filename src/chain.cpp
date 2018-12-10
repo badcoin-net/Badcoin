@@ -175,8 +175,6 @@ int GetAlgoWorkFactor(int algo)
             return 64 * 8;
         case ALGO_SKEIN:
             return 4 * 6;
-        case ALGO_QUBIT:
-            return 128 * 8;
         default:
             return 1;
     }
@@ -406,8 +404,6 @@ std::string GetAlgoName(int Algo, uint32_t time, const Consensus::Params& consen
             return std::string("groestl");
         case ALGO_SKEIN:
             return std::string("skein");
-        case ALGO_QUBIT:
-            return std::string("qubit");
         case ALGO_YESCRYPT:
             return std::string("yescrypt");
     }

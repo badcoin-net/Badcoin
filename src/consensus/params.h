@@ -18,7 +18,6 @@ enum DeploymentPos
     DEPLOYMENT_TESTDUMMY,
     DEPLOYMENT_CSV, // Deployment of BIP68, BIP112, and BIP113.
     DEPLOYMENT_SEGWIT, // Deployment of BIP141, BIP143, and BIP147.
-    DEPLOYMENT_RESERVEALGO, // Deployment of MIP2 (Reserve algos)
     // NOTE: Also add new deployments to VersionBitsDeploymentInfo in versionbits.cpp
     MAX_VERSION_BITS_DEPLOYMENTS
 };
@@ -59,8 +58,6 @@ struct Params {
     int BIP65Height;
     /** Block height at which BIP66 becomes active */
     int BIP66Height;
-    /** Block height at which MIP2 becomes active */
-    int MIP2Height;
     /**
      * Minimum blocks including miner confirmation of the total of 2016 blocks in a retargeting period,
      * (nPowTargetTimespan / nPowTargetSpacing) which is also used for BIP9 deployments.
@@ -96,7 +93,6 @@ struct Params {
     int64_t nBlockAlgoNormalisedWorkDecayStart1;
     int64_t nBlockAlgoNormalisedWorkDecayStart2;
     int64_t nGeoAvgWork_Start;
-    int64_t nFork1MinBlock;
     
     /** Auxpow parameters */
     int32_t nAuxpowChainId;

@@ -7,7 +7,6 @@
 
 #include <hash.h>
 #include <crypto/hashgroestl.h>
-#include <crypto/hashqubit.h>
 #include <crypto/hashskein.h>
 #include <crypto/scrypt/scrypt.h>
 #include <crypto/yescrypt/yescrypt.h>
@@ -34,8 +33,6 @@ uint256 CPureBlockHeader::GetPoWHash(int algo, const Consensus::Params& consensu
             return HashGroestl(BEGIN(nVersion), END(nNonce));
         case ALGO_SKEIN:
             return HashSkein(BEGIN(nVersion), END(nNonce));
-        case ALGO_QUBIT:
-            return HashQubit(BEGIN(nVersion), END(nNonce));
         case ALGO_YESCRYPT:
         {
             uint256 thash;
@@ -65,8 +62,6 @@ int GetAlgo(int nVersion)
             return ALGO_GROESTL;
         case BLOCK_VERSION_SKEIN:
             return ALGO_SKEIN;
-        case BLOCK_VERSION_QUBIT:
-            return ALGO_QUBIT;
         case BLOCK_VERSION_YESCRYPT:
             return ALGO_YESCRYPT;
     }

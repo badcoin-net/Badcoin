@@ -220,7 +220,6 @@ UniValue getmininginfo(const JSONRPCRequest& request)
             "  \"difficulty_scrypt\": xxxxxx,   (numeric) the current scrypt difficulty\n"
             "  \"difficulty_groestl\": xxxxxx,  (numeric) the current groestl difficulty\n"
             "  \"difficulty_skein\": xxxxxx,    (numeric) the current skein difficulty\n"
-            "  \"difficulty_qubit\": xxxxxx,    (numeric) the current qubit difficulty\n"
             "  \"difficulty_yescrypt\": xxxxxx, (numeric) the current yescrypt difficulty\n"
             "  \"networkhashps\": nnn,      (numeric) The network hashes per second\n"
             "  \"pooledtx\": n              (numeric) The size of the mempool\n"
@@ -247,7 +246,6 @@ UniValue getmininginfo(const JSONRPCRequest& request)
     obj.push_back(Pair("difficulty_scrypt",      (double)GetDifficulty(nullptr, ALGO_SCRYPT)));
     obj.push_back(Pair("difficulty_groestl",     (double)GetDifficulty(nullptr, ALGO_GROESTL)));
     obj.push_back(Pair("difficulty_skein",       (double)GetDifficulty(nullptr, ALGO_SKEIN)));
-    obj.push_back(Pair("difficulty_qubit",       (double)GetDifficulty(nullptr, ALGO_QUBIT)));
     obj.push_back(Pair("difficulty_yescrypt",    (double)GetDifficulty(nullptr, ALGO_YESCRYPT)));
     obj.push_back(Pair("networkhashps",    getnetworkhashps(request)));
     obj.push_back(Pair("pooledtx",         (uint64_t)mempool.size()));

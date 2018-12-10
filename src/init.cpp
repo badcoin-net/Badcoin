@@ -500,7 +500,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageGroup(_("Block creation options:"));
     strUsage += HelpMessageOpt("-blockmaxweight=<n>", strprintf(_("Set maximum BIP141 block weight (default: %d)"), DEFAULT_BLOCK_MAX_WEIGHT));
     strUsage += HelpMessageOpt("-blockmintxfee=<amt>", strprintf(_("Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)"), CURRENCY_UNIT, FormatMoney(DEFAULT_BLOCK_MIN_TX_FEE)));
-    strUsage += HelpMessageOpt("-algo=<algo>", _("Mining algorithm: sha256d, scrypt, groestl, skein, qubit, yescrypt"));
+    strUsage += HelpMessageOpt("-algo=<algo>", _("Mining algorithm: sha256d, scrypt, groestl, skein, yescrypt"));
     if (showDebug)
         strUsage += HelpMessageOpt("-blockversion=<n>", "Override block version to test forking scenarios");
 
@@ -1169,8 +1169,6 @@ bool AppInitParameterInteraction()
         miningAlgo = ALGO_GROESTL;
     else if (strAlgo == "skein" || strAlgo == "skeinsha2")
         miningAlgo = ALGO_SKEIN;
-    else if (strAlgo == "q2c" || strAlgo == "qubit")
-        miningAlgo = ALGO_QUBIT;
     else if (strAlgo == "yescrypt")
         miningAlgo = ALGO_YESCRYPT;
     else

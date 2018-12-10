@@ -1241,7 +1241,6 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
             "  \"difficulty_scrypt\": xxxxxx,        (numeric) the current scrypt difficulty\n"
             "  \"difficulty_groestl\": xxxxxx,      (numeric) the current groestl difficulty\n"
             "  \"difficulty_skein\": xxxxxx,     (numeric) the current skein difficulty\n"
-            "  \"difficulty_qubit\": xxxxxx,          (numeric) the current qubit difficulty\n"
             "  \"difficulty_yescrypt\": xxxxxx,          (numeric) the current yescrypt difficulty\n"
             "  \"mediantime\": xxxxxx,         (numeric) median time for the current best block\n"
             "  \"verificationprogress\": xxxx, (numeric) estimate of verification progress [0..1]\n"
@@ -1296,7 +1295,6 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.push_back(Pair("difficulty_scrypt",     (double)GetDifficulty(nullptr, ALGO_SCRYPT)));
     obj.push_back(Pair("difficulty_groestl",    (double)GetDifficulty(nullptr, ALGO_GROESTL)));
     obj.push_back(Pair("difficulty_skein",      (double)GetDifficulty(nullptr, ALGO_SKEIN)));
-    obj.push_back(Pair("difficulty_qubit",      (double)GetDifficulty(nullptr, ALGO_QUBIT)));
     obj.push_back(Pair("difficulty_yescrypt",   (double)GetDifficulty(nullptr, ALGO_YESCRYPT)));
     obj.push_back(Pair("mediantime",            (int64_t)chainActive.Tip()->GetMedianTimePast()));
     obj.push_back(Pair("verificationprogress",  GuessVerificationProgress(Params().TxData(), chainActive.Tip())));

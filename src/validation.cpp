@@ -3224,27 +3224,8 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
     if (block.GetBlockTime() > nAdjustedTime + MAX_FUTURE_BLOCK_TIME)
         return state.Invalid(false, REJECT_INVALID, "time-too-new", "block timestamp too far in the future");
 
-    // Check for algo switch 1
-    // Active when fork block reached
-    bool bAlgoSwitch1 = (nHeight >= consensusParams.nFork1MinBlock);
-    if (bAlgoSwitch1)
-    {
-        if (algo == ALGO_QUBIT)
-            return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid QUBIT block");
-    }
-    else
-    {
-        if (algo == ALGO_YESCRYPT)
-            return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid YESCRYPT block");
-    }
-
-    // MIP2 (reservealgo) activated at MIP2Height
-    bool bMIP2 = (nHeight >= consensusParams.MIP2Height);
-    if (bMIP2)
-    {
-        if (algo >= NUM_ALGOS_IMPL)
-            return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid algo id");
-    }
+    if (algo >= NUM_ALGOS_IMPL)
+        return state.Invalid(false, REJECT_INVALID, "invalid-algo", "invalid algo id");
 
     // Reject outdated version blocks when 95% (75% on testnet) of the network has upgraded:
     // check for version 2, 3 and 4 upgrades
@@ -3387,13 +3368,10 @@ bool CChainState::AcceptBlockHeader(const CBlockHeader& block, CValidationState&
 
             // Maximum sequence count allowed
             int nMaxSeqCount;
-            if (nHeight > chainparams.GetConsensus().nFork1MinBlock)
-                nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount3;
+            if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
+                nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2;
             else
-                if (nHeight > chainparams.GetConsensus().nBlockSequentialAlgoRuleStart2)
-                    nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount2;
-                    else
-                        nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1;
+                nMaxSeqCount = chainparams.GetConsensus().nBlockSequentialAlgoMaxCount1;
 
             while (piPrev!=NULL && (nAlgoCount <= nMaxSeqCount))
             {
@@ -3408,8 +3386,8 @@ bool CChainState::AcceptBlockHeader(const CBlockHeader& block, CValidationState&
             {
                 if (chainparams.MineBlocksOnDemand())
                     LogPrintf("WARNING: REGTEST MODE ONLY: Max Algo count reached, but allowed with chainparams.MineBlocksOnDemand()\n");
-                    else
-                        return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
+                else
+                    return state.DoS(100, error("%s: too many blocks from same algo", __func__),REJECT_INVALID, "algo-toomany");
             }
         }
 

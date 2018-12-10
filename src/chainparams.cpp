@@ -93,7 +93,7 @@ public:
         consensus.nBlockDiffAdjustV2 = 766000; // block where difficulty adjust V2 starts
 
         consensus.nMaxAdjustDown = 4; // 4% adjustment down
-        consensus.nMaxAdjustUp = 4; // 2% adjustment up
+        consensus.nMaxAdjustUp = 4; // 4% adjustment up
 
         consensus.nBlockSequentialAlgoRuleStart1 = 740000; // block where sequential algo rule starts
         consensus.nBlockSequentialAlgoRuleStart2 = 766000; // block where sequential algo rule starts
@@ -106,14 +106,6 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 866000; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 932000; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 1400000;
-        consensus.nFork1MinBlock = 1; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
-
-        consensus.MIP2Height = 2328480;
-
-        // Deployment of MIP2 (Reserve algorithm ids)
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1516320000; // Jan 19th, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1548979200; // Feb 1st, 2019
 
         /*** Upstream Chainparams ***/
 
@@ -214,8 +206,8 @@ public:
         /*** Badcoin Additional Chainparams ***/
         consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
 
-        consensus.nStartAuxPow = 150;
-        consensus.nAuxpowChainId = 0x005A; 
+        consensus.nStartAuxPow = 1;
+        consensus.nAuxpowChainId = 0x006A; 
         consensus.fStrictChainId = false;
 
         consensus.nBlockTimeWarpPreventStart1 = 1000; // block where time warp 1 prevention starts
@@ -238,16 +230,8 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 150;
-        consensus.nFork1MinBlock = 1; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
-
-        consensus.MIP2Height = 1;
-
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 1516320000; // Jan 19th, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 1548979200; // Feb 1st, 2019
 
         /*** Upstream Chainparams ***/
-
         consensus.nSubsidyHalvingInterval = 210000;
         consensus.BIP16Height = 100;
         consensus.BIP34Height = 100;
@@ -338,8 +322,8 @@ public:
         /*** Badcoin Additional Chainparams ***/
         consensus.nAveragingInterval = 10; // number of blocks to take the timespan of
 
-        consensus.nStartAuxPow = 150;
-        consensus.nAuxpowChainId = 0x005A;
+        consensus.nStartAuxPow = 1;
+        consensus.nAuxpowChainId = 0x006A;
         consensus.fStrictChainId = false;
 
         consensus.nBlockTimeWarpPreventStart1 = 1000; // block where time warp 1 prevention starts
@@ -362,17 +346,8 @@ public:
         consensus.nBlockAlgoNormalisedWorkDecayStart1 = 0; // block where weight decay starts
         consensus.nBlockAlgoNormalisedWorkDecayStart2 = 0; // block where weight decay starts
         consensus.nGeoAvgWork_Start = 0;
-        consensus.nFork1MinBlock = 1; // minimum block height where fork 1 takes effect (algo switch, seq algo count change)
-
-        consensus.MIP2Height = 1;
-
-        // Deployment of MIP2 (Reserve algorithm ids)
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].bit = 4;
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nStartTime = 0; 
-        consensus.vDeployments[Consensus::DEPLOYMENT_RESERVEALGO].nTimeout = 999999999999ULL;
 
         /*** Upstream Chainparams ***/
-
         consensus.nSubsidyHalvingInterval = 210000;
         consensus.BIP16Height = 0; // always enforce P2SH BIP16 on regtest
         consensus.BIP34Height = 100000000; // BIP34 has not activated on regtest (far in the future so block v1 are not rejected in tests)
