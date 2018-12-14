@@ -202,6 +202,7 @@ public:
     //! This value will be non-zero only if and only if transactions for this block and all its parents are available.
     //! Change to 64-bit type when necessary; won't happen before 2030
     unsigned int nChainTx;
+    CAmount nMoneySupply;
 
     //! Verification status of this block. See enum BlockStatus
     uint32_t nStatus;
@@ -234,6 +235,7 @@ public:
         nStatus = 0;
         nSequenceId = 0;
         nTimeMax = 0;
+        nMoneySupply = 0;
 
         nVersion       = 0;
         hashMerkleRoot = uint256();
@@ -403,6 +405,7 @@ public:
         READWRITE(VARINT(nHeight));
         READWRITE(VARINT(nStatus));
         READWRITE(VARINT(nTx));
+        READWRITE(VARINT(nMoneySupply));
         if (nStatus & (BLOCK_HAVE_DATA | BLOCK_HAVE_UNDO))
             READWRITE(VARINT(nFile));
         if (nStatus & BLOCK_HAVE_DATA)

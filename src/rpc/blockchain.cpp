@@ -1290,6 +1290,7 @@ UniValue getblockchaininfo(const JSONRPCRequest& request)
     obj.push_back(Pair("blocks",                (int)chainActive.Height()));
     obj.push_back(Pair("headers",               pindexBestHeader ? pindexBestHeader->nHeight : -1));
     obj.push_back(Pair("bestblockhash",         chainActive.Tip()->GetBlockHash().GetHex()));
+    obj.push_back(Pair("moneysupply",           ValueFromAmount(chainActive.Tip()->nMoneySupply)));
     obj.push_back(Pair("difficulty",            (double)GetDifficulty(nullptr, miningAlgo)));
     obj.push_back(Pair("difficulty_sha256d",    (double)GetDifficulty(nullptr, ALGO_SHA256D)));
     obj.push_back(Pair("difficulty_scrypt",     (double)GetDifficulty(nullptr, ALGO_SCRYPT)));

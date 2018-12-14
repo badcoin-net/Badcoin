@@ -1213,12 +1213,16 @@ bool ReadBlockHeaderFromDisk(CBlockHeader& block, const CBlockIndex* pindex, con
 
 CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 {
-    int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
+    if (nHeight == 1)
+        return 9400025000 * COIN;  // Payout the premine PLUS the original 25k per block
+
+    // Use nHeight - 1 to account for the premine
+    int halvings = (nHeight-1) / consensusParams.nSubsidyHalvingInterval;
     // Force block reward to zero when right shift is undefined.
-    if (halvings >= 64)
+    if (halvings >= 34)
         return 0;
 
-    CAmount nSubsidy = 1000 * COIN;
+    CAmount nSubsidy = 25000 * COIN;
     // Subsidy is cut in half every 210000 blocks.
     nSubsidy >>= halvings;
     return nSubsidy;
@@ -1972,6 +1976,7 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
 
     CCheckQueueControl<CScriptCheck> control(fScriptChecks && nScriptCheckThreads ? &scriptcheckqueue : nullptr);
 
+    CAmount nCoinCreation = 0;
     std::vector<int> prevheights;
     CAmount nFees = 0;
     int nInputs = 0;
@@ -1985,7 +1990,9 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
 
         nInputs += tx.vin.size();
 
-        if (!tx.IsCoinBase())
+        if (tx.IsCoinBase())
+            nCoinCreation += tx.GetValueOut();
+        else
         {
             CAmount txfee = 0;
             if (!Consensus::CheckTxInputs(tx, state, view, pindex->nHeight, txfee)) {
@@ -2037,6 +2044,16 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
         }
         UpdateCoins(tx, view, i == 0 ? undoDummy : blockundo.vtxundo.back(), pindex->nHeight);
     }
+
+    if (!fJustCheck)
+    {
+        // badcoin: track money supply
+        pindex->nMoneySupply = (pindex->pprev ? pindex->pprev->nMoneySupply : 0) + nCoinCreation;
+        CDiskBlockIndex blockindex(pindex);
+        if (!pblocktree->WriteBlockIndex(blockindex))
+            return error("Failed to write block index for moneysupply");
+    }
+
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint(BCLog::BENCH, "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs (%.2fms/blk)]\n", (unsigned)block.vtx.size(), MILLI * (nTime3 - nTime2), MILLI * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : MILLI * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * MICRO, nTimeConnect * MILLI / nBlocksTotal);
 
