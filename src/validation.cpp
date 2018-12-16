@@ -1211,20 +1211,33 @@ bool ReadBlockHeaderFromDisk(CBlockHeader& block, const CBlockIndex* pindex, con
     return ReadBlockOrHeader(block, pindex, consensusParams);
 }
 
-CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
+CAmount GetBlockSubsidy(int nHeight, int nBits, const Consensus::Params& consensusParams)
 {
     if (nHeight == 1)
-        return 9400025000 * COIN;  // Payout the premine PLUS the original 25k per block
+        return 9400000000 * COIN;
 
-    // Use nHeight - 1 to account for the premine
-    int halvings = (nHeight-1) / consensusParams.nSubsidyHalvingInterval;
-    // Force block reward to zero when right shift is undefined.
-    if (halvings >= 34)
+    CAmount nBaseSubsidy = 2170 * COIN;
+    CAmount nMoneyLimit = 21000000000 * COIN;
+    CAmount nMoneySupply = chainActive.Tip()->nMoneySupply;
+    if (nMoneySupply >= nMoneyLimit)
         return 0;
 
-    CAmount nSubsidy = 25000 * COIN;
-    // Subsidy is cut in half every 210000 blocks.
-    nSubsidy >>= halvings;
+    int tipHash = UintToArith256(chainActive.Tip()->GetBlockPoWHash(consensusParams)).GetCompact();
+
+    CAmount nSubsidy = nBaseSubsidy;
+    nSubsidy *= (double)nBits / (double)tipHash;
+
+    if (1 == 1)
+        LogPrintf("GetBlockSubsidy(): nSubsidy %s, Algo %s, nBits %s, tipHash %s, nBits / tipHash %s \n",
+            std::to_string(nSubsidy),
+            std::to_string(chainActive.Tip()->GetAlgo()),
+            std::to_string(nBits),
+            std::to_string(tipHash),
+            std::to_string((double)nBits / (double)tipHash));
+
+
+    if(nMoneySupply + nSubsidy > nMoneyLimit)
+        nSubsidy = nMoneyLimit - nMoneySupply;
     return nSubsidy;
 }
 
@@ -2057,7 +2070,7 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint(BCLog::BENCH, "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs (%.2fms/blk)]\n", (unsigned)block.vtx.size(), MILLI * (nTime3 - nTime2), MILLI * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : MILLI * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * MICRO, nTimeConnect * MILLI / nBlocksTotal);
 
-    CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, chainparams.GetConsensus());
+    CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, pindex->nBits, chainparams.GetConsensus());
     if (block.vtx[0]->GetValueOut() > blockReward)
         return state.DoS(100,
                          error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",
