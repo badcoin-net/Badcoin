@@ -887,7 +887,7 @@
         <translation>Aproximadament %1 GB de dades s'emmagatzemaran en aquest directori.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 descarregarà i emmagatzemarà una còpia de la cadena de blocs Bitcoin.</translation>
     </message>
     <message>

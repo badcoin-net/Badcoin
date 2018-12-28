@@ -876,7 +876,7 @@ Kérem a kulcsmondatban használjon &lt;b&gt; tíz vagy több véletlenszerű ka
         <translation>Hozzávetőlegesen %1 GB adatot fogunk ebben a könyvtárban tárolni.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 le fog töltődni és a Bitcoin blokk lánc egy másolatát fogja tárolni.</translation>
     </message>
     <message>

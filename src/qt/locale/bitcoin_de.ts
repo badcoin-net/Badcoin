@@ -887,7 +887,7 @@
         <translation>Etwa %1 GB Daten werden in diesem Verzeichnis gespeichert.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 wird heruntergeladen und als eine Kopie von dem Bitcoin Blockchain gespeichert.</translation>
     </message>
     <message>

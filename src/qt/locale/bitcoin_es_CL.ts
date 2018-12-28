@@ -884,7 +884,7 @@
         <translation>Aproximadamente %1 GB de información será almacenado en este directorio.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 descargará y almacenará una copia del blockchain de Bitcoin.</translation>
     </message>
     <message>

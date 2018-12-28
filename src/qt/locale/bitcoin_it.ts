@@ -887,7 +887,7 @@
         <translation>Verranno salvati circa %1 GB di dati in questa cartella.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 scaricherà e salverà una copia della block chain di Bitcoin.</translation>
     </message>
     <message>

@@ -879,7 +879,7 @@
         <translation>Gần đúng %1 GB of data sẽ được lưu giữ trong danh mục này.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 sẽ download và lưu trữ một bản copy của Bitcoin block chain.</translation>
     </message>
     <message>

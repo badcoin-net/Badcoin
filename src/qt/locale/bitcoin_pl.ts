@@ -887,7 +887,7 @@
         <translation>Około %1 GB danych zostanie zapisane w tym katalogu.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 pobierze i zapisze lokalnie kopię łańcucha bloków Bitcoin.</translation>
     </message>
     <message>

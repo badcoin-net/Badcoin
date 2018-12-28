@@ -887,7 +887,7 @@
         <translation>おおむね%1GBのデータがこのディレクトリに保存されます。</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1はBitcoinのブロックチェーンの複製をダウンロードし保存します。</translation>
     </message>
     <message>

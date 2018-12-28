@@ -883,7 +883,7 @@
         <translation>מידע בנפח של כ-%1 ג׳יגה-בייט יאוחסן בתיקייה זו.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 תוריד ותאחסן עותק של שרשרת הבלוקים של ביטקוין.</translation>
     </message>
     <message>

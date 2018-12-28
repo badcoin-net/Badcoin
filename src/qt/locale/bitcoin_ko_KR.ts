@@ -887,7 +887,7 @@
         <translation>약 %1GB의 데이터가 이 디렉토리에 저장됩니다.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1은 Bitcoin 블록 체인의 사본을 다운로드하여 저장합니다.</translation>
     </message>
     <message>

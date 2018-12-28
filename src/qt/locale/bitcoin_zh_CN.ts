@@ -883,7 +883,7 @@
         <translation>会在此目录中存储约 %1 GB 的数据。</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 将会下载并存储比特币区块链。</translation>
     </message>
     <message>

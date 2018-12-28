@@ -887,7 +887,7 @@
         <translation>在這個目錄中大約會存放 %1 GB 的資料。</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 會下載 Bitcoin 區塊鏈並且儲存一份副本。</translation>
     </message>
     <message>

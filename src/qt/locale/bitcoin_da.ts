@@ -887,7 +887,7 @@
         <translation>Omtrent %1 GB data vil blive gemt i denne mappe.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 vil downloade og gemme en kopi af Bitcoin-blokkæden.</translation>
     </message>
     <message>

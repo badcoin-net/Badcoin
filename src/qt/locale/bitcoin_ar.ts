@@ -881,7 +881,7 @@
         <translation>سيتم تخزين %1 جيجابايت تقريباً من البيانات في هذا الدليل.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>سيقوم %1 بتنزيل نسخة من سلسلة كتل بتكوين وتخزينها.</translation>
     </message>
     <message>

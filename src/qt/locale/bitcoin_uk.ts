@@ -879,7 +879,7 @@
         <translation>Близько %1 Гб даних буде збережено в цьому каталозі.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcoin block chain.</source>
+        <source>%1 will download and store a copy of the Badcoin block chain.</source>
         <translation>%1 буде завантажувати та зберігати копію ланцюжка блоків біткінів.</translation>
     </message>
     <message>
