@@ -1216,15 +1216,22 @@ CAmount GetBlockSubsidy(int nHeight, int nBits, const Consensus::Params& consens
     if (nHeight == 1)
         return 9400000000 * COIN;
 
-    CAmount nBaseSubsidy = 2170 * COIN;
     CAmount nMoneyLimit = 21000000000 * COIN;
     CAmount nMoneySupply = chainActive.Tip()->nMoneySupply;
     if (nMoneySupply >= nMoneyLimit)
         return 0;
 
-    int tipHash = UintToArith256(chainActive.Tip()->GetBlockPoWHash(consensusParams)).GetCompact();
+    CBlockIndex* block = chainActive.Tip();
+    int tipHash = UintToArith256(block->GetBlockPoWHash(consensusParams)).GetCompact();
 
-    CAmount nSubsidy = nBaseSubsidy;
+    if(chainActive.Height() >= consensusParams.nAveragingInterval) {
+        while (nHeight <= consensusParams.nAveragingInterval) {
+            block = block->pprev;
+            tipHash = (int)((double)(tipHash + UintToArith256(block->GetBlockPoWHash(consensusParams)).GetCompact()) / 2);
+        }
+    }
+
+    CAmount nSubsidy = 2170 * COIN;
     nSubsidy *= (double)nBits / (double)tipHash;
 
     if (1 == 1)

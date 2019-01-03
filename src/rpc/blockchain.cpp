@@ -74,8 +74,7 @@ double GetDifficulty(const CChain& chain, const CBlockIndex* blockindex, int alg
         nBits = blockindex->nBits;
 
     int nShift = (nBits >> 24) & 0xff;
-    double dDiff =
-        (double)0x0000ffff / (double)(nBits & 0x00ffffff);
+    double dDiff = (double)0x0000ffff / (double)(nBits & 0x00ffffff);
 
     while (nShift < 29)
     {
