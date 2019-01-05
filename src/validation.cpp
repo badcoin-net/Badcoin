@@ -1241,7 +1241,7 @@ CAmount GetBlockSubsidy(int nHeight, int nBits, const Consensus::Params& consens
         }
     }
     CAmount nSubsidy = 2170 * COIN;
-    nSubsidy *= multipl;
+    nSubsidy -= (nSubsidy * (multipl - 1.0));
 
     if (1 == 1)
         LogPrintf("GetBlockSubsidy(): Algo %s, nSubsidy %s, multipl %s \n",
