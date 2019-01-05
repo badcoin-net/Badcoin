@@ -1226,15 +1226,17 @@ CAmount GetBlockSubsidy(int nHeight, int nBits, const Consensus::Params& consens
     if(chainActive.Height() >= consensusParams.nAveragingInterval) {
         int nRun = 0;
         while (nRun < consensusParams.nAveragingInterval) {
-            block = block->pprev;
             int tipHash = UintToArith256(block->GetBlockPoWHash(consensusParams)).GetCompact();
             int nBits = block->nBits;
             multipl = (multipl + ((double)nBits / (double)tipHash)) / 2.0;
 
-            LogPrintf("GetBlockSubsidy(): tipHash %s, nBits %s, multipl %s \n",
+            LogPrintf("GetBlockSubsidy(): height: %s, tipHash %s, nBits %s, multipl %s \n",
+                std::to_string(block->nHeight),
                 std::to_string(tipHash),
                 std::to_string(nBits),
                 std::to_string(multipl));
+
+            block = block->pprev;
             nRun += 1;
         }
     }
