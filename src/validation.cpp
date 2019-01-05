@@ -1221,27 +1221,31 @@ CAmount GetBlockSubsidy(int nHeight, int nBits, const Consensus::Params& consens
     if (nMoneySupply >= nMoneyLimit)
         return 0;
 
+    double multipl = 1.0;
     CBlockIndex* block = chainActive.Tip();
-    int tipHash = UintToArith256(block->GetBlockPoWHash(consensusParams)).GetCompact();
-
     if(chainActive.Height() >= consensusParams.nAveragingInterval) {
-        while (nHeight <= consensusParams.nAveragingInterval) {
+        int nRun = 0;
+        while (nRun < consensusParams.nAveragingInterval) {
             block = block->pprev;
-            tipHash = (int)((double)(tipHash + UintToArith256(block->GetBlockPoWHash(consensusParams)).GetCompact()) / 2);
+            int tipHash = UintToArith256(block->GetBlockPoWHash(consensusParams)).GetCompact();
+            int nBits = block->nBits;
+            multipl = (multipl + ((double)nBits / (double)tipHash)) / 2.0;
+
+            LogPrintf("GetBlockSubsidy(): tipHash %s, nBits %s, multipl %s \n",
+                std::to_string(tipHash),
+                std::to_string(nBits),
+                std::to_string(multipl));
+            nRun += 1;
         }
     }
-
     CAmount nSubsidy = 2170 * COIN;
-    nSubsidy *= (double)nBits / (double)tipHash;
+    nSubsidy *= multipl;
 
     if (1 == 1)
-        LogPrintf("GetBlockSubsidy(): nSubsidy %s, Algo %s, nBits %s, tipHash %s, nBits / tipHash %s \n",
-            std::to_string(nSubsidy),
+        LogPrintf("GetBlockSubsidy(): Algo %s, nSubsidy %s, multipl %s \n",
             std::to_string(chainActive.Tip()->GetAlgo()),
-            std::to_string(nBits),
-            std::to_string(tipHash),
-            std::to_string((double)nBits / (double)tipHash));
-
+            std::to_string(nSubsidy),
+            std::to_string(multipl));
 
     if(nMoneySupply + nSubsidy > nMoneyLimit)
         nSubsidy = nMoneyLimit - nMoneySupply;
