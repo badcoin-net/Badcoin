@@ -190,8 +190,8 @@ public:
         consensus.nAuxpowChainId = 0x006A; 
         consensus.fStrictChainId = false;
 
-        consensus.nMaxAdjustDown = 50; // 4% adjustment down
-        consensus.nMaxAdjustUp = 25; // 4% adjustment up
+        consensus.nMaxAdjustDown = 4; // 4% adjustment down
+        consensus.nMaxAdjustUp = 4; // 4% adjustment up
 
         /*** Upstream Chainparams ***/
         consensus.BIP16Height = 100;
