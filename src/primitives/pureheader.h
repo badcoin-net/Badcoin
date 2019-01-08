@@ -21,7 +21,7 @@ enum {
     NUM_ALGOS_IMPL
 };
 
-const int NUM_ALGOS = 4;
+const int NUM_ALGOS = 5;
 
 enum
 {
