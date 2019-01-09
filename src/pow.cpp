@@ -51,8 +51,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     int64_t nActualTimespan;
     nActualTimespan = pindexPrev->GetMedianTimePast() - pindexFirst->GetMedianTimePast();
     LogPrint(BCLog::ALL,"  nActualTimespan = %d before bounds   %d   %d\n", nActualTimespan, pindexPrev->GetMedianTimePast(), pindexFirst->GetMedianTimePast());
-    
-    return KimotoGravityWell(pindexLast, params, algo);
+
+    return KimotoGravityWell(pindexPrev, params, algo);
 }
 
 unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo) {
