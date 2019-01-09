@@ -60,7 +60,6 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
     const CBlockIndex  *BlockLastSolved = pindexLast;
     const CBlockIndex  *BlockReading = pindexLast;
 
-    int64_t PastBlocksMass = 0;
     int64_t PastRateActualSeconds = 0;
     int64_t PastRateTargetSeconds = 0;
     double PastRateAdjustmentRatio = double(1);
@@ -83,8 +82,6 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
     {
         if (PastBlocksMax > 0 && i > PastBlocksMax)
             break;
-
-        PastBlocksMass++;
         
         if (i == 1)
             PastDifficultyAverage.SetCompact(BlockReading->nBits);
@@ -93,20 +90,20 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
 
         PastDifficultyAveragePrev = PastDifficultyAverage;
         PastRateActualSeconds = BlockLastSolved->GetBlockTime() - BlockReading->GetBlockTime();
-        PastRateTargetSeconds = TargetBlocksSpacingSeconds * PastBlocksMass;
+        PastRateTargetSeconds = TargetBlocksSpacingSeconds * i;
         PastRateAdjustmentRatio = double(1);
 
-        if (PastRateActualSeconds < 0)
-            PastRateActualSeconds = 0;
+        if (PastRateActualSeconds <= 0)
+            PastRateActualSeconds = 1;
 
-        if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0)
+        if (PastRateTargetSeconds != 0)
             PastRateAdjustmentRatio = double(PastRateTargetSeconds) / double(PastRateActualSeconds);
 
-        EventHorizonDeviation = 1 + (0.7084 * pow((double(PastBlocksMass)/double(144)), -1.228));
+        EventHorizonDeviation = 1 + (0.7084 * pow((double(i)/double(144)), -1.228));
         EventHorizonDeviationFast = EventHorizonDeviation;
         EventHorizonDeviationSlow = 1 / EventHorizonDeviation;
         
-        if (PastBlocksMass >= PastBlocksMin) {
+        if (i >= PastBlocksMin) {
             if ((PastRateAdjustmentRatio <= EventHorizonDeviationSlow) || (PastRateAdjustmentRatio >= EventHorizonDeviationFast)) {
                 assert(BlockReading);
                 break;
@@ -122,7 +119,7 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
     }
     
     arith_uint256 bnNew(PastDifficultyAverage);
-    if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0) {
+    if (PastRateTargetSeconds != 0) {
         bnNew *= PastRateActualSeconds;
         bnNew /= PastRateTargetSeconds;
     }
@@ -130,6 +127,8 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
     
     /// debug print
     LogPrint(BCLog::ALL,"Difficulty Retarget - Kimoto Gravity Well - algo %d\n", algo);
+    LogPrint(BCLog::ALL,"PastRateActualSeconds = %g\n", PastRateActualSeconds);
+    LogPrint(BCLog::ALL,"PastRateTargetSeconds = %g\n", PastRateTargetSeconds);
     LogPrint(BCLog::ALL,"PastRateAdjustmentRatio = %g\n", PastRateAdjustmentRatio);
     LogPrint(BCLog::ALL,"Before: %08x  %s\n", BlockLastSolved->nBits, arith_uint256().SetCompact(BlockLastSolved->nBits).ToString().c_str());
     LogPrint(BCLog::ALL,"After:  %08x  %s\n", bnNew.GetCompact(), bnNew.ToString().c_str());
