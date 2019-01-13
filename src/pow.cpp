@@ -73,7 +73,7 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
     double EventHorizonDeviationSlow;
 
     int64_t TargetBlocksSpacingSeconds = params.nPowTargetSpacing * NUM_ALGOS;
-    int64_t PastSecondsMin = 60 * 60; // An Hour
+    int64_t PastSecondsMin = 60 * 60 * 2; // 2 Hours
     int64_t PastSecondsMax = 60 * 60 * 24 * 7; // A Week
     int64_t PastBlocksMin = PastSecondsMin / TargetBlocksSpacingSeconds;
     int64_t PastBlocksMax = PastSecondsMax / TargetBlocksSpacingSeconds;
@@ -113,7 +113,7 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
             }
         }
 
-        const CBlockIndex* pprev = GetLastBlockIndexForAlgo(BlockReading, algo);
+        const CBlockIndex* pprev = GetLastBlockIndexForAlgo(BlockReading->pprev, algo);
         if (pprev == NULL) {
             assert(BlockReading);
             break;
