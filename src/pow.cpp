@@ -57,8 +57,11 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo) {
     /* current difficulty formula, megacoin - kimoto gravity well */
-    const CBlockIndex  *BlockLastSolved = pindexLast;
-    const CBlockIndex  *BlockReading = pindexLast;
+    const CBlockIndex  *BlockLastSolved = GetLastBlockIndexForAlgo(pindexLast, algo);
+    const CBlockIndex  *BlockReading = GetLastBlockIndexForAlgo(pindexLast, algo);
+
+    if (BlockLastSolved == NULL || BlockReading == NULL)
+        return UintToArith256(params.powLimit).GetCompact();
 
     int64_t PastRateActualSeconds = 0;
     int64_t PastRateTargetSeconds = 0;
@@ -73,11 +76,11 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
     int64_t PastSecondsMin = 60 * 60; // An Hour
     int64_t PastSecondsMax = 60 * 60 * 24 * 7; // A Week
     int64_t PastBlocksMin = PastSecondsMin / TargetBlocksSpacingSeconds;
-    int64_t PastBlocksMax = PastSecondsMax / TargetBlocksSpacingSeconds; 
-    
-    if (BlockLastSolved == NULL || BlockLastSolved->nHeight == 0 || (int64_t)BlockLastSolved->nHeight < PastBlocksMin)
-        return UintToArith256(params.powLimit).GetCompact();
-    
+    int64_t PastBlocksMax = PastSecondsMax / TargetBlocksSpacingSeconds;
+
+    if (BlockLastSolved->nHeight == 0 || (int64_t)BlockLastSolved->nHeight < PastBlocksMin)
+        return UintToArith256(params.powLimit).GetCompact();        
+
     for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) 
     {
         if (PastBlocksMax > 0 && i > PastBlocksMax)
