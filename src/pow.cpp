@@ -96,9 +96,9 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
         PastRateAdjustmentRatio = double(1);
 
         if (PastRateActualSeconds <= 0)
-            PastRateActualSeconds = 1;
+            PastRateActualSeconds = 0;
 
-        if (PastRateTargetSeconds != 0)
+        if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0)
             PastRateAdjustmentRatio = double(PastRateTargetSeconds) / double(PastRateActualSeconds);
 
         EventHorizonDeviation = 1 + (0.7084 * pow((double(i)/double(144)), -1.228));
