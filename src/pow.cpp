@@ -74,7 +74,7 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
 
     int64_t TargetBlocksSpacingSeconds = params.nPowTargetSpacing * NUM_ALGOS;
     int64_t PastSecondsMin = 60 * 60 * 2; // 2 Hours
-    int64_t PastSecondsMax = 60 * 60 * 24 * 7; // A Week
+    int64_t PastSecondsMax = 60 * 60 * 24 * 14; // Two weeks
     int64_t PastBlocksMin = PastSecondsMin / TargetBlocksSpacingSeconds;
     int64_t PastBlocksMax = PastSecondsMax / TargetBlocksSpacingSeconds; 
 
@@ -107,16 +107,16 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
         
         if (i >= PastBlocksMin) {
             if (PastRateAdjustmentRatio <= EventHorizonDeviationSlow) {
-                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio <= EventHorizonDeviationSlow) - %g <= %g \n", PastRateAdjustmentRatio, EventHorizonDeviationSlow);
+                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio <= EventHorizonDeviationSlow) - %g <= %g, i = %g \n", PastRateAdjustmentRatio, EventHorizonDeviationSlow, i);
                 assert(BlockReading);
                 break;
             }
 
-            if (PastRateAdjustmentRatio >= EventHorizonDeviationFast) {
-                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio >= EventHorizonDeviationFast) - %g >= %g \n", PastRateAdjustmentRatio, EventHorizonDeviationSlow);
-                assert(BlockReading);
-                break;
-            }
+            // if (PastRateAdjustmentRatio >= EventHorizonDeviationFast) {
+            //     LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio >= EventHorizonDeviationFast) - %g >= %g, i = %g \n", PastRateAdjustmentRatio, EventHorizonDeviationSlow, i);
+            //     assert(BlockReading);
+            //     break;
+            // }
         }
 
         BlockReading = GetLastBlockIndexForAlgo(BlockReading->pprev, algo);
