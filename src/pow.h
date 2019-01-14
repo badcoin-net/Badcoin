@@ -14,7 +14,6 @@ class CBlockHeader;
 class CBlockIndex;
 class uint256;
 
-unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo);
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, int algo, const Consensus::Params&);
 
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
