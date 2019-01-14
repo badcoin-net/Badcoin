@@ -55,8 +55,8 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     return KimotoGravityWell(pindexPrev, params, algo);
 }
 
-unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo) {
-    /* current difficulty formula, megacoin - kimoto gravity well */
+unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo)
+{
     const CBlockIndex  *BlockLastSolved = GetLastBlockIndexForAlgo(pindexLast, algo);
     const CBlockIndex  *BlockReading = GetLastBlockIndexForAlgo(pindexLast, algo);
 
@@ -76,16 +76,15 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
     int64_t PastSecondsMin = 60 * 60 * 2; // 2 Hours
     int64_t PastSecondsMax = 60 * 60 * 24 * 7; // A Week
     int64_t PastBlocksMin = PastSecondsMin / TargetBlocksSpacingSeconds;
-    int64_t PastBlocksMax = PastSecondsMax / TargetBlocksSpacingSeconds;
+    int64_t PastBlocksMax = PastSecondsMax / TargetBlocksSpacingSeconds; 
 
-    if (BlockLastSolved->nHeight == 0 || (int64_t)BlockLastSolved->nHeight < PastBlocksMin)
-        return UintToArith256(params.powLimit).GetCompact();        
+    LogPrint(BCLog::ALL,"Difficulty Retarget - Kimoto Gravity Well - algo %d\n", algo);
 
     for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) 
     {
-        if (PastBlocksMax > 0 && i > PastBlocksMax)
+        if (i > PastBlocksMax)
             break;
-        
+
         if (i == 1)
             PastDifficultyAverage.SetCompact(BlockReading->nBits);
         else
@@ -107,18 +106,20 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
         EventHorizonDeviationSlow = 1 / EventHorizonDeviation;
         
         if (i >= PastBlocksMin) {
-            if ((PastRateAdjustmentRatio <= EventHorizonDeviationSlow) || (PastRateAdjustmentRatio >= EventHorizonDeviationFast)) {
+            if (PastRateAdjustmentRatio <= EventHorizonDeviationSlow) {
+                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio <= EventHorizonDeviationSlow)\n");
+                assert(BlockReading);
+                break;
+            }
+
+            if (PastRateAdjustmentRatio >= EventHorizonDeviationFast) {
+                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio >= EventHorizonDeviationFast)\n");
                 assert(BlockReading);
                 break;
             }
         }
 
-        const CBlockIndex* pprev = GetLastBlockIndexForAlgo(BlockReading->pprev, algo);
-        if (pprev == NULL) {
-            assert(BlockReading);
-            break;
-        }
-        BlockReading = pprev;
+        BlockReading = GetLastBlockIndexForAlgo(BlockReading->pprev, algo);
     }
     
     arith_uint256 bnNew(PastDifficultyAverage);
@@ -129,7 +130,6 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
     if (bnNew > UintToArith256(params.powLimit)) { bnNew = UintToArith256(params.powLimit); }
     
     /// debug print
-    LogPrint(BCLog::ALL,"Difficulty Retarget - Kimoto Gravity Well - algo %d\n", algo);
     LogPrint(BCLog::ALL,"PastRateActualSeconds = %g\n", PastRateActualSeconds);
     LogPrint(BCLog::ALL,"PastRateTargetSeconds = %g\n", PastRateTargetSeconds);
     LogPrint(BCLog::ALL,"PastRateAdjustmentRatio = %g\n", PastRateAdjustmentRatio);
