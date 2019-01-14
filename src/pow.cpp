@@ -18,9 +18,8 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
     int64_t nPastBlocks = 24;
 
     // make sure we have at least (nPastBlocks + 1) blocks, otherwise just return powLimit
-    if (!pblock || !pindexLast || pindexLast->nHeight < nPastBlocks) {
+    if (pblock == nullptr || pindexLast == nullptr || pindexLast->nHeight < nPastBlocks)
         return bnPowLimit.GetCompact();
-    }
 
     if (params.fPowAllowMinDifficultyBlocks) {
         // recent block is more than 2 hours old
@@ -55,6 +54,9 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
     }
 
     arith_uint256 bnNew(bnPastTargetAvg);
+
+    if(pindex == nullptr || pindexLast == nullptr)
+        return bnPowLimit.GetCompact();
 
     int64_t nActualTimespan = pindexLast->GetBlockTime() - pindex->GetBlockTime();
     // NOTE: is this accurate? nActualTimespan counts it for (nPastBlocks - 1) blocks only...
