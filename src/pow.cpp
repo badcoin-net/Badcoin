@@ -101,19 +101,19 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
         if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0)
             PastRateAdjustmentRatio = double(PastRateTargetSeconds) / double(PastRateActualSeconds);
 
-        EventHorizonDeviation = 1 + (0.7084 * pow((double(i)/double(144)), -1.228));
+        EventHorizonDeviation = 1 + (0.7084 * pow((double(i)/double(28.2)), -1.228));
         EventHorizonDeviationFast = EventHorizonDeviation;
         EventHorizonDeviationSlow = 1 / EventHorizonDeviation;
         
         if (i >= PastBlocksMin) {
             if (PastRateAdjustmentRatio <= EventHorizonDeviationSlow) {
-                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio <= EventHorizonDeviationSlow)\n");
+                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio <= EventHorizonDeviationSlow) - %g <= %g \n", PastRateAdjustmentRatio, EventHorizonDeviationSlow);
                 assert(BlockReading);
                 break;
             }
 
             if (PastRateAdjustmentRatio >= EventHorizonDeviationFast) {
-                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio >= EventHorizonDeviationFast)\n");
+                LogPrint(BCLog::ALL,"Difficulty Retarget - (PastRateAdjustmentRatio >= EventHorizonDeviationFast) - %g >= %g \n", PastRateAdjustmentRatio, EventHorizonDeviationSlow);
                 assert(BlockReading);
                 break;
             }
