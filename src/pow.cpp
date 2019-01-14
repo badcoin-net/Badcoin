@@ -121,9 +121,9 @@ unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::P
 
         BlockReading = GetLastBlockIndexForAlgo(BlockReading->pprev, algo);
     }
-    
+
     arith_uint256 bnNew(PastDifficultyAverage);
-    if (PastRateTargetSeconds != 0) {
+    if (PastRateActualSeconds != 0 && PastRateTargetSeconds != 0) {
         bnNew *= PastRateActualSeconds;
         bnNew /= PastRateTargetSeconds;
     }
