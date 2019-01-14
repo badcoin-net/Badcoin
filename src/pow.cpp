@@ -18,7 +18,7 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
     int64_t nPastBlocks = 24;
 
     // make sure we have at least (nPastBlocks + 1) blocks, otherwise just return powLimit
-    if (!pindexLast || pindexLast->nHeight < nPastBlocks) {
+    if (!pblock || !pindexLast || pindexLast->nHeight < nPastBlocks) {
         return bnPowLimit.GetCompact();
     }
 
@@ -49,10 +49,9 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
             bnPastTargetAvg = (bnPastTargetAvg * nCountBlocks + bnTarget) / (nCountBlocks + 1);
         }
 
-        if(nCountBlocks != nPastBlocks) {
-            assert(pindex->pprev); // should never fail
-            pindex = GetLastBlockIndexForAlgo(pindex->pprev, algo);
-        }
+        if(pindex->pprev == nullptr)
+            break;
+        pindex = GetLastBlockIndexForAlgo(pindex->pprev, algo);
     }
 
     arith_uint256 bnNew(bnPastTargetAvg);
