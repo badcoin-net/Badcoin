@@ -57,10 +57,12 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 unsigned int KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::Params& params, int algo)
 {
-    const CBlockIndex  *BlockLastSolved = GetLastBlockIndexForAlgo(pindexLast, algo);
-    const CBlockIndex  *BlockReading = GetLastBlockIndexForAlgo(pindexLast, algo);
+    const CBlockIndex *BlockLastSolved = GetLastBlockIndexForAlgo(pindexLast, algo);
+    if (BlockLastSolved == NULL)
+        return UintToArith256(params.powLimit).GetCompact();
 
-    if (BlockLastSolved == NULL || BlockReading == NULL)
+    const CBlockIndex *BlockReading = GetLastBlockIndexForAlgo(pindexLast->pprev, algo);
+    if (BlockReading == NULL)
         return UintToArith256(params.powLimit).GetCompact();
 
     int64_t PastRateActualSeconds = 0;
