@@ -23,7 +23,7 @@ unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockH
 
     if (params.fPowAllowMinDifficultyBlocks) {
         // recent block is more than 2 hours old
-        if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + 2 * 60 * 60) {
+        if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + (2 * 60 * 60)) {
             return bnPowLimit.GetCompact();
         }
         // recent block is more than 10 minutes old

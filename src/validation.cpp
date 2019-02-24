@@ -1214,7 +1214,7 @@ bool ReadBlockHeaderFromDisk(CBlockHeader& block, const CBlockIndex* pindex, con
 CAmount GetBlockSubsidy(int nHeight, int nBits, const Consensus::Params& consensusParams)
 {
     if (nHeight == 1)
-        return 9400000000 * COIN;
+        return 6000000000 * COIN;
 
     CAmount nMoneyLimit = 21000000000 * COIN;
     CAmount nMoneySupply = chainActive.Tip()->nMoneySupply;
