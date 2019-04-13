@@ -153,6 +153,7 @@ public:
 
         bech32_hrp = "bad";
 
+        vSeeds.push_back(CDNSSeedData("badcoin.cryptocoinpools.com","badcoin.cryptocoinpools.com", false));
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
         fDefaultConsistencyChecks = false;

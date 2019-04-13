@@ -1241,6 +1241,17 @@ CAmount GetBlockSubsidy(int nHeight, int nBits, const Consensus::Params& consens
         }
     }
     CAmount nSubsidy = 2170 * COIN;
+
+    // Halve every 4 years
+    // every halvening should there be a checkpoint total supply on chain?
+    // otherwise we may never reach 21b coins?
+
+    int halvings = nHeight / 2102400;
+    nSubsidy >>= halvings;
+    if (nSubsidy <= 0)
+        return 0;
+
+    // % is based after halving
     nSubsidy -= (nSubsidy * (multipl - 1.0));
 
     // LogPrintf("GetBlockSubsidy(): Algo %s, nSubsidy %s, multipl %s \n",
