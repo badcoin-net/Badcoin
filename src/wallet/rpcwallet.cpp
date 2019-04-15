@@ -947,7 +947,7 @@ UniValue sendfrom(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() < 3 || request.params.size() > 6)
         throw std::runtime_error(
             "sendfrom \"fromaccount\" \"toaddress\" amount ( minconf \"comment\" \"comment_to\" )\n"
-            "\nDEPRECATED (use sendtoaddress). Sent an amount from an account to a bitcoin address."
+            "\nDEPRECATED (use sendtoaddress). Sent an amount from an account to a badcoin address."
             + HelpRequiringPassphrase(pwallet) + "\n"
             "\nArguments:\n"
             "1. \"fromaccount\"       (string, required) The name of the account to send funds from. May be the default account using \"\".\n"
@@ -1172,14 +1172,14 @@ UniValue addmultisigaddress(const JSONRPCRequest& request)
     if (request.fHelp || request.params.size() < 2 || request.params.size() > 4) {
         std::string msg = "addmultisigaddress nrequired [\"key\",...] ( \"account\" \"address_type\" )\n"
             "\nAdd a nrequired-to-sign multisignature address to the wallet. Requires a new wallet backup.\n"
-            "Each key is a Bitcoin address or hex-encoded public key.\n"
+            "Each key is a Badcoin address or hex-encoded public key.\n"
             "This functionality is only intended for use with non-watchonly addresses.\n"
             "See `importaddress` for watchonly p2sh address support.\n"
             "If 'account' is specified (DEPRECATED), assign address to that account.\n"
 
             "\nArguments:\n"
             "1. nrequired                      (numeric, required) The number of required signatures out of the n keys or addresses.\n"
-            "2. \"keys\"                         (string, required) A json array of bitcoin addresses or hex-encoded public keys\n"
+            "2. \"keys\"                         (string, required) A json array of badcoin addresses or hex-encoded public keys\n"
             "     [\n"
             "       \"address\"                  (string) badcoin address or hex-encoded public key\n"
             "       ...,\n"
@@ -1194,7 +1194,7 @@ UniValue addmultisigaddress(const JSONRPCRequest& request)
             "}\n"
             "\nResult (DEPRECATED. To see this result in v0.16 instead, please start badcoind with -deprecatedrpc=addmultisigaddress).\n"
             "        clients should transition to the new output api before upgrading to v0.17.\n"
-            "\"address\"                         (string) A bitcoin address associated with the keys.\n"
+            "\"address\"                         (string) A badcoin address associated with the keys.\n"
 
             "\nExamples:\n"
             "\nAdd a multisig address from 2 addresses\n"
@@ -1334,7 +1334,7 @@ UniValue addwitnessaddress(const JSONRPCRequest& request)
 
     if (!IsDeprecatedRPCEnabled("addwitnessaddress")) {
         throw JSONRPCError(RPC_METHOD_DEPRECATED, "addwitnessaddress is deprecated and will be fully removed in v0.17. "
-            "To use addwitnessaddress in v0.16, restart bitcoind with -deprecatedrpc=addwitnessaddress.\n"
+            "To use addwitnessaddress in v0.16, restart badcoind with -deprecatedrpc=addwitnessaddress.\n"
             "Projects should transition to using the address_type argument of getnewaddress, or option -addresstype=[bech32|p2sh-segwit] instead.\n");
     }
 
@@ -1347,7 +1347,7 @@ UniValue addwitnessaddress(const JSONRPCRequest& request)
 
     CTxDestination dest = DecodeDestination(request.params[0].get_str());
     if (!IsValidDestination(dest)) {
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Bitcoin address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid badcoin address");
     }
 
     bool p2sh = true;
@@ -2118,7 +2118,7 @@ UniValue gettransaction(const JSONRPCRequest& request)
             "  \"details\" : [\n"
             "    {\n"
             "      \"account\" : \"accountname\",      (string) DEPRECATED. The account name involved in the transaction, can be \"\" for the default account.\n"
-            "      \"address\" : \"address\",          (string) The bitcoin address involved in the transaction\n"
+            "      \"address\" : \"address\",          (string) The badcoin address involved in the transaction\n"
             "      \"category\" : \"send|receive\",    (string) The category, either 'send' or 'receive'\n"
             "      \"amount\" : x.xxx,                 (numeric) The amount in " + CURRENCY_UNIT + "\n"
             "      \"label\" : \"label\",              (string) A comment for the address/transaction, if any\n"
@@ -2549,7 +2549,7 @@ UniValue lockunspent(const JSONRPCRequest& request)
             "\nUpdates list of temporarily unspendable outputs.\n"
             "Temporarily lock (unlock=false) or unlock (unlock=true) specified transaction outputs.\n"
             "If no transaction outputs are specified when unlocking then all current locked transaction outputs are unlocked.\n"
-            "A locked transaction output will not be chosen by automatic coin selection, when spending bitcoins.\n"
+            "A locked transaction output will not be chosen by automatic coin selection, when spending badcoins.\n"
             "Locks are stored in memory only. Nodes start with zero locked outputs, and the locked output list\n"
             "is always cleared (by virtue of process exit) when a node stops or fails.\n"
             "Also see the listunspent call\n"
@@ -2893,7 +2893,7 @@ UniValue listunspent(const JSONRPCRequest& request)
             "2. maxconf          (numeric, optional, default=9999999) The maximum confirmations to filter\n"
             "3. \"addresses\"      (string) A json array of badcoin addresses to filter\n"
             "    [\n"
-            "      \"address\"     (string) bitcoin address\n"
+            "      \"address\"     (string) badcoin address\n"
             "      ,...\n"
             "    ]\n"
             "4. include_unsafe (bool, optional, default=true) Include outputs that are not safe to spend\n"
@@ -3063,7 +3063,7 @@ UniValue fundrawtransaction(const JSONRPCRequest& request)
                             "1. \"hexstring\"           (string, required) The hex string of the raw transaction\n"
                             "2. options                 (object, optional)\n"
                             "   {\n"
-                            "     \"changeAddress\"          (string, optional, default pool address) The bitcoin address to receive the change\n"
+                            "     \"changeAddress\"          (string, optional, default pool address) The badcoin address to receive the change\n"
                             "     \"changePosition\"         (numeric, optional, default random) The index of the change output\n"
                             "     \"change_type\"            (string, optional) The output type to use. Only valid if changeAddress is not specified. Options are \"legacy\", \"p2sh-segwit\", and \"bech32\". Default is set by -changetype.\n"
                             "     \"includeWatching\"        (boolean, optional, default false) Also select inputs which are watch only\n"
@@ -3072,7 +3072,7 @@ UniValue fundrawtransaction(const JSONRPCRequest& request)
                             "     \"subtractFeeFromOutputs\" (array, optional) A json array of integers.\n"
                             "                              The fee will be equally deducted from the amount of each specified output.\n"
                             "                              The outputs are specified by their zero-based index, before any change output is added.\n"
-                            "                              Those recipients will receive less bitcoins than you enter in their corresponding amount field.\n"
+                            "                              Those recipients will receive less badcoins than you enter in their corresponding amount field.\n"
                             "                              If no outputs are specified here, the sender pays the fee.\n"
                             "                                  [vout_index,...]\n"
                             "     \"replaceable\"            (boolean, optional) Marks this transaction as BIP125 replaceable.\n"

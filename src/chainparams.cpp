@@ -153,7 +153,13 @@ public:
 
         bech32_hrp = "bad";
 
-        vSeeds.push_back("badcoin.cryptocoinpools.com");
+        vSeeds.push_back("165.227.13.253:9011");
+        vSeeds.push_back("165.227.13.253:9012");
+        vSeeds.push_back("165.227.13.253:9013");
+        vSeeds.push_back("165.227.13.253:9014");
+        vSeeds.push_back("165.227.13.253:9015");
+        vSeeds.push_back("157.230.56.219");
+
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
         fDefaultConsistencyChecks = false;

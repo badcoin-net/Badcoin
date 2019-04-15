@@ -84,14 +84,14 @@ script:
 after_script:
     - echo $TRAVIS_COMMIT_RANGE
     - echo $TRAVIS_COMMIT_LOG
-before_deploy: cd ${OUTDIR}/../ && tar -zcvf Badcoin-$HOST.tar.gz -C ${OUTDIR}/bin .
+before_deploy: cd ${OUTDIR}/../ && zip Badcoin-$HOST.zip -r ${OUTDIR}/bin
 deploy:
   skip_cleanup: true
   provider: releases
   api_key:
     secure: TiIXpmauM9UNW/rQJe5QbmKoj9RgyN0hD0yrOxqG2WizwDRiWIHf5bTnkXnm/vlUljmAe7LAVBAjMEHF5zJaToC6QV+n/t4o/ZBMJMLzKzcekuZ0PxPDzhCBnSM/XGxPuMJqx1rPdjygO+fVjkfsjGAyuE1WTr+hRDSg8YHFGJMTNUX6vuNfTQnN4Le7PGMAGViEpt3hQtIjkKMikaZHU3omUCxsKNhgxu/flxFG5xEa734SsvoaTAMB2d6XPGowg8hkDgKWQKXYX26lTFloAGp+4QZZebFQ6p8ZqmjHQRVVR//7dD19ExUFz5RqeCcSdAffYRyhk1DsgtFroPRYtf4lp2C952ovZR8NTIn66UilQ90eZr0bPRGojMO+3fnbCPPLoK8GwSOwsLYJzNy0/u3jo+/4Xa2jdnexokkEiVz9t/GmAw3gvDjawfBKz0NrqRrxJzMBXpn0sSr+1faM+JOg1PSkHQM8AaqPbfyXDWxQehRExik/033KbNizMCPceG2xBEvga+pF7J0Sq5C3sb4zzQVW/oyPg0WBKo9I6cwuCGYNxVJVvnP7pylVpVfYQoCulx4KyPiTA5Bh852Xg8ZTK6iujPqL42UFEDLJr03gr0U6WhsEmz+tw0VI8QFdqBh31eTs95OfS4kSZ0g7gqSlETkZKWlJMtAhHWAI+/M=
   file:
-    - ${OUTDIR}/../Badcoin-$HOST.tar.gz
+    - ${OUTDIR}/../Badcoin-$HOST.zip
   on:
     repo: ScriptProdigy/Badcoin
     tags: true
